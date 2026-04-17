@@ -16,6 +16,7 @@ return new class extends Migration
            $table->foreignId('event_id')->constrained()->onDelete('cascade');
            $table->foreignId('lecturer_id')->constrained()->onDelete('cascade');
            $table->string('role_in_event')->default('Anggota'); 
+           $table->date('event_date');
            $table->timestamps();
         });
     }
