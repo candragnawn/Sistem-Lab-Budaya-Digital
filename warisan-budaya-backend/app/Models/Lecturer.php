@@ -23,5 +23,9 @@ class Lecturer extends Model
         return $this->hasMany(DigitalAsset::class);
 
     }
+    public function events() {
+        return $this->belongsToMany(Event::class, 'event_lecturer')
+        ->withPivot('role_in_event', 'event_date');
+    }
     //
 }
