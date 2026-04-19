@@ -14,7 +14,9 @@ class DigitalAsset extends Model
     public function Lecture(): BelongsTo {
         return $this->belongsTo(Lecturer::class);
     }
-    public function Category(): HasMany {
-        return $this->hasMany(Category::class);
+
+
+    public function Category(): BelongsTo {
+        return $this->belongsTo(Category::class);
     }
 }
