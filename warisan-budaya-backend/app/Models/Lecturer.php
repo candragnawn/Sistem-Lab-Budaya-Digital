@@ -13,6 +13,20 @@ class Lecturer extends Model
         'bio', 'education', 'status', 'photo_path'
     ];
 
+    public function education(): HasMany {
+        return $this->hasMany(LecturerEducation::class);
+    }
+
+    public function ranks(): HasMany {
+        return $this->hasMany(LecturerRank::class);
+    }
+    public function positions(): HasMany {
+        return $this->hasMany(LecturerPosition::class);
+    }
+    public function teachings(): HasMany {
+        return $this->hasMany(LecturerTeaching::class);
+    }
+
     public function publications(): HasMany 
     {
         return $this->hasMany(Publication::class);

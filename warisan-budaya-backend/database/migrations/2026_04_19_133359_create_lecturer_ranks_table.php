@@ -12,8 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('lecturer_ranks', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        $table->id();
+        $table->foreignId('lecturer_id')->constrained()->onDelete('cascade');
+        $table->string('group_code'); 
+        $table->string('rank_name'); 
+        $table->string('sk_number');
+        $table->date('sk_date');
+        $table->date('tmt');         
+        $table->date('received_date')->nullable();
+        $table->timestamps();
         });
     }
 
