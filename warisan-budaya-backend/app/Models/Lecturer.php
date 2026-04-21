@@ -13,6 +13,8 @@ class Lecturer extends Model
         'bio', 'education', 'status', 'photo_path'
     ];
 
+    public function workContracts(): HasMany {
+         return $this->hasMany(LecturerWorkContract::class); }
     public function education(): HasMany {
         return $this->hasMany(LecturerEducation::class);
     }
