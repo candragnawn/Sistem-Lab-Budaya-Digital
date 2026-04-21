@@ -12,8 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('lecturer_teachings', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        $table->id();
+        $table->foreignId('lecturer_id')->constrained()->onDelete('cascade');
+        $table->string('academic_year'); 
+        $table->string('course_code');   
+        $table->string('course_name');   
+        $table->decimal('credits', 3, 2); 
+        $table->string('class_name');    
+        $table->timestamps();
         });
     }
 

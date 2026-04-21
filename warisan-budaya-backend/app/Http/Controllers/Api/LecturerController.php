@@ -28,7 +28,9 @@ class LecturerController extends Controller
             'publications as pengabdian_count' => function ($query) {
                 $query->where('category', 'PENGABDIAN');
             }
-        ])->with(['publications', 'digitalAssets'])->findOrFail($id);
+        ])->with(['publications', 'digitalAssets', 'workContracts', 'education', 'ranks', 'positions', 'teachings'=> function ($query) {
+            $query->orderBy('academic_year', 'desc')->orderBy('course_name', 'asc');
+        }, 'Study'])->findOrFail($id);
 
         return response()->json([
             'status' => 'success',

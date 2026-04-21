@@ -13,6 +13,16 @@ return new class extends Migration
     {
         Schema::create('lecturer_positions', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('lecturer_id')->constrained()->onDelete('cascade');
+            $table->enum('type', ['Fungsional', 'Struktural']); 
+            $table->string('position_name'); 
+            $table->string('unit')->nullable(); 
+            $table->string('sk_number');
+            $table->date('sk_date');
+            $table->date('tmt');
+            $table->string('valid_until')->nullable(); 
+            $table->timestamps();
+
             $table->timestamps();
         });
     }

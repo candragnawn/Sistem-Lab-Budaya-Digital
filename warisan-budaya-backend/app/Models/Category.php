@@ -16,4 +16,8 @@ class Category extends Model
     public function digitalAssets(): HasMany {
         return $this->hasMany(DigitalAsset::class);
     }
+
+    public function LecturerPosition(): HasMany {
+        return $this->hasMany(LecturerPosition::class);
+    }
 }
