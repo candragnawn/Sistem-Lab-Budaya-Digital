@@ -18,7 +18,7 @@ return new class extends Migration
         $table->string('rank_name'); 
         $table->string('sk_number');
         $table->date('sk_date');
-        $table->date('tmt');         
+        $table->date("format",timestamp)('tmt');         
         $table->date('received_date')->nullable();
         $table->timestamps();
         });

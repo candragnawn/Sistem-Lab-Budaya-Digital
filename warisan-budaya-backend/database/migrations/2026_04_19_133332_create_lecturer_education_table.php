@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('country');         
             $table->string('university');      
             $table->string('study_program');   
-            $table->string('graduation_year'); 
+            $table->string('graduation_year');   
             $table->string('predicate')->nullable(); 
             $table->timestamps();
         });
