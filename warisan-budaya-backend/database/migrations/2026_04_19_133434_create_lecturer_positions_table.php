@@ -23,7 +23,6 @@ return new class extends Migration
             $table->string('valid_until')->nullable(); 
             $table->timestamps();
 
-            $table->timestamps();
         });
     }
 

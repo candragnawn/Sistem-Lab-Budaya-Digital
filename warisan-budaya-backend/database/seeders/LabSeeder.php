@@ -20,7 +20,7 @@ class LabSeeder extends Seeder
     {
      $lecturer = Lecturer::create([
             'nip' => '198403172010121001',
-            'name' => 'Nama Dosen Pengelola Lab, S.Kom., M.Kom.',
+            'name' => 'Anak Agung Candra Gunawan, S.Kom., M.Kom.',
             'title_prefix' => 'Dr.',
             'title_suffix' => 'S.Kom., M.Kom.',
             'email' => 'dosen.lab@undiksha.ac.id',
@@ -31,6 +31,74 @@ class LabSeeder extends Seeder
             ]),
             'status' => 'Aktif',
         ]);
+
+        $lecturer->workContracts()->createMany([ [
+             'work_status' => 'PNS',
+             'current_status' => 'Aktif',
+             'tmt' => '18 Agustus 2023'
+        ]
+           
+        ]);
+        
+
+        $lecturer->education()->createMany([ 
+            [
+             'entry_year' => '1 Januari 2024',
+             'level' => 'Profesi',
+             'country'=> 'Indonesia',
+             'university' => 'Universitas Udayana',
+             'study_program' => 'Teknik Informatika',
+             'graduation_year' => '2024',
+             'predicate' => 'cum laude'
+        ],
+            [
+             'entry_year' => '2 Januari 2024',
+             'level' => 'Profesi',
+             'country'=> 'Indonesia',
+             'university' => 'Universitas Udayana',
+             'study_program' => 'Teknik Informatika',
+             'graduation_year' => '2024',
+             'predicate' => 'cum laude'
+        ]
+           
+        ]);
+
+        $lecturer->positions()->createMany([
+        [
+            'type' => 'Fungsional',
+            'position_name' => 'Lektor Kepala',
+            'sk_number' => 'SK-FUN-001',
+            'sk_date' => '2022-05-10',
+            'tmt' => '2022-06-01',
+        ],
+        [
+            'type' => 'Struktural',
+            'position_name' => 'Ketua Gugus Kendali Mutu',
+            'unit' => 'Jurusan Teknik Informatika',
+            'sk_number' => 'SK-STR-099',
+            'sk_date' => '2023-01-15',
+            'tmt' => '2023-02-01',
+            'valid_until' => '2027-02-01',
+        ],
+    ]);
+
+    $lecturer->teachings()->createMany([
+        [
+            'academic_year' => '2023 GANJIL',
+            'course_code' => 'IK123',
+            'course_name' => 'Pemrograman Web Next.js',
+            'credits' => '3.00',
+            'class_name' => 'Kelas A',
+        ],
+        [
+            'academic_year' => '2023 GANJIL',
+            'course_code' => 'IK456',
+            'course_name' => 'Basis Data Lanjut',
+            'credits' => '3.00',
+            'class_name' => 'Kelas B',
+        ],
+    ]);
+        
         $categories = ['Lontar', 'Seni Arsitektur', 'Tarian Tradisional', 'Upacara Adat'];
         foreach ($categories as $cat) {
           Category::create([

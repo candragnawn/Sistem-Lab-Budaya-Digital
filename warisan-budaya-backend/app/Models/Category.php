@@ -9,6 +9,7 @@ use App\Models\Publication;
 class Category extends Model
 {
     protected $fillable = ['name', 'slug', 'description', 'icon'];
+    protected $table = 'categories';
 
     public function publications(): HasMany {
         return $this->hasMany(Publication::class);

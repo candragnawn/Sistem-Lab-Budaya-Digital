@@ -15,7 +15,7 @@ return new class extends Migration
             $table->foreignId('lecturer_id')->constrained()->onDelete('cascade');
             $table->string('work_status'); 
             $table->string('current_status'); 
-            $table->date('tmt');
+            $table->string('tmt');
             $table->timestamps();
         });
     }
