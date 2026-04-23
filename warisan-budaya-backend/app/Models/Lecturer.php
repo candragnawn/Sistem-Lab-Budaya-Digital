@@ -35,6 +35,10 @@ class Lecturer extends Model
         return $this->hasMany(Publication::class);
 
     }
+
+    public function studies(): HasMany {
+        return $this->hasMany(LecturerStudy::class);
+    }
     public function digitalAssets(): HasMany 
     {
         return $this->hasMany(DigitalAsset::class);

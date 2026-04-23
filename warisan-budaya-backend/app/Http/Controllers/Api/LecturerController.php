@@ -5,13 +5,15 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Lecturer;
 use Illuminate\Http\Request;
+use App\Http\Resources\LecturerResource;
 
 class LecturerController extends Controller
+
 {     
     public function index()
     {
-        return response()->json(Lecturer::all());
-    }
+        $lecturers = Lecturer::all();
+        return LecturerResource::collection($lecturers);    }
 
     public function show($id)
     {
@@ -32,9 +34,6 @@ class LecturerController extends Controller
             $query->orderBy('academic_year', 'desc')->orderBy('course_name', 'asc');
         }, 'Study'])->findOrFail($id);
 
-        return response()->json([
-            'status' => 'success',
-            'data' => $lecturer
-        ]);
+        return new LecturerResource($lecturer);
     }
 }
