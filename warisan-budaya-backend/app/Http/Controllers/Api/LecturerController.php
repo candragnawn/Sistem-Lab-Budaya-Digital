@@ -17,22 +17,15 @@ class LecturerController extends Controller
 
     public function show($id)
     {
-        $lecturer = Lecturer::withCount([
-            'publications as jurnal_count' => function ($query) {
-                $query->where('type', 'Jurnal Ilmiah');
-            },
-            'publications as buku_count' => function ($query) {
-                $query->where('type', 'Buku Referensi');
-            },
-            'publications as hki_count' => function ($query) {
-                $query->where('type', 'HKI');
-            },
-            'publications as pengabdian_count' => function ($query) {
-                $query->where('category', 'PENGABDIAN');
-            }
-        ])->with(['publications', 'digitalAssets', 'workContracts', 'education', 'ranks', 'positions', 'teachings'=> function ($query) {
-            $query->orderBy('academic_year', 'desc')->orderBy('course_name', 'asc');
-        }, 'Study'])->findOrFail($id);
+        $lecturer = Lecturer::with([
+        'stats', 
+        'publications', 
+        'education',
+        'ranks',
+        'positions',
+        'teachings',
+        'workContracts'
+    ])->findOrFail($id);
 
         return new LecturerResource($lecturer);
     }

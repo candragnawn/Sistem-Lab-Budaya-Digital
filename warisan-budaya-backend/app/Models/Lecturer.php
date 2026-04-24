@@ -36,6 +36,10 @@ class Lecturer extends Model
 
     }
 
+    public function stats() {
+        return $this->hasOne(LecturerStat::class, 'Lecturer_id');
+    }
+
     public function studies(): HasMany {
         return $this->hasMany(LecturerStudy::class);
     }
