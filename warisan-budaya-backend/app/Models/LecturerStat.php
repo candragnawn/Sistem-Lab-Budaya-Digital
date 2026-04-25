@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class LecturerStat extends Model
 {
@@ -11,6 +12,6 @@ class LecturerStat extends Model
     protected $primaryKey = 'lecturer_id';
 
     public function Lecturer() {
-        return $this->belongsTo(Lecturer::class);
+        return $this->belongsTo(Lecturer::class, 'lecturer_id');
     }
 }

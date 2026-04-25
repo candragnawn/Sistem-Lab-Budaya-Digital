@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+
 
 class Lecturer extends Model
 {
@@ -36,8 +38,8 @@ class Lecturer extends Model
 
     }
 
-    public function stats() {
-        return $this->hasOne(LecturerStat::class, 'Lecturer_id');
+    public function stats(): HasOne {
+        return $this->hasOne(LecturerStat::class, 'lecturer_id');
     }
 
     public function studies(): HasMany {
