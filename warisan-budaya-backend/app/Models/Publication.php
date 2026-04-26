@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Publication extends Model
 {
+    protected $fillable = [
+        'lecturer_id', 'title', 'category', 'type' ,'source', 'quartile', 'document_url', 'is_verified', 'year', 'url'
+    ];
 public function lecturer(): BelongsTo
     {
         return $this->belongsTo(Lecturer::class);

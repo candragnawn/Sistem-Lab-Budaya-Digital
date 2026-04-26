@@ -17,6 +17,10 @@ return new class extends Migration
             $table->string('title');
             $table->enum('category', ['PENELITIAN', 'PENGABDIAN']);       
             $table->string('type');
+            $table->string('source');
+            $table->string('quartile');
+            $table->string('document_url');
+            $table->boolean('is_verified');
             $table->year('year');
             $table->string('url')->nullable(); 
             $table->timestamps();

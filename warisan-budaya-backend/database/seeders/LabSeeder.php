@@ -120,6 +120,8 @@ class LabSeeder extends Seeder
                     'type' => $type,
                     'title' => "Penelitian Warisan Budaya $type Ke-$i",
                     'year' => rand(2020, 2024),
+                    'source' => 'scopus', 
+                    'quartile' => 'Q1',   
                     'url' => 'https://scholar.google.com'
                 ]);
             }
@@ -133,6 +135,8 @@ class LabSeeder extends Seeder
                     'type' => $type,
                     'title' => "Pengabdian Masyarakat $type Ke-$i",
                     'year' => rand(2021, 2024),
+                    'source' => 'sinta', 
+                    'quartile' => 'Q1',  
                 ]);
             }
         }
