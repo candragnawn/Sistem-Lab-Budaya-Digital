@@ -13,8 +13,11 @@ return new class extends Migration
     {
         Schema::create('lecturers', function (Blueprint $table) {
             $table->id();
-            $table->string('nip')->unique();
+            $table->string('nidn')->unique();
+            $table->boolean('is_verified')->default(false);
             $table->string('name');
+            $table->string('name_registered_dukcapil')->nullable();
+            $table->enum('gender', ['Laki-laki', 'Perempuan']);
             $table->string('email')->unique()->nullable();
             $table->string('title_prefix')->nullable();
             $table->string('title_suffix')->nullable();
