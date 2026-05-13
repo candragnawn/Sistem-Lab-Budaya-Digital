@@ -12,7 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('lecturer_identities', function (Blueprint $table) {
-            $table->id();
+            $table->foreignId('lecturer_id')->constrained()->onDelete('cascade');
+            $table->string('nik')->unique();
+            $table->string('religion')->nullable();
+            $table->string('citizenship')->nullable();
             $table->timestamps();
         });
     }

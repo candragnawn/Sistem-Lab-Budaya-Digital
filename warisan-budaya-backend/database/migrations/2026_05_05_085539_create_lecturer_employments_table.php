@@ -12,8 +12,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('lecturer_employments', function (Blueprint $table) {
-            $table->id();
-            $table->id('nip')->unique();
+            $table->foreignId('lecturer_id')->constrained()->onDelete('cascade');
+            $table->string('nip')->unique();
+            $table->string('sk_cpns_number')->nullable();
+            $table->date('sk_cpns_date')->nullable();
+            $table->string('rank_group')->nullable();
+            $table->date('sk_date')->nullable();
+            $table->integer('work_years')->nullable();
+            $table->integer('work_months')->nullable();
+            $table->string('employment_status')->nullable();
+            $table->string('active_status')->default('Aktif');
             $table->timestamps();
         });
     }

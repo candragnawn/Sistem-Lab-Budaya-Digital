@@ -12,7 +12,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('lecturer_addresses', function (Blueprint $table) {
-            $table->id();
+            $table->foreignId('Lecturer_id')->constrained()->onDelete('cascade');
+            $table->string('email')->nullable();
+            $table->text('address')->nullable();
+            $table->string('rt', 5)->nullable();
+            $table->string('rw', 5)->nullable();
+            $table->string('village')->nullable();
+            $table->string('district')->nullable();
+            $table->string('province')->nullable();
+            $table->string('postal_code', 10)->nullable();
+            $table->string('phone_number')->nullable();
             $table->timestamps();
         });
     }

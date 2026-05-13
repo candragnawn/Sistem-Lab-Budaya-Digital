@@ -12,7 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('lecturer_families', function (Blueprint $table) {
-            $table->id();
+            $table->foreignId('lecturer_id')->constrained()->onDelete('cascade');
+            $table->string('marital_status')->nullable();
+            $table->string('spouse_name')->nullable();
+            $table->string('spouse_nip')->nullable();
+            $table->string('spouse_occupation')->nullable();
             $table->timestamps();
         });
     }
