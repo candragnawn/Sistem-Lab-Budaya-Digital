@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('lecturer_academics', function (Blueprint $table) {
             $table->foreignId('lecturer_id')->constrained()->onDelete('cascade');
-            $table->string('science_cluster')->nullable(); // Rumpun Ilmu
-            $table->string('science_tree')->nullable(); // Pohon Ilmu
-            $table->string('science_branch')->nullable(); // Cabang Ilmu
+            $table->string('science_cluster')->nullable(); 
+            $table->string('science_tree')->nullable(); 
+            $table->string('science_branch')->nullable(); 
             $table->string('npwp')->nullable();
-            $table->string('sinta_id')->nullable(); // Kunci untuk Integrator!
+            $table->string('sinta_id')->nullable(); 
         });
     }
 
