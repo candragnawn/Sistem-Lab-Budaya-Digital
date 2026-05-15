@@ -5,18 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class LecturerRank extends Model
+
+class Position extends Model
 {
 
 protected $fillable = [
-      'lecturer_id',
-      'rank_name',
-      'sk_number',
-      'sk_date',
-      'tmt',
-      'received_date'
+    'lecturer_id',
+    'position_name',
+    'sk_number',
+    'sk_date',
+    'tmt'
 ];
- public function Lecturer(): BelongsTo {
+public function lecturer(): BelongsTo  {
     return $this->belongsTo(Lecturer::class);
- }
+
+}
 }

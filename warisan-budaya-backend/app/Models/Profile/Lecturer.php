@@ -9,27 +9,27 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Lecturer extends Model
 {
-    protected $table = 'lecturers';
+    protected $table = 's';
     protected $fillable = [
         'nip', 'name', 'email', 'title_prefix', 'title_suffix', 
         'bio', 'education', 'status', 'photo_path'
     ];
     
     public function workContracts(): HasMany {
-         return $this->hasMany(LecturerWorkContracts::class); 
+         return $this->hasMany(WorkContracts::class); 
          }
     public function education(): HasMany {
-        return $this->hasMany(LecturerEducation::class);
+        return $this->hasMany(Education::class);
     }
 
     public function ranks(): HasMany {
-        return $this->hasMany(LecturerRank::class);
+        return $this->hasMany(Rank::class);
     }
     public function positions(): HasMany {
-        return $this->hasMany(LecturerPosition::class);
+        return $this->hasMany(Position::class);
     }
     public function teachings(): HasMany {
-        return $this->hasMany(LecturerTeaching::class)->orderBy('academic_year', 'desc');
+        return $this->hasMany(Teaching::class)->orderBy('academic_year', 'desc');
     }
 
     public function publications(): HasMany 
@@ -39,11 +39,11 @@ class Lecturer extends Model
     }
 
     public function stats(): HasOne {
-        return $this->hasOne(LecturerStat::class, 'lecturer_id');
+        return $this->hasOne(Stat::class, '_id');
     }
 
     public function studies(): HasMany {
-        return $this->hasMany(LecturerStudy::class);
+        return $this->hasMany(Study::class);
     }
     public function digitalAssets(): HasMany 
     {
@@ -51,7 +51,7 @@ class Lecturer extends Model
 
     }
     public function events() {
-        return $this->belongsToMany(Event::class, 'event_lecturer')
+        return $this->belongsToMany(Event::class, 'event_')
         ->withPivot('role_in_event', 'event_date');
     }
     //

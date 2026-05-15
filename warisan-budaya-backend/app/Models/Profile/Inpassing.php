@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Profile;
 
 use Illuminate\Database\Eloquent\Model;
 
-class LecturerFamily extends Model
+class Inpassing extends Model
 {
     //
 }

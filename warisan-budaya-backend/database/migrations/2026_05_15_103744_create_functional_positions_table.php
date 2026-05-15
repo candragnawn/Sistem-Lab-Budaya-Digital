@@ -11,11 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('identities', function (Blueprint $table) {
-            $table->foreignId('_id')->constrained()->onDelete('cascade');
-            $table->string('nik')->unique();
-            $table->string('religion')->nullable();
-            $table->string('citizenship')->nullable();
+        Schema::create('functional_positions', function (Blueprint $table) {
+            $table->id();
             $table->timestamps();
         });
     }
@@ -25,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('_identities');
+        Schema::dropIfExists('functional_positions');
     }
 };
