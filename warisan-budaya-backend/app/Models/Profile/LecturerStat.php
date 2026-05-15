@@ -1,17 +1,26 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Profile;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Models\Lecturer;
 
-class LecturerStat extends Model
+class Stat extends Model
 {
-    public $table = 'v_lecturer_stats';
+    public $table = 'lecturer_stats';
     public $timestamps = false;
     protected $primaryKey = 'lecturer_id';
+    public $incrementing = false;
 
-    public function Lecturer() {
+    protected $fillable = [
+        'lecturer_id',
+        'total_publications',
+        'total_citations',
+        'total_students'
+    ];
+
+    public function lecturer(): BelongsTo {
         return $this->belongsTo(Lecturer::class, 'lecturer_id');
     }
 }

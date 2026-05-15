@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Models\Publication;
+use App\Models\Profile\Position;
 
 class Category extends Model
 {
@@ -19,6 +20,6 @@ class Category extends Model
     }
 
     public function LecturerPosition(): HasMany {
-        return $this->hasMany(LecturerPosition::class);
+        return $this->hasMany(Position::class);
     }
 }

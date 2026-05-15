@@ -1,21 +1,23 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Profile;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Models\Lecturer;
 
 class WorkContracts extends Model
 {
+    protected $table = 'lecturer_work_contracts';
 
-public $fillable = [
-   'lecturer_id',
-   'work_status',
-   'current_status',
-   'tmt'
+    protected $fillable = [
+        'lecturer_id',
+        'work_status',
+        'current_status',
+        'tmt'
+    ];
 
-];
- public function Lecturer(): BelongsTo {
-    return $this->belongsTo(Lecturer::class);
- }
+    public function lecturer(): BelongsTo {
+        return $this->belongsTo(Lecturer::class);
+    }
 }
