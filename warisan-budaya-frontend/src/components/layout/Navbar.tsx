@@ -109,7 +109,7 @@ export function Navbar() {
           </div>
         </div>
         
-        <Link href="/akun/profil/data-pribadi" className="flex items-center gap-[10px] cursor-pointer group ml-4">
+        <div className="flex items-center gap-[10px] cursor-pointer group ml-4">
           <div className="w-[35px] h-[35px] bg-[#ccc] rounded-full relative overflow-hidden border-2 border-transparent group-hover:border-[#ceaa56] transition-colors">
             <Image src="/avatar-dosen.png" alt="User Avatar" fill className="object-cover" />
           </div>
@@ -118,7 +118,7 @@ export function Navbar() {
             <p className="text-[11px] text-[#ceaa56] leading-tight">Dosen</p>
           </div>
           <span className="text-xs ml-1 text-[#94a3b8] group-hover:text-white transition-colors">▼</span>
-        </Link>
+        </div>
       </div>
     </nav>
   );
