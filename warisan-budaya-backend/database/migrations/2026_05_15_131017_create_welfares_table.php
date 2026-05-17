@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('welfares', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('lecturer_id')->constrained('lectures')->onDelete('cascade');
+            $table->string('welfare_type');
+            $table->string('welfare_service');
+            $table->string('organizer');
+            $table->year('start_year');
+            $table->year('selection_year');
             $table->timestamps();
         });
     }

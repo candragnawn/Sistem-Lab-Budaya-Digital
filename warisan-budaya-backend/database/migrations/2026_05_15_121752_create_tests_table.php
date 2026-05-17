@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('tests', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('lecturer_id')->constrained('lectures')->onDelete('cascade');
+            $table->string('test_name');
+            $table->decimal('test_score', 5, 2);
+            $table->string('organizer');
+            $table->year('year');
             $table->timestamps();
         });
     }

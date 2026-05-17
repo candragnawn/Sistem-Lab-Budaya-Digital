@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('awards', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('lecturer_id')->constrained('lectures')->onDelete('cascade');
+            $table->string('award_name');
+            $table->string('award_type');
+            $table->string('institution');
+            $table->year('year');
             $table->timestamps();
         });
     }
