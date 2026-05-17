@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('diklats', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('lecturer_id')->constrained('lectures')->onDelete('cascade');
+            $table->string('training_name');
+            $table->string('training_type');
+            $table->string('organizer');
+            $table->year('year');
+            $table->string('status');
             $table->timestamps();
         });
     }

@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('structural_positions', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('lecturer_id')->constrained('lectures')->onDelete('cascade');
+            $table->string('structural_position');
+            $table->string('decree_number');
+            $table->date('start_date');
+            $table->date('end_date')->nullable();
             $table->timestamps();
         });
     }
