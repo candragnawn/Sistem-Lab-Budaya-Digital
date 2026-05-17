@@ -13,10 +13,6 @@ return new class extends Migration
     {
         Schema::create('visiting_scientists', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lecturer_id')->constrained('lectures')->onDelete('cascade');
-            $table->string('host_university'); // Perguruan Tinggi Pengundang
-            $table->string('duration');         // Lama Kegiatan
-            $table->date('activity_date');      // Tanggal Pelaksanaan
             $table->timestamps();
         });
     }

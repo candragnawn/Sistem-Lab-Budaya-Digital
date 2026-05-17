@@ -13,11 +13,6 @@ return new class extends Migration
     {
         Schema::create('teaching_materials', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lecturer_id')->constrained('lectures')->onDelete('cascade');
-            $table->string('title');                    // Judul Bahan Ajar
-            $table->string('isbn', 20)->nullable();     // ISBN
-            $table->date('publication_date');           // Tanggal Terbit
-            $table->string('publisher');                // Penerbit
             $table->timestamps();
         });
     }

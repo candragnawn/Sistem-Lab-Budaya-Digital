@@ -13,11 +13,6 @@ return new class extends Migration
     {
         Schema::create('professor_emerituses', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lecturer_id')->constrained('lectures')->onDelete('cascade');
-            $table->string('title_name');          // Nama Gelar
-            $table->string('university');           // Perguruan Tinggi
-            $table->date('start_date');             // TMT - Terhitung Mulai Tanggal
-            $table->date('end_date')->nullable();   // TST - Terhitung Selesai Tanggal
             $table->timestamps();
         });
     }

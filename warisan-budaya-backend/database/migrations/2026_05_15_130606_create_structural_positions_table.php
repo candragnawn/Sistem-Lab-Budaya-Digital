@@ -13,11 +13,6 @@ return new class extends Migration
     {
         Schema::create('structural_positions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lecturer_id')->constrained('lectures')->onDelete('cascade');
-            $table->string('structural_position');   // Jabatan Struktural
-            $table->string('decree_number');          // Nomor SK
-            $table->date('start_date');               // Terhitung Tanggal Mulai
-            $table->date('end_date')->nullable();     // Terhitung Tanggal Selesai
             $table->timestamps();
         });
     }

@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('addresses', function (Blueprint $table) {
-            $table->foreignId('lecturer_id')->constrained('lectures')->onDelete('cascade');
+            $table->foreignId('_id')->constrained()->onDelete('cascade');
             $table->string('email')->nullable();
             $table->text('address')->nullable();
             $table->string('rt', 5)->nullable();
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('addresses');
+        Schema::dropIfExists('_addresses');
     }
 };

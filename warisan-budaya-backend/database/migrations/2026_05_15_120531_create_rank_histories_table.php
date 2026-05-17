@@ -13,10 +13,6 @@ return new class extends Migration
     {
         Schema::create('rank_histories', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lecturer_id')->constrained('lectures')->onDelete('cascade');
-            $table->string('rank_group');    // Golongan/Pangkat
-            $table->string('decree_number'); // Nomor SK
-            $table->date('effective_date');  // Terhitung Mulai Tanggal
             $table->timestamps();
         });
     }

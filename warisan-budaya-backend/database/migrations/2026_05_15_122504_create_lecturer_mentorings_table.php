@@ -11,12 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('lecturer_mentors', function (Blueprint $table) {
+        Schema::create('lecturer_mentorings', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lecturer_id')->constrained('lectures')->onDelete('cascade');
-            $table->string('mentor_name');         // Nama Pembimbing
-            $table->date('start_date');            // Tanggal Mulai
-            $table->date('end_date')->nullable();  // Tanggal Selesai
             $table->timestamps();
         });
     }
@@ -26,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('lecturer_mentors');
+        Schema::dropIfExists('lecturer_mentorings');
     }
 };
