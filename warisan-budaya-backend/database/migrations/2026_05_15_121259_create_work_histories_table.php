@@ -11,12 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('rank_histories', function (Blueprint $table) {
+        Schema::create('work_histories', function (Blueprint $table) {
             $table->id();
             $table->foreignId('lecturer_id')->constrained('lectures')->onDelete('cascade');
-            $table->string('rank_group');    // Golongan/Pangkat
-            $table->string('decree_number'); // Nomor SK
-            $table->date('effective_date');  // Terhitung Mulai Tanggal
+            $table->string('job_name');          // Nama Pekerjaan
+            $table->text('job_description');     // Rincian Pekerjaan
+            $table->string('duration');          // Waktu
+            $table->boolean('is_abroad')->default(false); // LN/DN (true=LN, false=DN)
             $table->timestamps();
         });
     }
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('rank_histories');
+        Schema::dropIfExists('work_histories');
     }
 };

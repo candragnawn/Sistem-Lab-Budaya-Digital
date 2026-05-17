@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('community_services', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('lecturer_id')->constrained('lectures')->onDelete('cascade');
+            $table->string('title');                   // Judul
+            $table->string('scientific_field');        // Bidang Keilmuan
+            $table->string('implementation_year', 9);  // Tahun Pelaksanaan (mis: 2024/2025)
+            $table->string('duration');                // Lama Kegiatan
             $table->timestamps();
         });
     }

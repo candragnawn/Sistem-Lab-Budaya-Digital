@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('student_examinations', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('lecturer_id')->constrained('lectures')->onDelete('cascade');
+            $table->string('examination_title'); // Judul Pengujian
+            $table->string('scientific_field');  // Bidang Keilmuan
+            $table->string('examination_type');  // Jenis Pengujian
+            $table->string('study_program');     // Program Studi
             $table->timestamps();
         });
     }
