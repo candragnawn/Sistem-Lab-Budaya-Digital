@@ -2,7 +2,6 @@
 
 import { Dosen } from '@/types';
 import Image from 'next/image';
-import Link from 'next/link';
 import { useState } from 'react';
 
 export function DosenCard({ dosen }: { dosen: Dosen }) {
@@ -24,9 +23,7 @@ export function DosenCard({ dosen }: { dosen: Dosen }) {
       
       <div className="flex-grow">
         <div className="flex items-center gap-[8px] mb-[10px]">
-          <Link href={`/dosen/${dosen.id}/profil/kepangkatan`} className="text-[16px] text-[#1b3252] font-semibold hover:text-blue-600 transition-colors">
-            {dosen.name}
-          </Link>
+          <h3 className="text-[16px] text-[#1b3252] font-semibold">{dosen.name}</h3>
           {dosen.isVerified && (
             <div className="w-[14px] h-[14px] relative">
               <Image src="/icon-verified.png" alt="Verified" fill className="object-contain" />
