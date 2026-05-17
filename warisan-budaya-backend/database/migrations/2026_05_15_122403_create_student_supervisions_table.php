@@ -13,12 +13,6 @@ return new class extends Migration
     {
         Schema::create('student_supervisions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lecturer_id')->constrained('lectures')->onDelete('cascade');
-            $table->string('semester');           // Semester
-            $table->string('activity_category');  // Kategori Kegiatan
-            $table->string('supervision_type');   // Jenis Bimbingan
-            $table->string('scientific_field');   // Bidang Keilmuan
-            $table->string('study_program');      // Program Studi
             $table->timestamps();
         });
     }

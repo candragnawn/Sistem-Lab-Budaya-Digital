@@ -13,12 +13,6 @@ return new class extends Migration
     {
         Schema::create('intellectual_properties', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lecturer_id')->constrained('lectures')->onDelete('cascade');
-            $table->string('title');                       // Judul
-            $table->string('activity_category');           // Kategori Kegiatan
-            $table->string('type');                        // Jenis
-            $table->string('quartile', 5)->nullable();     // Quartile (Q1–Q4)
-            $table->date('publication_date');              // Tanggal Terbit
             $table->timestamps();
         });
     }

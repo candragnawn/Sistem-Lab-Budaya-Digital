@@ -13,11 +13,6 @@ return new class extends Migration
     {
         Schema::create('functional_positions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lecturer_id')->constrained('lectures')->onDelete('cascade');
-            $table->string('functional_position');  // Jabatan Fungsional
-            $table->string('decree_number');         // Nomor SK
-            $table->date('effective_date');          // Terhitung Mulai Tanggal
-            $table->string('civil_servant_status');  // Status PNS
             $table->timestamps();
         });
     }

@@ -13,11 +13,6 @@ return new class extends Migration
     {
         Schema::create('detaserings', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lecturer_id')->constrained('lectures')->onDelete('cascade');
-            $table->string('target_university');           // Perguruan Tinggi Sasaran
-            $table->string('activity_category');           // Kategori Kegiatan
-            $table->string('assignment_decree_number');    // No SK Penugasan
-            $table->date('decree_date');                   // Tanggal SK Penugasan
             $table->timestamps();
         });
     }

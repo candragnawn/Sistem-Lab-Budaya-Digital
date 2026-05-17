@@ -13,12 +13,6 @@ return new class extends Migration
     {
         Schema::create('educations', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lecturer_id')->constrained('lectures')->onDelete('cascade');
-            $table->string('education_level');  // Jenjang (S1, S2, S3, Sp-1, dll)
-            $table->string('degree');            // Gelar
-            $table->string('field_of_study');   // Bidang Studi
-            $table->string('university');        // Perguruan Tinggi
-            $table->year('graduation_year');     // Tahun Lulus
             $table->timestamps();
         });
     }
