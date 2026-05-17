@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('community_services', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('lecturer_id')->constrained('lectures')->onDelete('cascade');
+            $table->string('title');
+            $table->string('scientific_field');
+            $table->string('implementation_year', 9);
+            $table->string('duration');
             $table->timestamps();
         });
     }

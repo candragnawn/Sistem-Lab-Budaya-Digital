@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('educations', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('lecturer_id')->constrained('lectures')->onDelete('cascade');
+            $table->string('education_level');
+            $table->string('degree');
+            $table->string('field_of_study');
+            $table->string('university');
+            $table->year('graduation_year');
             $table->timestamps();
         });
     }

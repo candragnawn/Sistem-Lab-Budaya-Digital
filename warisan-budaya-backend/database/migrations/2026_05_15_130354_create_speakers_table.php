@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('speakers', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('lecturer_id')->constrained('lectures')->onDelete('cascade');
+            $table->string('activity_category');
+            $table->string('paper_title');
+            $table->string('guest_lecturer_name');
+            $table->string('organizer');
+            $table->date('activity_date');
             $table->timestamps();
         });
     }
