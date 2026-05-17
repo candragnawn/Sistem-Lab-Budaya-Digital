@@ -13,6 +13,13 @@ return new class extends Migration
     {
         Schema::create('journal_managers', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('lecturer_id')->constrained('lectures')->onDelete('cascade');
+            $table->string('journal_name');
+            $table->string('decree_number');
+            $table->date('effective_date');
+            $table->date('end_date')->nullable();
+            $table->boolean('is_active')->default(true);
+            $table->string('role');
             $table->timestamps();
         });
     }

@@ -13,6 +13,16 @@ return new class extends Migration
     {
         Schema::create('placements', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('lecturer_id')->constrained('lectures')->onDelete('cascade');
+            $table->string('status');
+            $table->string('employment_bond');
+            $table->string('education_level');
+            $table->string('unit');
+            $table->string('university');
+            $table->date('start_date');
+            $table->date('exit_date')->nullable();
+            $table->date('end_date')->nullable();
+            $table->string('assignment_homebase')->nullable();
             $table->timestamps();
         });
     }

@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('functional_positions', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('lecturer_id')->constrained('lectures')->onDelete('cascade');
+            $table->string('functional_position');
+            $table->string('decree_number');
+            $table->date('effective_date');  
+            $table->string('civil_servant_status');
             $table->timestamps();
         });
     }

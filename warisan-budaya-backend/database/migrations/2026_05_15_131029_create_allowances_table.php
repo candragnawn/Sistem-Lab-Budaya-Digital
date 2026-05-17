@@ -13,6 +13,14 @@ return new class extends Migration
     {
         Schema::create('allowances', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('lecturer_id')->constrained('lectures')->onDelete('cascade');
+            $table->string('allowance_type');
+            $table->string('allowance_name');
+            $table->string('granting_institution');
+            $table->string('funding_source');
+            $table->year('start_year');
+            $table->year('end_year')->nullable();
+            $table->decimal('amount', 15, 2);
             $table->timestamps();
         });
     }

@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('detaserings', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('lecturer_id')->constrained('lectures')->onDelete('cascade');
+            $table->string('target_university');
+            $table->string('activity_category');
+            $table->string('assignment_decree_number');
+            $table->date('decree_date');
             $table->timestamps();
         });
     }

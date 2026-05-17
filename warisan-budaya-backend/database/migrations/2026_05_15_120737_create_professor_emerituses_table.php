@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('professor_emerituses', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('lecturer_id')->constrained('lectures')->onDelete('cascade');
+            $table->string('title_name');
+            $table->string('university');
+            $table->date('start_date');
+            $table->date('end_date')->nullable();
             $table->timestamps();
         });
     }
