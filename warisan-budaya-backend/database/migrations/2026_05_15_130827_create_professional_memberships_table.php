@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('professional_memberships', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('lecturer_id')->constrained('lectures')->onDelete('cascade');
+            $table->string('organization_name');              // Nama Organisasi
+            $table->string('role');                           // Peran/Kedudukan
+            $table->year('membership_start');                 // Mulai Keanggotaan
+            $table->year('membership_end')->nullable();       // Selesai Keanggotaan
+            $table->string('professional_institution');       // Instansi Profesi
             $table->timestamps();
         });
     }

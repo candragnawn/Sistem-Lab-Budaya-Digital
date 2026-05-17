@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('student_developments', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('lecturer_id')->constrained('lectures')->onDelete('cascade');
+            $table->string('semester');           // Semester
+            $table->string('activity_category');  // Kategori Kegiatan
+            $table->string('guidance_title');     // Judul Bimbingan
+            $table->string('guidance_type');      // Jenis Bimbingan
+            $table->string('study_program');      // Program Studi
             $table->timestamps();
         });
     }

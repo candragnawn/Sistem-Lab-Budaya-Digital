@@ -11,13 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('detaserings', function (Blueprint $table) {
+        Schema::create('publication_works', function (Blueprint $table) {
             $table->id();
             $table->foreignId('lecturer_id')->constrained('lectures')->onDelete('cascade');
-            $table->string('target_university');           // Perguruan Tinggi Sasaran
+            $table->string('title');                       // Judul
             $table->string('activity_category');           // Kategori Kegiatan
-            $table->string('assignment_decree_number');    // No SK Penugasan
-            $table->date('decree_date');                   // Tanggal SK Penugasan
+            $table->string('publication_type');            // Jenis Publikasi
+            $table->string('quartile', 5)->nullable();     // Quartile (Q1–Q4)
+            $table->date('publication_date');              // Tanggal Terbit
+            $table->string('data_source')->nullable();     // Asal Data (mis: Sinta, Scopus)
             $table->timestamps();
         });
     }
@@ -27,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('detaserings');
+        Schema::dropIfExists('publication_works');
     }
 };

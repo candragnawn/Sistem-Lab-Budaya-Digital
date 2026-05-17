@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('additional_tasks', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('lecturer_id')->constrained('lectures')->onDelete('cascade');
+            $table->string('additional_task');       // Tugas Tambahan
+            $table->string('work_unit');             // Unit Kerja
+            $table->string('institution');           // Instansi
+            $table->date('start_date');              // Tanggal Mulai
+            $table->date('end_date')->nullable();    // Tanggal Berakhir
             $table->timestamps();
         });
     }

@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('inpassings', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('lecturer_id')->constrained('lectures')->onDelete('cascade');
+            $table->string('rank_group');          // Pangkat/Golongan
+            $table->string('decree_number');        // Nomor SK
+            $table->date('effective_date');         // Terhitung Mulai Tanggal
             $table->timestamps();
         });
     }
