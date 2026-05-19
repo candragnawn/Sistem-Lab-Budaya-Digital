@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -13,14 +12,14 @@ return new class extends Migration
     {
         Schema::create('education', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('_id')->constrained()->onDelete('cascade');
-            $table->string('entry_year');     
-            $table->string('level');           
-            $table->string('country');         
-            $table->string('university');      
-            $table->string('study_program');   
-            $table->string('graduation_year');   
-            $table->string('predicate')->nullable(); 
+            $table->foreignId('lecturers_id')->constrained()->onDelete('cascade');
+            $table->string('entry_year');
+            $table->string('level');
+            $table->string('country');
+            $table->string('university');
+            $table->string('study_program');
+            $table->string('graduation_year');
+            $table->string('predicate')->nullable();
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('_education');
+        Schema::dropIfExists('education');
     }
 };
