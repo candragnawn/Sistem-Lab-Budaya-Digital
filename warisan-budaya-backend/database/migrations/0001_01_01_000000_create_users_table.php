@@ -4,8 +4,10 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+/**
+ * migration untuk tabel user, password reset tokens, dan sessions
+ */
+return new class extends Migration {
     /**
      * Run the migrations.
      */
