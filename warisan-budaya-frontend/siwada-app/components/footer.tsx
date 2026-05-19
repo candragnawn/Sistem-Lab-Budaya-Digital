@@ -3,9 +3,8 @@ import Link from "next/link";
 
 const Footer = () => {
   return (
-    <footer className="w-full mt-auto">
-      {/* Background image banner section */}
-      <div className="relative w-full h-[120px] overflow-hidden">
+    <footer className="w-full mt-auto border-t-2 border-yellow-400">
+      <div className="relative w-full h-[90px] overflow-hidden">
         <Image
           src="/Container.png"
           alt="Footer background"
@@ -13,7 +12,6 @@ const Footer = () => {
           className="object-cover object-center"
           priority={false}
         />
-        {/* Gradient overlay: transparent top → dark blue bottom */}
         <div
           className="absolute inset-0"
           style={{
@@ -23,9 +21,8 @@ const Footer = () => {
         />
       </div>
 
-      {/* Main footer content */}
-      <div className="bg-[#1E3A5F] text-white">
-        <div className="max-w-7xl mx-auto px-6 py-10 grid grid-cols-1 md:grid-cols-3 gap-10">
+      <div className="bg-[#1E3A5F] text-white border-b-2 ">
+        <div className="max-w-7xl mx-auto px-6 py-10 grid grid-cols-1 md:grid-cols-3 gap-10 vorde">
           {/* Column 1: Logo & Description */}
           <div className="flex flex-col gap-3">
             <Link href="/" className="flex items-center gap-3">
@@ -73,7 +70,6 @@ const Footer = () => {
                 href="#"
                 className="text-sm text-white/70 hover:text-white transition-colors duration-200"
               >
-                Dashboard
               </Link>
             </nav>
           </div>

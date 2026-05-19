@@ -27,7 +27,9 @@ export default function RootLayout({
           <header>
             <Navbar1 />
           </header>
-          {children}
+          <main className="bg-white">
+            {children}
+          </main>
           <Footer />
         </ThemeProvider>
       </body>
