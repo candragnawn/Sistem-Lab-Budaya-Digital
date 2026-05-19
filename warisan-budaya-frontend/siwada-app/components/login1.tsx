@@ -65,10 +65,10 @@ const Login1 = ({
             <p className="mt-2 text-xs text-gray-500">Silakan masukkan kredensial Anda</p>
           </div>
 
-          <div className="w-full max-w-sm space-y-4">
+          <form className="w-full max-w-sm space-y-4">
             <Input
-              type="text"
-              placeholder="Username"
+              type="email"
+              placeholder="Email"
               className="px-4 py-5 text-sm rounded-md border-[#1A4B8F] focus:border-[#1A4B8F] text-black"
               required
             />
@@ -88,7 +88,7 @@ const Login1 = ({
             <Button type="submit" className="w-full bg-[#1A4B8F] hover:bg-[#13386b] py-5 text-white-600 font-semibold rounded-md shadow-md mt-4">
               Login
             </Button>
-          </div>
+          </form>
 
           <div className="absolute bottom-6 flex items-center justify-center">
             <div className="px-3 py-2 bg-blue-50/50 border border-blue-100 rounded-md flex items-center justify-center text-[10px] text-blue-700 font-bold tracking-wide">
