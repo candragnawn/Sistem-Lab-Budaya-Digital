@@ -3,21 +3,11 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/componen
 
 export default function Page() {
   return (
-    <div className="flex min-h-svh p-6 bg-[#1E3A5F]">
-      <div className="flex max-w-md min-w-0 flex-col gap-4 text-sm leading-loose ">
+    <div className="flex min-h-svh  bg-[#1E3A5F]">
+      <div className="w-full max-w-full h-30 bg-red p-6 kotak-xl">
         <div>
-          <h1 className="font-medium">Project ready!</h1>
-          <p>You may now add components and start building.</p>
-          <p>We&apos;ve already added the button component for you.</p>
-          <Button className="mt-2">Button</Button>
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex max-w-md min-w-0 flex-col gap-4 text-sm leading-loose">Halo</CardTitle>
-            </CardHeader>
-            <CardContent>
-              Halo2
-            </CardContent>
-          </Card> 
+          <h1 className="text-2xl font-bold text-[#C9A84C]">WARISAN BUDAYA DIGITAL</h1>
+          <p className="text-[#C9A84C]">Sapta retno dodi</p>
         </div>
         <div className="font-mono text-xs text-muted-foreground">
         </div>
