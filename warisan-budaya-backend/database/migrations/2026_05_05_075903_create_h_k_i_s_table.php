@@ -13,10 +13,11 @@ return new class extends Migration {
         Schema::create('h_k_i_s', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->foreignId('lecturers_id')->constrained()->onDelete('cascade');
             $table->string("title");
             $table->string("activity_category");
             $table->string("type");
-            $table->string('quartile');
+            $table->string('quartile', 5);
             $table->date('publish_date');
         });
     }
