@@ -4,39 +4,39 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Resources\CategoryResource;
-use App\Models\Category;
+use App\Http\Resources\PlacementResource;
+use App\Models\Placement;
 
-class CategoryController extends Controller
+class PlacementController extends Controller
 {
     public function index()
     {
-        $data = Category::all();
-        return CategoryResource::collection($data);
+        $data = Placement::all();
+        return PlacementResource::collection($data);
     }
 
     public function store(Request $request)
     {
-        $data = Category::create($request->all());
-        return new CategoryResource($data);
+        $data = Placement::create($request->all());
+        return new PlacementResource($data);
     }
 
     public function show($id)
     {
-        $data = Category::findOrFail($id);
-        return new CategoryResource($data);
+        $data = Placement::findOrFail($id);
+        return new PlacementResource($data);
     }
 
     public function update(Request $request, $id)
     {
-        $data = Category::findOrFail($id);
+        $data = Placement::findOrFail($id);
         $data->update($request->all());
-        return new CategoryResource($data);
+        return new PlacementResource($data);
     }
 
     public function destroy($id)
     {
-        $data = Category::findOrFail($id);
+        $data = Placement::findOrFail($id);
         $data->delete();
         
         return response()->json([

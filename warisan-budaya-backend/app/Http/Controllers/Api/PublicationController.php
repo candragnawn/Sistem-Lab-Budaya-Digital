@@ -4,39 +4,39 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Resources\CategoryResource;
-use App\Models\Category;
+use App\Http\Resources\PublicationResource;
+use App\Models\Publication;
 
-class CategoryController extends Controller
+class PublicationController extends Controller
 {
     public function index()
     {
-        $data = Category::all();
-        return CategoryResource::collection($data);
+        $data = Publication::all();
+        return PublicationResource::collection($data);
     }
 
     public function store(Request $request)
     {
-        $data = Category::create($request->all());
-        return new CategoryResource($data);
+        $data = Publication::create($request->all());
+        return new PublicationResource($data);
     }
 
     public function show($id)
     {
-        $data = Category::findOrFail($id);
-        return new CategoryResource($data);
+        $data = Publication::findOrFail($id);
+        return new PublicationResource($data);
     }
 
     public function update(Request $request, $id)
     {
-        $data = Category::findOrFail($id);
+        $data = Publication::findOrFail($id);
         $data->update($request->all());
-        return new CategoryResource($data);
+        return new PublicationResource($data);
     }
 
     public function destroy($id)
     {
-        $data = Category::findOrFail($id);
+        $data = Publication::findOrFail($id);
         $data->delete();
         
         return response()->json([

@@ -4,39 +4,39 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Resources\CategoryResource;
-use App\Models\Category;
+use App\Http\Resources\DigitalAssetResource;
+use App\Models\DigitalAsset;
 
-class CategoryController extends Controller
+class DigitalAssetController extends Controller
 {
     public function index()
     {
-        $data = Category::all();
-        return CategoryResource::collection($data);
+        $data = DigitalAsset::all();
+        return DigitalAssetResource::collection($data);
     }
 
     public function store(Request $request)
     {
-        $data = Category::create($request->all());
-        return new CategoryResource($data);
+        $data = DigitalAsset::create($request->all());
+        return new DigitalAssetResource($data);
     }
 
     public function show($id)
     {
-        $data = Category::findOrFail($id);
-        return new CategoryResource($data);
+        $data = DigitalAsset::findOrFail($id);
+        return new DigitalAssetResource($data);
     }
 
     public function update(Request $request, $id)
     {
-        $data = Category::findOrFail($id);
+        $data = DigitalAsset::findOrFail($id);
         $data->update($request->all());
-        return new CategoryResource($data);
+        return new DigitalAssetResource($data);
     }
 
     public function destroy($id)
     {
-        $data = Category::findOrFail($id);
+        $data = DigitalAsset::findOrFail($id);
         $data->delete();
         
         return response()->json([
