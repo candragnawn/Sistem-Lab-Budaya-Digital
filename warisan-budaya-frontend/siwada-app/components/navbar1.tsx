@@ -130,7 +130,7 @@ const Navbar1 = ({
             <a href={logo.url} className="flex items-center gap-2 text-foreground">
               <img
                 src={logo.src}
-                className="max-h-8"
+                className="max-h-7"
                 alt={logo.alt}
               />
               <span className="text-lg font-semibold tracking-tighter">
