@@ -1,6 +1,7 @@
 "use client";
 
 import { Book, Menu, Sunset, Trees, Zap } from "lucide-react";
+import Link from "next/link";
 
 import {
   Accordion,
@@ -46,8 +47,8 @@ interface Navbar1Props {
   menu?: MenuItem[];
   auth?: {
     login: {
-      title: string;
-      url: string;
+      title: "Login";
+      url: "/login";
     };
   };
 }
@@ -117,7 +118,7 @@ const Navbar1 = ({
     },
   ],
   auth = {
-    login: { title: "Login", url: "#" },
+    login: { title: "Login", url: "/login" },
 
   },
   className,
@@ -136,7 +137,7 @@ const Navbar1 = ({
               <span className="text-lg font-semibold tracking-tighter">
                 {logo.title}
               </span>
-             </a>
+            </a>
             <div className="flex items-center ml-120">
               <NavigationMenu>
                 <NavigationMenuList>
@@ -192,7 +193,7 @@ const Navbar1 = ({
 
                   <div className="flex flex-col gap-3">
                     <Button asChild variant="outline">
-                      <a href={auth.login.url}>{auth.login.title}</a>
+                      <Link href={auth.login.url}>{auth.login.title}</Link>
                     </Button>
                     <Button asChild>
                     </Button>
@@ -209,30 +210,30 @@ const Navbar1 = ({
 
 const renderMenuItem = (item: MenuItem) => {
   if (item.items) {
-  return (
-    <NavigationMenuItem key={item.title}>
-      <NavigationMenuTrigger className="rounded-md px-3 py-1 text-sm font-medium text-white transition-colors 
+    return (
+      <NavigationMenuItem key={item.title}>
+        <NavigationMenuTrigger className="rounded-md px-3 py-1 text-sm font-medium text-white transition-colors 
       hover:!bg-white/10 hover:!text-white">
-        {item.title}
-      </NavigationMenuTrigger>
-      <NavigationMenuContent className="bg-popover text-popover-foreground">
-        {item.items.map((subItem) => (
-          <NavigationMenuLink asChild key={subItem.title} className="w-80">
-            <SubMenuLink item={subItem} />
-          </NavigationMenuLink>
-        ))}
-      </NavigationMenuContent>
-    </NavigationMenuItem>
-  )
-}
+          {item.title}
+        </NavigationMenuTrigger>
+        <NavigationMenuContent className="bg-popover text-popover-foreground">
+          {item.items.map((subItem) => (
+            <NavigationMenuLink asChild key={subItem.title} className="w-80">
+              <SubMenuLink item={subItem} />
+            </NavigationMenuLink>
+          ))}
+        </NavigationMenuContent>
+      </NavigationMenuItem>
+    )
+  }
 
   return (
     <NavigationMenuItem key={item.title}>
       <NavigationMenuLink
         href={item.url}
-    className="group inline-flex h-10 items-center justify-center rounded-md 
-    px-2 py-1 text-sm font-medium transition-colors hover:bg-white/6 hover:text-[white] border-b-2"          
-    >
+        className="group inline-flex h-10 items-center justify-center rounded-md 
+    px-2 py-1 text-sm font-medium transition-colors hover:bg-white/6 hover:text-[white] border-b-2"
+      >
         {item.title}
       </NavigationMenuLink>
     </NavigationMenuItem>
