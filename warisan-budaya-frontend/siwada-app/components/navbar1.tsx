@@ -123,7 +123,7 @@ const Navbar1 = ({
   className,
 }: Navbar1Props) => {
   return (
-    <section className={cn("py-0 bg-[#1E3A5F] text-white", className)}>
+    <section className={cn("py-0 bg-[#1E3A5F] text-white border-b-2 border-yellow-400", className)}>
       <div className="w-full px-4">
         <nav className="hidden items-center justify-between lg:flex">
           <div className="flex items-center gap-6">
@@ -211,7 +211,8 @@ const renderMenuItem = (item: MenuItem) => {
   if (item.items) {
   return (
     <NavigationMenuItem key={item.title}>
-      <NavigationMenuTrigger className="rounded-md px-3 py-1 text-sm font-medium text-white transition-colors hover:!bg-white/10 hover:!text-white">
+      <NavigationMenuTrigger className="rounded-md px-3 py-1 text-sm font-medium text-white transition-colors 
+      hover:!bg-white/10 hover:!text-white">
         {item.title}
       </NavigationMenuTrigger>
       <NavigationMenuContent className="bg-popover text-popover-foreground">
@@ -229,7 +230,9 @@ const renderMenuItem = (item: MenuItem) => {
     <NavigationMenuItem key={item.title}>
       <NavigationMenuLink
         href={item.url}
-    className="group inline-flex h-10 items-center justify-center rounded-md px-2 py-1 text-sm font-medium transition-colors hover:bg-white/6 hover:text-white"          >
+    className="group inline-flex h-10 items-center justify-center rounded-md 
+    px-2 py-1 text-sm font-medium transition-colors hover:bg-white/6 hover:text-[white] border-b-2"          
+    >
         {item.title}
       </NavigationMenuLink>
     </NavigationMenuItem>
