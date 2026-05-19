@@ -4,39 +4,39 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Resources\CategoryResource;
-use App\Models\Category;
+use App\Http\Resources\LecturerRankResource;
+use App\Models\LecturerRank;
 
-class CategoryController extends Controller
+class LecturerRankController extends Controller
 {
     public function index()
     {
-        $data = Category::all();
-        return CategoryResource::collection($data);
+        $data = LecturerRank::all();
+        return LecturerRankResource::collection($data);
     }
 
     public function store(Request $request)
     {
-        $data = Category::create($request->all());
-        return new CategoryResource($data);
+        $data = LecturerRank::create($request->all());
+        return new LecturerRankResource($data);
     }
 
     public function show($id)
     {
-        $data = Category::findOrFail($id);
-        return new CategoryResource($data);
+        $data = LecturerRank::findOrFail($id);
+        return new LecturerRankResource($data);
     }
 
     public function update(Request $request, $id)
     {
-        $data = Category::findOrFail($id);
+        $data = LecturerRank::findOrFail($id);
         $data->update($request->all());
-        return new CategoryResource($data);
+        return new LecturerRankResource($data);
     }
 
     public function destroy($id)
     {
-        $data = Category::findOrFail($id);
+        $data = LecturerRank::findOrFail($id);
         $data->delete();
         
         return response()->json([

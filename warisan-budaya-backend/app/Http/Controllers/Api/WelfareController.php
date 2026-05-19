@@ -4,39 +4,39 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Resources\CategoryResource;
-use App\Models\Category;
+use App\Http\Resources\WelfareResource;
+use App\Models\Welfare;
 
-class CategoryController extends Controller
+class WelfareController extends Controller
 {
     public function index()
     {
-        $data = Category::all();
-        return CategoryResource::collection($data);
+        $data = Welfare::all();
+        return WelfareResource::collection($data);
     }
 
     public function store(Request $request)
     {
-        $data = Category::create($request->all());
-        return new CategoryResource($data);
+        $data = Welfare::create($request->all());
+        return new WelfareResource($data);
     }
 
     public function show($id)
     {
-        $data = Category::findOrFail($id);
-        return new CategoryResource($data);
+        $data = Welfare::findOrFail($id);
+        return new WelfareResource($data);
     }
 
     public function update(Request $request, $id)
     {
-        $data = Category::findOrFail($id);
+        $data = Welfare::findOrFail($id);
         $data->update($request->all());
-        return new CategoryResource($data);
+        return new WelfareResource($data);
     }
 
     public function destroy($id)
     {
-        $data = Category::findOrFail($id);
+        $data = Welfare::findOrFail($id);
         $data->delete();
         
         return response()->json([

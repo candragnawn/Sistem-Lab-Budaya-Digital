@@ -4,39 +4,39 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Resources\CategoryResource;
-use App\Models\Category;
+use App\Http\Resources\TestResource;
+use App\Models\Test;
 
-class CategoryController extends Controller
+class TestController extends Controller
 {
     public function index()
     {
-        $data = Category::all();
-        return CategoryResource::collection($data);
+        $data = Test::all();
+        return TestResource::collection($data);
     }
 
     public function store(Request $request)
     {
-        $data = Category::create($request->all());
-        return new CategoryResource($data);
+        $data = Test::create($request->all());
+        return new TestResource($data);
     }
 
     public function show($id)
     {
-        $data = Category::findOrFail($id);
-        return new CategoryResource($data);
+        $data = Test::findOrFail($id);
+        return new TestResource($data);
     }
 
     public function update(Request $request, $id)
     {
-        $data = Category::findOrFail($id);
+        $data = Test::findOrFail($id);
         $data->update($request->all());
-        return new CategoryResource($data);
+        return new TestResource($data);
     }
 
     public function destroy($id)
     {
-        $data = Category::findOrFail($id);
+        $data = Test::findOrFail($id);
         $data->delete();
         
         return response()->json([

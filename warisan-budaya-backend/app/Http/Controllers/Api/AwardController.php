@@ -4,39 +4,39 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Resources\CategoryResource;
-use App\Models\Category;
+use App\Http\Resources\AwardResource;
+use App\Models\Award;
 
-class CategoryController extends Controller
+class AwardController extends Controller
 {
     public function index()
     {
-        $data = Category::all();
-        return CategoryResource::collection($data);
+        $data = Award::all();
+        return AwardResource::collection($data);
     }
 
     public function store(Request $request)
     {
-        $data = Category::create($request->all());
-        return new CategoryResource($data);
+        $data = Award::create($request->all());
+        return new AwardResource($data);
     }
 
     public function show($id)
     {
-        $data = Category::findOrFail($id);
-        return new CategoryResource($data);
+        $data = Award::findOrFail($id);
+        return new AwardResource($data);
     }
 
     public function update(Request $request, $id)
     {
-        $data = Category::findOrFail($id);
+        $data = Award::findOrFail($id);
         $data->update($request->all());
-        return new CategoryResource($data);
+        return new AwardResource($data);
     }
 
     public function destroy($id)
     {
-        $data = Category::findOrFail($id);
+        $data = Award::findOrFail($id);
         $data->delete();
         
         return response()->json([

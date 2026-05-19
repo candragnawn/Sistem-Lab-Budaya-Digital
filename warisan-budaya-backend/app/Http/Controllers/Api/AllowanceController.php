@@ -4,39 +4,39 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Resources\CategoryResource;
-use App\Models\Category;
+use App\Http\Resources\AllowanceResource;
+use App\Models\Allowance;
 
-class CategoryController extends Controller
+class AllowanceController extends Controller
 {
     public function index()
     {
-        $data = Category::all();
-        return CategoryResource::collection($data);
+        $data = Allowance::all();
+        return AllowanceResource::collection($data);
     }
 
     public function store(Request $request)
     {
-        $data = Category::create($request->all());
-        return new CategoryResource($data);
+        $data = Allowance::create($request->all());
+        return new AllowanceResource($data);
     }
 
     public function show($id)
     {
-        $data = Category::findOrFail($id);
-        return new CategoryResource($data);
+        $data = Allowance::findOrFail($id);
+        return new AllowanceResource($data);
     }
 
     public function update(Request $request, $id)
     {
-        $data = Category::findOrFail($id);
+        $data = Allowance::findOrFail($id);
         $data->update($request->all());
-        return new CategoryResource($data);
+        return new AllowanceResource($data);
     }
 
     public function destroy($id)
     {
-        $data = Category::findOrFail($id);
+        $data = Allowance::findOrFail($id);
         $data->delete();
         
         return response()->json([

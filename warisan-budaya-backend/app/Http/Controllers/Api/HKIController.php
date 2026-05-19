@@ -4,39 +4,39 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Resources\CategoryResource;
-use App\Models\Category;
+use App\Http\Resources\HKIResource;
+use App\Models\HKI;
 
-class CategoryController extends Controller
+class HKIController extends Controller
 {
     public function index()
     {
-        $data = Category::all();
-        return CategoryResource::collection($data);
+        $data = HKI::all();
+        return HKIResource::collection($data);
     }
 
     public function store(Request $request)
     {
-        $data = Category::create($request->all());
-        return new CategoryResource($data);
+        $data = HKI::create($request->all());
+        return new HKIResource($data);
     }
 
     public function show($id)
     {
-        $data = Category::findOrFail($id);
-        return new CategoryResource($data);
+        $data = HKI::findOrFail($id);
+        return new HKIResource($data);
     }
 
     public function update(Request $request, $id)
     {
-        $data = Category::findOrFail($id);
+        $data = HKI::findOrFail($id);
         $data->update($request->all());
-        return new CategoryResource($data);
+        return new HKIResource($data);
     }
 
     public function destroy($id)
     {
-        $data = Category::findOrFail($id);
+        $data = HKI::findOrFail($id);
         $data->delete();
         
         return response()->json([
