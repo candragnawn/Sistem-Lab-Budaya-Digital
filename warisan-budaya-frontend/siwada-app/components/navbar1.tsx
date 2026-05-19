@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import { ChevronDown, LogOut, User, Settings } from "lucide-react";
 import { Book, Menu, Sunset, Trees, Zap } from "lucide-react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 
 import {
   Accordion,
@@ -54,7 +54,6 @@ interface Navbar1Props {
     };
   };
 }
-
 const Navbar1 = ({
   logo = {
     url: "/",
@@ -126,6 +125,8 @@ const Navbar1 = ({
   className,
 }: Navbar1Props) => {
   const router = useRouter();
+  const pathname = usePathname();
+  const [isLoaded, setIsLoaded] = useState(false);
   const [user, setUser] = useState<{
     name: string;
     role: string;
@@ -139,6 +140,7 @@ const Navbar1 = ({
     if (storedUser) {
       setUser(JSON.parse(storedUser));
     }
+    setIsLoaded(true);
   }, []);
 
   useEffect(() => {
@@ -160,6 +162,16 @@ const Navbar1 = ({
     setShowDropdown(false);
     router.push("/login");
   };
+
+  const filteredMenu = menu.filter((item) => {
+    if (item.title === "Dashboard") {
+      if (pathname?.startsWith("/dashboard")) {
+        return true;
+      }
+      return !!user;
+    }
+    return true;
+  });
 
   return (
     <section
@@ -183,13 +195,15 @@ const Navbar1 = ({
             <div className="flex items-center ml-120">
               <NavigationMenu>
                 <NavigationMenuList>
-                  {menu.map((item) => renderMenuItem(item))}
+                  {filteredMenu.map((item) => renderMenuItem(item))}
                 </NavigationMenuList>
               </NavigationMenu>
             </div>
           </div>
           <div className="flex gap-2 ml-auto">
-            {user ? (
+            {!isLoaded ? (
+              <div className="h-9 w-20 bg-white/10 rounded animate-pulse" />
+            ) : user ? (
               <div className="relative" ref={dropdownRef}>
                 <div
                   onClick={() => setShowDropdown(!showDropdown)}
@@ -304,11 +318,13 @@ const Navbar1 = ({
                     collapsible
                     className="flex w-full flex-col gap-4"
                   >
-                    {menu.map((item) => renderMobileMenuItem(item))}
+                    {filteredMenu.map((item) => renderMobileMenuItem(item))}
                   </Accordion>
 
                   <div className="flex flex-col gap-3">
-                    {user ? (
+                    {!isLoaded ? (
+                      <div className="h-10 w-full bg-gray-100 rounded animate-pulse" />
+                    ) : user ? (
                       <div className="space-y-3">
                         <div className="flex items-center gap-3 text-black">
                           <div className="h-10 w-10 rounded-full border-2 border-yellow-500 overflow-hidden bg-gray-100">
