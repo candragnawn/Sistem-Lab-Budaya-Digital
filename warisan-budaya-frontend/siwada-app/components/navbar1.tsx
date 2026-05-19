@@ -1,5 +1,6 @@
 "use client";
-
+import { useState, useEffect } from "react";
+import { ChevronDown } from "lucide-react";
 import { Book, Menu, Sunset, Trees, Zap } from "lucide-react";
 import Link from "next/link";
 
@@ -123,6 +124,20 @@ const Navbar1 = ({
   },
   className,
 }: Navbar1Props) => {
+  const [user, setUser] = useState<{ name: string; role: string; photo: string } | null>(null);
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    setUser(null);
+  };
+
   return (
     <section className={cn("py-0 bg-[#1E3A5F] text-white border-b-2 border-yellow-400", className)}>
       <div className="w-full px-4">
@@ -147,11 +162,30 @@ const Navbar1 = ({
             </div>
           </div>
           <div className="flex gap-2 ml-auto">
-            <Button asChild variant="outline" size="sm">
-              <a href={auth.login.url}>{auth.login.title}</a>
-            </Button>
-            <Button asChild size="sm">
-            </Button>
+            {user ? (
+              <div onClick={handleLogout} className="flex items-center gap-3 cursor-pointer text-white hover:opacity-80 transition-opacity">
+                <div className="h-9 w-9 rounded-full border-2 border-yellow-400 overflow-hidden bg-white/20">
+                  <img
+                    src={user.photo}
+                    alt="Foto Profil"
+                    className="h-full w-full object-cover"
+                  />
+                </div>
+                <div className="flex flex-col text-left">
+                  <span className="text-xs font-semibold leading-none">{user.name}</span>
+                  <span className="text-[10px] text-yellow-400 font-medium mt-1">{user.role}</span>
+                </div>
+                <ChevronDown className="h-3.5 w-3.5 opacity-80 ml-1" />
+              </div>
+            ) : (
+              <>
+                <Button asChild variant="outline" size="sm">
+                  <a href={auth.login.url}>{auth.login.title}</a>
+                </Button>
+                <Button asChild size="sm">
+                </Button>
+              </>
+            )}
           </div>
         </nav>
 
@@ -192,11 +226,30 @@ const Navbar1 = ({
                   </Accordion>
 
                   <div className="flex flex-col gap-3">
-                    <Button asChild variant="outline">
-                      <Link href={auth.login.url}>{auth.login.title}</Link>
-                    </Button>
-                    <Button asChild>
-                    </Button>
+                    {user ? (
+                      <div onClick={handleLogout} className="flex items-center gap-3 cursor-pointer text-black hover:opacity-80 transition-opacity">
+                        <div className="h-10 w-10 rounded-full border-2 border-yellow-500 overflow-hidden bg-gray-100">
+                          <img
+                            src={user.photo}
+                            alt="Foto Profil"
+                            className="h-full w-full object-cover"
+                          />
+                        </div>
+                        <div className="flex flex-col text-left">
+                          <span className="text-sm font-semibold leading-none">{user.name}</span>
+                          <span className="text-xs text-yellow-600 font-medium mt-1">{user.role}</span>
+                        </div>
+                        <ChevronDown className="h-4 w-4 opacity-70 ml-1" />
+                      </div>
+                    ) : (
+                      <>
+                        <Button asChild variant="outline">
+                          <Link href={auth.login.url}>{auth.login.title}</Link>
+                        </Button>
+                        <Button asChild>
+                        </Button>
+                      </>
+                    )}
                   </div>
                 </div>
               </SheetContent>
