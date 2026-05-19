@@ -3,8 +3,9 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
-
-
+/**
+ * migration untuk view v__stats
+ */
 return new class extends Migration
 {
     /**

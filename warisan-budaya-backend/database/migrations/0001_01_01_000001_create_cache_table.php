@@ -5,7 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 /**
- * migration tabel cache untuk menyimpan data cache
+ * migration untuk tabel cache dan cache_locks
  */
 return new class extends Migration {
     /**
