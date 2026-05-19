@@ -1,6 +1,8 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
+import { useRouter } from "next/navigation";
 
 interface Login1Props {
   heading?: string;
@@ -29,6 +31,20 @@ const Login1 = ({
   buttonText = "Login",
   className,
 }: Login1Props) => {
+
+  const router = useRouter();
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const mockUser = {
+      name: "Ivan Ganteng",
+      role: "Dosen",
+      photo: "/SIWADA.svg"
+    };
+    localStorage.setItem("user", JSON.stringify(mockUser));
+    router.push("/");
+  };
+
   return (
     <section className={cn("min-h-screen w-full bg-[#eef2f6] flex items-center justify-center p-4 md:p-8", className)}>
       <div className="grid w-full max-w-5xl overflow-hidden rounded-2xl bg-white shadow-2xl md:grid-cols-2">
@@ -65,7 +81,7 @@ const Login1 = ({
             <p className="mt-2 text-xs text-gray-500">Silakan masukkan kredensial Anda</p>
           </div>
 
-          <form className="w-full max-w-sm space-y-4">
+          <form onSubmit={handleLogin} className="w-full max-w-sm space-y-4">
             <Input
               type="email"
               placeholder="Email"
