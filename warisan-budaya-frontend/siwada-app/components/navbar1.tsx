@@ -180,7 +180,7 @@ const Navbar1 = ({
         className,
       )}
     >
-      <div className="w-full px-4">
+      <div className="w-full px-6 h-flex">
         <nav className="hidden items-center justify-between lg:flex">
           <div className="flex items-center gap-6">
             <a

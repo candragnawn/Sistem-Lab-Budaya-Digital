@@ -12,7 +12,7 @@ export default function Page() {
           </p>
         </div>
       </div>
-      <section className="relative w-full h-[350px] md:h-[450px] bg-[url('/adri.png')] flex flex-col justify-center px-10 bg-cover bg-center">
+      <section className="relative w-full h-[350px] md:h-[450px] bg-[url('/section.svg')] flex flex-col justify-center px-10 bg-cover bg-center">
         <div className="absolute inset-0 bg-black/40"></div> 
         <div className="relative z-10 max-w-5xl mx-auto w-full text-white">
           <div className="w-16 h-1 bg-[#C9A84C] mb-6"></div>
@@ -57,10 +57,10 @@ export default function Page() {
           <Card className="hover:shadow-lg transition-all duration-300 bg-white rounded-xl border-none shadow-sm cursor-pointer hover:-translate-y-1">
             <CardContent className="p-8 flex flex-col items-center text-center space-y-4">
               <div className="text-5xl mb-2">
-               <img src="adri.png" alt="Icon Buku" className="w-12 h-12 object-contain" />
+               <img src="pengabdian.png" alt="Icon Buku" className="w-12 h-12 object-contain" />
                 </div> 
                   <div>
-                <h3 className="font-bold text-[#1E3A5F] text-lg">Pengabdian</h3>
+                <h3 className="font-bold text-black text-lg">Pengabdian</h3>
                 <p className="text-gray-500 text-sm mt-1">Pengabdian Author</p>
               </div>
               <p className="text-[#1E3A5F] font-bold mt-2"><span className="text-xl">487</span> <span className="text-xs font-normal text-gray-500">arsip</span></p>
@@ -73,7 +73,7 @@ export default function Page() {
                <img src="adri.png" alt="Icon Buku" className="w-12 h-12 object-contain" />
                 </div> 
                   <div>
-                <h3 className="font-bold text-[#1E3A5F] text-lg">Publikasi Karya</h3>
+                <h3 className="font-bold text-black text-lg">Publikasi Karya</h3>
                 <p className="text-gray-500 text-sm mt-1">Jurnal dan Penelitian Akademik</p>
               </div>
               <p className="text-[#5B9A6F] font-bold mt-2"><span className="text-xl">298</span> <span className="text-xs font-normal text-gray-500">arsip</span></p>
@@ -104,6 +104,19 @@ export default function Page() {
                 <p className="text-gray-500 text-sm mt-1">Hak Paten</p>
               </div>
               <p className="text-[#5B9A6F] font-bold mt-2"><span className="text-xl">500</span> <span className="text-xs font-normal text-gray-500">arsip</span></p>
+            </CardContent>
+          </Card>
+
+          <Card className="hover:shadow-lg transition-all duration-300 bg-white rounded-xl border-none shadow-sm cursor-pointer hover:-translate-y-1">
+            <CardContent className="p-8 flex flex-col items-center text-center space-y-4">
+              <div className="text-5xl mb-2">
+               <img src="book.png" alt="Icon Buku" className="w-12 h-12 object-contain" />
+                </div> 
+                  <div>
+                <h3 className="font-bold text-[#1E3A5F] text-lg">Sapta</h3>
+                <p className="text-gray-500 text-sm mt-1">Bahan ajar akademik</p>
+              </div>
+              <p className="text-[#5B9A6F] font-bold mt-2"><span className="text-xl">274</span> <span className="text-xs font-normal text-gray-500">arsip</span></p>
             </CardContent>
           </Card>
 
