@@ -11,7 +11,7 @@ export default function MainLayout({
             <header>
                 <Navbar1 />
             </header>
-            <main className="bg-white min-h-screen">
+            <main className="bg-[#FFFFF] min-h-screen">
                 {children}
             </main>
             <Footer />

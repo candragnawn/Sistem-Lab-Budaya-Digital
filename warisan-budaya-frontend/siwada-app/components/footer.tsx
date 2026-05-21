@@ -5,13 +5,6 @@ const Footer = () => {
   return (
     <footer className="w-full mt-auto border-t-2 border-yellow-400">
       <div className="relative w-full h-[90px] overflow-hidden">
-        <Image
-          src="/Container.png"
-          alt="Footer background"
-          fill
-          className="object-cover object-center"
-          priority={false}
-        />
         <div
           className="absolute inset-0"
           style={{
