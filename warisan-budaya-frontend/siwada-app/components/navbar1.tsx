@@ -62,7 +62,7 @@ const Navbar1 = ({
     title: "SIWADA",
   },
   menu = [
-    { title: "Daftar Dosen", url: "#" },
+    { title: "Daftar Dosen", url: "/daftar-dosen" },
     {
       title: "Publikasi",
       url: "#",
@@ -180,8 +180,8 @@ const Navbar1 = ({
         className,
       )}
     >
-      <div className="w-full px-6 h-flex">
-        <nav className="hidden items-center justify-between lg:flex">
+      <div className="w-full px-6 h-15 flex items-center">
+        <nav className="hidden w-full items-center justify-between lg:flex">
           <div className="flex items-center gap-6">
             <a
               href={logo.url}
@@ -283,7 +283,7 @@ const Navbar1 = ({
           </div>
         </nav>
 
-        <div className="block lg:hidden">
+        <div className="block w-full lg:hidden">
           <div className="flex items-center justify-between">
             <a
               href={logo.url}
