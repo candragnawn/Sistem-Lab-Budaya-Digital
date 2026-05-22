@@ -96,8 +96,8 @@ const DUMMY_DOSEN = [
     id: "6",
     name: "Luh Putu Sendi, S.Sn., M.Sn.",
     verified: false,
-    prodi: "Prodi Seni Karawitan",
-    fakultas: "Fakultas Seni Pertunjukan",
+    prodi: "Prodi Informatika",
+    fakultas: "Fakultas MIPA",
     ivanarsipId: "1122334",
     subjects: ["Karawitan Bali", "Seni Vokal"],
     metrics: {
