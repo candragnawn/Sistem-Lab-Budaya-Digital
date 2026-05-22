@@ -2,46 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Http\Resources\CategoryResource;
-use App\Models\Category;
-
-class CategoryController extends Controller
+class CategoryController extends BaseCrudController
 {
-    public function index()
-    {
-        $data = Category::all();
-        return CategoryResource::collection($data);
-    }
-
-    public function store(Request $request)
-    {
-        $data = Category::create($request->all());
-        return new CategoryResource($data);
-    }
-
-    public function show($id)
-    {
-        $data = Category::findOrFail($id);
-        return new CategoryResource($data);
-    }
-
-    public function update(Request $request, $id)
-    {
-        $data = Category::findOrFail($id);
-        $data->update($request->all());
-        return new CategoryResource($data);
-    }
-
-    public function destroy($id)
-    {
-        $data = Category::findOrFail($id);
-        $data->delete();
-        
-        return response()->json([
-            'success' => true,
-            'message' => 'Data berhasil dihapus'
-        ], 200);
-    }
+    protected $model = \App\Models\Category::class;
 }
