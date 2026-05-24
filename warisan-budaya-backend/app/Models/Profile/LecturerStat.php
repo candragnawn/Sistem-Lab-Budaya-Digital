@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Models\Lecturer;
 
-class Stat extends Model
+class LecturerStat extends Model
 {
     public $table = 'lecturer_stats';
     public $timestamps = false;
