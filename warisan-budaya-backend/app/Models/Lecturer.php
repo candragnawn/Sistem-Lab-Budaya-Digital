@@ -15,14 +15,17 @@ use App\Models\Profile\Family;
 use App\Models\Profile\Identity;
 use App\Models\Profile\Employment;
 use App\Models\Profile\Inpassing;
-
+use App\Models\Academic\LecturerStudy;
+use App\Models\Academic\LecturerEducation;
+use App\Models\Academic\LecturerTeaching;
+use App\Models\PelaksanaanPenelitian\Publication;
 
 
 class Lecturer extends Model
 {
-    protected $table = 'lecturers';
+    protected $table = 'lecturer';
     protected $fillable = [
-        'nip', 'name', 'email', 'title_prefix', 'title_suffix', 
+         'nip','name', 'email', 'title_prefix', 'title_suffix', 
         'bio', 'education', 'status', 'photo_path'
     ];
     

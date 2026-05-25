@@ -11,7 +11,7 @@ class Family extends Model
     protected $table = 'lecturer_families';
     
     protected $fillable = [
-        'lecturers_id',
+        'lecturer_id',
         'marital_status',
         'spouse_name',
         'spouse_nip',

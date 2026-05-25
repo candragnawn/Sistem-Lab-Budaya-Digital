@@ -11,7 +11,7 @@ class Employment extends Model
     protected $table = 'lecturer_employments';
     
     protected $fillable = [
-        'lecturers_id',
+        'lecturer_id',
         'nip',
         'sk_cpns_number',
         'sk_cpns_date',

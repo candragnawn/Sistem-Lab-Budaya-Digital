@@ -11,7 +11,7 @@ class Inpassing extends Model
     protected $table = 'lecturer_inpassings';
     
     protected $fillable = [
-        'lecturers_id',
+        'lecturer_id',
         'rank_group',
         'decree_number',
         'effective_date',

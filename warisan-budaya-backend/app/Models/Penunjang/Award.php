@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Award extends Model
 {
     protected $fillable = [
+        'lecturer_id',
         'award_name',
         'award_type',
         'institution',
