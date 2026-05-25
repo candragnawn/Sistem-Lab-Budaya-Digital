@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\PelaksanaanPenelitian;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Models\Lecturer;
 
 class Research extends Model
 {

@@ -8,8 +8,6 @@ use App\Models\Lecturer;
 
 class Rank extends Model
 {
-    protected $table = 'lecturer_ranks';
-
     protected $fillable = [
         'lecturers_id',
         'group_code',

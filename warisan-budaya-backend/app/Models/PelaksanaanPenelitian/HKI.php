@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\PelaksanaanPenelitian;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-
+use App\Models\Lecturer;
 class HKI extends Model
 {
-    protected $table = 'lecturer_hkis';
+    protected $table = 'lecturers_hkis';
     
     protected $fillable = [
-        'lecturer_id',
+        'lecturers_id',
         'hki_type',
         'title',
         'certificate_number',

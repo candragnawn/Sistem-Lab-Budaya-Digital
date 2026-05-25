@@ -1,13 +1,15 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\PelaksanaanPendidikan;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Models\Lecturer;
 
 class StudentDevelopment extends Model
 {
     protected $fillable = [
+        'lecturer_id',
         'semester',
         'activity_category',
         'guidance_title',
