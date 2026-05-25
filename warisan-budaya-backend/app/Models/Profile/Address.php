@@ -24,6 +24,6 @@ class Address extends Model
     ];
 
     public function lecturer(): BelongsTo {
-        return $this->belongsTo(Lecturer::class, 'lecturers_id');
+        return $this->belongsTo(Lecturer::class, 'lecturer_id');
     }
 }

@@ -72,7 +72,7 @@ return new class extends Migration
             $table->foreignId('lecturer_id')->constrained('lecturer')->onDelete('cascade');
             $table->string('work_status')->nullable();
             $table->string('current_status')->nullable();
-            $table->string('tmt')->nullable();
+            $table->date('tmt')->nullable();
             $table->timestamps();
         });
     }
