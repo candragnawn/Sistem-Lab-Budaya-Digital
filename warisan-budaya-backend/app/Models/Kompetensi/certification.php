@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Kompetensi;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-
+use App\Models\Lecturer;
 class certification extends Model
 {
     protected $fillable = [
+        'lecturer_id',
         'certification_type',
         'study_type',
         'educator_registration_number',

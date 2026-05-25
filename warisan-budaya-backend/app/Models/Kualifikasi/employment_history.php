@@ -1,13 +1,15 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Kualifikasi;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Models\Lecturer;
 
 class employment_history extends Model
 {
     protected $fillable = [
+        'lecturer_id',
         'nip',
         'sk_cpns_number',
         'sk_cpns_date',

@@ -1,10 +1,22 @@
 <?php
 
-namespace App\Models\Penunjang;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Award extends Model
 {
-    //
+    protected $fillable = [
+        'award_name',
+        'award_type',
+        'institution',
+        'year',
+    ];
+
+    public function lecturer(): BelongsTo
+    {
+        return $this->belongsTo(Lecturer::class);
+
+    }
 }

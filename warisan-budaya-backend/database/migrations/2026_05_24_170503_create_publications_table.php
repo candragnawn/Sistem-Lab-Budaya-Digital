@@ -26,7 +26,7 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('hkis', function (Blueprint $table) {
+        Schema::create('lecturers_hkis', function (Blueprint $table) {
             $table->id();
             $table->foreignId('lecturers_id')->constrained('lecturers')->onDelete('cascade');
             $table->string('title');
@@ -147,9 +147,9 @@ return new class extends Migration
         });
 
         Schema::create('publication_author', function (Blueprint $table){
-            $table->id();
-            $table->foreignId('lecturers');
-            $table->foreignId('publication');
+            $table->id('publication_author_id'); $table->foreignId('')->constrained('')->onDelete('');
+            $table->foreignId('lecturers_id')->constrained('lecturers')->onDelete('cascade');
+            $table->foreignId('publication_id')->constrained('publications')->onDelete('cascade');
             $table->string('author_position');
 
         });

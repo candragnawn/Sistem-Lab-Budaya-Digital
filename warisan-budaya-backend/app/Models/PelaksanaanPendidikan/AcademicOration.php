@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\PelaksanaanPendidikan;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-
+use App\Models\Lecturer;
 class AcademicOration extends Model
 {
     protected $fillable = [
+        'lecturer_id',
         'activity_category',
         'paper_title',
         'guest_lecturer_name',
