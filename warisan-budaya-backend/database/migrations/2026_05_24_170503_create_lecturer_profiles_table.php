@@ -94,6 +94,8 @@ return new class extends Migration
             $table->string('active_status')->default('Aktif');
             $table->timestamps();
         });
+
+        
     }
 
     public function down(): void

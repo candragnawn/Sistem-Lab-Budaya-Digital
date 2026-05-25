@@ -145,6 +145,14 @@ return new class extends Migration
             $table->timestamp('finished_at')->nullable();
             $table->timestamps();
         });
+
+        Schema::create('publication_author', function (Blueprint $table){
+            $table->id();
+            $table->foreignId('lecturers');
+            $table->foreignId('publication');
+            $table->string('author_position');
+
+        });
     }
 
     public function down(): void
