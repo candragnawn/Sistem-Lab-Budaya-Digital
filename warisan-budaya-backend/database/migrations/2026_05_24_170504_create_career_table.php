@@ -10,7 +10,11 @@ return new class extends Migration
     {
         Schema::create('ranks', function (Blueprint $table) {
             $table->id();
+<<<<<<< HEAD
             $table->foreignId('lecturer_id')->constrained('lecturer')->onDelete('cascade');
+=======
+            $table->foreignId('lecturer_id')->constrained('lecturers')->onDelete('cascade');
+>>>>>>> 6c0b3ec (feat: restrukturisasi model profil dosen dan migration terupdate)
             $table->string('group_code');
             $table->string('rank_name');
             $table->string('sk_number');
@@ -22,7 +26,11 @@ return new class extends Migration
 
         Schema::create('inpassings', function (Blueprint $table) {
             $table->id();
+<<<<<<< HEAD
             $table->foreignId('lecturer_id')->constrained('lecturer')->onDelete('cascade');
+=======
+            $table->foreignId('lecturer_id')->constrained('lecturers')->onDelete('cascade');
+>>>>>>> 6c0b3ec (feat: restrukturisasi model profil dosen dan migration terupdate)
             $table->string('rank_group');
             $table->string('decree_number');
             $table->date('effective_date');
@@ -31,7 +39,11 @@ return new class extends Migration
 
         Schema::create('functional_positions', function (Blueprint $table) {
             $table->id();
+<<<<<<< HEAD
             $table->foreignId('lecturer_id')->constrained('lecturer')->onDelete('cascade');
+=======
+            $table->foreignId('lecturer_id')->constrained('lecturers')->onDelete('cascade');
+>>>>>>> 6c0b3ec (feat: restrukturisasi model profil dosen dan migration terupdate)
             $table->string('functional_position');
             $table->string('decree_number');
             $table->date('decree_date');
@@ -42,7 +54,11 @@ return new class extends Migration
 
         Schema::create('structural_positions', function (Blueprint $table) {
             $table->id();
+<<<<<<< HEAD
             $table->foreignId('lecturer_id')->constrained('lecturer')->onDelete('cascade');
+=======
+            $table->foreignId('lecturer_id')->constrained('lecturers')->onDelete('cascade');
+>>>>>>> 6c0b3ec (feat: restrukturisasi model profil dosen dan migration terupdate)
             $table->string('structural_position');
             $table->string('decree_number');
             $table->date('start_date');
@@ -52,7 +68,11 @@ return new class extends Migration
 
         Schema::create('placements', function (Blueprint $table) {
             $table->id();
+<<<<<<< HEAD
             $table->foreignId('lecturer_id')->constrained('lecturer')->onDelete('cascade');
+=======
+            $table->foreignId('lecturer_id')->constrained('lecturers')->onDelete('cascade');
+>>>>>>> 6c0b3ec (feat: restrukturisasi model profil dosen dan migration terupdate)
             $table->string('status');
             $table->string('employment_bond');
             $table->string('education_level');
@@ -67,7 +87,11 @@ return new class extends Migration
 
         Schema::create('professor_emerituses', function (Blueprint $table) {
             $table->id();
+<<<<<<< HEAD
             $table->foreignId('lecturer_id')->constrained('lecturer')->onDelete('cascade');
+=======
+            $table->foreignId('lecturer_id')->constrained('lecturers')->onDelete('cascade');
+>>>>>>> 6c0b3ec (feat: restrukturisasi model profil dosen dan migration terupdate)
             $table->string('title_name');
             $table->string('university');
             $table->date('start_date');
@@ -77,7 +101,11 @@ return new class extends Migration
 
         Schema::create('diklats', function (Blueprint $table) {
             $table->id();
+<<<<<<< HEAD
             $table->foreignId('lecturer_id')->constrained('lecturer')->onDelete('cascade');
+=======
+            $table->foreignId('lecturer_id')->constrained('lecturers')->onDelete('cascade');
+>>>>>>> 6c0b3ec (feat: restrukturisasi model profil dosen dan migration terupdate)
             $table->string('training_name');
             $table->string('training_type');
             $table->string('organizer');
@@ -88,7 +116,11 @@ return new class extends Migration
 
         Schema::create('tests', function (Blueprint $table) {
             $table->id();
+<<<<<<< HEAD
             $table->foreignId('lecturer_id')->constrained('lecturer')->onDelete('cascade');
+=======
+            $table->foreignId('lecturer_id')->constrained('lecturers')->onDelete('cascade');
+>>>>>>> 6c0b3ec (feat: restrukturisasi model profil dosen dan migration terupdate)
             $table->string('test_name');
             $table->decimal('test_score', 5, 2);
             $table->string('organizer');
@@ -98,7 +130,11 @@ return new class extends Migration
 
         Schema::create('allowances', function (Blueprint $table) {
             $table->id();
+<<<<<<< HEAD
             $table->foreignId('lecturer_id')->constrained('lecturer')->onDelete('cascade');
+=======
+            $table->foreignId('lecturer_id')->constrained('lecturers')->onDelete('cascade');
+>>>>>>> 6c0b3ec (feat: restrukturisasi model profil dosen dan migration terupdate)
             $table->string('allowance_type');
             $table->string('allowance_name');
             $table->string('granting_institution');
@@ -111,7 +147,11 @@ return new class extends Migration
 
         Schema::create('welfares', function (Blueprint $table) {
             $table->id();
+<<<<<<< HEAD
             $table->foreignId('lecturer_id')->constrained('lecturer')->onDelete('cascade');
+=======
+            $table->foreignId('lecturer_id')->constrained('lecturers')->onDelete('cascade');
+>>>>>>> 6c0b3ec (feat: restrukturisasi model profil dosen dan migration terupdate)
             $table->string('welfare_type');
             $table->string('welfare_service');
             $table->string('organizer');

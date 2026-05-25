@@ -12,6 +12,12 @@ return new class extends Migration
             $table->id();
             $table->foreignId('lecturer_id')->constrained('lecturer')->onDelete('cascade');
             $table->string('course_name');
+            $table->enum('semester', [
+                'GANJIL',
+                'GENAP'
+            ]);
+            $table->string('academic_year');
+
             $table->string('course_type');
             $table->string('scientific_field');
             $table->string('class');
