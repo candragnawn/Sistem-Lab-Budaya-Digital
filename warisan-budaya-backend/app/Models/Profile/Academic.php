@@ -11,7 +11,7 @@ class Academic extends Model
     protected $table = 'lecturer_academics';
     
     protected $fillable = [
-        'lecturers_id',
+        'lecturer_id',
         'science_cluster',
         'science_tree',
         'science_branch',

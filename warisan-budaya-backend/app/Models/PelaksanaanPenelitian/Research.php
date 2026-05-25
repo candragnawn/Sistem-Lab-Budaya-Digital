@@ -9,6 +9,7 @@ use App\Models\Lecturer;
 class Research extends Model
 {
     protected $fillable = [
+        'lecturer_id',
         'title',
         'scientific_field',
         'implementation_year',

@@ -9,7 +9,7 @@ use App\Models\Profile\Position;
 
 class Category extends Model
 {
-    protected $fillable = ['name', 'slug', 'description', 'icon'];
+    protected $fillable = ['lecturer_id', 'name', 'slug', 'description', 'icon'];
     protected $table = 'categories';
 
     public function publications(): HasMany {

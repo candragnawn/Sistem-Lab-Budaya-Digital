@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Speaker extends Model
 {
     protected $fillable = [
+        'lecturer_id',
         'activity_category',
         'paper_title',
         'guest_lecturer_name',

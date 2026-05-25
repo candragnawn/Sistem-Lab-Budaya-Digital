@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\PelaksanaanPendidikan\StudentExamination;
+
 class StudentExaminationController extends BaseCrudController
 {
-    protected $model = \App\Models\PelaksanaanPendidikan\StudentExamination::class;
+    protected $model = StudentExamination::class;
 }

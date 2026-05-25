@@ -11,7 +11,7 @@ class Identity extends Model
     protected $table = 'lecturer_identities';
     
     protected $fillable = [
-        'lecturers_id',
+        'lecturer_id',
         'nik',
         'religion',
         'citizenship',

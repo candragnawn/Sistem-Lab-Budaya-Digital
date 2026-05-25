@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class JournalManager extends Model
 {
     protected $fillable = [
+        'lecturer_id',
         'journal_name',
         'decree_number',
         'effective_date',

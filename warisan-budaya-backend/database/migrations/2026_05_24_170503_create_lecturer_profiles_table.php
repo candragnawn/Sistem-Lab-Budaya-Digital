@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('identities', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lecturers_id')->constrained('lecturers')->onDelete('cascade');
+            $table->foreignId('lecturer_id')->constrained('lecturer')->onDelete('cascade');
             $table->string('nik')->unique();
             $table->string('religion')->nullable();
             $table->string('citizenship')->nullable();
@@ -20,7 +20,7 @@ return new class extends Migration
 
         Schema::create('addresses', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lecturers_id')->constrained('lecturers')->onDelete('cascade');
+            $table->foreignId('lecturer_id')->constrained('lecturer')->onDelete('cascade');
             $table->string('email')->nullable();
             $table->text('address')->nullable();
             $table->string('rt', 5)->nullable();
@@ -35,7 +35,7 @@ return new class extends Migration
 
         Schema::create('families', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lecturers_id')->constrained('lecturers')->onDelete('cascade');
+            $table->foreignId('lecturer_id')->constrained('lecturer')->onDelete('cascade');
             $table->string('marital_status')->nullable();
             $table->string('spouse_name')->nullable();
             $table->string('spouse_nip')->nullable();
@@ -45,7 +45,7 @@ return new class extends Migration
 
         Schema::create('education', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lecturers_id')->constrained('lecturers')->onDelete('cascade');
+            $table->foreignId('lecturer_id')->constrained('lecturer')->onDelete('cascade');
             $table->string('entry_year');
             $table->string('level');
             $table->string('country');
@@ -58,7 +58,7 @@ return new class extends Migration
 
         Schema::create('studies', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lecturers_id')->constrained('lecturers')->onDelete('cascade');
+            $table->foreignId('lecturer_id')->constrained('lecturer')->onDelete('cascade');
             $table->string('entry_year');
             $table->string('level');
             $table->string('university');
@@ -71,7 +71,7 @@ return new class extends Migration
 
         Schema::create('certificate', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lecturers_id')->constrained('lecturers')->onDelete('cascade');
+            $table->foreignId('lecturer_id')->constrained('lecturer')->onDelete('cascade');
             $table->string('certification_type');
             $table->string('study_type');
             $table->string('educator_registration_number')->unique();
@@ -82,7 +82,7 @@ return new class extends Migration
 
         Schema::create('employments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lecturers_id')->constrained('lecturers')->onDelete('cascade');
+            $table->foreignId('lecturer_id')->constrained('lecturer')->onDelete('cascade');
             $table->string('nip')->unique();
             $table->string('sk_cpns_number')->nullable();
             $table->date('sk_cpns_date')->nullable();

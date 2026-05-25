@@ -8,7 +8,7 @@ use App\Models\Lecturer;
 class Scholarship extends Model
 {
     protected $fillable = [
-        'lecturers_id',
+        'lecturer_id',
         'scholarship_type',
         'scholarship_name',
         'start_year',

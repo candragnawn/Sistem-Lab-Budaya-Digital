@@ -8,7 +8,7 @@ use App\Models\Lecturer;
 class Welfare extends Model
 {
     protected $fillable = [
-        'lecturers_id',
+        'lecturer_id',
         'welfare_type',
         'welfare_service',
         'organizer',

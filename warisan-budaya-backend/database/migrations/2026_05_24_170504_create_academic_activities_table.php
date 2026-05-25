@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('teachings', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lecturers_id')->constrained('lecturers')->onDelete('cascade');
+            $table->foreignId('lecturer_id')->constrained('lecturer')->onDelete('cascade');
             $table->string('course_name');
             $table->string('course_type');
             $table->string('scientific_field');
@@ -22,7 +22,7 @@ return new class extends Migration
 
         Schema::create('student_supervisions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lecturers_id')->constrained('lecturers')->onDelete('cascade');
+            $table->foreignId('lecturer_id')->constrained('lecturer')->onDelete('cascade');
             $table->string('semester');
             $table->string('activity_category');
             $table->string('supervision_type');
@@ -33,7 +33,7 @@ return new class extends Migration
 
         Schema::create('student_examinations', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lecturers_id')->constrained('lecturers')->onDelete('cascade');
+            $table->foreignId('lecturer_id')->constrained('lecturer')->onDelete('cascade');
             $table->string('examination_title');
             $table->string('scientific_field');
             $table->string('examination_type');
@@ -43,7 +43,7 @@ return new class extends Migration
 
         Schema::create('teaching_materials', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lecturers_id')->constrained('lecturers')->onDelete('cascade');
+            $table->foreignId('lecturer_id')->constrained('lecturer')->onDelete('cascade');
             $table->string('title');
             $table->string('isbn', 20)->nullable();
             $table->date('publication_date');
@@ -53,7 +53,7 @@ return new class extends Migration
 
         Schema::create('student_developments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lecturers_id')->constrained('lecturers')->onDelete('cascade');
+            $table->foreignId('lecturer_id')->constrained('lecturer')->onDelete('cascade');
             $table->string('semester');
             $table->string('activity_category');
             $table->string('guidance_title');
@@ -64,7 +64,7 @@ return new class extends Migration
 
         Schema::create('visiting_scientists', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lecturers_id')->constrained('lecturers')->onDelete('cascade');
+            $table->foreignId('lecturer_id')->constrained('lecturer')->onDelete('cascade');
             $table->string('host_university');
             $table->string('duration');
             $table->date('activity_date');
@@ -73,7 +73,7 @@ return new class extends Migration
 
         Schema::create('detaserings', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lecturers_id')->constrained('lecturers')->onDelete('cascade');
+            $table->foreignId('lecturer_id')->constrained('lecturer')->onDelete('cascade');
             $table->string('target_university');
             $table->string('activity_category');
             $table->string('assignment_decree_number');
@@ -83,7 +83,7 @@ return new class extends Migration
 
         Schema::create('academic_orations', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lecturers_id')->constrained('lecturers')->onDelete('cascade');
+            $table->foreignId('lecturer_id')->constrained('lecturer')->onDelete('cascade');
             $table->string('activity_category');
             $table->string('paper_title');
             $table->string('guest_lecturer_name');
@@ -94,7 +94,7 @@ return new class extends Migration
 
         Schema::create('lecturer_mentors', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lecturers_id')->constrained('lecturers')->onDelete('cascade');
+            $table->foreignId('lecturer_id')->constrained('lecturer')->onDelete('cascade');
             $table->string('mentor_name');
             $table->date('start_date');
             $table->date('end_date')->nullable();

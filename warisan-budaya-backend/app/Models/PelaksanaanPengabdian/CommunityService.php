@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class CommunityService extends Model
 {
     protected $fillable = [
+        'lecturer_id',
         'title',
         'scientific_field',
         'implementation_year', 

@@ -10,7 +10,7 @@ class HKI extends Model
     protected $table = 'lecturers_hkis';
     
     protected $fillable = [
-        'lecturers_id',
+        'lecturer_id',
         'hki_type',
         'title',
         'certificate_number',
