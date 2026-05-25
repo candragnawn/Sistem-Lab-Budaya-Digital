@@ -11,7 +11,7 @@ return new class extends Migration
         Schema::create('lecturers', function (Blueprint $table) {
             $table->id();
             $table->string('nidn', 20)->unique()->nullable();
-            $table->string('nip', 30)->nullable();
+            $table->string('nip', 30)->unique()->nullable();
             $table->string('name');
             $table->string('name_registered_dukcapil')->nullable();
             $table->string('email')->unique()->nullable();
@@ -49,6 +49,7 @@ return new class extends Migration
 
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('publication');
             $table->string('name');
             $table->string('slug')->unique()->nullable();
             $table->text('description')->nullable();
