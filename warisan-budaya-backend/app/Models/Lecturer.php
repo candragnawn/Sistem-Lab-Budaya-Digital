@@ -9,6 +9,12 @@ use App\Models\Profile\WorkContracts;
 use App\Models\Profile\Rank;
 use App\Models\Profile\Position;
 use App\Models\Profile\stat;
+use App\Models\Profile\Academic;
+use App\Models\Profile\Address;
+use App\Models\Profile\Family;
+use App\Models\Profile\Identity;
+use App\Models\Profile\Employment;
+use App\Models\Profile\Inpassing;
 
 
 
@@ -43,21 +49,33 @@ class Lecturer extends Model
 
     }
 
-    public function stats(): HasOne {
-        return $this->hasOne(Stat::class, 'lecturer_id');
-    }
 
     public function studies(): HasMany {
         return $this->hasMany(LecturerStudy::class);
     }
-    public function digitalAssets(): HasMany 
-    {
-        return $this->hasMany(DigitalAsset::class);
 
+    // Profile Relations
+    public function academic(): HasOne {
+        return $this->hasOne(Academic::class, 'lecturers_id');
     }
-    public function events() {
-        return $this->belongsToMany(Event::class, 'event_lecturer')
-        ->withPivot('role_in_event', 'event_date');
+
+    public function addresses(): HasMany {
+        return $this->hasMany(Address::class, 'lecturers_id');
     }
-    //
+
+    public function families(): HasMany {
+        return $this->hasMany(Family::class, 'lecturers_id');
+    }
+
+    public function identities(): HasMany {
+        return $this->hasMany(Identity::class, 'lecturers_id');
+    }
+
+    public function employments(): HasMany {
+        return $this->hasMany(Employment::class, 'lecturers_id');
+    }
+
+    public function inpassings(): HasMany {
+        return $this->hasMany(Inpassing::class, 'lecturers_id');
+    }
 }

@@ -11,15 +11,19 @@ class Employment extends Model
     protected $table = 'lecturer_employments';
     
     protected $fillable = [
-        'lecturer_id',
-        'position_title',
-        'institution',
-        'start_date',
-        'end_date',
-        'status'
+        'lecturers_id',
+        'nip',
+        'sk_cpns_number',
+        'sk_cpns_date',
+        'rank_group',
+        'sk_date',
+        'work_years',
+        'work_months',
+        'employment_status',
+        'active_status'
     ];
 
     public function lecturer(): BelongsTo {
-        return $this->belongsTo(Lecturer::class, 'lecturer_id');
+        return $this->belongsTo(Lecturer::class, 'lecturers_id');
     }
 }

@@ -11,15 +11,14 @@ class Identity extends Model
     protected $table = 'lecturer_identities';
     
     protected $fillable = [
-        'lecturer_id',
-        'id_type',
-        'id_number',
-        'id_issued_date',
-        'id_expiry_date',
-        'id_issuing_authority'
+        'lecturers_id',
+        'nik',
+        'religion',
+        'citizenship',
+        'npwp'
     ];
 
     public function lecturer(): BelongsTo {
-        return $this->belongsTo(Lecturer::class, 'lecturer_id');
+        return $this->belongsTo(Lecturer::class, 'lecturers_id');
     }
 }

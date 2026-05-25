@@ -11,18 +11,19 @@ class Address extends Model
     protected $table = 'lecturer_addresses';
     
     protected $fillable = [
-        'lecturer_id',
-        'address_type',
-        'street',
+        'lecturers_id',
+        'email',
+        'address',
+        'rt',
+        'rw',
         'village',
-        'subdistrict',
         'district',
         'province',
         'postal_code',
-        'country'
+        'phone_number'
     ];
 
     public function lecturer(): BelongsTo {
-        return $this->belongsTo(Lecturer::class, 'lecturer_id');
+        return $this->belongsTo(Lecturer::class, 'lecturers_id');
     }
 }
