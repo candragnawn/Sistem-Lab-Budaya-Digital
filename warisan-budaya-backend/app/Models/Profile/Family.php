@@ -11,14 +11,14 @@ class Family extends Model
     protected $table = 'lecturer_families';
     
     protected $fillable = [
-        'lecturer_id',
-        'relationship',
-        'name',
-        'birth_date',
-        'occupation'
+        'lecturers_id',
+        'marital_status',
+        'spouse_name',
+        'spouse_nip',
+        'spouse_occupation'
     ];
 
     public function lecturer(): BelongsTo {
-        return $this->belongsTo(Lecturer::class, 'lecturer_id');
+        return $this->belongsTo(Lecturer::class, 'lecturers_id');
     }
 }

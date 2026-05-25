@@ -11,15 +11,14 @@ class Inpassing extends Model
     protected $table = 'lecturer_inpassings';
     
     protected $fillable = [
-        'lecturer_id',
-        'inpassing_date',
-        'inpassing_type',
-        'notes',
-        'verified_at',
-        'verified_by'
+        'lecturers_id',
+        'rank_group',
+        'decree_number',
+        'effective_date',
+        'notes'
     ];
 
     public function lecturer(): BelongsTo {
-        return $this->belongsTo(Lecturer::class, 'lecturer_id');
+        return $this->belongsTo(Lecturer::class, 'lecturers_id');
     }
 }

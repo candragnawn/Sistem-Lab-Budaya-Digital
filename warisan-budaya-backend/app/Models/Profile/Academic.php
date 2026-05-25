@@ -11,16 +11,14 @@ class Academic extends Model
     protected $table = 'lecturer_academics';
     
     protected $fillable = [
-        'lecturer_id',
-        'degree',
-        'field_of_study',
-        'institution',
-        'graduation_year',
-        'gpa',
-        'thesis_title'
+        'lecturers_id',
+        'science_cluster',
+        'science_tree',
+        'science_branch',
+        'sinta_id'
     ];
 
     public function lecturer(): BelongsTo {
-        return $this->belongsTo(Lecturer::class, 'lecturer_id');
+        return $this->belongsTo(Lecturer::class, 'lecturers_id');
     }
 }

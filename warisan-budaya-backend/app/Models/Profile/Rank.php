@@ -11,7 +11,8 @@ class Rank extends Model
     protected $table = 'lecturer_ranks';
 
     protected $fillable = [
-        'lecturer_id',
+        'lecturers_id',
+        'group_code',
         'rank_name',
         'sk_number',
         'sk_date',
@@ -20,6 +21,6 @@ class Rank extends Model
     ];
 
     public function lecturer(): BelongsTo {
-        return $this->belongsTo(Lecturer::class);
+        return $this->belongsTo(Lecturer::class, 'lecturers_id');
     }
 }
