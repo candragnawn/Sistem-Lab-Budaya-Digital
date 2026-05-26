@@ -169,5 +169,6 @@ return new class extends Migration
         Schema::dropIfExists('research');
         Schema::dropIfExists('hkis');
         Schema::dropIfExists('publications');
+        Schema::dropIfExists('publication_author');
     }
 };
