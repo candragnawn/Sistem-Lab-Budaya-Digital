@@ -59,26 +59,26 @@ class Lecturer extends Model
 
     // Profile Relations
     public function academic(): HasOne {
-        return $this->hasOne(Academic::class, 'lecturers_id');
+        return $this->hasOne(Academic::class, 'lecturer_id');
     }
 
     public function addresses(): HasMany {
-        return $this->hasMany(Address::class, 'lecturers_id');
+        return $this->hasMany(Address::class, 'lecturer_id');
     }
 
     public function families(): HasMany {
-        return $this->hasMany(Family::class, 'lecturers_id');
+        return $this->hasMany(Family::class, 'lecturer_id');
     }
 
     public function identities(): HasMany {
-        return $this->hasMany(Identity::class, 'lecturers_id');
+        return $this->hasMany(Identity::class, 'lecturer_id');
     }
 
     public function employments(): HasMany {
-        return $this->hasMany(Employment::class, 'lecturers_id');
+        return $this->hasMany(Employment::class, 'lecturer_id');
     }
 
     public function inpassings(): HasMany {
-        return $this->hasMany(Inpassing::class, 'lecturers_id');
+        return $this->hasMany(Inpassing::class, 'lecturer_id');
     }
 }

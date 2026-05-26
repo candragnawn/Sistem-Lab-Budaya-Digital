@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Models\Lecturer;
 use App\Models\Category;
+use App\Models\PublicationAuthor;
 
 class Publication extends Model
 {
