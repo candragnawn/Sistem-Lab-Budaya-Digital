@@ -98,9 +98,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('scholarships', ScholarshipController::class);
 });
 
-Route::prefix('public')->group(function () {
-
     Route::get('/lecturers', [LecturerController::class, 'index']);
     Route::get('/lecturers/{id}', [LecturerController::class, 'show']);
-
-});
