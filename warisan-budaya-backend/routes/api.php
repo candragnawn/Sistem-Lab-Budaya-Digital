@@ -53,6 +53,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
+    Route::get('/me',[AuthController::class, 'me']);
 
     Route::apiResource('lecturers', LecturerController::class);
     Route::apiResource('categories', CategoryController::class);
@@ -97,5 +98,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('scholarships', ScholarshipController::class);
 });
 
-Route::get('/public/lecturers', [LecturerController::class, 'index']);
-Route::get('/public/lecturers/{id}', [LecturerController::class, 'show']);
+Route::prefix('public')->group(function () {
+
+    Route::get('/lecturers', [LecturerController::class, 'index']);
+    Route::get('/lecturers/{id}', [LecturerController::class, 'show']);
+
+});
