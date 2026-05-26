@@ -2,24 +2,36 @@
 
 namespace App\Models;
 
+
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
-use App\Models\Profile\WorkContracts;
-use App\Models\Profile\Rank;
-use App\Models\Profile\Position;
-use App\Models\Profile\stat;
+
+//profile
 use App\Models\Profile\Academic;
 use App\Models\Profile\Address;
+use App\Models\Profile\Employment;
 use App\Models\Profile\Family;
 use App\Models\Profile\Identity;
-use App\Models\Profile\Employment;
 use App\Models\Profile\Inpassing;
+use App\Models\Profile\LecturerStat;
+use App\Models\Profile\OtherData;
+use App\Models\Profile\Placement;
+use App\Models\Profile\Position;
+use App\Models\Profile\ProfessorEmeritus;
+use App\Models\Profile\Rank;
+use App\Models\Profile\WorkContract;
+
+//academic
 use App\Models\Academic\LecturerStudy;
 use App\Models\Academic\LecturerEducation;
 use App\Models\Academic\LecturerTeaching;
-use App\Models\PelaksanaanPenelitian\Publication;
 
+//pelaksanaan penelitian
+use App\Models\PelaksanaanPenelitian\Publication;
+use App\Models\PelaksanaanPenelitian\Research;
+use App\Models\Profile\HKI;
+use App\Models\Profile\PublicationAuthor;
 
 class Lecturer extends Model
 {
@@ -29,9 +41,6 @@ class Lecturer extends Model
         'bio', 'education', 'status', 'photo_path'
     ];
     
-    public function workContracts(): HasMany {
-         return $this->hasMany(WorkContracts::class); 
-         }
     public function education(): HasMany {
         return $this->hasMany(LecturerEducation::class);
     }
@@ -66,6 +75,10 @@ class Lecturer extends Model
         return $this->hasMany(Address::class, 'lecturer_id');
     }
 
+    public function employments(): HasMany {
+        return $this->hasMany(Employment::class, 'lecturer_id');
+    }
+
     public function families(): HasMany {
         return $this->hasMany(Family::class, 'lecturer_id');
     }
@@ -74,11 +87,37 @@ class Lecturer extends Model
         return $this->hasMany(Identity::class, 'lecturer_id');
     }
 
-    public function employments(): HasMany {
-        return $this->hasMany(Employment::class, 'lecturer_id');
-    }
-
     public function inpassings(): HasMany {
         return $this->hasMany(Inpassing::class, 'lecturer_id');
     }
+
+    public function stats(): HasMany {
+        return $this->hasMany(LecturerStat::class, 'lecturer_id');
+    } 
+
+    public function otherdata(): HasMany {
+        return $this->hasMany(OtherData::class, 'lecturer_id');
+    }
+
+    public function placement(): HasMany {
+        return $this->hasMany(Placement::class, 'lecturer_id');
+    }
+
+    public function position(): HasMany {
+        return $this->hasMany(Position::class, 'lecturer_id');
+    }
+
+    public function professoremeritus(): HasMany {
+        return $this->hasMany(ProfessorEmeritus::class, 'lecturer_id');
+    }
+
+    public function rank(): HasMany {
+        return $this->hasMany(Rank::class, 'lecturer_id');
+    }
+
+    public function WorkContract(): HasMany {
+        return $this->hasMany(WorkContract::class, 'lecturer_id');
+    }
+    
+    
 }
