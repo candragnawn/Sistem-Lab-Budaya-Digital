@@ -45,6 +45,12 @@ const sidebarItems: SidebarItem[] = [
     title: "Kualifikasi",
     href: "/dashboard/kualifikasi",
     icon: <GraduationCap className="h-4 w-4" />,
+    badge: "3.0",
+    children: [
+      { title: "Pendidikan Formal", href: "/dashboard/kualifikasi/pendidikan-formal" },
+      { title: "Diklat", href: "/dashboard/kualifikasi/diklat" },
+      { title: "Riwayat Pekerjaan", href: "/dashboard/kualifikasi/riwayat-pekerjaan" },
+    ],
   },
   {
     title: "Kompetensi",
@@ -99,6 +105,17 @@ export function DashboardSidebar() {
     window.addEventListener("resize", checkMobile);
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
+
+  // Auto-expand parent items when navigating to a child route
+  useEffect(() => {
+    sidebarItems.forEach((item) => {
+      if (item.children && item.children.some((child) => pathname.startsWith(child.href))) {
+        setExpandedItems((prev) =>
+          prev.includes(item.title) ? prev : [...prev, item.title]
+        );
+      }
+    });
+  }, [pathname]);
 
   const toggleExpanded = (title: string) => {
     setExpandedItems((prev) =>
