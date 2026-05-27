@@ -255,7 +255,7 @@ export default function DaftarDosenPage() {
       <div className="w-full bg-white px-6 py-8 border-b">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
           <div>
-            <h1 className="text-3xl font-bold text-[#1E3A5F] mb-1">Daftar Dosen</h1>
+            <h1 className="text-3xl font-bold text-brand-navy mb-1">Daftar Dosen</h1>
             <p className="text-sm text-gray-500">Daftar seluruh dosen kontributor arsip</p>
           </div>
         </div>
@@ -270,7 +270,7 @@ export default function DaftarDosenPage() {
                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
                 <Input 
                   placeholder="Cari nama atau ID kontributor..." 
-                  className="pl-11 bg-[#FDFBF7] border-gray-200 text-black placeholder:text-gray-400 rounded-lg h-10 w-full focus-visible:ring-1 focus-visible:ring-[#1E3A5F]"
+                  className="pl-11 bg-brand-bg border-gray-200 text-black placeholder:text-gray-400 rounded-lg h-10 w-full focus-visible:ring-1 focus-visible:ring-brand-navy"
                   value={searchQuery}
                   onChange={(e) => {
                     setSearchQuery(e.target.value);
@@ -282,7 +282,7 @@ export default function DaftarDosenPage() {
               <Button 
                 variant="outline" 
                 onClick={handleOpenFilter}
-                className="h-10 border-gray-200 bg-[#FDFBF7] text-gray-700 hover:bg-gray-100 hover:text-gray-900 w-full md:w-auto px-4"
+                className="h-10 border-gray-200 bg-brand-bg text-gray-700 hover:bg-gray-100 hover:text-gray-900 w-full md:w-auto px-4"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2 h-4 w-4"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
                 Filter Pencarian Lanjutan
@@ -294,7 +294,7 @@ export default function DaftarDosenPage() {
                   setSortBy(e.target.value);
                   setCurrentPage(1);
                 }}
-                className="h-10 w-full md:w-[220px] rounded-lg border border-gray-200 bg-[#FDFBF7] px-4 py-2 text-sm text-gray-700 outline-none focus:ring-1 focus:ring-[#1E3A5F]"
+                className="h-10 w-full md:w-[220px] rounded-lg border border-gray-200 bg-brand-bg px-4 py-2 text-sm text-gray-700 outline-none focus:ring-1 focus:ring-brand-navy"
               >
                 <option value="upload-desc">Urutkan: Tahun Upload (Terbaru)</option>
                 <option value="upload-asc">Urutkan: Tahun Upload (Terlama)</option>
@@ -306,7 +306,7 @@ export default function DaftarDosenPage() {
             </div>
             
             <div className="text-sm text-gray-600 font-medium">
-              <span className="text-[#1E3A5F]">Halaman {currentPage} dari {totalPages || 1}</span> | Total Dosen {sortedDosen.length}
+              <span className="text-brand-navy">Halaman {currentPage} dari {totalPages || 1}</span> | Total Dosen {sortedDosen.length}
             </div>
           </div>
 
@@ -332,7 +332,7 @@ export default function DaftarDosenPage() {
 
                       <div className="flex-grow flex flex-col gap-3">
                         <div className="flex items-center gap-2">
-                          <h3 className="text-lg font-bold text-[#1E3A5F]">{dosen.name}</h3>
+                          <h3 className="text-lg font-bold text-brand-navy">{dosen.name}</h3>
                           {dosen.verified && <CheckCircle2 className="h-5 w-5 text-emerald-500" />}
                         </div>
 
@@ -368,11 +368,11 @@ export default function DaftarDosenPage() {
 
                       <div className="flex flex-col items-end justify-center md:min-w-[150px] mt-4 md:mt-0 pt-4 md:pt-0 border-t md:border-t-0 md:border-l border-gray-100 pl-0 md:pl-6">
                         <div className="text-right mb-4">
-                          <div className="text-3xl font-bold text-[#1E3A5F]">{dosen.sintaScore3Yr}</div>
+                          <div className="text-3xl font-bold text-brand-navy">{dosen.sintaScore3Yr}</div>
                           <div className="text-[10px] text-gray-400 font-medium uppercase tracking-wider">SINTA Score 3Yr</div>
                         </div>
                         <div className="text-right">
-                          <div className="text-2xl font-bold text-[#1E3A5F]">{dosen.sintaScoreOverall}</div>
+                          <div className="text-2xl font-bold text-brand-navy">{dosen.sintaScoreOverall}</div>
                           <div className="text-[10px] text-gray-400 font-medium uppercase tracking-wider">SINTA Score Overall</div>
                         </div>
                       </div>
@@ -409,7 +409,7 @@ export default function DaftarDosenPage() {
                       variant={pageNumber === currentPage ? "default" : "outline"}
                       size="sm"
                       onClick={() => setCurrentPage(pageNumber)}
-                      className={pageNumber === currentPage ? "bg-[#1E3A5F] text-white" : "text-gray-600"}
+                      className={pageNumber === currentPage ? "bg-brand-navy text-white" : "text-gray-600"}
                     >
                       {pageNumber}
                     </Button>

@@ -5,6 +5,10 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+    --color-brand-navy: #1E3A5F;
+    --color-brand-gold: #C9A84C;
+    --color-brand-green: #5B9A6F;
+    --color-brand-bg: #FDFBF7;
     --font-heading: var(--font-sans);
     --font-sans: var(--font-sans);
     --color-sidebar-ring: var(--sidebar-ring);

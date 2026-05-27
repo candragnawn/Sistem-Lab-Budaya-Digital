@@ -9,12 +9,12 @@ const Footer = () => {
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(to bottom, rgba(30, 58, 95, 0.4) 0%, #1E3A5F 100%)",
+              "linear-gradient(to bottom, rgba(30, 58, 95, 0.4) 0%, var(--color-brand-navy) 100%)",
           }}
         />
       </div>
 
-      <div className="bg-[#1E3A5F] text-white border-b-2 ">
+      <div className="bg-brand-navy text-white border-b-2 ">
         <div className="max-w-7xl mx-auto px-6 py-10 grid grid-cols-1 md:grid-cols-3 gap-10 vorde">
           {/* Column 1: Logo & Description */}
           <div className="flex flex-col gap-3">
@@ -37,7 +37,7 @@ const Footer = () => {
 
           {/* Column 2: Navigasi */}
           <div className="flex flex-col gap-3">
-            <h3 className="text-[#C9A84C] font-semibold text-base mb-1">
+            <h3 className="text-brand-gold font-semibold text-base mb-1">
               Navigasi
             </h3>
             <nav className="flex flex-col gap-2">
@@ -69,7 +69,7 @@ const Footer = () => {
 
           {/* Column 3: Kontak */}
           <div className="flex flex-col gap-3">
-            <h3 className="text-[#C9A84C] font-semibold text-base mb-1">
+            <h3 className="text-brand-gold font-semibold text-base mb-1">
               Kontak
             </h3>
             <div className="flex flex-col gap-2 text-sm text-white/70">
@@ -87,7 +87,7 @@ const Footer = () => {
       </div>
 
       {/* Bottom copyright bar */}
-      <div className="bg-[#162F4D] text-white/50 border-t border-white/10">
+      <div className="bg-brand-navy/95 text-white/50 border-t border-white/10">
         <div className="max-w-7xl mx-auto px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs">
           <p>© 2026 Laboratorium Warisan Budaya Digital</p>
           <div className="flex items-center gap-4">
