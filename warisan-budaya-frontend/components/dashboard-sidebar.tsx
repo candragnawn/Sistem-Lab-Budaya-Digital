@@ -45,6 +45,12 @@ const sidebarItems: SidebarItem[] = [
     title: "Kualifikasi",
     href: "/dashboard/kualifikasi",
     icon: <GraduationCap className="h-4 w-4" />,
+    badge: "3.0",
+    children: [
+      { title: "Pendidikan Formal", href: "/dashboard/kualifikasi/pendidikan-formal" },
+      { title: "Diklat", href: "/dashboard/kualifikasi/diklat" },
+      { title: "Riwayat Pekerjaan", href: "/dashboard/kualifikasi/riwayat-pekerjaan" },
+    ],
   },
   {
     title: "Kompetensi",
@@ -100,6 +106,17 @@ export function DashboardSidebar() {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
+  // Auto-expand parent items when navigating to a child route
+  useEffect(() => {
+    sidebarItems.forEach((item) => {
+      if (item.children && item.children.some((child) => pathname.startsWith(child.href))) {
+        setExpandedItems((prev) =>
+          prev.includes(item.title) ? prev : [...prev, item.title]
+        );
+      }
+    });
+  }, [pathname]);
+
   const toggleExpanded = (title: string) => {
     setExpandedItems((prev) =>
       prev.includes(title)
@@ -119,7 +136,7 @@ export function DashboardSidebar() {
       <button
         onClick={() => setIsOpen(!isOpen)}
         className={cn(
-          "fixed top-[65px] z-50 flex h-10 w-10 items-center justify-center rounded-r-lg bg-[#1E3A5F] text-white shadow-lg transition-all duration-300 hover:bg-[#2a4f7a] lg:top-[65px]",
+          "fixed top-[65px] z-50 flex h-10 w-10 items-center justify-center rounded-r-lg bg-brand-navy text-white shadow-lg transition-all duration-300 hover:bg-brand-navy/90 lg:top-[65px]",
           isOpen ? "left-[259px]" : "left-0",
         )}
         aria-label="Toggle sidebar"
@@ -143,7 +160,7 @@ export function DashboardSidebar() {
         )}
       >
         {/* Header */}
-        <div className="border-b border-gray-100 bg-gradient-to-r from-[#1E3A5F] to-[#2a5a8f] px-4 py-3">
+        <div className="border-b border-gray-100 bg-gradient-to-r from-brand-navy to-brand-navy/80 px-4 py-3">
           <div className="flex items-center gap-2">
             <div className="flex h-6 w-6 items-center justify-center rounded bg-yellow-400/20">
               <Menu className="h-3.5 w-3.5 text-yellow-400" />
@@ -166,8 +183,8 @@ export function DashboardSidebar() {
                       className={cn(
                         "group flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all duration-200",
                         isParentActive(item)
-                          ? "bg-[#1E3A5F] text-white shadow-md"
-                          : "text-gray-700 hover:bg-gray-100 hover:text-[#1E3A5F]",
+                          ? "bg-brand-navy text-white shadow-md"
+                          : "text-gray-700 hover:bg-gray-100 hover:text-brand-navy",
                       )}
                     >
                       <span
@@ -175,7 +192,7 @@ export function DashboardSidebar() {
                           "flex h-7 w-7 items-center justify-center rounded-md transition-colors",
                           isParentActive(item)
                             ? "bg-white/20 text-white"
-                            : "bg-gray-100 text-gray-500 group-hover:bg-[#1E3A5F]/10 group-hover:text-[#1E3A5F]",
+                            : "bg-gray-100 text-gray-500 group-hover:bg-brand-navy/10 group-hover:text-brand-navy",
                         )}
                       >
                         {item.icon}
@@ -186,7 +203,7 @@ export function DashboardSidebar() {
                           className={cn(
                             "rounded-full px-2 py-0.5 text-[10px] font-bold",
                             isParentActive(item)
-                              ? "bg-yellow-400 text-[#1E3A5F]"
+                              ? "bg-yellow-400 text-brand-navy"
                               : "bg-gray-200 text-gray-600",
                           )}
                         >
@@ -231,7 +248,7 @@ export function DashboardSidebar() {
                               className={cn(
                                 "flex items-center justify-between rounded-md px-3 py-2 text-xs font-medium transition-all duration-200",
                                 isActive(child.href)
-                                  ? "bg-[#E8F0FE] text-[#1E3A5F] font-semibold"
+                                  ? "bg-blue-50 text-brand-navy font-semibold"
                                   : "text-gray-500 hover:bg-gray-50 hover:text-gray-700",
                               )}
                               onClick={() => isMobile && setIsOpen(false)}
@@ -254,8 +271,8 @@ export function DashboardSidebar() {
                     className={cn(
                       "group flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all duration-200",
                       isActive(item.href)
-                        ? "bg-[#1E3A5F] text-white shadow-md"
-                        : "text-gray-700 hover:bg-gray-100 hover:text-[#1E3A5F]",
+                        ? "bg-brand-navy text-white shadow-md"
+                        : "text-gray-700 hover:bg-gray-100 hover:text-brand-navy",
                     )}
                     onClick={() => isMobile && setIsOpen(false)}
                   >
@@ -264,7 +281,7 @@ export function DashboardSidebar() {
                         "flex h-7 w-7 items-center justify-center rounded-md transition-colors",
                         isActive(item.href)
                           ? "bg-white/20 text-white"
-                          : "bg-gray-100 text-gray-500 group-hover:bg-[#1E3A5F]/10 group-hover:text-[#1E3A5F]",
+                          : "bg-gray-100 text-gray-500 group-hover:bg-brand-navy/10 group-hover:text-brand-navy",
                       )}
                     >
                       {item.icon}
@@ -275,7 +292,7 @@ export function DashboardSidebar() {
                         className={cn(
                           "rounded-full px-2 py-0.5 text-[10px] font-bold",
                           isActive(item.href)
-                            ? "bg-yellow-400 text-[#1E3A5F]"
+                            ? "bg-yellow-400 text-brand-navy"
                             : "bg-gray-200 text-gray-600",
                         )}
                       >

@@ -5,19 +5,15 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Http\Resources\UserResource;
+use App\Http\Resources\Master\UserResource;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
-
+use App\Http\Requests\Auth\RegisterAuthRequest;
+use App\Http\Requests\Auth\LoginAuthRequest;
 class AuthController extends Controller
 {
-    public function register(Request $request)
+    public function register(RegisterAuthRequest $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8',
-        ]);
 
         $user = User::create([
             'name' => $request->name,
@@ -27,20 +23,11 @@ class AuthController extends Controller
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
-        return response()->json([
-            'data' => new UserResource($user),
-            'access_token' => $token,
-            'token_type' => 'Bearer',
-        ], 201);
+       return new UserResource($user, $token);
     }
 
-    public function login(Request $request)
+    public function login(LoginAuthRequest $request)
     {
-        $request->validate([
-            'email' => 'required|string|email',
-            'password' => 'required|string',
-        ]);
-
         $user = User::where('email', $request->email)->first();
 
         if (!$user || !Hash::check($request->password, $user->password)) {
@@ -51,19 +38,13 @@ class AuthController extends Controller
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
-        return response()->json([
-            'message' => 'Login success',
-            'data' => new UserResource($user),
-            'access_token' => $token,
-            'token_type' => 'Bearer',
-        ]);
+        return new UserResource($user, $token);
+        
     }
 
     public function me(Request $request)
     {
-        return response()->json([
-            'data' => new UserResource($request->user())
-        ]);
+        return new UserResource($request->user());
     }
     public function logout(Request $request)
     {
