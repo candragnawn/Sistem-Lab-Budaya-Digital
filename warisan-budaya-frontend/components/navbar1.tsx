@@ -176,7 +176,7 @@ const Navbar1 = ({
   return (
     <section
       className={cn(
-        "py-0 bg-[#1E3A5F] text-white border-b-2 border-yellow-400",
+        "py-0 bg-brand-navy text-white border-b-2 border-brand-gold",
         className,
       )}
     >
@@ -345,7 +345,7 @@ const Navbar1 = ({
                         </div>
                         <Link
                           href="/dashboard/profil"
-                          className="flex items-center gap-2 text-sm text-gray-700 hover:text-[#1E3A5F]"
+                          className="flex items-center gap-2 text-sm text-gray-700 hover:text-brand-navy"
                         >
                           <User className="h-4 w-4" />
                           Profil Saya
@@ -409,8 +409,8 @@ const renderMenuItem = (item: MenuItem) => {
     <NavigationMenuItem key={item.title}>
       <NavigationMenuLink
         href={item.url}
-        className="group inline-flex h-10 items-center justify-center rounded-md 
-    px-2 py-1 text-sm font-medium transition-colors hover:bg-white/6 hover:text-[white] border-b-2"
+        className="rounded-md px-3 py-2 text-sm font-medium text-white transition-colors 
+    hover:!bg-white/10 hover:!text-white"
       >
         {item.title}
       </NavigationMenuLink>
@@ -448,7 +448,7 @@ const renderMobileMenuItem = (item: MenuItem) => {
 const SubMenuLink = ({ item }: { item: MenuItem }) => {
   return (
     <a
-      className="flex min-w-80 flex-row gap-4 rounded-md p-3 leading-none no-underline transition-colors outline-none select-none hover:bg-[#ffffff] hover:text-[#1E3A5F]"
+      className="flex min-w-80 flex-row gap-4 rounded-md p-3 leading-none no-underline transition-colors outline-none select-none hover:bg-white hover:text-brand-navy"
       href={item.url}
     >
       <div className="text-foreground">{item.icon}</div>

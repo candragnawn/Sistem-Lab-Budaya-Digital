@@ -6,18 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Models\Lecturer;
 
-class WorkContracts extends Model
+class ProfessorEmeritus extends Model
 {
-    protected $table = 'lecturer_work_contracts';
-
+    
     protected $fillable = [
         'lecturer_id',
-        'work_status',
-        'current_status',
-        'tmt'
+        'title_name',
+        'university',
+        'start_date',
+        'end_date'
     ];
 
     public function lecturer(): BelongsTo {
-        return $this->belongsTo(Lecturer::class);
+        return $this->belongsTo(Lecturer::class, 'lecturers_id');
     }
 }

@@ -85,7 +85,7 @@ export default function ProfilPage() {
     <div className="space-y-6">
       {/* Breadcrumb */}
       <div className="text-sm text-gray-500">
-        <span className="text-[#1E3A5F] font-medium">Universitas Ivan</span>
+        <span className="text-brand-navy font-medium">Universitas Ivan</span>
         <span className="mx-2">/</span>
         <span>Laboratorium Warisan Budaya Digital</span>
       </div>
@@ -94,7 +94,7 @@ export default function ProfilPage() {
       <div className="rounded-xl bg-white p-6 shadow-sm border border-gray-100">
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div className="flex items-start gap-4">
-            <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-full border-3 border-[#C9A84C]">
+            <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-full border-3 border-brand-gold">
               <img
                 src={user.photo}
                 alt={user.name}
@@ -126,7 +126,7 @@ export default function ProfilPage() {
           <div className="flex gap-2">
             <Button
               size="sm"
-              className="bg-[#1E3A5F] text-white hover:bg-[#2a4f7a] text-xs gap-1.5"
+              className="bg-brand-navy text-white hover:bg-brand-navy/90 text-xs gap-1.5"
             >
               <RefreshCw className="h-3 w-3" />
               Sync Sekarang
@@ -201,7 +201,7 @@ export default function ProfilPage() {
                   {profilData.bidangKeahlian.map((keahlian) => (
                     <span
                       key={keahlian}
-                      className="rounded-full border border-[#C9A84C] bg-[#C9A84C]/10 px-2.5 py-0.5 text-[10px] font-medium text-[#8B6914]"
+                      className="rounded-full border border-brand-gold bg-brand-gold/10 px-2.5 py-0.5 text-[10px] font-medium text-amber-800"
                     >
                       {keahlian}
                     </span>
