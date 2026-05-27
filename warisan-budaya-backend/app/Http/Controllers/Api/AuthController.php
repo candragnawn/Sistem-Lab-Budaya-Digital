@@ -23,11 +23,7 @@ class AuthController extends Controller
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
-        return response()->json([
-            'data' => new UserResource($user),
-            'access_token' => $token,
-            'token_type' => 'Bearer',
-        ], 201);
+       return new UserResource($user, $token);
     }
 
     public function login(LoginAuthRequest $request)
@@ -42,19 +38,13 @@ class AuthController extends Controller
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
-        return response()->json([
-            'message' => 'Login success',
-            'data' => new UserResource($user),
-            'access_token' => $token,
-            'token_type' => 'Bearer',
-        ]);
+        return new UserResource($user, $token);
+        
     }
 
     public function me(Request $request)
     {
-        return response()->json([
-            'data' => new UserResource($request->user())
-        ]);
+        return new UserResource($request->user());
     }
     public function logout(Request $request)
     {
