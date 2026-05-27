@@ -7,26 +7,15 @@ use Illuminate\Http\Request;
 
 abstract class BaseCrudController extends Controller
 {
-    /**
-     * The model class name.
-     *
-     * @var string
-     */
     protected $model;
 
-    /**
-     * Optional: Array of relationships to eager load.
-     *
-     * @var array
-     */
     protected $with = [];
 
-    /**
-     * Optional: API Resource class to transform the data.
-     *
-     * @var string|null
-     */
     protected $resource = null;
+
+    protected $storeRequest = null;
+
+    protected $updateRequest = null;
 
     public function index()
     {
@@ -36,28 +25,22 @@ abstract class BaseCrudController extends Controller
             $query->with($this->with);
         }
 
-        $items = $query->get();
+        $items = $query->latest()->paginate(10);
 
-        if ($this->resource) {
-            return $this->resource::collection($items);
-        }
-
-        return response()->json($items);
+        return $this->successResponse($items);
     }
 
     public function store(Request $request)
     {
-        $item = $this->model::create($request->all());
+        $validated = $request->validate(
+            app($this->storeRequest)->rules()
+        );
 
-        if (!empty($this->with)) {
-            $item->load($this->with);
-        }
+        $item = $this->model::create($validated);
 
-        if ($this->resource) {
-            return new $this->resource($item);
-        }
+        $this->loadRelations($item);
 
-        return response()->json($item, 201);
+        return $this->successResponse($item, 201);
     }
 
     public function show($id)
@@ -70,33 +53,57 @@ abstract class BaseCrudController extends Controller
 
         $item = $query->findOrFail($id);
 
-        if ($this->resource) {
-            return new $this->resource($item);
-        }
-
-        return response()->json($item);
+        return $this->successResponse($item);
     }
 
     public function update(Request $request, $id)
     {
+        $validated = $request->validate(
+            app($this->updateRequest)->rules()
+        );
+
         $item = $this->model::findOrFail($id);
-        $item->update($request->all());
 
-        if (!empty($this->with)) {
-            $item->load($this->with);
-        }
+        $item->update($validated);
 
-        if ($this->resource) {
-            return new $this->resource($item);
-        }
+        $this->loadRelations($item);
 
-        return response()->json($item);
+        return $this->successResponse($item);
     }
 
     public function destroy($id)
     {
         $item = $this->model::findOrFail($id);
+
         $item->delete();
-        return response()->json(null, 204);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Data deleted successfully'
+        ], 200);
+    }
+
+    protected function loadRelations($item)
+    {
+        if (!empty($this->with)) {
+            $item->load($this->with);
+        }
+    }
+
+    protected function successResponse($data, $code = 200)
+    {
+        if ($this->resource) {
+
+            if ($data instanceof \Illuminate\Pagination\LengthAwarePaginator) {
+                return $this->resource::collection($data);
+            }
+
+            return new $this->resource($data);
+        }
+
+        return response()->json([
+            'success' => true,
+            'data' => $data
+        ], $code);
     }
 }
