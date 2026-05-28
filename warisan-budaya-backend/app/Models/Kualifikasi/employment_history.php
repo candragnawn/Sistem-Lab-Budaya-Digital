@@ -9,7 +9,7 @@ use App\Models\Lecturer;
 class employment_history extends Model
 {
     protected $fillable = [
-        'Lecturers_id',
+        'Lecturer_id',
         'nip',
         'sk_cpns_number',
         'sk_cpns_date',

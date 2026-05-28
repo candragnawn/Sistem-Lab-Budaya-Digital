@@ -9,7 +9,7 @@ use App\Models\Lecturer;
 class test extends Model
 {
     protected $fillable = [
-        'Lecturers_id',
+        'Lecturer_id',
         'test_name',
         'test_score',
         'organizer',

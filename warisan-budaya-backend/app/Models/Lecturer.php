@@ -179,12 +179,6 @@ public function academic(): HasOne
         return $this->hasMany(LecturerEducation::class, 'lecturer_id');
     }
 
-    public function studies(): HasMany
-    {
-        return $this->hasMany(LecturerStudy::class, 'lecturer_id');
-    }
-
-
     public function teachings(): HasMany
     {
         return $this->hasMany(LecturerTeaching::class, 'lecturer_id')

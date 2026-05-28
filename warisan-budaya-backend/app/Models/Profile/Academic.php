@@ -8,10 +8,10 @@ use App\Models\Lecturer;
 
 class Academic extends Model
 {
-    protected $table = 'Lecturers_academics';
+    protected $table = 'academics';
     
     protected $fillable = [
-        'Lecturers_id',
+        'lecturer_id',
         'science_cluster',
         'science_tree',
         'science_branch',
