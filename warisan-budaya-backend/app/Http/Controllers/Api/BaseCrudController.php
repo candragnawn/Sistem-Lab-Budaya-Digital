@@ -36,7 +36,7 @@ abstract class BaseCrudController extends Controller
             app($this->storeRequest)->rules()
         );
 
-        $validated['lecturer_id'] = auth()->user()->lecturer_id;
+        $validated['lecturer_id'] = auth()->guard()->user()->lecturer_id;
 
         $item = $this->model::create($validated);
 

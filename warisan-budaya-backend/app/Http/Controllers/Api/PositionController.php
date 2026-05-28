@@ -2,7 +2,17 @@
 
 namespace App\Http\Controllers\Api;
 
+
+use App\Models\Profile\Position;
+use App\Http\Requests\Profile\StorePositionRequest;
+use App\Http\Requests\Profile\UpdatePositionRequest;
+use App\Http\Resources\Profile\PositionResource;
+
 class PositionController extends BaseCrudController
 {
-    protected $model = \App\Models\Profile\Position::class;
+    protected $model = Position::class;
+    protected $resource = PositionResource::class;
+    protected $storeRequest = StorePositionRequest::class;
+    protected $updateRequest = UpdatePositionRequest::class;
+    protected $with = ['lecturer'];
 }
