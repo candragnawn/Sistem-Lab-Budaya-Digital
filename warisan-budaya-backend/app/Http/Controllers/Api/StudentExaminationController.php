@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\PelaksanaanPendidikan\StudentExamination;
-
 class StudentExaminationController extends BaseCrudController
 {
-    protected $model = StudentExamination::class;
+    protected $model = \App\Models\PelaksanaanPendidikan\StudentExamination::class;
+    protected $storeRequest = "App\\Http\\Requests\\PelaksanaanPendidikan\\StoreStudentExaminationRequest";
+    protected $updateRequest = "App\\Http\\Requests\\PelaksanaanPendidikan\\UpdateStudentExaminationRequest";
+    protected $resource = "App\\Http\\Resources\\PelaksanaanPendidikan\\StudentExaminationResource";
 }

@@ -9,7 +9,7 @@ use App\Models\Lecturer;
 class Employment extends Model
 {
     protected $table = 'lecturer_employments';
-    
+
     protected $fillable = [
         'lecturer_id',
         'nip',
@@ -23,7 +23,8 @@ class Employment extends Model
         'active_status'
     ];
 
-    public function lecturer(): BelongsTo {
-        return $this->belongsTo(Lecturer::class, 'lecturers_id');
+    public function lecturer(): BelongsTo
+    {
+        return $this->belongsTo(Lecturer::class, 'lecturer_id');
     }
 }

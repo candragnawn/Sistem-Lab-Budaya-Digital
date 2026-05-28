@@ -9,7 +9,7 @@ use App\Models\Lecturer;
 class Identity extends Model
 {
     protected $table = 'lecturer_identities';
-    
+
     protected $fillable = [
         'lecturer_id',
         'nik',
@@ -18,7 +18,8 @@ class Identity extends Model
         'npwp'
     ];
 
-    public function lecturer(): BelongsTo {
-        return $this->belongsTo(Lecturer::class, 'lecturers_id');
+    public function lecturer(): BelongsTo
+    {
+        return $this->belongsTo(Lecturer::class, 'lecturer_id');
     }
 }

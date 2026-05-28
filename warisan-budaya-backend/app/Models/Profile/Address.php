@@ -9,7 +9,7 @@ use App\Models\Lecturer;
 class Address extends Model
 {
     protected $table = 'addresses';
-    
+
     protected $fillable = [
         'lecturer_id',
         'email',
@@ -23,7 +23,8 @@ class Address extends Model
         'phone_number'
     ];
 
-    public function lecturer(): BelongsTo {
-        return $this->belongsTo(Lecturer::class, 'lecturers_id');
+    public function lecturer(): BelongsTo
+    {
+        return $this->belongsTo(Lecturer::class, 'lecturer_id');
     }
 }

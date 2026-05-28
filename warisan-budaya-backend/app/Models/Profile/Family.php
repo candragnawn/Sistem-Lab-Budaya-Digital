@@ -9,7 +9,7 @@ use App\Models\Lecturer;
 class Family extends Model
 {
     protected $table = 'lecturer_families';
-    
+
     protected $fillable = [
         'lecturer_id',
         'marital_status',
@@ -18,7 +18,8 @@ class Family extends Model
         'spouse_occupation'
     ];
 
-    public function lecturer(): BelongsTo {
-        return $this->belongsTo(Lecturer::class, 'lecturers_id');
+    public function lecturer(): BelongsTo
+    {
+        return $this->belongsTo(Lecturer::class, 'lecturer_id');
     }
 }

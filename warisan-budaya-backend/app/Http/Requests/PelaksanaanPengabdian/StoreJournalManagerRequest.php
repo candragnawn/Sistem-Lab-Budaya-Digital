@@ -2,28 +2,25 @@
 
 namespace App\Http\Requests\PelaksanaanPengabdian;
 
-use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreJournalManagerRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, ValidationRule|array<mixed>|string>
-     */
     public function rules(): array
     {
         return [
-            //
+            'lecturer_id' => 'nullable|string|max:255',
+            'journal_name' => 'nullable|string|max:255',
+            'decree_number' => 'nullable|string|max:255',
+            'effective_date' => 'nullable|string|max:255',
+            'end_date' => 'nullable|string|max:255',
+            'is_active' => 'nullable|string|max:255',
+            'role' => 'nullable|string|max:255',
         ];
     }
 }

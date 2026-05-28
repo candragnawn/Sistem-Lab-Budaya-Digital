@@ -8,6 +8,8 @@ use App\Models\Lecturer;
 
 class StudentDevelopment extends Model
 {
+    protected $table = "";
+
     protected $fillable = [
         'lecturer_id',
         'semester',

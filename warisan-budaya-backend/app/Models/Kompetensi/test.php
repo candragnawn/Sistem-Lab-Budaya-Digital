@@ -8,8 +8,10 @@ use App\Models\Lecturer;
 
 class test extends Model
 {
+    protected $table = "tests";
+
     protected $fillable = [
-        'Lecturer_id',
+        'lecturer_id',
         'test_name',
         'test_score',
         'organizer',

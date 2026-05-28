@@ -2,28 +2,23 @@
 
 namespace App\Http\Requests\Kompetensi;
 
-use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreTestRequest extends FormRequest
+class StoretestRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, ValidationRule|array<mixed>|string>
-     */
     public function rules(): array
     {
         return [
-            //
+            'Lecturer_id' => 'nullable|string|max:255',
+            'test_name' => 'nullable|string|max:255',
+            'test_score' => 'nullable|string|max:255',
+            'organizer' => 'nullable|string|max:255',
+            'year' => 'nullable|string|max:255',
         ];
     }
 }
