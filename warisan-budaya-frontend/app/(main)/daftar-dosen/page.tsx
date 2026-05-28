@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import { Search, ChevronLeft, ChevronRight, CheckCircle2, GraduationCap, Building2, Fingerprint, Tags, BarChart3, Calendar, Filter, X, RefreshCcw } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -332,7 +333,9 @@ export default function DaftarDosenPage() {
 
                       <div className="flex-grow flex flex-col gap-3">
                         <div className="flex items-center gap-2">
-                          <h3 className="text-lg font-bold text-brand-navy">{dosen.name}</h3>
+                          <Link href={`/dosen/${dosen.id}`}>
+                            <h3 className="text-lg font-bold text-brand-navy hover:underline cursor-pointer transition-colors hover:text-blue-700">{dosen.name}</h3>
+                          </Link>
                           {dosen.verified && <CheckCircle2 className="h-5 w-5 text-emerald-500" />}
                         </div>
 
