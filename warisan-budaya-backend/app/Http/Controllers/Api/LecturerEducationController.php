@@ -2,16 +2,18 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\Academic\LecturerEducation;
 use App\Http\Requests\Academic\StoreLecturerEducationRequest;
-use App\Http\Requests\Academic\UpdateLecturerEducationRequest;
-use App\Http\Resources\Academic\LecturerEducationResource;
+use App\Models\Academic\LecturerEducation;
+use Illuminate\Http\Request;
+use App\Http\Resources\LecturerEducationResource;
 
 class LecturerEducationController extends BaseCrudController
 {
     protected $model = LecturerEducation::class;
-    protected $resource = LecturerEducationResource::class;
-    protected $storeRequest = StoreLecturerEducationRequest::class;
-    protected $updateRequest = UpdateLecturerEducationRequest::class;
-    protected $with = ['lecturer'];
+
+    protected $storeRequest = "App\Http\Requests\Academic\StoreLecturerEducationRequest";
+    
+    protected $updateRequest = "App\Http\Requests\Academic\UpdateLecturerEducationRequest";
+
+    protected $resource = "App\Http\Resources\Academic\LecturerEducationResource";
 }
