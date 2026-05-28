@@ -11,7 +11,6 @@ class certificationResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'lecturer_id' => $this->lecturer_id,
             'certification_type' => $this->certification_type,
             'study_type' => $this->study_type,
             'educator_registration_number' => $this->educator_registration_number,
