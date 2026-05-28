@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Models;
-
+namespace App\Models\PelaksanaanPengabdian;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Models\Lecturer;
 
 class Speaker extends Model
 {

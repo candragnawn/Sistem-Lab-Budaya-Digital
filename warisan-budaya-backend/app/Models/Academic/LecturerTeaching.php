@@ -7,14 +7,15 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Models\Lecturer;
 class LecturerTeaching extends Model
 {
-
+protected $table = "teachings";
 protected $fillable = [
     'lecturer_id',
-    'academic_year',
-    'course_code',
     'course_name',
-    'credits',
-    'class_name'
+    'course_type',
+    'scientific_field',
+    'class',
+    'student_count',
+    'credits'
 
 ];
  public function lecturer(): BelongsTo  {

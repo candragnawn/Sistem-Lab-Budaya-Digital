@@ -10,7 +10,8 @@ return new class extends Migration
     {
         Schema::create('publications', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lecturer_id')->constrained('lecturer')->onDelete('cascade');
+            $table->foreignId('lecturers_id')->constrained('lecturers')->onDelete('cascade');
+            $table->foreignId('categories_id')->constrained('categories')->onDelete('cascade');
             $table->string('title');
             $table->enum('category', ['PENELITIAN', 'PENGABDIAN']);
             $table->enum('type', [
@@ -34,7 +35,7 @@ return new class extends Migration
 
         Schema::create('lecturer_hkis', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lecturer_id')->constrained('lecturer')->onDelete('cascade');
+            $table->foreignId('lecturers_id')->constrained('lecturers')->onDelete('cascade');
             $table->string('title');
             $table->string('activity_category');
             $table->string('type');
@@ -43,9 +44,9 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('research', function (Blueprint $table) {
+        Schema::create('researchs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lecturer_id')->constrained('lecturer')->onDelete('cascade');
+            $table->foreignId('lecturers_id')->constrained('lecturers')->onDelete('cascade');
             $table->string('title');
             $table->string('scientific_field');
             $table->string('implementation_year', 9);
@@ -55,17 +56,17 @@ return new class extends Migration
 
         Schema::create('community_services', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lecturer_id')->constrained('lecturer')->onDelete('cascade');
+            $table->foreignId('lecturers_id')->constrained('lecturers')->onDelete('cascade');
             $table->string('title');
             $table->string('scientific_field');
             $table->string('implementation_year', 9);
-            $table->string('duration');
+            $table->integer('duration');
             $table->timestamps();
         });
 
         Schema::create('speakers', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lecturer_id')->constrained('lecturer')->onDelete('cascade');
+            $table->foreignId('lecturers_id')->constrained('lecturers')->onDelete('cascade');
             $table->string('activity_category');
             $table->string('paper_title');
             $table->string('guest_lecturer_name');
@@ -76,7 +77,7 @@ return new class extends Migration
 
         Schema::create('journal_managers', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lecturer_id')->constrained('lecturer')->onDelete('cascade');
+            $table->foreignId('lecturers_id')->constrained('lecturers')->onDelete('cascade');
             $table->string('journal_name');
             $table->string('decree_number');
             $table->date('effective_date');
@@ -88,7 +89,7 @@ return new class extends Migration
 
         Schema::create('professional_memberships', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lecturer_id')->constrained('lecturer')->onDelete('cascade');
+            $table->foreignId('lecturers_id')->constrained('lecturers')->onDelete('cascade');
             $table->string('organization_name');
             $table->string('role');
             $table->year('membership_start');
@@ -99,7 +100,7 @@ return new class extends Migration
 
         Schema::create('awards', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lecturer_id')->constrained('lecturer')->onDelete('cascade');
+            $table->foreignId('lecturers_id')->constrained('lecturers')->onDelete('cascade');
             $table->string('award_name');
             $table->string('award_type');
             $table->string('institution');
@@ -109,7 +110,7 @@ return new class extends Migration
 
         Schema::create('scholarships', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lecturer_id')->constrained('lecturer')->onDelete('cascade');
+            $table->foreignId('lecturers_id')->constrained('lecturers')->onDelete('cascade');
             $table->string('scholarship_type');
             $table->string('scholarship_name');
             $table->year('start_year');
@@ -120,7 +121,7 @@ return new class extends Migration
 
         Schema::create('other_supporting_activities', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lecturer_id')->constrained('lecturer')->onDelete('cascade');
+            $table->foreignId('lecturers_id')->constrained('lecturers')->onDelete('cascade');
             $table->string('activity_name');
             $table->string('organizing_institution');
             $table->string('decree_number')->nullable();
@@ -132,7 +133,7 @@ return new class extends Migration
 
         Schema::create('additional_tasks', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lecturer_id')->constrained('lecturer')->onDelete('cascade');
+            $table->foreignId('lecturers_id')->constrained('lecturers')->onDelete('cascade');
             $table->string('additional_task');
             $table->string('work_unit');
             $table->string('institution');
@@ -152,9 +153,9 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('publication_author', function (Blueprint $table){
+        Schema::create('publication_authors', function (Blueprint $table){
             $table->id();
-            $table->foreignId('lecturer_id')->constrained('lecturer')->onDelete('cascade');
+            $table->foreignId('lecturers_id')->constrained('lecturers')->onDelete('cascade');
             $table->foreignId('publication_id')->constrained('publications')->onDelete('cascade');
             $table->string('author_position');
             $table->unique(['lecturer_id', 'publication_id']);
