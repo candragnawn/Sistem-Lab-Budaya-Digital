@@ -8,6 +8,8 @@ use App\Models\Lecturer;
 
 class Rank extends Model
 {
+    protected $table = "";
+
     protected $fillable = [
         'lecturer_id',
         'group_code',
@@ -18,7 +20,8 @@ class Rank extends Model
         'received_date'
     ];
 
-    public function lecturer(): BelongsTo {
-        return $this->belongsTo(Lecturer::class, 'lecturers_id');
+    public function lecturer(): BelongsTo
+    {
+        return $this->belongsTo(Lecturer::class, 'lecturer_id');
     }
 }

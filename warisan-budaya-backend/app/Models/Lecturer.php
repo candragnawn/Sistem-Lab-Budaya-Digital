@@ -77,7 +77,7 @@ use App\Models\Reward\Welfare;
 
 class Lecturer extends Model
 {
-    protected $table = 'lecturer';
+    protected $table = 'lecturers';
     protected $fillable = [
          'nip','name', 'email', 'title_prefix', 'title_suffix', 
         'bio', 'education', 'status', 'photo_path'

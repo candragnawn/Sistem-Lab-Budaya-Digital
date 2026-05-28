@@ -8,6 +8,8 @@ use App\Models\Lecturer;
 
 class Placement extends Model
 {
+    protected $table = "";
+
     protected $fillable = [
         'lecturer_id',
         'status',
@@ -21,7 +23,8 @@ class Placement extends Model
         'assignment_homebase'
     ];
 
-    public function lecturer(): BelongsTo {
-        return $this->belongsTo(Lecturer::class, 'lecturers_id');
+    public function lecturer(): BelongsTo
+    {
+        return $this->belongsTo(Lecturer::class, 'lecturer_id');
     }
 }

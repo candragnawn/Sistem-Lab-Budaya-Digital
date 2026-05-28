@@ -8,6 +8,8 @@ use App\Models\Lecturer;
 
 class employment_history extends Model
 {
+    protected $table = "";
+
     protected $fillable = [
         'Lecturer_id',
         'nip',
