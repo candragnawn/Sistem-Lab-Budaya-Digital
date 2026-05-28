@@ -9,14 +9,14 @@ use App\Models\Lecturer;
 class test extends Model
 {
     protected $fillable = [
-        'lecturer_id',
+        'Lecturers_id',
         'test_name',
         'test_score',
         'organizer',
         'year',
     ];
 
-    public function lecturer(): BelongsTo
+    public function Lecturers(): BelongsTo
     {
         return $this->belongsTo(Lecturer::class);
 

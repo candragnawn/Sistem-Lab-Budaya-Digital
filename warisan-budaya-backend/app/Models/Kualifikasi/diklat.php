@@ -8,7 +8,7 @@ use App\Models\Lecturer;
 class diklat extends Model
 {
     protected $fillable = [
-        'lecturer_id',
+        'Lecturers_id',
         'training_name',
         'training_type',
         'organizer',
@@ -16,7 +16,7 @@ class diklat extends Model
         'status',
     ];
 
-    public function lecturer(): BelongsTo
+    public function Lecturers(): BelongsTo
     {
         return $this->belongsTo(Lecturer::class);
 

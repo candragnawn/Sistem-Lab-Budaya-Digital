@@ -84,6 +84,7 @@ class Lecturer extends Model
     ];
     // 
 
+
 public function academic(): HasOne
     {
         return $this->hasOne(Academic::class, 'lecturer_id');
@@ -101,13 +102,13 @@ public function academic(): HasOne
         return $this->hasMany(Employment::class, 'lecturer_id');
     }
 
-
+  
     public function families(): HasMany
     {
         return $this->hasMany(Family::class, 'lecturer_id');
     }
 
-
+    // Identitas (KTP, passport, NPWP)
     public function identities(): HasMany
     {
         return $this->hasMany(Identity::class, 'lecturer_id');
@@ -166,7 +167,7 @@ public function academic(): HasOne
         return $this->hasMany(HKI::class, 'lecturer_id');
     }
 
-    // Detail authorship publikasi
+
     public function publicationAuthors(): HasMany
     {
         return $this->hasMany(PublicationAuthor::class, 'lecturer_id');
