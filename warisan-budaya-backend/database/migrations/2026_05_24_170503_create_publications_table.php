@@ -8,15 +8,15 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('publications', function (Blueprint $table) {
+        Schema::create('publication', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lecturers_id')->constrained('lecturers')->onDelete('cascade');
+            $table->foreignId('lecturer_id')->constrained('lecturer')->onDelete('cascade');
             $table->foreignId('categories_id')->constrained('categories')->onDelete('cascade');
             $table->string('title');
             $table->enum('category', ['PENELITIAN', 'PENGABDIAN']);
             $table->string('type');
-            $table->string('source')->nullable();      // scopus, sinta, manual
-            $table->string('quartile')->nullable();    // Q1, Q2, Q3, Q4
+            $table->string('source')->nullable();
+            $table->string('quartile')->nullable();
             $table->string('document_url')->nullable();
             $table->string('journal_name')->nullable();
             $table->string('issn')->nullable();
@@ -27,9 +27,9 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('lecturer_hkis', function (Blueprint $table) {
+        Schema::create('lecturer_hki', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lecturers_id')->constrained('lecturers')->onDelete('cascade');
+            $table->foreignId('lecturer_id')->constrained('lecturer')->onDelete('cascade');
             $table->string('title');
             $table->string('activity_category');
             $table->string('type');
@@ -38,9 +38,9 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('researchs', function (Blueprint $table) {
+        Schema::create('research', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lecturers_id')->constrained('lecturers')->onDelete('cascade');
+            $table->foreignId('lecturer_id')->constrained('lecturer')->onDelete('cascade');
             $table->string('title');
             $table->string('scientific_field');
             $table->string('implementation_year', 9);
@@ -48,9 +48,9 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('community_services', function (Blueprint $table) {
+        Schema::create('community_service', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lecturers_id')->constrained('lecturers')->onDelete('cascade');
+            $table->foreignId('lecturer_id')->constrained('lecturer')->onDelete('cascade');
             $table->string('title');
             $table->string('scientific_field');
             $table->string('implementation_year', 9);
@@ -58,9 +58,9 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('speakers', function (Blueprint $table) {
+        Schema::create('speaker', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lecturers_id')->constrained('lecturers')->onDelete('cascade');
+            $table->foreignId('lecturer_id')->constrained('lecturer')->onDelete('cascade');
             $table->string('activity_category');
             $table->string('paper_title');
             $table->string('guest_lecturer_name');
@@ -69,9 +69,9 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('journal_managers', function (Blueprint $table) {
+        Schema::create('journal_manager', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lecturers_id')->constrained('lecturers')->onDelete('cascade');
+            $table->foreignId('lecturer_id')->constrained('lecturer')->onDelete('cascade');
             $table->string('journal_name');
             $table->string('decree_number');
             $table->date('effective_date');
@@ -81,9 +81,9 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('professional_memberships', function (Blueprint $table) {
+        Schema::create('professional_membership', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lecturers_id')->constrained('lecturers')->onDelete('cascade');
+            $table->foreignId('lecturer_id')->constrained('lecturer')->onDelete('cascade');
             $table->string('organization_name');
             $table->string('role');
             $table->year('membership_start');
@@ -92,9 +92,9 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('awards', function (Blueprint $table) {
+        Schema::create('award', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lecturers_id')->constrained('lecturers')->onDelete('cascade');
+            $table->foreignId('lecturer_id')->constrained('lecturer')->onDelete('cascade');
             $table->string('award_name');
             $table->string('award_type');
             $table->string('institution');
@@ -102,9 +102,9 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('scholarships', function (Blueprint $table) {
+        Schema::create('scholarship', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lecturers_id')->constrained('lecturers')->onDelete('cascade');
+            $table->foreignId('lecturer_id')->constrained('lecturer')->onDelete('cascade');
             $table->string('scholarship_type');
             $table->string('scholarship_name');
             $table->year('start_year');
@@ -113,9 +113,9 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('other_supporting_activities', function (Blueprint $table) {
+        Schema::create('other_supporting_activity', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lecturers_id')->constrained('lecturers')->onDelete('cascade');
+            $table->foreignId('lecturer_id')->constrained('lecturer')->onDelete('cascade');
             $table->string('activity_name');
             $table->string('organizing_institution');
             $table->string('decree_number')->nullable();
@@ -125,9 +125,9 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('additional_tasks', function (Blueprint $table) {
+        Schema::create('additional_task', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lecturers_id')->constrained('lecturers')->onDelete('cascade');
+            $table->foreignId('lecturer_id')->constrained('lecturer')->onDelete('cascade');
             $table->string('additional_task');
             $table->string('work_unit');
             $table->string('institution');
@@ -136,7 +136,7 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('source_syncs', function (Blueprint $table) {
+        Schema::create('source_sync', function (Blueprint $table) {
             $table->id();
             $table->string('source');                  // sinta, scopus, sister, scholar
             $table->string('status');                  // success, failed, running
@@ -147,9 +147,9 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('publication_authors', function (Blueprint $table){
+        Schema::create('publication_author', function (Blueprint $table){
             $table->id();
-            $table->foreignId('lecturers_id')->constrained('lecturers')->onDelete('cascade');
+            $table->foreignId('lecturer_id')->constrained('lecturer')->onDelete('cascade');
             $table->foreignId('publication_id')->constrained('publications')->onDelete('cascade');
             $table->string('author_position');
 
@@ -158,18 +158,18 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists('source_syncs');
-        Schema::dropIfExists('additional_tasks');
-        Schema::dropIfExists('other_supporting_activities');
-        Schema::dropIfExists('scholarships');
-        Schema::dropIfExists('awards');
-        Schema::dropIfExists('professional_memberships');
-        Schema::dropIfExists('journal_managers');
-        Schema::dropIfExists('speakers');
-        Schema::dropIfExists('community_services');
+        Schema::dropIfExists('source_sync');
+        Schema::dropIfExists('additional_task');
+        Schema::dropIfExists('other_supporting_activity');
+        Schema::dropIfExists('scholarship');
+        Schema::dropIfExists('award');
+        Schema::dropIfExists('professional_membership');
+        Schema::dropIfExists('journal_manager');
+        Schema::dropIfExists('speaker');
+        Schema::dropIfExists('community_service');
         Schema::dropIfExists('research');
         Schema::dropIfExists('hkis');
-        Schema::dropIfExists('publications');
+        Schema::dropIfExists('publication');
         Schema::dropIfExists('publication_author');
     }
 };

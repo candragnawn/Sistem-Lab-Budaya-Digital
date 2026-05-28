@@ -8,10 +8,10 @@ use App\Models\Lecturer;
 
 class Academic extends Model
 {
-    protected $table = 'Lecturers_academics';
+    protected $table = 'academic';
     
     protected $fillable = [
-        'Lecturers_id',
+        'lecturer_id',
         'science_cluster',
         'science_tree',
         'science_branch',
@@ -19,6 +19,6 @@ class Academic extends Model
     ];
 
     public function Lecturers(): BelongsTo {
-        return $this->belongsTo(Lecturer::class, 'Lecturers_id');
+        return $this->belongsTo(Lecturer::class, 'lecturer_id');
     }
 }

@@ -10,6 +10,7 @@ use App\Models\PublicationAuthor;
 
 class Publication extends Model
 {
+    protected $table = 'publication';
     protected $fillable = [
         'lecturer_id','publication_author_id', 'title', 'category', 'type' ,'source', 'quartile', 'document_url', 'is_verified', 'year', 'url'
     ];

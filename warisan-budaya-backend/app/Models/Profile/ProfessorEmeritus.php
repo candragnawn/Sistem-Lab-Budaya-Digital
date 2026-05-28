@@ -9,6 +9,7 @@ use App\Models\Lecturer;
 class ProfessorEmeritus extends Model
 {
     
+    protected $table = 'professor_emeritus';
     protected $fillable = [
         'lecturer_id',
         'title_name',
@@ -18,6 +19,6 @@ class ProfessorEmeritus extends Model
     ];
 
     public function lecturer(): BelongsTo {
-        return $this->belongsTo(Lecturer::class, 'lecturers_id');
+        return $this->belongsTo(Lecturer::class, 'lecturer_id');
     }
 }

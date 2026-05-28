@@ -8,9 +8,9 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('identities', function (Blueprint $table) {
+        Schema::create('identity', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lecturers_id')->constrained('lecturers')->onDelete('cascade');
+            $table->foreignId('lecturer_id')->constrained('lecturer')->onDelete('cascade');
             $table->string('nik')->unique();
             $table->string('religion')->nullable();
             $table->string('citizenship')->nullable();
@@ -18,9 +18,9 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('addresses', function (Blueprint $table) {
+        Schema::create('address', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lecturers_id')->constrained('lecturers')->onDelete('cascade');
+            $table->foreignId('lecturer_id')->constrained('lecturer')->onDelete('cascade');
             $table->string('email')->nullable();
             $table->text('address')->nullable();
             $table->string('rt', 5)->nullable();
@@ -33,9 +33,9 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('families', function (Blueprint $table) {
+        Schema::create('family', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lecturers_id')->constrained('lecturers')->onDelete('cascade');
+            $table->foreignId('lecturer_id')->constrained('lecturer')->onDelete('cascade');
             $table->string('marital_status')->nullable();
             $table->string('spouse_name')->nullable();
             $table->string('spouse_nip')->nullable();
@@ -43,10 +43,10 @@ return new class extends Migration
             $table->timestamps();
         });
 
-Schema::create('educations', function (Blueprint $table) {
+Schema::create('education', function (Blueprint $table) {
     $table->id();
-    $table->foreignId('lecturers_id')
-        ->constrained('lecturers')
+    $table->foreignId('lecturer_id')
+        ->constrained('lecturer')
         ->onDelete('cascade');
 
     // Basic Education Info
@@ -74,9 +74,9 @@ Schema::create('educations', function (Blueprint $table) {
     $table->timestamps();
 });
 
-        Schema::create('certificates', function (Blueprint $table) {
+        Schema::create('certificate', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lecturers_id')->constrained('lecturers')->onDelete('cascade');
+            $table->foreignId('lecturer_id')->constrained('lecturer')->onDelete('cascade');
             $table->string('certification_type');
             $table->string('study_type');
             $table->string('educator_registration_number')->unique();
@@ -85,9 +85,9 @@ Schema::create('educations', function (Blueprint $table) {
             $table->timestamps();
         });
 
-        Schema::create('employments', function (Blueprint $table) {
+        Schema::create('employment', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lecturers_id')->constrained('lecturers')->onDelete('cascade');
+            $table->foreignId('lecturer_id')->constrained('lecturer')->onDelete('cascade');
             $table->string('nip')->unique();
             $table->string('sk_cpns_number')->nullable();
             $table->date('sk_cpns_date')->nullable();
@@ -105,11 +105,11 @@ Schema::create('educations', function (Blueprint $table) {
 
     public function down(): void
     {
-        Schema::dropIfExists('employments');
+        Schema::dropIfExists('employment');
         Schema::dropIfExists('certificate');
         Schema::dropIfExists('education');
-        Schema::dropIfExists('families');
-        Schema::dropIfExists('addresses');
-        Schema::dropIfExists('identities');
+        Schema::dropIfExists('family');
+        Schema::dropIfExists('address');
+        Schema::dropIfExists('identity');
     }
 };

@@ -12,15 +12,15 @@ return new class extends Migration
     public function up()
 {
     Schema::table('users', function (Blueprint $table) {
-        $table->foreignId('lecturers_id')->nullable()->constrained('lecturers')->onDelete('set null');
+        $table->foreignId('lecturer_id')->nullable()->constrained('lecturer')->onDelete('set null');
     });
 }
 
     public function down()
 {
     Schema::table('users', function (Blueprint $table) {
-        $table->dropForeign(['lecturers_id']);
-        $table->dropColumn('lecturers_id');
+        $table->dropForeign(['lecturer_id']);
+        $table->dropColumn('lecturer_id');
     });
 }
 };

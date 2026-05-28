@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Models\Lecturer;
 class HKI extends Model
 {
-    protected $table = 'lecturers_hkis';
+    protected $table = 'lecturer_hki';
     
     protected $fillable = [
         'lecturer_id',

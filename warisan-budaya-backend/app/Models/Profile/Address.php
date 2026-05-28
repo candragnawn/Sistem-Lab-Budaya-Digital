@@ -8,7 +8,7 @@ use App\Models\Lecturer;
 
 class Address extends Model
 {
-    protected $table = 'lecturer_addresses';
+    protected $table = 'address';
     
     protected $fillable = [
         'lecturer_id',
@@ -24,6 +24,6 @@ class Address extends Model
     ];
 
     public function lecturer(): BelongsTo {
-        return $this->belongsTo(Lecturer::class, 'lecturers_id');
+        return $this->belongsTo(Lecturer::class, 'lecturer_id');
     }
 }

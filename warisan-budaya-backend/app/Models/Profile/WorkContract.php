@@ -8,7 +8,7 @@ use App\Models\Lecturer;
 
 class WorkContract extends Model
 {
-    protected $table = 'lecturer_work_contracts';
+    protected $table = 'lecturer_work_contract';
 
     protected $fillable = [
         'lecturer_id',

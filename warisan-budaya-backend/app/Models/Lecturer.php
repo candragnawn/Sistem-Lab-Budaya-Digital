@@ -56,12 +56,11 @@ use App\Models\PelaksanaanPenelitian\PublicationAuthor;
 
 
 //pelaksanaan kualifikasi
-use App\Models\Kualifikasi\diklat;
-use App\Models\Kualifikasi\educations;
-use App\Models\Kualifikasi\employment_history;
+use App\Models\Kualifikasi\Diklat;
+
 
 //pelaksanaan kompetensi
-use App\Models\Kompetensi\certification;
+use App\Models\Kompetensi\Certification;
 use App\Models\Kompetensi\test;
 
 //pelaksanaan penunjang
@@ -290,16 +289,7 @@ public function academic(): HasOne
     }
 
   
-    public function educationHistories(): HasMany
-    {
-        return $this->hasMany(Educations::class, 'lecturer_id');
-    }
 
-  
-    public function employmentHistories(): HasMany
-    {
-        return $this->hasMany(employment_history::class, 'lecturer_id');
-    }
 
 
     public function certifications(): HasMany
