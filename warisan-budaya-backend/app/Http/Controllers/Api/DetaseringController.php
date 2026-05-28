@@ -2,10 +2,16 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\PelaksanaanPendidikan\Detasering;
+use App\Http\Requests\PelaksanaanPendidikan\StoreDetaseringRequest;
+use App\Http\Requests\PelaksanaanPendidikan\UpdateDetaseringRequest;
+use App\Http\Resources\PelaksanaanPendidikan\DetaseringResource;
+
 class DetaseringController extends BaseCrudController
 {
-    protected $model = \App\Models\PelaksanaanPendidikan\Detasering::class;
-    protected $storeRequest = "App\\Http\\Requests\\PelaksanaanPendidikan\\StoreDetaseringRequest";
-    protected $updateRequest = "App\\Http\\Requests\\PelaksanaanPendidikan\\UpdateDetaseringRequest";
-    protected $resource = "App\\Http\\Resources\\PelaksanaanPendidikan\\DetaseringResource";
+    protected $model = Detasering::class;
+    protected $resource = DetaseringResource::class;
+    protected $storeRequest = StoreDetaseringRequest::class;
+    protected $updateRequest = UpdateDetaseringRequest::class;
+    protected $with = ['lecturer'];
 }

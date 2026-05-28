@@ -2,10 +2,16 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\PelaksanaanPendidikan\AcademicOration;
+use App\Http\Requests\PelaksanaanPendidikan\StoreAcademicOrationRequest;
+use App\Http\Requests\PelaksanaanPendidikan\UpdateAcademicOrationRequest;
+use App\Http\Resources\PelaksanaanPendidikan\AcademicOrationResource;
+
 class AcademicOrationController extends BaseCrudController
 {
-    protected $model = \App\Models\PelaksanaanPendidikan\AcademicOration::class;
-    protected $storeRequest = "App\\Http\\Requests\\PelaksanaanPendidikan\\StoreAcademicOrationRequest";
-    protected $updateRequest = "App\\Http\\Requests\\PelaksanaanPendidikan\\UpdateAcademicOrationRequest";
-    protected $resource = "App\\Http\\Resources\\PelaksanaanPendidikan\\AcademicOrationResource";
+    protected $model = AcademicOration::class;
+    protected $resource = AcademicOrationResource::class;
+    protected $storeRequest = StoreAcademicOrationRequest::class;
+    protected $updateRequest = UpdateAcademicOrationRequest::class;
+    protected $with = ['lecturer'];
 }
