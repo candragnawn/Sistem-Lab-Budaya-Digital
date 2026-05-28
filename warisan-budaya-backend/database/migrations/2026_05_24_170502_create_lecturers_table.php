@@ -8,7 +8,7 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('lecturer', function (Blueprint $table) {
+        Schema::create('lecturers', function (Blueprint $table) {
             $table->id();
             $table->string('nidn', 20)->unique()->nullable();
             $table->string('nip', 30)->unique()->nullable();
@@ -49,7 +49,6 @@ return new class extends Migration
 
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('publication');
             $table->string('name');
             $table->string('slug')->unique()->nullable();
             $table->text('description')->nullable();
@@ -59,7 +58,7 @@ return new class extends Migration
 
         Schema::create('academics', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lecturer_id')->constrained('lecturer')->onDelete('cascade');
+            $table->foreignId('lecturers_id')->constrained('lecturers')->onDelete('cascade');
             $table->string('science_cluster')->nullable();
             $table->string('science_tree')->nullable();
             $table->string('science_branch')->nullable();
@@ -69,7 +68,7 @@ return new class extends Migration
 
         Schema::create('lecturer_work_contracts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lecturer_id')->constrained('lecturer')->onDelete('cascade');
+            $table->foreignId('lecturers_id')->constrained('lecturers')->onDelete('cascade');
             $table->string('work_status')->nullable();
             $table->string('current_status')->nullable();
             $table->string('tmt')->nullable();
@@ -82,6 +81,6 @@ return new class extends Migration
         Schema::dropIfExists('lecturer_work_contracts');
         Schema::dropIfExists('academics');
         Schema::dropIfExists('categories');
-        Schema::dropIfExists('lecturer');
+        Schema::dropIfExists('lecturers');
     }
 };
