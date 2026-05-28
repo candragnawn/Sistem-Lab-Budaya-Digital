@@ -4,13 +4,12 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     public function up(): void
     {
-        Schema::create('identity', function (Blueprint $table) {
+        Schema::create('identities', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lecturer_id')->constrained('lecturer')->onDelete('cascade');
+            $table->foreignId('lecturer_id')->constrained('lecturers')->onDelete('cascade');
             $table->string('nik')->unique();
             $table->string('religion')->nullable();
             $table->string('citizenship')->nullable();
@@ -18,9 +17,9 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('address', function (Blueprint $table) {
+        Schema::create('addresses', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lecturer_id')->constrained('lecturer')->onDelete('cascade');
+            $table->foreignId('lecturer_id')->constrained('lecturers')->onDelete('cascade');
             $table->string('email')->nullable();
             $table->text('address')->nullable();
             $table->string('rt', 5)->nullable();
@@ -33,9 +32,9 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('family', function (Blueprint $table) {
+        Schema::create('families', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lecturer_id')->constrained('lecturer')->onDelete('cascade');
+            $table->foreignId('lecturer_id')->constrained('lecturers')->onDelete('cascade');
             $table->string('marital_status')->nullable();
             $table->string('spouse_name')->nullable();
             $table->string('spouse_nip')->nullable();
@@ -43,40 +42,40 @@ return new class extends Migration
             $table->timestamps();
         });
 
-Schema::create('education', function (Blueprint $table) {
-    $table->id();
-    $table->foreignId('lecturer_id')
-        ->constrained('lecturer')
-        ->onDelete('cascade');
-
-    // Basic Education Info
-    $table->string('entry_year');
-    $table->string('graduation_year')->nullable();
-
-    $table->string('level'); // S1, S2, S3
-    $table->string('country')->nullable();
-    $table->string('university');
-    $table->string('study_program');
-
-    // Study Status
-    $table->enum('status', [
-        'ONGOING',
-        'GRADUATED',
-        'ON_LEAVE',
-        'DROPPED'
-    ])->default('ONGOING');
-
-    // Additional Info
-    $table->string('study_type')->nullable();
-    $table->string('scholarship')->nullable();
-    $table->string('predicate')->nullable();
-
-    $table->timestamps();
-});
-
-        Schema::create('certificate', function (Blueprint $table) {
+        Schema::create('educations', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lecturer_id')->constrained('lecturer')->onDelete('cascade');
+            $table->foreignId('lecturer_id')
+                ->constrained('lecturers')
+                ->onDelete('cascade');
+
+            // Basic Education Info
+            $table->string('entry_year');
+            $table->string('graduation_year')->nullable();
+
+            $table->string('level'); // S1, S2, S3
+            $table->string('country')->nullable();
+            $table->string('university');
+            $table->string('study_program');
+
+            // Study Status
+            $table->enum('status', [
+                'ONGOING',
+                'GRADUATED',
+                'ON_LEAVE',
+                'DROPPED'
+            ])->default('ONGOING');
+
+            // Additional Info
+            $table->string('study_type')->nullable();
+            $table->string('scholarship')->nullable();
+            $table->string('predicate')->nullable();
+
+            $table->timestamps();
+        });
+
+        Schema::create('certificates', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('lecturer_id')->constrained('lecturers')->onDelete('cascade');
             $table->string('certification_type');
             $table->string('study_type');
             $table->string('educator_registration_number')->unique();
@@ -85,9 +84,9 @@ Schema::create('education', function (Blueprint $table) {
             $table->timestamps();
         });
 
-        Schema::create('employment', function (Blueprint $table) {
+        Schema::create('employments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lecturer_id')->constrained('lecturer')->onDelete('cascade');
+            $table->foreignId('lecturer_id')->constrained('lecturers')->onDelete('cascade');
             $table->string('nip')->unique();
             $table->string('sk_cpns_number')->nullable();
             $table->date('sk_cpns_date')->nullable();
@@ -100,16 +99,16 @@ Schema::create('education', function (Blueprint $table) {
             $table->timestamps();
         });
 
-        
+
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('employment');
+        Schema::dropIfExists('employments');
         Schema::dropIfExists('certificate');
         Schema::dropIfExists('education');
-        Schema::dropIfExists('family');
-        Schema::dropIfExists('address');
-        Schema::dropIfExists('identity');
+        Schema::dropIfExists('families');
+        Schema::dropIfExists('addresses');
+        Schema::dropIfExists('identities');
     }
 };

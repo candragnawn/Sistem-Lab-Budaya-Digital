@@ -6,9 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Models\Lecturer;
 
-class Test extends Model
+class test extends Model
 {
-    protected $table = 'test';
+    protected $table = "tests";
+
     protected $fillable = [
         'lecturer_id',
         'test_name',

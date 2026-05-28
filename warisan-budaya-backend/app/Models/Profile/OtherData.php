@@ -8,7 +8,7 @@ use App\Models\Lecturer;
 
 class OtherData extends Model
 {
-    protected $table = 'other_data';
+    protected $table = 'lecturer_other_data';
     
     protected $fillable = [
         'lecturer_id',

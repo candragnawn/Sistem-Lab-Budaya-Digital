@@ -4,13 +4,12 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     public function up(): void
     {
-        Schema::create('rank', function (Blueprint $table) {
+        Schema::create('ranks', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lecturer_id')->constrained('lecturer')->onDelete('cascade');
+            $table->foreignId('lecturer_id')->constrained('lecturers')->onDelete('cascade');
             $table->string('group_code');
             $table->string('rank_name');
             $table->string('sk_number');
@@ -20,18 +19,18 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('inpassing', function (Blueprint $table) {
+        Schema::create('inpassings', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lecturer_id')->constrained('lecturer')->onDelete('cascade');
+            $table->foreignId('lecturer_id')->constrained('lecturers')->onDelete('cascade');
             $table->string('rank_group');
             $table->string('decree_number');
             $table->date('effective_date');
             $table->timestamps();
         });
 
-        Schema::create('functional_position', function (Blueprint $table) {
+        Schema::create('functional_positions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lecturer_id')->constrained('lecturer')->onDelete('cascade');
+            $table->foreignId('lecturer_id')->constrained('lecturers')->onDelete('cascade');
             $table->string('functional_position');
             $table->string('decree_number');
             $table->date('decree_date');
@@ -40,9 +39,9 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('structural_position', function (Blueprint $table) {
+        Schema::create('structural_positions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lecturer_id')->constrained('lecturer')->onDelete('cascade');
+            $table->foreignId('lecturer_id')->constrained('lecturers')->onDelete('cascade');
             $table->string('structural_position');
             $table->string('decree_number');
             $table->date('start_date');
@@ -50,9 +49,9 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('placement', function (Blueprint $table) {
+        Schema::create('placements', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lecturer_id')->constrained('lecturer')->onDelete('cascade');
+            $table->foreignId('lecturer_id')->constrained('lecturers')->onDelete('cascade');
             $table->string('status');
             $table->string('employment_bond');
             $table->string('education_level');
@@ -65,9 +64,9 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('professor_emeritus', function (Blueprint $table) {
+        Schema::create('professor_emerituses', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lecturer_id')->constrained('lecturer')->onDelete('cascade');
+            $table->foreignId('lecturer_id')->constrained('lecturers')->onDelete('cascade');
             $table->string('title_name');
             $table->string('university');
             $table->date('start_date');
@@ -75,9 +74,9 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('diklat', function (Blueprint $table) {
+        Schema::create('diklats', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lecturer_id')->constrained('lecturer')->onDelete('cascade');
+            $table->foreignId('lecturer_id')->constrained('lecturers')->onDelete('cascade');
             $table->string('training_name');
             $table->string('training_type');
             $table->string('organizer');
@@ -86,9 +85,9 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('test', function (Blueprint $table) {
+        Schema::create('tests', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lecturer_id')->constrained('lecturer')->onDelete('cascade');
+            $table->foreignId('lecturer_id')->constrained('lecturers')->onDelete('cascade');
             $table->string('test_name');
             $table->decimal('test_score', 5, 2);
             $table->string('organizer');
@@ -96,9 +95,9 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('allowance', function (Blueprint $table) {
+        Schema::create('allowances', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lecturer_id')->constrained('lecturer')->onDelete('cascade');
+            $table->foreignId('lecturer_id')->constrained('lecturers')->onDelete('cascade');
             $table->string('allowance_type');
             $table->string('allowance_name');
             $table->string('granting_institution');
@@ -109,9 +108,9 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('welfare', function (Blueprint $table) {
+        Schema::create('welfares', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lecturer_id')->constrained('lecturer')->onDelete('cascade');
+            $table->foreignId('lecturer_id')->constrained('lecturers')->onDelete('cascade');
             $table->string('welfare_type');
             $table->string('welfare_service');
             $table->string('organizer');
@@ -123,15 +122,15 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists('welfare');
-        Schema::dropIfExists('allowance');
-        Schema::dropIfExists('test');
-        Schema::dropIfExists('diklat');
-        Schema::dropIfExists('professor_emeritus');
-        Schema::dropIfExists('placement');
-        Schema::dropIfExists('structural_position');
-        Schema::dropIfExists('functional_position');
-        Schema::dropIfExists('inpassing');
-        Schema::dropIfExists('rank');
+        Schema::dropIfExists('welfares');
+        Schema::dropIfExists('allowances');
+        Schema::dropIfExists('tests');
+        Schema::dropIfExists('diklats');
+        Schema::dropIfExists('professor_emerituses');
+        Schema::dropIfExists('placements');
+        Schema::dropIfExists('structural_positions');
+        Schema::dropIfExists('functional_positions');
+        Schema::dropIfExists('inpassings');
+        Schema::dropIfExists('ranks');
     }
 };

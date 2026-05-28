@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Models\Lecturer;
 class PublicationAuthor extends Model
 {
-    protected $table = 'publication_author';
+    protected $table = 'publication_authors';
     protected $fillable = [
         'lecturer_id',
         'publication_id',

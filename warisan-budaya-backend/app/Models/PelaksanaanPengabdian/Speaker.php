@@ -7,7 +7,8 @@ use App\Models\Lecturer;
 
 class Speaker extends Model
 {
-    protected $table = 'speaker';
+    protected $table = "";
+
     protected $fillable = [
         'lecturer_id',
         'activity_category',

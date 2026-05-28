@@ -8,8 +8,8 @@ use App\Models\Lecturer;
 
 class Address extends Model
 {
-    protected $table = 'address';
-    
+    protected $table = 'addresses';
+
     protected $fillable = [
         'lecturer_id',
         'email',
@@ -23,7 +23,8 @@ class Address extends Model
         'phone_number'
     ];
 
-    public function lecturer(): BelongsTo {
+    public function lecturer(): BelongsTo
+    {
         return $this->belongsTo(Lecturer::class, 'lecturer_id');
     }
 }

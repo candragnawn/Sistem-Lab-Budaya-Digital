@@ -8,7 +8,7 @@ use App\Models\Lecturer;
 
 class Position extends Model
 {
-    protected $table = 'functional_position';
+    protected $table = 'lecturer_positions';
 
     protected $fillable = [
         'lecturer_id',

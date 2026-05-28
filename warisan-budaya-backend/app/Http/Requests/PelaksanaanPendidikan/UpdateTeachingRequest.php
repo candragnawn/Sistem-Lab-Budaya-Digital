@@ -2,28 +2,25 @@
 
 namespace App\Http\Requests\PelaksanaanPendidikan;
 
-use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateTeachingRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, ValidationRule|array<mixed>|string>
-     */
     public function rules(): array
     {
         return [
-            //
+            'lecturer_id' => 'nullable|string|max:255',
+            'course_name' => 'nullable|string|max:255',
+            'course_type' => 'nullable|string|max:255',
+            'scientific_field' => 'nullable|string|max:255',
+            'class' => 'nullable|string|max:255',
+            'student_count' => 'nullable|string|max:255',
+            'credits' => 'nullable|string|max:255',
         ];
     }
 }
