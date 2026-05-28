@@ -70,7 +70,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('allowances', AllowanceController::class);
     Route::apiResource('lecturer-educations', LecturerEducationController::class);
     Route::apiResource('lecturer-ranks', LecturerRankController::class);
-    Route::apiResource('lecturer-studies', LecturerStudyController::class);
     Route::apiResource('hkis', HKIController::class);
     Route::apiResource('lecturer-employments', LecturerEmploymentController::class);
     Route::apiResource('lecturer-academics', LecturerAcademicController::class);

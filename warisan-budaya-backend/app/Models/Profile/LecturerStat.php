@@ -8,13 +8,13 @@ use App\Models\Lecturer;
 
 class LecturerStat extends Model
 {
-    public $table = 'Lecturers_stats';
+    public $table = 'lecturers_stats';
     public $timestamps = false;
-    protected $primaryKey = 'Lecturers_id';
+    protected $primaryKey = 'lecturer_id';
     public $incrementing = false;
 
     protected $fillable = [
-        'Lecturers_id',
+        'lecturer_id',
         'total_publications',
         'total_citations',
         'total_students'

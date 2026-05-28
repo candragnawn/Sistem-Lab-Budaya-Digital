@@ -9,7 +9,7 @@ use App\Models\Lecturer;
 class educations extends Model
 {
     protected $fillable = [
-        'Lecturers_id',
+        'Lecturer_id',
         'entry_year',
         'level',
         'country',

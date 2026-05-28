@@ -8,7 +8,7 @@ use App\Models\Lecturer;
 class diklat extends Model
 {
     protected $fillable = [
-        'Lecturers_id',
+        'lecturer_id',
         'training_name',
         'training_type',
         'organizer',
