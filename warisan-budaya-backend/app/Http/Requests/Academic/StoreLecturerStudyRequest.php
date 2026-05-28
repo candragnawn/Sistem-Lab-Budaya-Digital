@@ -12,7 +12,7 @@ class StoreLecturerStudyRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,7 +23,13 @@ class StoreLecturerStudyRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'entry_year' => 'nullable|integer',
+            'level' => 'nullable|string|max:255',
+            'university' => 'nullable|string|max:255',
+            'study_program' => 'nullable|string|max:255',
+            'scholarship' => 'nullable|string|max:255',
+            'status' => 'nullable|string|max:255',
+            'Types_of_Learning' => 'nullable|string|max:255',
         ];
     }
 }

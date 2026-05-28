@@ -86,9 +86,17 @@ const sidebarItems: SidebarItem[] = [
   },
 ];
 
-export function DashboardSidebar() {
+interface DashboardSidebarProps {
+  isOpen?: boolean;
+  setIsOpen?: (isOpen: boolean) => void;
+}
+
+export function DashboardSidebar({ isOpen: controlledIsOpen, setIsOpen: controlledSetIsOpen }: DashboardSidebarProps = {}) {
   const pathname = usePathname();
-  const [isOpen, setIsOpen] = useState(true);
+  const [internalIsOpen, setInternalIsOpen] = useState(true);
+  
+  const isOpen = controlledIsOpen !== undefined ? controlledIsOpen : internalIsOpen;
+  const setIsOpen = controlledSetIsOpen !== undefined ? controlledSetIsOpen : setInternalIsOpen;
   const [expandedItems, setExpandedItems] = useState<string[]>(["Profil"]);
   const [isMobile, setIsMobile] = useState(false);
 

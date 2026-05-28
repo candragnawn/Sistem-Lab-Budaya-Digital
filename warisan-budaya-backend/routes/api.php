@@ -44,7 +44,7 @@ use App\Http\Controllers\Api\StructuralPositionController;
 use App\Http\Controllers\Api\ProfessionalMembershipController;
 use App\Http\Controllers\Api\OtherSupportingActivityController;
 use App\Http\Controllers\Api\ScholarshipController;
-
+//auth
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
 

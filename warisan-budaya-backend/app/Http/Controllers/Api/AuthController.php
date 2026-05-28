@@ -10,15 +10,22 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use App\Http\Requests\Auth\RegisterAuthRequest;
 use App\Http\Requests\Auth\LoginAuthRequest;
+use App\Models\Lecturer;
 class AuthController extends Controller
 {
     public function register(RegisterAuthRequest $request)
     {
+        $lecturer  = Lecturer::create([
+            "name"=> $request->name,
+            "email"=> $request->email,
+
+        ]);
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'lecturer_id' => $lecturer->id,
         ]);
 
         $token = $user->createToken('auth_token')->plainTextToken;

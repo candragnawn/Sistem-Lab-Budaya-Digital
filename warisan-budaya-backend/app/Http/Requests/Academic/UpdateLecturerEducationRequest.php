@@ -12,7 +12,7 @@ class UpdateLecturerEducationRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,7 +23,13 @@ class UpdateLecturerEducationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'entry_year' => 'nullable|integer',
+            'level' => 'nullable|string|max:255',           
+            'country' => 'nullable|string|max:255',
+            'university' => 'nullable|string|max:255',
+            'study_program' => 'nullable|string|max:255',
+            'graduation_year' => 'nullable|integer',
+            'predicate' => 'nullable|string|max:255'
         ];
     }
 }

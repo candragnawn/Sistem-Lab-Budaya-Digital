@@ -1,9 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Navbar1 } from "@/components/navbar1";
-import { Footer } from "@/components/footer";
 import { DashboardSidebar } from "@/components/dashboard-sidebar";
+import { cn } from "@/lib/utils";
 
 export default function DashboardLayout({
   children,
@@ -12,6 +11,7 @@ export default function DashboardLayout({
 }) {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   useEffect(() => {
     const user = localStorage.getItem("user");
@@ -24,11 +24,7 @@ export default function DashboardLayout({
 
   if (isLoading) {
     return (
-      <>
-        <header>
-          <Navbar1 />
-        </header>
-        <div className="relative min-h-screen bg-[#F0F2F5] flex">
+      <div className="relative min-h-[calc(100vh-57px)] bg-[#F0F2F5] flex">
           <aside className="fixed left-0 top-[57px] z-40 hidden h-[calc(100vh-57px)] w-[260px] flex-col border-r border-gray-200 bg-white px-4 py-6 shadow-xl lg:flex animate-pulse">
             <div className="h-6 bg-gray-200 rounded w-3/4 mb-8"></div>
             <div className="space-y-4">
@@ -72,23 +68,15 @@ export default function DashboardLayout({
             </div>
           </main>
         </div>
-        <Footer />
-      </>
     );
   }
 
   return (
-    <>
-      <header>
-        <Navbar1 />
-      </header>
-      <div className="relative min-h-screen bg-[#F0F2F5]">
-        <DashboardSidebar />
-        <main className="min-h-screen transition-all duration-300 pt-4 pb-8 px-4 lg:pl-[280px]">
+    <div className="relative min-h-[calc(100vh-57px)] bg-[#F0F2F5]">
+        <DashboardSidebar isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} />
+        <main className={cn("min-h-screen transition-all duration-300 pt-4 pb-8 px-4", isSidebarOpen ? "lg:pl-[280px]" : "lg:pl-4")}>
           {children}
         </main>
       </div>
-      <Footer />
-    </>
   );
 }
