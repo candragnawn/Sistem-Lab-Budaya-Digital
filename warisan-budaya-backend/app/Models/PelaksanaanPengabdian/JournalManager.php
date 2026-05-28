@@ -8,6 +8,7 @@ use App\Models\Lecturer;
 
 class JournalManager extends Model
 {
+    protected $table = 'journal_manager';
     protected $fillable = [
         'lecturer_id',
         'journal_name',

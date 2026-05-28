@@ -8,7 +8,7 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('lecturers', function (Blueprint $table) {
+        Schema::create('lecturer', function (Blueprint $table) {
             $table->id();
             $table->string('nidn', 20)->unique()->nullable();
             $table->string('nip', 30)->unique()->nullable();
@@ -47,7 +47,7 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('category', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('slug')->unique()->nullable();
@@ -56,9 +56,9 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('academics', function (Blueprint $table) {
+        Schema::create('academic', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lecturers_id')->constrained('lecturers')->onDelete('cascade');
+            $table->foreignId('lecturer_id')->constrained('lecturer')->onDelete('cascade');
             $table->string('science_cluster')->nullable();
             $table->string('science_tree')->nullable();
             $table->string('science_branch')->nullable();
@@ -66,9 +66,9 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('lecturer_work_contracts', function (Blueprint $table) {
+        Schema::create('lecturer_work_contract', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lecturers_id')->constrained('lecturers')->onDelete('cascade');
+            $table->foreignId('lecturer_id')->constrained('lecturer')->onDelete('cascade');
             $table->string('work_status')->nullable();
             $table->string('current_status')->nullable();
             $table->string('tmt')->nullable();
@@ -78,9 +78,9 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists('lecturer_work_contracts');
-        Schema::dropIfExists('academics');
-        Schema::dropIfExists('categories');
-        Schema::dropIfExists('lecturers');
+        Schema::dropIfExists('lecturer_work_contract');
+        Schema::dropIfExists('academic');
+        Schema::dropIfExists('category');
+        Schema::dropIfExists('lecturer');
     }
 };

@@ -8,19 +8,19 @@ use App\Models\Lecturer;
 
 class LecturerStat extends Model
 {
-    public $table = 'Lecturers_stats';
+    protected $table = 'lecturer_stat_view';
     public $timestamps = false;
-    protected $primaryKey = 'Lecturers_id';
+    protected $primaryKey = 'lecturer_id';
     public $incrementing = false;
 
     protected $fillable = [
-        'Lecturers_id',
+        'lecturer_id',
         'total_publications',
         'total_citations',
         'total_students'
     ];
 
     public function Lecturers(): BelongsTo {
-        return $this->belongsTo(Lecturer::class, 'Lecturers_id');
+        return $this->belongsTo(Lecturer::class, 'lecturer_id');
     }
 }

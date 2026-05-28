@@ -5,10 +5,11 @@ namespace App\Models\Kualifikasi;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Models\Lecturer;
-class diklat extends Model
+class Diklat extends Model
 {
+    protected $table = 'diklat';
     protected $fillable = [
-        'Lecturers_id',
+        'lecturer_id',
         'training_name',
         'training_type',
         'organizer',

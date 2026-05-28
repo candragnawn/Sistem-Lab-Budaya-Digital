@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Models\Lecturer;
 
-class test extends Model
+class Test extends Model
 {
+    protected $table = 'test';
     protected $fillable = [
-        'Lecturers_id',
+        'lecturer_id',
         'test_name',
         'test_score',
         'organizer',

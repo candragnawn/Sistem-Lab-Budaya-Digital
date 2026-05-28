@@ -8,7 +8,7 @@ use App\Models\Lecturer;
 
 class Employment extends Model
 {
-    protected $table = 'lecturer_employments';
+    protected $table = 'employment';
     
     protected $fillable = [
         'lecturer_id',
@@ -24,6 +24,6 @@ class Employment extends Model
     ];
 
     public function lecturer(): BelongsTo {
-        return $this->belongsTo(Lecturer::class, 'lecturers_id');
+        return $this->belongsTo(Lecturer::class, 'lecturer_id');
     }
 }
