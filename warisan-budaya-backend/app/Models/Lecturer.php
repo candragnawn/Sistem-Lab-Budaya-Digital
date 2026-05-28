@@ -56,11 +56,12 @@ use App\Models\PelaksanaanPenelitian\PublicationAuthor;
 
 
 //pelaksanaan kualifikasi
-use App\Models\Kualifikasi\Diklat;
-
+use App\Models\Kualifikasi\diklat;
+use App\Models\Kualifikasi\educations;
+use App\Models\Kualifikasi\employment_history;
 
 //pelaksanaan kompetensi
-use App\Models\Kompetensi\Certification;
+use App\Models\Kompetensi\certification;
 use App\Models\Kompetensi\test;
 
 //pelaksanaan penunjang
@@ -76,7 +77,7 @@ use App\Models\Reward\Welfare;
 
 class Lecturer extends Model
 {
-    protected $table = 'lecturer';
+    protected $table = 'lecturers';
     protected $fillable = [
          'nip','name', 'email', 'title_prefix', 'title_suffix', 
         'bio', 'education', 'status', 'photo_path'
@@ -177,12 +178,6 @@ public function academic(): HasOne
     {
         return $this->hasMany(LecturerEducation::class, 'lecturer_id');
     }
-
-    public function studies(): HasMany
-    {
-        return $this->hasMany(LecturerStudy::class, 'lecturer_id');
-    }
-
 
     public function teachings(): HasMany
     {
@@ -289,7 +284,16 @@ public function academic(): HasOne
     }
 
   
+    public function educationHistories(): HasMany
+    {
+        return $this->hasMany(Educations::class, 'lecturer_id');
+    }
 
+  
+    public function employmentHistories(): HasMany
+    {
+        return $this->hasMany(employment_history::class, 'lecturer_id');
+    }
 
 
     public function certifications(): HasMany

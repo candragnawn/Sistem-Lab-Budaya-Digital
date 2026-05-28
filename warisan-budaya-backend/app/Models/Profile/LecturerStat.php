@@ -8,7 +8,7 @@ use App\Models\Lecturer;
 
 class LecturerStat extends Model
 {
-    protected $table = 'lecturer_stat_view';
+    protected $table = 'v_lecturers_stats';
     public $timestamps = false;
     protected $primaryKey = 'lecturer_id';
     public $incrementing = false;
@@ -20,7 +20,8 @@ class LecturerStat extends Model
         'total_students'
     ];
 
-    public function Lecturers(): BelongsTo {
+    public function Lecturers(): BelongsTo
+    {
         return $this->belongsTo(Lecturer::class, 'lecturer_id');
     }
 }

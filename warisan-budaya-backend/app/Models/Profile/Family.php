@@ -8,8 +8,8 @@ use App\Models\Lecturer;
 
 class Family extends Model
 {
-    protected $table = 'family';
-    
+    protected $table = 'lecturer_families';
+
     protected $fillable = [
         'lecturer_id',
         'marital_status',
@@ -18,7 +18,8 @@ class Family extends Model
         'spouse_occupation'
     ];
 
-    public function lecturer(): BelongsTo {
+    public function lecturer(): BelongsTo
+    {
         return $this->belongsTo(Lecturer::class, 'lecturer_id');
     }
 }

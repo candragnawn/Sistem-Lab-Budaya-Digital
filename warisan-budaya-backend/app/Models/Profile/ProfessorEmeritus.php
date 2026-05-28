@@ -8,8 +8,9 @@ use App\Models\Lecturer;
 
 class ProfessorEmeritus extends Model
 {
-    
-    protected $table = 'professor_emeritus';
+    protected $table = "";
+
+
     protected $fillable = [
         'lecturer_id',
         'title_name',
@@ -18,7 +19,8 @@ class ProfessorEmeritus extends Model
         'end_date'
     ];
 
-    public function lecturer(): BelongsTo {
+    public function lecturer(): BelongsTo
+    {
         return $this->belongsTo(Lecturer::class, 'lecturer_id');
     }
 }

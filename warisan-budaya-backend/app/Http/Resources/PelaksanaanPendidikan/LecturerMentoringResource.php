@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\PelaksanaanPendidikan;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -9,6 +9,11 @@ class LecturerMentoringResource extends JsonResource
 {
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'mentor_name' => $this->mentor_name,
+            'start_date' => $this->start_date,
+            'end_date' => $this->end_date,
+        ];
     }
 }

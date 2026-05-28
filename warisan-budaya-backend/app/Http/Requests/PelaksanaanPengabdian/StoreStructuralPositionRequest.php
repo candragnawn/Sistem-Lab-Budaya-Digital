@@ -2,28 +2,23 @@
 
 namespace App\Http\Requests\PelaksanaanPengabdian;
 
-use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreStructuralPositionRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, ValidationRule|array<mixed>|string>
-     */
     public function rules(): array
     {
         return [
-            //
+            'lecturer_id' => 'nullable|string|max:255',
+            'structural_position' => 'nullable|string|max:255',
+            'decree_number' => 'nullable|string|max:255',
+            'start_date' => 'nullable|string|max:255',
+            'end_date' => 'nullable|string|max:255',
         ];
     }
 }

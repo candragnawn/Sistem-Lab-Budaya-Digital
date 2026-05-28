@@ -2,28 +2,23 @@
 
 namespace App\Http\Requests\Penunjang;
 
-use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateAwardRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, ValidationRule|array<mixed>|string>
-     */
     public function rules(): array
     {
         return [
-            //
+            'lecturer_id' => 'nullable|string|max:255',
+            'award_name' => 'nullable|string|max:255',
+            'award_type' => 'nullable|string|max:255',
+            'institution' => 'nullable|string|max:255',
+            'year' => 'nullable|string|max:255',
         ];
     }
 }
