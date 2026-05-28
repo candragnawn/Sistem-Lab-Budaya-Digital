@@ -9,7 +9,7 @@ use App\Models\Lecturer;
 class educations extends Model
 {
     protected $fillable = [
-        'lecturer_id',
+        'Lecturers_id',
         'entry_year',
         'level',
         'country',
@@ -19,7 +19,7 @@ class educations extends Model
         'predicate',
     ];
 
-    public function lecturer(): BelongsTo
+    public function Lecturers(): BelongsTo
     {
         return $this->belongsTo(Lecturer::class);
 

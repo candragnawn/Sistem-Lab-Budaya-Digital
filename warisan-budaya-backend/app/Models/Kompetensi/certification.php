@@ -8,7 +8,7 @@ use App\Models\Lecturer;
 class certification extends Model
 {
     protected $fillable = [
-        'lecturer_id',
+        'Lecturers_id',
         'certification_type',
         'study_type',
         'educator_registration_number',
@@ -16,7 +16,7 @@ class certification extends Model
         'certification_year',
     ];
 
-    public function lecturer(): BelongsTo
+    public function Lecturers(): BelongsTo
     {
         return $this->belongsTo(Lecturer::class);
     }
