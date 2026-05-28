@@ -18,7 +18,7 @@ class test extends Model
         'year',
     ];
 
-    public function Lecturers(): BelongsTo
+    public function Lecturer(): BelongsTo
     {
         return $this->belongsTo(Lecturer::class);
 

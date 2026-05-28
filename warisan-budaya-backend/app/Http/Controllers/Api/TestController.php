@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 
-use App\Models\Test;
+use App\Models\Kompetensi\Test;
 use App\Http\Requests\Kompetensi\StoreTestRequest;
 use App\Http\Requests\Kompetensi\UpdateTestRequest;
 use App\Http\Resources\Kompetensi\TestResource;
