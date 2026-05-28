@@ -2,16 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\Kualifikasi\Diklat;
-use App\Http\Requests\Kualifikasi\StoreDiklatRequest;
-use App\Http\Requests\Kualifikasi\UpdateDiklatRequest;
-use App\Http\Resources\DiklatResource;
-
-class DiklatController extends BaseCrudController
+class diklatController extends BaseCrudController
 {
-    protected $model = Diklat::class;
-    protected $resource = DiklatResource::class;
-    protected $storeRequest = StoreDiklatRequest::class;
-    protected $updateRequest = UpdateDiklatRequest::class;
-    protected $with = ['lecturer'];
+    protected $model = \App\Models\Kualifikasi\diklat::class;
+    protected $storeRequest = "App\\Http\\Requests\\Kualifikasi\\StorediklatRequest";
+    protected $updateRequest = "App\\Http\\Requests\\Kualifikasi\\UpdatediklatRequest";
+    protected $resource = "App\\Http\\Resources\\Kualifikasi\\diklatResource";
 }
