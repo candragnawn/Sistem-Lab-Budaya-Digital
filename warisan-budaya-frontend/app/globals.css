@@ -131,3 +131,6 @@
     @apply font-sans;
     }
 }
+
+html:not(.is-logged-in) .auth-only { display: none !important; }
+html.is-logged-in .unauth-only { display: none !important; }

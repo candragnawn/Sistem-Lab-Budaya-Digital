@@ -2,6 +2,8 @@ import { Geist, Geist_Mono } from "next/font/google"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@/lib/utils";
+import { Navbar1 } from "@/components/navbar1";
+import { Footer } from "@/components/footer";
 
 const geist = Geist({ subsets: ['latin'], variable: '--font-sans' })
 const fontMono = Geist_Mono({
@@ -19,9 +21,26 @@ export default function RootLayout({
       suppressHydrationWarning
       className={cn("antialiased", fontMono.variable, "font-sans", geist.variable)}
     >
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              try {
+                if (localStorage.getItem('user')) {
+                  document.documentElement.classList.add('is-logged-in');
+                }
+              } catch (e) {}
+            `,
+          }}
+        />
+      </head>
       <body>
         <ThemeProvider>
+          <header className="sticky top-0 z-50">
+            <Navbar1 />
+          </header>
           {children}
+          <Footer />
         </ThemeProvider>
       </body>
     </html>

@@ -59,6 +59,8 @@ const Login1 = ({
         password === DUMMY_ACCOUNT.password
       ) {
         localStorage.setItem("user", JSON.stringify(DUMMY_ACCOUNT.user));
+        document.documentElement.classList.add("is-logged-in");
+        window.dispatchEvent(new Event("auth-change"));
         router.push("/dashboard/profil");
       } else {
         setError("Email atau password salah. Gunakan ivan@gmail.com / 123456");

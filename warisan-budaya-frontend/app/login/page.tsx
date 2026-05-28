@@ -1,14 +1,8 @@
-import { Navbar1 } from "@/components/navbar1";
-import { Footer } from "@/components/footer";
 import { Login1 } from "@/components/login1";
 
 export default function LoginPage() {
   return (
-    <>
-      <header>
-        <Navbar1 />
-      </header>
-      <main>
+    <main>
         <Login1
           logo={{
             url: "/",
@@ -18,7 +12,5 @@ export default function LoginPage() {
           }}
         />
       </main>
-      <Footer />
-    </>
   );
 }
