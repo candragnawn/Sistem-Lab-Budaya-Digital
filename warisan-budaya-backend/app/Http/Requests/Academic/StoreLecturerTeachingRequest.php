@@ -12,7 +12,7 @@ class StoreLecturerTeachingRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,7 +23,12 @@ class StoreLecturerTeachingRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'course_name' => 'nullable|string|max:255',
+            'course_type' => 'nullable|string|max:255',
+            'scientific_field' => 'nullable|string|max:255',
+            'class' => 'nullable|string|max:255',
+            'student_count' => 'nullable|integer',
+            'credits' => 'nullable|integer'
         ];
     }
 }
