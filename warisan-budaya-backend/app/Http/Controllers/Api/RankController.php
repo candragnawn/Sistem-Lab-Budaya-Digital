@@ -2,10 +2,17 @@
 
 namespace App\Http\Controllers\Api;
 
+
+use App\Models\Profile\Rank;
+use App\Http\Requests\Profile\StoreRankRequest;
+use App\Http\Requests\Profile\UpdateRankRequest;
+use App\Http\Resources\Academic\LecturerRankResource;
+
 class RankController extends BaseCrudController
 {
-    protected $model = \App\Models\Profile\Rank::class;
-    protected $storeRequest = "App\\Http\\Requests\\Profile\\StoreRankRequest";
-    protected $updateRequest = "App\\Http\\Requests\\Profile\\UpdateRankRequest";
-    protected $resource = "App\\Http\\Resources\\Profile\\RankResource";
+    protected $model = Rank::class;
+    protected $resource = LecturerRankResource::class;
+    protected $storeRequest = StoreRankRequest::class;
+    protected $updateRequest = UpdateRankRequest::class;
+    protected $with = ['lecturer'];
 }

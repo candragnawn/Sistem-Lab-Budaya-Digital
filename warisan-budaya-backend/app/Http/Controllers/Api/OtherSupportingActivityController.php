@@ -2,10 +2,17 @@
 
 namespace App\Http\Controllers\Api;
 
+
+use App\Models\Penunjang\OtherSupportingActivity;
+use App\Http\Requests\Penunjang\StoreOtherSupportingActivityRequest;
+use App\Http\Requests\Penunjang\UpdateOtherSupportingActivityRequest;
+use App\Http\Resources\Penunjang\OtherSupportingActivityResource;
+
 class OtherSupportingActivityController extends BaseCrudController
 {
-    protected $model = \App\Models\Penunjang\OtherSupportingActivity::class;
-    protected $storeRequest = "App\\Http\\Requests\\Penunjang\\StoreOtherSupportingActivityRequest";
-    protected $updateRequest = "App\\Http\\Requests\\Penunjang\\UpdateOtherSupportingActivityRequest";
-    protected $resource = "App\\Http\\Resources\\Penunjang\\OtherSupportingActivityResource";
+    protected $model = OtherSupportingActivity::class;
+    protected $resource = OtherSupportingActivityResource::class;
+    protected $storeRequest = StoreOtherSupportingActivityRequest::class;
+    protected $updateRequest = UpdateOtherSupportingActivityRequest::class;
+    protected $with = ['lecturer'];
 }

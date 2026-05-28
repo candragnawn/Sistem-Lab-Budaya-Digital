@@ -2,10 +2,16 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\Profile\Employment;
+use App\Http\Requests\Profile\StoreEmploymentRequest;
+use App\Http\Requests\Profile\UpdateEmploymentRequest;
+use App\Http\Resources\LecturerEmploymentResource;
+
 class EmploymentController extends BaseCrudController
 {
-    protected $model = \App\Models\Profile\Employment::class;
-    protected $storeRequest = "App\\Http\\Requests\\Profile\\StoreEmploymentRequest";
-    protected $updateRequest = "App\\Http\\Requests\\Profile\\UpdateEmploymentRequest";
-    protected $resource = "App\\Http\\Resources\\Profile\\EmploymentResource";
+    protected $model = Employment::class;
+    protected $resource = LecturerEmploymentResource::class;
+    protected $storeRequest = StoreEmploymentRequest::class;
+    protected $updateRequest = UpdateEmploymentRequest::class;
+    protected $with = ['lecturer'];
 }
