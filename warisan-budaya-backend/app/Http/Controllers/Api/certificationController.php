@@ -2,10 +2,16 @@
 
 namespace App\Http\Controllers\Api;
 
-class certificationController extends BaseCrudController
+use App\Models\Kompetensi\certification;
+use App\Http\Requests\Kompetensi\StoreCertificationRequest;
+use App\Http\Requests\Kompetensi\UpdateCertificationRequest;
+use App\Http\Resources\Kompetensi\CertificationResource;
+
+class CertificationController extends BaseCrudController
 {
-    protected $model = \App\Models\Kompetensi\certification::class;
-    protected $storeRequest = "App\\Http\\Requests\\Kompetensi\\StorecertificationRequest";
-    protected $updateRequest = "App\\Http\\Requests\\Kompetensi\\UpdatecertificationRequest";
-    protected $resource = "App\\Http\\Resources\\Kompetensi\\certificationResource";
+    protected $model = certification::class;
+    protected $resource = CertificationResource::class;
+    protected $storeRequest = StoreCertificationRequest::class;
+    protected $updateRequest = UpdateCertificationRequest::class;
+    protected $with = ['lecturer'];
 }
