@@ -2,10 +2,17 @@
 
 namespace App\Http\Controllers\Api;
 
+
+use App\Models\Penunjang\ProfessionalMembership;
+use App\Http\Requests\Penunjang\StoreProfessionalMembershipRequest;
+use App\Http\Requests\Penunjang\UpdateProfessionalMembershipRequest;
+use App\Http\Resources\Penunjang\ProfessionalMembershipResource;
+
 class ProfessionalMembershipController extends BaseCrudController
 {
-    protected $model = \App\Models\Penunjang\ProfessionalMembership::class;
-    protected $storeRequest = "App\\Http\\Requests\\Penunjang\\StoreProfessionalMembershipRequest";
-    protected $updateRequest = "App\\Http\\Requests\\Penunjang\\UpdateProfessionalMembershipRequest";
-    protected $resource = "App\\Http\\Resources\\Penunjang\\ProfessionalMembershipResource";
+    protected $model = ProfessionalMembership::class;
+    protected $resource = ProfessionalMembershipResource::class;
+    protected $storeRequest = StoreProfessionalMembershipRequest::class;
+    protected $updateRequest = UpdateProfessionalMembershipRequest::class;
+    protected $with = ['lecturer'];
 }

@@ -2,10 +2,17 @@
 
 namespace App\Http\Controllers\Api;
 
-class testController extends BaseCrudController
+
+use App\Models\Test;
+use App\Http\Requests\Kompetensi\StoreTestRequest;
+use App\Http\Requests\Kompetensi\UpdateTestRequest;
+use App\Http\Resources\Kompetensi\TestResource;
+
+class TestController extends BaseCrudController
 {
-    protected $model = \App\Models\Kompetensi\test::class;
-    protected $storeRequest = "App\\Http\\Requests\\Kompetensi\\StoretestRequest";
-    protected $updateRequest = "App\\Http\\Requests\\Kompetensi\\UpdatetestRequest";
-    protected $resource = "App\\Http\\Resources\\Kompetensi\\testResource";
+    protected $model = Test::class;
+    protected $resource = TestResource::class;
+    protected $storeRequest = StoreTestRequest::class;
+    protected $updateRequest = UpdateTestRequest::class;
+    protected $with = ['lecturer'];
 }

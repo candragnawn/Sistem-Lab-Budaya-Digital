@@ -2,10 +2,16 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\Profile\Address;
+use App\Http\Requests\Profile\StoreAddressRequest;
+use App\Http\Requests\Profile\UpdateAddressRequest;
+use App\Http\Resources\LecturerAddressResource;
+
 class AddressController extends BaseCrudController
 {
-    protected $model = \App\Models\Profile\Address::class;
-    protected $storeRequest = "App\\Http\\Requests\\Profile\\StoreAddressRequest";
-    protected $updateRequest = "App\\Http\\Requests\\Profile\\UpdateAddressRequest";
-    protected $resource = "App\\Http\\Resources\\Profile\\AddressResource";
+    protected $model = Address::class;
+    protected $resource = LecturerAddressResource::class;
+    protected $storeRequest = StoreAddressRequest::class;
+    protected $updateRequest = UpdateAddressRequest::class;
+    protected $with = ['lecturer'];
 }

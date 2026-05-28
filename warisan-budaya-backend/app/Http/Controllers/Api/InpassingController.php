@@ -2,10 +2,16 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\Profile\Inpassing;
+use App\Http\Requests\Profile\StoreInpassingRequest;
+use App\Http\Requests\Profile\UpdateInpassingRequest;
+use App\Http\Resources\InpassingResource;
+
 class InpassingController extends BaseCrudController
 {
-    protected $model = \App\Models\Profile\Inpassing::class;
-    protected $storeRequest = "App\\Http\\Requests\\Profile\\StoreInpassingRequest";
-    protected $updateRequest = "App\\Http\\Requests\\Profile\\UpdateInpassingRequest";
-    protected $resource = "App\\Http\\Resources\\Profile\\InpassingResource";
+    protected $model = Inpassing::class;
+    protected $resource = InpassingResource::class;
+    protected $storeRequest = StoreInpassingRequest::class;
+    protected $updateRequest = UpdateInpassingRequest::class;
+    protected $with = ['lecturer'];
 }
