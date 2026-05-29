@@ -11,11 +11,11 @@ class WelfareResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'welfare_type' => $this->welfare_type,
-            'welfare_service' => $this->welfare_service,
-            'organizer' => $this->organizer,
-            'start_year' => $this->start_year,
-            'selection_year' => $this->selection_year,
+            'jenis_kesejahteraan' => $this->welfare_type,
+            'layanan_kesejahteraan' => $this->welfare_service,
+            'penyelenggara' => $this->organizer,
+            'tahun_mulai' => $this->start_year,
+            'tahun_seleksi' => $this->selection_year,
         ];
     }
 }

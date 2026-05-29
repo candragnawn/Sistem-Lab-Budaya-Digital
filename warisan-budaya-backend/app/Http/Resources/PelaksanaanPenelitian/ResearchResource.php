@@ -11,10 +11,10 @@ class ResearchResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'title' => $this->title,
-            'scientific_field' => $this->scientific_field,
-            'implementation_year' => $this->implementation_year,
-            'duration' => $this->duration,
+            'judul' => $this->title,
+            'bidang_ilmu' => $this->scientific_field,
+            'tahun_pelaksanaan' => $this->implementation_year,
+            'durasi' => $this->duration,
         ];
     }
 }

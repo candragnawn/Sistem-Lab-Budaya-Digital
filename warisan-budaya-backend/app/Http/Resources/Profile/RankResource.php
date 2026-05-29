@@ -11,12 +11,12 @@ class RankResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'group_code' => $this->group_code,
-            'rank_name' => $this->rank_name,
-            'sk_number' => $this->sk_number,
-            'sk_date' => $this->sk_date,
+            'kode_golongan' => $this->group_code,
+            'nama_pangkat' => $this->rank_name,
+            'nomor_sk' => $this->sk_number,
+            'tanggal_sk' => $this->sk_date,
             'tmt' => $this->tmt,
-            'received_date' => $this->received_date,
+            'tanggal_diterima' => $this->received_date,
         ];
     }
 }

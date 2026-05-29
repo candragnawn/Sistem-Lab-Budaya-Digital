@@ -11,13 +11,13 @@ class AllowanceResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'allowance_type' => $this->allowance_type,
-            'allowance_name' => $this->allowance_name,
-            'granting_institution' => $this->granting_institution,
-            'funding_source' => $this->funding_source,
-            'start_year' => $this->start_year,
-            'end_year' => $this->end_year,
-            'amount' => $this->amount,
+            'jenis_tunjangan' => $this->allowance_type,
+            'nama_tunjangan' => $this->allowance_name,
+            'institusi_pemberi' => $this->granting_institution,
+            'sumber_dana' => $this->funding_source,
+            'tahun_mulai' => $this->start_year,
+            'tahun_selesai' => $this->end_year,
+            'jumlah' => $this->amount,
         ];
     }
 }

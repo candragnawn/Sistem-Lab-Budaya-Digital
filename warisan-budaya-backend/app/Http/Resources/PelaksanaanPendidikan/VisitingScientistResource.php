@@ -11,9 +11,9 @@ class VisitingScientistResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'host_university' => $this->host_university,
-            'duration' => $this->duration,
-            'activity_date' => $this->activity_date,
+            'universitas_penyelenggara' => $this->host_university,
+            'durasi' => $this->duration,
+            'tanggal_kegiatan' => $this->activity_date,
         ];
     }
 }

@@ -11,11 +11,11 @@ class ProfessionalMembershipResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'organization_name' => $this->organization_name,
-            'role' => $this->role,
-            'membership_start' => $this->membership_start,
-            'membership_end' => $this->membership_end,
-            'professional_institution' => $this->professional_institution,
+            'nama_organisasi' => $this->organization_name,
+            'peran' => $this->role,
+            'awal_keanggotaan' => $this->membership_start,
+            'akhir_keanggotaan' => $this->membership_end,
+            'institusi_profesional' => $this->professional_institution,
         ];
     }
 }

@@ -11,10 +11,10 @@ class ProfessorEmeritusResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'title_name' => $this->title_name,
-            'university' => $this->university,
-            'start_date' => $this->start_date,
-            'end_date' => $this->end_date,
+            'nama_gelar' => $this->title_name,
+            'universitas' => $this->university,
+            'tanggal_mulai' => $this->start_date,
+            'tanggal_selesai' => $this->end_date,
         ];
     }
 }

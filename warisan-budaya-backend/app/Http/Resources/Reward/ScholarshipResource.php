@@ -11,11 +11,11 @@ class ScholarshipResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'scholarship_type' => $this->scholarship_type,
-            'scholarship_name' => $this->scholarship_name,
-            'start_year' => $this->start_year,
-            'end_year' => $this->end_year,
-            'is_active' => $this->is_active,
+            'jenis_beasiswa' => $this->scholarship_type,
+            'nama_beasiswa' => $this->scholarship_name,
+            'tahun_mulai' => $this->start_year,
+            'tahun_selesai' => $this->end_year,
+            'status_aktif' => $this->is_active,
         ];
     }
 }

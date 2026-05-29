@@ -11,9 +11,9 @@ class LecturerStatResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'total_publications' => $this->total_publications,
-            'total_citations' => $this->total_citations,
-            'total_students' => $this->total_students,
+            'total_publikasi' => $this->total_publications,
+            'total_sitasi' => $this->total_citations,
+            'total_mahasiswa' => $this->total_students,
         ];
     }
 }

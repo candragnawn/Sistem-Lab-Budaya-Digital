@@ -11,10 +11,10 @@ class testResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'test_name' => $this->test_name,
-            'test_score' => $this->test_score,
-            'organizer' => $this->organizer,
-            'year' => $this->year,
+            'nama_tes' => $this->test_name,
+            'skor_tes' => $this->test_score,
+            'penyelenggara' => $this->organizer,
+            'tahun' => $this->year,
         ];
     }
 }

@@ -11,15 +11,15 @@ class LecturerEmploymentResource extends JsonResource
         return [
             "id" => $this -> id,
             "lecturer_id" => $this -> lecturer_id,
-            "nip" => $this -> nip,
-            "sk_cpns_number" => $this -> sk_cpns_number,
-            "sk_cpns_date" => $this -> sk_cpns_date,
-            "rank_group" => $this -> rank_group,
-            "sk_date" => $this -> sk_date,
-            "work_years" => $this -> work_years,
-            "work_months" => $this -> work_months,
-            "employment_status" => $this -> employment_status,
-            "active_status" => $this -> active_status,
+            'nip' => $this -> nip,
+            'nomor_sk_cpns' => $this -> sk_cpns_number,
+            'tanggal_sk_cpns' => $this -> sk_cpns_date,
+            'golongan_kepangkatan' => $this -> rank_group,
+            'tanggal_sk' => $this -> sk_date,
+            'tahun_kerja' => $this -> work_years,
+            'bulan_kerja' => $this -> work_months,
+            'status_kepegawaian' => $this -> employment_status,
+            'status_aktif' => $this -> active_status,
         ];
     }
 }

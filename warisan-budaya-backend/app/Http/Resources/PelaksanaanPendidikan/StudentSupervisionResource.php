@@ -12,10 +12,10 @@ class StudentSupervisionResource extends JsonResource
         return [
             'id' => $this->id,
             'semester' => $this->semester,
-            'activity_category' => $this->activity_category,
-            'supervision_type' => $this->supervision_type,
-            'scientific_field' => $this->scientific_field,
-            'study_program' => $this->study_program,
+            'kategori_kegiatan' => $this->activity_category,
+            'jenis_bimbingan' => $this->supervision_type,
+            'bidang_ilmu' => $this->scientific_field,
+            'program_studi' => $this->study_program,
         ];
     }
 }

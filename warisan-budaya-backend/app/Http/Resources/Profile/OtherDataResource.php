@@ -11,9 +11,9 @@ class OtherDataResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'data_key' => $this->data_key,
-            'data_value' => $this->data_value,
-            'notes' => $this->notes,
+            'kunci_data' => $this->data_key,
+            'nilai_data' => $this->data_value,
+            'catatan' => $this->notes,
         ];
     }
 }

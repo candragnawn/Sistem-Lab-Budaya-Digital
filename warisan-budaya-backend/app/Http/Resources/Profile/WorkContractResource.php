@@ -11,8 +11,8 @@ class WorkContractResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'work_status' => $this->work_status,
-            'current_status' => $this->current_status,
+            'status_kerja' => $this->work_status,
+            'status_saat_ini' => $this->current_status,
             'tmt' => $this->tmt,
         ];
     }

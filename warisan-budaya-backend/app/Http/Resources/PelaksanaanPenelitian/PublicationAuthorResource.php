@@ -11,8 +11,8 @@ class PublicationAuthorResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'publication_id' => $this->publication_id,
-            'author_position' => $this->author_position,
+            'id_publikasi' => $this->publication_id,
+            'posisi_penulis' => $this->author_position,
         ];
     }
 }

@@ -12,10 +12,10 @@ class StudentDevelopmentResource extends JsonResource
         return [
             'id' => $this->id,
             'semester' => $this->semester,
-            'activity_category' => $this->activity_category,
-            'guidance_title' => $this->guidance_title,
-            'guidance_type' => $this->guidance_type,
-            'study_program' => $this->study_program,
+            'kategori_kegiatan' => $this->activity_category,
+            'judul_bimbingan' => $this->guidance_title,
+            'jenis_bimbingan' => $this->guidance_type,
+            'program_studi' => $this->study_program,
         ];
     }
 }

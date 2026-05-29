@@ -11,11 +11,11 @@ class HKIResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'hki_type' => $this->hki_type,
-            'title' => $this->title,
-            'certificate_number' => $this->certificate_number,
-            'issue_date' => $this->issue_date,
-            'description' => $this->description,
+            'jenis_hki' => $this->hki_type,
+            'judul' => $this->title,
+            'nomor_sertifikat' => $this->certificate_number,
+            'tanggal_terbit' => $this->issue_date,
+            'deskripsi' => $this->description,
         ];
     }
 }

@@ -11,10 +11,10 @@ class TeachingMaterialResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'title' => $this->title,
+            'judul' => $this->title,
             'isbn' => $this->isbn,
-            'publication_date' => $this->publication_date,
-            'publisher' => $this->publisher,
+            'tanggal_publikasi' => $this->publication_date,
+            'penerbit' => $this->publisher,
         ];
     }
 }
