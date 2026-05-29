@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Models\Lecturer;
 class Detasering extends Model
 {
-    protected $table = "";
+    protected $table = "detaserings";
 
     protected $fillable = [
         'lecturer_id',

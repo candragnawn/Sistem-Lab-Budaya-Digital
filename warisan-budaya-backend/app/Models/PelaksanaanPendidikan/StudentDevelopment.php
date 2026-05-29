@@ -8,7 +8,7 @@ use App\Models\Lecturer;
 
 class StudentDevelopment extends Model
 {
-    protected $table = "";
+    protected $table = "student_developments";
 
     protected $fillable = [
         'lecturer_id',

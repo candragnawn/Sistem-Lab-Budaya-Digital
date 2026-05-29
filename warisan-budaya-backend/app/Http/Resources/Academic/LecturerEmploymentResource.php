@@ -10,7 +10,6 @@ class LecturerEmploymentResource extends JsonResource
     {
         return [
             "id" => $this -> id,
-            "lecturer_id" => $this -> lecturer_id,
             'nip' => $this -> nip,
             'nomor_sk_cpns' => $this -> sk_cpns_number,
             'tanggal_sk_cpns' => $this -> sk_cpns_date,
