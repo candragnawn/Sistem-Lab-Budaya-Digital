@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Academic;
+namespace App\Models\Kualifikasi;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -16,6 +16,9 @@ protected $fillable = [
     'country',
     'university',
     'study_program',
+    'status',
+    'study_type',
+    'scholarship',
     'graduation_year',
     'predicate'
 ];

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Profile;
+namespace App\Models\Kualifikasi;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -8,7 +8,7 @@ use App\Models\Lecturer;
 
 class Employment extends Model
 {
-    protected $table = 'lecturer_employments';
+    protected $table = 'employments';
 
     protected $fillable = [
         'lecturer_id',
@@ -25,6 +25,6 @@ class Employment extends Model
 
     public function lecturer(): BelongsTo
     {
-        return $this->belongsTo(Lecturer::class, 'lecturer_id');
+        return $this->belongsTo(Lecturer::class);
     }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\Profile\Employment;
+use App\Models\Kualifikasi\Employment;
 use App\Http\Requests\Profile\StoreEmploymentRequest;
 use App\Http\Requests\Profile\UpdateEmploymentRequest;
 use App\Http\Resources\Academic\LecturerEmploymentResource;
