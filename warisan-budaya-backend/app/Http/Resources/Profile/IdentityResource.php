@@ -12,8 +12,8 @@ class IdentityResource extends JsonResource
         return [
             'id' => $this->id,
             'nik' => $this->nik,
-            'religion' => $this->religion,
-            'citizenship' => $this->citizenship,
+            'agama' => $this->religion,
+            'kewarganegaraan' => $this->citizenship,
             'npwp' => $this->npwp,
         ];
     }

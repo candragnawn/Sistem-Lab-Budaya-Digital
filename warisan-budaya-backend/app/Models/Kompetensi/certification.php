@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Models\Lecturer;
 class certification extends Model
 {
-    protected $table = "certificate";
+    protected $table = "certificates";
     protected $fillable = [
         'lecturer_id',
         'certification_type',
@@ -17,7 +17,7 @@ class certification extends Model
         'certification_year',
     ];
 
-    public function Lecturers(): BelongsTo
+    public function lecturer(): BelongsTo
     {
         return $this->belongsTo(Lecturer::class);
     }

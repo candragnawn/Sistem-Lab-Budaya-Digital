@@ -11,13 +11,13 @@ class educationsResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'entry_year' => $this->entry_year,
-            'level' => $this->level,
-            'country' => $this->country,
-            'university' => $this->university,
-            'study_program' => $this->study_program,
-            'graduation_year' => $this->graduation_year,
-            'predicate' => $this->predicate,
+            'tahun_masuk' => $this->entry_year,
+            'tingkat' => $this->level,
+            'negara' => $this->country,
+            'universitas' => $this->university,
+            'program_studi' => $this->study_program,
+            'tahun_lulus' => $this->graduation_year,
+            'predikat' => $this->predicate,
         ];
     }
 }

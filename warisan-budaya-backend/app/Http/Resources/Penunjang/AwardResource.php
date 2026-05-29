@@ -11,10 +11,10 @@ class AwardResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'award_name' => $this->award_name,
-            'award_type' => $this->award_type,
-            'institution' => $this->institution,
-            'year' => $this->year,
+            'nama_penghargaan' => $this->award_name,
+            'jenis_penghargaan' => $this->award_type,
+            'institusi' => $this->institution,
+            'tahun' => $this->year,
         ];
     }
 }

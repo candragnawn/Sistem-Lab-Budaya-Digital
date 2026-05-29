@@ -11,10 +11,10 @@ class diklatResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'training_name' => $this->training_name,
-            'training_type' => $this->training_type,
-            'organizer' => $this->organizer,
-            'year' => $this->year,
+            'nama_pelatihan' => $this->training_name,
+            'jenis_pelatihan' => $this->training_type,
+            'penyelenggara' => $this->organizer,
+            'tahun' => $this->year,
             'status' => $this->status,
         ];
     }

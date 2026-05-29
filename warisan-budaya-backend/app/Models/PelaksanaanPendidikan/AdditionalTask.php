@@ -8,7 +8,7 @@ use App\Models\Lecturer;
 
 class AdditionalTask extends Model
 {
-    protected $table = "";
+    protected $table = "additional_tasks";
 
     protected $fillable = [
         'lecturer_id',

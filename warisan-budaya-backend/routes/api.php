@@ -67,8 +67,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('welfares', WelfareController::class);
     Route::apiResource('allowances', AllowanceController::class);
     Route::apiResource('lecturer-educations', LecturerEducationController::class);
-    Route::apiResource('lecturer-ranks', LecturerRankController::class);
-    Route::apiResource('lecturer-studies', LecturerStudyController::class);
     Route::apiResource('hkis', HKIController::class);
     Route::apiResource('lecturer-employments', LecturerEmploymentController::class);
     Route::apiResource('lecturer-academics', LecturerAcademicController::class);
@@ -103,7 +101,6 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
     // Auto-generated routes
-    Route::apiResource('lecturer-teachings', App\Http\Controllers\Api\LecturerTeachingController::class);
     Route::apiResource('certifications', App\Http\Controllers\Api\CertificationController::class);
     Route::apiResource('tests', App\Http\Controllers\Api\TestController::class);
     Route::apiResource('diklats', App\Http\Controllers\Api\DiklatController::class);

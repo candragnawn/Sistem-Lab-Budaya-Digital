@@ -12,14 +12,14 @@ class PlacementResource extends JsonResource
         return [
             'id' => $this->id,
             'status' => $this->status,
-            'employment_bond' => $this->employment_bond,
-            'education_level' => $this->education_level,
+            'ikatan_kerja' => $this->employment_bond,
+            'jenjang_pendidikan' => $this->education_level,
             'unit' => $this->unit,
-            'university' => $this->university,
-            'start_date' => $this->start_date,
-            'exit_date' => $this->exit_date,
-            'end_date' => $this->end_date,
-            'assignment_homebase' => $this->assignment_homebase,
+            'universitas' => $this->university,
+            'tanggal_mulai' => $this->start_date,
+            'tanggal_keluar' => $this->exit_date,
+            'tanggal_selesai' => $this->end_date,
+            'tempat_penugasan' => $this->assignment_homebase,
         ];
     }
 }

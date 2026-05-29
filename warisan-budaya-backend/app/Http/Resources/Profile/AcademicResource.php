@@ -11,9 +11,9 @@ class AcademicResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'science_cluster' => $this->science_cluster,
-            'science_tree' => $this->science_tree,
-            'science_branch' => $this->science_branch,
+            'rumpun_ilmu' => $this->science_cluster,
+            'pohon_ilmu' => $this->science_tree,
+            'cabang_ilmu' => $this->science_branch,
             'sinta_id' => $this->sinta_id,
         ];
     }

@@ -11,10 +11,10 @@ class InpassingResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'rank_group' => $this->rank_group,
-            'decree_number' => $this->decree_number,
-            'effective_date' => $this->effective_date,
-            'notes' => $this->notes,
+            'golongan_kepangkatan' => $this->rank_group,
+            'nomor_sk' => $this->decree_number,
+            'tanggal_berlaku' => $this->effective_date,
+            'catatan' => $this->notes,
         ];
     }
 }

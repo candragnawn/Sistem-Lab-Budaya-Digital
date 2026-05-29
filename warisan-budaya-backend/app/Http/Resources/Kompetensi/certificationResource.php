@@ -11,11 +11,11 @@ class certificationResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'certification_type' => $this->certification_type,
-            'study_type' => $this->study_type,
-            'educator_registration_number' => $this->educator_registration_number,
-            'certificate_sk_number' => $this->certificate_sk_number,
-            'certification_year' => $this->certification_year,
+            'jenis_sertifikasi' => $this->certification_type,
+            'jenis_studi' => $this->study_type,
+            'nomor_registrasi_pendidik' => $this->educator_registration_number,
+            'nomor_sk_sertifikat' => $this->certificate_sk_number,
+            'tahun_sertifikasi' => $this->certification_year,
         ];
     }
 }

@@ -11,12 +11,12 @@ class OtherSupportingActivityResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'activity_name' => $this->activity_name,
-            'organizing_institution' => $this->organizing_institution,
-            'decree_number' => $this->decree_number,
-            'start_date' => $this->start_date,
-            'end_date' => $this->end_date,
-            'role' => $this->role,
+            'nama_kegiatan' => $this->activity_name,
+            'institusi_penyelenggara' => $this->organizing_institution,
+            'nomor_sk' => $this->decree_number,
+            'tanggal_mulai' => $this->start_date,
+            'tanggal_selesai' => $this->end_date,
+            'peran' => $this->role,
         ];
     }
 }

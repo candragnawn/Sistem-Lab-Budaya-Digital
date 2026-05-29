@@ -12,14 +12,14 @@ class AddressResource extends JsonResource
         return [
             'id' => $this->id,
             'email' => $this->email,
-            'address' => $this->address,
+            'alamat' => $this->address,
             'rt' => $this->rt,
             'rw' => $this->rw,
-            'village' => $this->village,
-            'district' => $this->district,
-            'province' => $this->province,
-            'postal_code' => $this->postal_code,
-            'phone_number' => $this->phone_number,
+            'kelurahan' => $this->village,
+            'kecamatan' => $this->district,
+            'provinsi' => $this->province,
+            'kode_pos' => $this->postal_code,
+            'nomor_telepon' => $this->phone_number,
         ];
     }
 }

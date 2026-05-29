@@ -11,10 +11,10 @@ class FamilyResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'marital_status' => $this->marital_status,
-            'spouse_name' => $this->spouse_name,
-            'spouse_nip' => $this->spouse_nip,
-            'spouse_occupation' => $this->spouse_occupation,
+            'status_pernikahan' => $this->marital_status,
+            'nama_pasangan' => $this->spouse_name,
+            'nip_pasangan' => $this->spouse_nip,
+            'pekerjaan_pasangan' => $this->spouse_occupation,
         ];
     }
 }
