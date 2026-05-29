@@ -23,7 +23,6 @@ use App\Http\Controllers\Api\LecturerEmploymentController;
 use App\Http\Controllers\Api\LecturerAcademicController;
 use App\Http\Controllers\Api\LecturerAddressController;
 use App\Http\Controllers\Api\LecturerFamilyController;
-use App\Http\Controllers\Api\LecturerIdentityController;
 use App\Http\Controllers\Api\InpassingController;
 use App\Http\Controllers\Api\PlacementController;
 use App\Http\Controllers\Api\ProfessorEmeritusController;
@@ -43,6 +42,8 @@ use App\Http\Controllers\Api\StructuralPositionController;
 use App\Http\Controllers\Api\ProfessionalMembershipController;
 use App\Http\Controllers\Api\OtherSupportingActivityController;
 use App\Http\Controllers\Api\ScholarshipController;
+use App\Http\Controllers\Api\IdentityController;
+
 //auth
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
