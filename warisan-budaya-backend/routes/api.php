@@ -74,7 +74,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('lecturer-academics', LecturerAcademicController::class);
     Route::apiResource('lecturer-addresses', LecturerAddressController::class);
     Route::apiResource('lecturer-families', LecturerFamilyController::class);
-    Route::apiResource('lecturer-identities', LecturerIdentityController::class);
     Route::apiResource('inpassings', InpassingController::class);
     Route::apiResource('placements', PlacementController::class);
     Route::apiResource('professor-emerituses', ProfessorEmeritusController::class);
@@ -105,15 +104,10 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Auto-generated routes
     Route::apiResource('lecturer-teachings', App\Http\Controllers\Api\LecturerTeachingController::class);
-    Route::apiResource('events', App\Http\Controllers\Api\EventController::class);
     Route::apiResource('certifications', App\Http\Controllers\Api\CertificationController::class);
     Route::apiResource('tests', App\Http\Controllers\Api\TestController::class);
     Route::apiResource('diklats', App\Http\Controllers\Api\DiklatController::class);
     Route::apiResource('publication-authors', App\Http\Controllers\Api\PublicationAuthorController::class);
-    Route::apiResource('academics', App\Http\Controllers\Api\AcademicController::class);
-    Route::apiResource('addresses', App\Http\Controllers\Api\AddressController::class);
-    Route::apiResource('employments', App\Http\Controllers\Api\EmploymentController::class);
-    Route::apiResource('families', App\Http\Controllers\Api\FamilyController::class);
     Route::apiResource('identities', App\Http\Controllers\Api\IdentityController::class);
     Route::apiResource('lecturer-stats', App\Http\Controllers\Api\LecturerStatController::class);
     Route::apiResource('other-datas', App\Http\Controllers\Api\OtherDataController::class);
@@ -122,6 +116,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('work-contracts', App\Http\Controllers\Api\WorkContractController::class);
     Route::apiResource('source-syncs', App\Http\Controllers\Api\SourceSyncController::class);
     Route::apiResource('users', App\Http\Controllers\Api\UserController::class);
-    Route::apiResource('lecturer-educations', App\Http\Controllers\Api\LecturerEducationController::class);
 
 });
