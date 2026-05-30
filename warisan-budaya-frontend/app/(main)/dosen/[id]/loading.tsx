@@ -4,14 +4,11 @@ import { Skeleton } from "@/components/ui/skeleton";
 export default function Loading() {
   return (
     <div className="min-h-screen bg-[#F5F7FA] relative pb-20">
-      {/* Sub-Navbar */}
       <div className="w-full bg-white py-3 border-b border-slate-100 text-center text-sm md:text-[15px] font-medium relative z-20">
         <span className="text-[#1E40AF] hover:underline cursor-pointer">Universitas Udayana</span>
         <span className="text-slate-300 mx-2">/</span>
         <span className="text-slate-500">Laboratorium Warisan Budaya Digital</span>
       </div>
-
-      {/* Background Banner */}
       <div className="absolute top-[45px] left-0 right-0 h-64 bg-slate-200 z-0 animate-pulse"></div>
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-16">
         <Card className="bg-white rounded-xl shadow-sm border-0 overflow-hidden mb-8">
