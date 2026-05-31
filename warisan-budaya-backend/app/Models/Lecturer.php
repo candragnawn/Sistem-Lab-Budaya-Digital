@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 //profile
 use App\Models\Profile\Academic;
@@ -96,12 +97,6 @@ public function academic(): HasOne
         return $this->hasMany(Address::class, 'lecturer_id');
     }
 
-   
-    public function employments(): HasMany
-    {
-        return $this->hasMany(Employment::class, 'lecturer_id');
-    }
-
   
     public function families(): HasMany
     {
@@ -171,12 +166,6 @@ public function academic(): HasOne
     public function publicationAuthors(): HasMany
     {
         return $this->hasMany(PublicationAuthor::class, 'lecturer_id');
-    }
-
-  
-    public function lecturerEducations(): HasMany
-    {
-        return $this->hasMany(LecturerEducation::class, 'lecturer_id');
     }
 
     public function teachings(): HasMany
@@ -267,9 +256,9 @@ public function academic(): HasOne
     }
 
   
-    public function publications(): HasMany
+    public function publications(): BelongsToMany
     {
-        return $this->hasMany(Publication::class, 'lecturer_id');
+        return $this->belongsToMany(Publication::class, 'publication_authors');
     }
 
     public function research(): HasMany
@@ -283,17 +272,6 @@ public function academic(): HasOne
         return $this->hasMany(Diklat::class, 'lecturer_id');
     }
 
-  
-    public function educationHistories(): HasMany
-    {
-        return $this->hasMany(Educations::class, 'lecturer_id');
-    }
-
-  
-    public function employmentHistories(): HasMany
-    {
-        return $this->hasMany(employment_history::class, 'lecturer_id');
-    }
 
 
     public function certifications(): HasMany

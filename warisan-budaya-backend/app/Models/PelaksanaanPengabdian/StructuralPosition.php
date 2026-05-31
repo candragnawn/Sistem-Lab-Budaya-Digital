@@ -9,7 +9,7 @@ use App\Models\Lecturer;
 
 class StructuralPosition extends Model
 {
-    protected $table = "";
+    protected $table = "structural_positions";
 
     protected $fillable = [
         'lecturer_id',

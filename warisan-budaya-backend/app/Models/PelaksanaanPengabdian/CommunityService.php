@@ -9,7 +9,7 @@ use App\Models\Lecturer;
 
 class CommunityService extends Model
 {
-    protected $table = "";
+    protected $table = "community_services";
 
     protected $fillable = [
         'lecturer_id',

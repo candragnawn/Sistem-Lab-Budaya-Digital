@@ -14,4 +14,6 @@ class LecturerController extends BaseCrudController
     protected $storeRequest = StoreLecturerRequest::class;
     protected $updateRequest = UpdateLecturerRequest::class;
     protected $with = [];
+
+
 }

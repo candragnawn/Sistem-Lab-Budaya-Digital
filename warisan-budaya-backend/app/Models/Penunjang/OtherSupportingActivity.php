@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Models\Lecturer;
 class OtherSupportingActivity extends Model
 {
-    protected $table = "";
+    protected $table = "other_supporting_activities";
 
     protected $fillable = [
         'lecturer_id',

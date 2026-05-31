@@ -19,7 +19,7 @@ class StoreJournalManagerRequest extends FormRequest
             'decree_number' => 'nullable|string|max:255',
             'effective_date' => 'nullable|string|max:255',
             'end_date' => 'nullable|string|max:255',
-            'is_active' => 'nullable|string|max:255',
+            'is_active' => 'nullable|boolean|max:255',
             'role' => 'nullable|string|max:255',
         ];
     }
