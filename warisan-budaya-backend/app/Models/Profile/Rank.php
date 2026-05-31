@@ -8,7 +8,7 @@ use App\Models\Lecturer;
 
 class Rank extends Model
 {
-    protected $table = "";
+    protected $table = "ranks";
 
     protected $fillable = [
         'lecturer_id',

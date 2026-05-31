@@ -11,13 +11,14 @@ class PublicationResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'id_penulis_publikasi' => $this->publication_author_id,
             'judul' => $this->title,
             'kategori' => $this->category,
             'tipe' => $this->type,
             'sumber' => $this->source,
             'kuartil' => $this->quartile,
-            'url_dokumen' => $this->document_url,
+            'nama_jurnal' => $this->journal_name,
+            'issn' => $this->issn,
+            'doi' => $this->doi,
             'status_verifikasi' => $this->is_verified,
             'tahun' => $this->year,
             'url' => $this->url,
