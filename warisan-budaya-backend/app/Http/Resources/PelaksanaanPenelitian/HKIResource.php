@@ -13,9 +13,9 @@ class HKIResource extends JsonResource
             'id' => $this->id,
             'jenis_hki' => $this->hki_type,
             'judul' => $this->title,
+            'quartil' => $this->quartile,
             'nomor_sertifikat' => $this->certificate_number,
-            'tanggal_terbit' => $this->issue_date,
-            'deskripsi' => $this->description,
+            'tanggal_terbit' => $this->publish_date,
         ];
     }
 }

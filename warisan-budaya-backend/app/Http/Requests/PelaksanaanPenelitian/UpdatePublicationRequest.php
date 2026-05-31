@@ -22,7 +22,7 @@ class UpdatePublicationRequest extends FormRequest
             'source' => 'nullable|string|max:255',
             'quartile' => 'nullable|string|max:255',
             'document_url' => 'nullable|string|max:255',
-            'is_verified' => 'nullable|string|max:255',
+            'is_verified' => 'nullable|boolean',
             'year' => 'nullable|string|max:255',
             'url' => 'nullable|string|max:255',
         ];

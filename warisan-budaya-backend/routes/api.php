@@ -93,14 +93,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('other-supporting-activities', OtherSupportingActivityController::class);
     Route::apiResource('scholarships', ScholarshipController::class);
 
-
-    Route::prefix('public')->group(function () {
-
-        Route::get('/lecturers', [LecturerController::class, 'index']);
-        Route::get('/lecturers/{id}', [LecturerController::class, 'show']);
-
-    });
-
     // Auto-generated routes
     Route::apiResource('certifications', App\Http\Controllers\Api\CertificationController::class);
     Route::apiResource('tests', App\Http\Controllers\Api\TestController::class);
@@ -114,5 +106,12 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('work-contracts', App\Http\Controllers\Api\WorkContractController::class);
     Route::apiResource('source-syncs', App\Http\Controllers\Api\SourceSyncController::class);
     Route::apiResource('users', App\Http\Controllers\Api\UserController::class);
+
+});
+
+Route::prefix('public')->group(function () {
+
+    Route::get('/lecturers', [LecturerController::class, 'index']);
+    Route::get('/lecturers/{id}', [LecturerController::class, 'show']);
 
 });
