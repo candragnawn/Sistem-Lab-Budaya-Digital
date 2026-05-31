@@ -8,7 +8,7 @@ use App\Models\Lecturer;
 
 class Placement extends Model
 {
-    protected $table = "";
+    protected $table = "Placements";
 
     protected $fillable = [
         'lecturer_id',
