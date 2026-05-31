@@ -10,7 +10,6 @@ import {
 import Loading from "./loading";
 import type { TabType, SortType, Category } from "./types";
 import { initialCategories, dummyProfileData } from "./data";
-import CategorySidebar from "./_components/CategorySidebar";
 import ProfileTable from "./_components/ProfileTable";
 import PublicationCard from "./_components/PublicationCard";
 
@@ -22,7 +21,6 @@ export default function DosenProfilePage() {
   const [activeTab, setActiveTab] = useState<TabType>("overview");
   const [sortBy, setSortBy] = useState<SortType>("year-desc");
   const [categories, setCategories] = useState<Category[]>(initialCategories);
-  const [expandedCategories, setExpandedCategories] = useState<Set<string>>(new Set(["kualifikasi"]));
   const [activeSubCategory, setActiveSubCategory] = useState<string>("pendidikan-formal");
 
   const isOwner = true;
@@ -43,30 +41,17 @@ export default function DosenProfilePage() {
     return 0;
   });
 
+  const activeCategory = categories.find((c) => c.id === activeTab);
   const activeSub = (() => {
-    for (const cat of categories) {
-      const sub = cat.subCategories.find((s) => s.id === activeSubCategory);
-      if (sub) return sub;
-    }
-    return null;
+    if (!activeCategory) return null;
+    const sub = activeCategory.subCategories.find((s) => s.id === activeSubCategory);
+    return sub || activeCategory.subCategories[0];
   })();
 
   const totalVisible = categories.reduce(
     (acc, cat) => acc + cat.subCategories.filter((s) => s.visible).length, 0
   );
   const totalSubCats = categories.reduce((acc, cat) => acc + cat.subCategories.length, 0);
-  const handleToggleCategory = (catId: string) => {
-    setExpandedCategories((prev) => {
-      const next = new Set(prev);
-      next.has(catId) ? next.delete(catId) : next.add(catId);
-      return next;
-    });
-  };
-
-  const handleSelectSubCategory = (subId: string, catId: string) => {
-    setActiveSubCategory(subId);
-    if (!expandedCategories.has(catId)) handleToggleCategory(catId);
-  };
 
   const handleToggleVisibility = (categoryId: string, subCategoryId: string) => {
     setCategories((prev) =>
@@ -86,27 +71,22 @@ export default function DosenProfilePage() {
   const tabs: { key: TabType; label: string; count?: number }[] = [
     { key: "overview", label: "Ringkasan (Overview)" },
     { key: "publications", label: "Publikasi", count: profileData.publications.length },
-    { key: "profile", label: "Kategori" },
+    ...categories.map(cat => ({ key: cat.id, label: cat.label })),
   ];
 
   return (
     <div className="min-h-screen bg-[#F5F5F5] relative pb-20">
+
       <div className="w-full bg-white py-3 border-b border-slate-100 text-center text-sm md:text-[15px] font-medium relative z-20">
         <span className="text-[#1E40AF] hover:underline cursor-pointer">Universitas Udayana</span>
         <span className="text-slate-300 mx-2">/</span>
         <span className="text-slate-500">Laboratorium Warisan Budaya Digital</span>
       </div>
 
-      <div className="absolute top-[45px] left-0 right-0 h-64 bg-[#E8EDF2] z-0">
-        <div
-          className="absolute inset-0 opacity-10"
-          style={{ backgroundImage: "radial-gradient(circle at 2px 2px, white 1px, transparent 0)", backgroundSize: "32px 32px" }}
-        />
-      </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-16">
-        <div className="bg-white rounded-xl shadow-sm border-0 overflow-hidden mb-8">
-          <div className="p-8 flex flex-col md:flex-row gap-8 items-start md:items-center">
+      <div className="w-full bg-white border-b border-slate-200/80 shadow-sm relative z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="py-8 flex flex-col md:flex-row gap-8 items-start md:items-center">
             <div className="flex-shrink-0">
               <div className="w-32 h-32 rounded-full bg-[#0088CC] flex items-center justify-center text-white text-5xl font-light shadow-inner overflow-hidden">
                 <img src={profileData.imageUrl} alt={profileData.name} className="w-full h-full object-cover rounded-full" />
@@ -132,11 +112,17 @@ export default function DosenProfilePage() {
             </div>
           </div>
 
-          <div className="border-t border-slate-100 px-8 flex gap-0 overflow-x-auto">
+          <div className="border-t border-slate-100 flex gap-0 overflow-x-auto">
             {tabs.map((tab) => (
               <button
                 key={tab.key}
-                onClick={() => setActiveTab(tab.key)}
+                onClick={() => {
+                  setActiveTab(tab.key);
+                  const cat = categories.find((c) => c.id === tab.key);
+                  if (cat && cat.subCategories.length > 0) {
+                    setActiveSubCategory(cat.subCategories[0].id);
+                  }
+                }}
                 className={`py-4 px-5 text-sm font-semibold border-b-2 transition-all whitespace-nowrap flex items-center gap-2 ${activeTab === tab.key
                   ? "text-[#1E40AF] border-[#1E40AF]"
                   : "text-slate-500 border-transparent hover:text-slate-700"
@@ -152,7 +138,10 @@ export default function DosenProfilePage() {
             ))}
           </div>
         </div>
+      </div>
 
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-8">
         {activeTab === "overview" && (
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <div className="space-y-6">
@@ -253,7 +242,7 @@ export default function DosenProfilePage() {
           </div>
         )}
 
-        {activeTab === "profile" && (
+        {activeTab !== "overview" && activeTab !== "publications" && activeCategory && (
           <div className="animate-[fadeIn_0.3s_ease]">
             {isOwner && (
               <div className="mb-5 flex flex-col sm:flex-row items-start sm:items-center gap-3 bg-blue-50 border border-blue-200 rounded-xl px-5 py-3.5">
@@ -268,20 +257,50 @@ export default function DosenProfilePage() {
               </div>
             )}
 
-            <div className="flex gap-6 items-start">
-              <CategorySidebar
-                categories={categories}
-                activeSubCategory={activeSubCategory}
-                expandedCategories={expandedCategories}
-                isOwner={isOwner}
-                onSelectSubCategory={handleSelectSubCategory}
-                onToggleCategory={handleToggleCategory}
-                onToggleVisibility={handleToggleVisibility}
-              />
+            <div className="flex flex-col lg:flex-row gap-6 items-start">
 
-              <div className="flex-grow min-w-0">
+              <div className="w-full lg:w-64 flex-shrink-0 flex flex-row lg:flex-col gap-2 overflow-x-auto lg:overflow-x-visible pb-3 lg:pb-0">
+                {activeCategory.subCategories.map((sub) => {
+                  const isActive = activeSub?.id === sub.id;
+                  return (
+                    <div
+                      key={sub.id}
+                      className={`flex items-center justify-between gap-1 p-1 lg:p-1.5 rounded-xl border transition-all w-full min-w-[200px] lg:min-w-0 ${isActive
+                        ? "bg-[#1E40AF]/5 border-[#1E40AF]/20"
+                        : "bg-white border-slate-200/60 hover:bg-slate-50"
+                        }`}
+                    >
+                      <button
+                        onClick={() => setActiveSubCategory(sub.id)}
+                        className={`flex-grow text-left px-3 py-2 text-xs md:text-sm font-semibold rounded-lg transition-colors whitespace-nowrap lg:whitespace-normal ${isActive
+                          ? "text-[#1E40AF]"
+                          : "text-slate-600"
+                          } ${!sub.visible && !isOwner ? "opacity-40" : ""}`}
+                      >
+                        {sub.label}
+                        {!sub.visible && isOwner && (
+                          <span className="block mt-0.5 text-[10px] text-orange-600 font-bold">(Tersembunyi)</span>
+                        )}
+                      </button>
+                      {isOwner && (
+                        <button
+                          title={sub.visible ? "Sembunyikan dari publik" : "Tampilkan ke publik"}
+                          onClick={() => handleToggleVisibility(activeCategory.id, sub.id)}
+                          className={`p-1.5 rounded-lg flex-shrink-0 transition-colors ${sub.visible ? "text-green-600 hover:bg-green-100/50" : "text-slate-400 hover:bg-slate-100"}`}
+                        >
+                          {sub.visible ? <Eye className="w-4 h-4" /> : <EyeOff className="w-4 h-4" />}
+                        </button>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+
+
+              <div className="flex-1 w-full min-w-0">
                 {activeSub ? (
                   <ProfileTable
+                    key={activeSub.id}
                     activeSub={activeSub}
                     categories={categories}
                     isOwner={isOwner}
@@ -289,7 +308,7 @@ export default function DosenProfilePage() {
                 ) : (
                   <div className="flex flex-col items-center justify-center bg-white rounded-xl shadow-sm border border-slate-100 py-24 text-slate-400">
                     <BookOpen className="w-10 h-10 mb-3 opacity-40" />
-                    <p className="text-sm font-medium">Pilih sub-kategori dari menu di sebelah kiri</p>
+                    <p className="text-sm font-medium">Pilih sub-kategori</p>
                   </div>
                 )}
               </div>

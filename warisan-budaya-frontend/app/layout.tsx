@@ -3,7 +3,6 @@ import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@/lib/utils";
 import { Navbar1 } from "@/components/navbar1";
-import { Footer } from "@/components/footer";
 
 const geist = Geist({ subsets: ['latin'], variable: '--font-sans' })
 const fontMono = Geist_Mono({
@@ -39,7 +38,7 @@ export default function RootLayout({
           <header className="sticky top-0 z-50">
             <Navbar1 />
           </header>
-          {children}<Footer />
+          {children}
         </ThemeProvider>
       </body>
     </html>
