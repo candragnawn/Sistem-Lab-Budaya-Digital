@@ -1,4 +1,4 @@
-export type TabType = "overview" | "publications" | "profile";
+export type TabType = "overview" | "publications" | string;
 export type SortType = "year-desc" | "year-asc" | "citation-desc";
 
 export interface SubCategory {
