@@ -17,9 +17,9 @@ class StoreHKIRequest extends FormRequest
             'lecturer_id' => 'nullable|string|max:255',
             'hki_type' => 'nullable|string|max:255',
             'title' => 'nullable|string|max:255',
+            'quartile' => 'nullable|string|max:255',
             'certificate_number' => 'nullable|string|max:255',
-            'issue_date' => 'nullable|string|max:255',
-            'description' => 'nullable|string|max:255',
+            'publish_date' => 'nullable|date',
         ];
     }
 }
