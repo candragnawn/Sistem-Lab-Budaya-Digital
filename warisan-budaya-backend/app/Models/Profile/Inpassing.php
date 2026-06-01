@@ -8,8 +8,8 @@ use App\Models\Lecturer;
 
 class Inpassing extends Model
 {
-    protected $table = 'lecturer_inpassings';
-    
+    protected $table = 'inpassings';
+
     protected $fillable = [
         'lecturer_id',
         'rank_group',
@@ -18,7 +18,8 @@ class Inpassing extends Model
         'notes'
     ];
 
-    public function lecturer(): BelongsTo {
+    public function lecturer(): BelongsTo
+    {
         return $this->belongsTo(Lecturer::class, 'lecturer_id');
     }
 }

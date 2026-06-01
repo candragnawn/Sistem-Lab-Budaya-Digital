@@ -31,7 +31,6 @@ const sidebarItems: SidebarItem[] = [
     title: "Profil",
     href: "/dashboard/profil",
     icon: <User className="h-4 w-4" />,
-    badge: "3.0",
     children: [
       { title: "Data Pribadi", href: "/dashboard/profil" },
       { title: "Inpassing", href: "/dashboard/profil/inpassing", badge: "SISTER" },
@@ -45,7 +44,6 @@ const sidebarItems: SidebarItem[] = [
     title: "Kualifikasi",
     href: "/dashboard/kualifikasi",
     icon: <GraduationCap className="h-4 w-4" />,
-    badge: "3.0",
     children: [
       { title: "Pendidikan Formal", href: "/dashboard/kualifikasi/pendidikan-formal" },
       { title: "Diklat", href: "/dashboard/kualifikasi/diklat" },
@@ -61,7 +59,6 @@ const sidebarItems: SidebarItem[] = [
     title: "Pelaksanaan Pendidikan",
     href: "/dashboard/pelaksanaan-pendidikan",
     icon: <BookOpen className="h-4 w-4" />,
-    badge: "0.0",
   },
   {
     title: "Pelaksanaan Pengabdian",
@@ -77,7 +74,6 @@ const sidebarItems: SidebarItem[] = [
     title: "Reward",
     href: "/dashboard/reward",
     icon: <Trophy className="h-4 w-4" />,
-    badge: "0.0",
   },
   {
     title: "Data Dokumen",
@@ -140,17 +136,16 @@ export function DashboardSidebar({ isOpen: controlledIsOpen, setIsOpen: controll
 
   return (
     <>
-      {/* Toggle Button */}
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className={cn(
-          "fixed top-[65px] z-50 flex h-10 w-10 items-center justify-center rounded-r-lg bg-brand-navy text-white shadow-lg transition-all duration-300 hover:bg-brand-navy/90 lg:top-[65px]",
-          isOpen ? "left-[259px]" : "left-0",
-        )}
-        aria-label="Toggle sidebar"
-      >
-        {isOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
-      </button>
+      {/* Toggle Button — hanya tampil saat sidebar TUTUP */}
+      {!isOpen && (
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className="fixed top-[57px] left-0 z-50 flex h-10 w-10 items-center justify-center rounded-r-lg bg-brand-navy text-white shadow-lg transition-all duration-300 hover:bg-brand-navy/90"
+          aria-label="Buka sidebar"
+        >
+          <Menu className="h-4 w-4" />
+        </button>
+      )}
 
       {/* Overlay for mobile */}
       {isMobile && isOpen && (
@@ -169,13 +164,23 @@ export function DashboardSidebar({ isOpen: controlledIsOpen, setIsOpen: controll
       >
         {/* Header */}
         <div className="border-b border-gray-100 bg-gradient-to-r from-brand-navy to-brand-navy/80 px-4 py-3">
-          <div className="flex items-center gap-2">
-            <div className="flex h-6 w-6 items-center justify-center rounded bg-yellow-400/20">
-              <Menu className="h-3.5 w-3.5 text-yellow-400" />
+          <div className="flex items-center justify-between gap-2">
+            <div className="flex items-center gap-2">
+              <div className="flex h-6 w-6 items-center justify-center rounded bg-yellow-400/20">
+                <Menu className="h-3.5 w-3.5 text-yellow-400" />
+              </div>
+              <span className="text-xs font-semibold uppercase tracking-wider text-white/80">
+                Menu Navigasi
+              </span>
             </div>
-            <span className="text-xs font-semibold uppercase tracking-wider text-white/80">
-              Menu Navigasi
-            </span>
+            {/* Tombol X di dalam header sidebar saat terbuka */}
+            <button
+              onClick={() => setIsOpen(false)}
+              className="flex h-7 w-7 items-center justify-center rounded-md bg-white/10 text-white/80 hover:bg-white/20 hover:text-white transition-colors"
+              aria-label="Tutup sidebar"
+            >
+              <X className="h-4 w-4" />
+            </button>
           </div>
         </div>
 

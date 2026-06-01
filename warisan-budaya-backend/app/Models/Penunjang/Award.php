@@ -9,6 +9,8 @@ use App\Models\Lecturer;
 
 class Award extends Model
 {
+    protected $table = "awards";
+
     protected $fillable = [
         'lecturer_id',
         'award_name',

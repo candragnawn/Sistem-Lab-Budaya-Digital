@@ -2,13 +2,18 @@
 
 namespace App\Http\Controllers\Api;
 
-<<<<<<< HEAD
-=======
-use App\Http\Controllers\Api\BaseCrudController;
 use App\Models\PelaksanaanPendidikan\AdditionalTask;
+use App\Http\Requests\PelaksanaanPendidikan\StoreAdditionalTaskRequest;
+use App\Http\Requests\PelaksanaanPendidikan\UpdateAdditionalTaskRequest;
+use App\Http\Resources\PelaksanaanPendidikan\AdditionalTaskResource;
 
->>>>>>> 6c0b3ec (feat: restrukturisasi model profil dosen dan migration terupdate)
+use App\Http\Controllers\Api\BaseCrudController;
+
 class AdditionalTaskController extends BaseCrudController
 {
-    protected $model = \App\Models\PelaksanaanPendidikan\AdditionalTask::class;
+    protected $model = AdditionalTask::class;
+    protected $resource = AdditionalTaskResource::class;
+    protected $storeRequest = StoreAdditionalTaskRequest::class;
+    protected $updateRequest = UpdateAdditionalTaskRequest::class;
+    protected $with = ['lecturer'];
 }

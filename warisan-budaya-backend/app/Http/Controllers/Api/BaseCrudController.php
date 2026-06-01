@@ -17,9 +17,14 @@ abstract class BaseCrudController extends Controller
 
     protected $updateRequest = null;
 
-    public function index()
+    public function index(Request $request)
     {
         $query = $this->model::query();
+        
+        $instance = new $this->model;
+        if (in_array('lecturer_id', $instance->getFillable()) && $request->user()) {
+            $query->where('lecturer_id', $request->user()->lecturer_id);
+        }
 
         if (!empty($this->with)) {
             $query->with($this->with);
@@ -36,7 +41,8 @@ abstract class BaseCrudController extends Controller
             app($this->storeRequest)->rules()
         );
 
-        $validated['lecturer_id'] = auth()->user()->lecturer_id;
+        // $validated['lecturer_id'] = auth()->guard()->user()->lecturer_id;
+        $validated['lecturer_id'] = $request->user() ? $request->user()->lecturer_id : null;
 
         $item = $this->model::create($validated);
 
@@ -45,7 +51,7 @@ abstract class BaseCrudController extends Controller
         return $this->successResponse($item, 201);
     }
 
-    public function show($id)
+    public function show(Request $request, $id)
     {
         $query = $this->model::query();
 
@@ -66,6 +72,8 @@ abstract class BaseCrudController extends Controller
 
         $item = $this->model::findOrFail($id);
 
+        $this->checkOwnership($request, $item);
+
         $item->update($validated);
 
         $this->loadRelations($item);
@@ -73,9 +81,11 @@ abstract class BaseCrudController extends Controller
         return $this->successResponse($item);
     }
 
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         $item = $this->model::findOrFail($id);
+
+        $this->checkOwnership($request, $item);
 
         $item->delete();
 
@@ -83,6 +93,15 @@ abstract class BaseCrudController extends Controller
             'success' => true,
             'message' => 'Data deleted successfully'
         ], 200);
+    }
+
+    protected function checkOwnership(Request $request, $item)
+    {
+        if ($request->user() && array_key_exists('lecturer_id', $item->getAttributes())) {
+            if ($item->lecturer_id !== $request->user()->lecturer_id) {
+                abort(403, 'Tidak bisa mengakses data yang bukan milikmu!');
+            }
+        }
     }
 
     protected function loadRelations($item)

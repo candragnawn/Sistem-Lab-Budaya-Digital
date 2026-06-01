@@ -11,11 +11,11 @@ class LecturerStudyResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'entry_year' => $this->entry_year,
-            'level' => $this->level,
-            'university' => $this->university,
-            'study_program' => $this->study_program,
-            'scholarship' => $this->scholarship,
+            'tahun_masuk' => $this->entry_year,
+            'tingkat' => $this->level,
+            'universitas' => $this->university,
+            'program_studi' => $this->study_program,
+            'beasiswa' => $this->scholarship,
             'status' => $this->status,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,

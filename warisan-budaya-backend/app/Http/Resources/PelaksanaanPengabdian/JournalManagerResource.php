@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\PelaksanaanPengabdian;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -9,6 +9,14 @@ class JournalManagerResource extends JsonResource
 {
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'nama_jurnal' => $this->journal_name,
+            'nomor_sk' => $this->decree_number,
+            'tanggal_berlaku' => $this->effective_date,
+            'tanggal_selesai' => $this->end_date,
+            'status_aktif' => $this->is_active,
+            'peran' => $this->role,
+        ];
     }
 }

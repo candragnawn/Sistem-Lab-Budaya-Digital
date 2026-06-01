@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Models\Lecturer;
 class diklat extends Model
 {
+    protected $table = "diklats";
+
     protected $fillable = [
         'lecturer_id',
         'training_name',
@@ -16,7 +18,7 @@ class diklat extends Model
         'status',
     ];
 
-    public function lecturer(): BelongsTo
+    public function Lecturer(): BelongsTo
     {
         return $this->belongsTo(Lecturer::class);
 

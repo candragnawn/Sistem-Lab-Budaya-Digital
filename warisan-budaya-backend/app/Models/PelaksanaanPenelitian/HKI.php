@@ -7,15 +7,15 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Models\Lecturer;
 class HKI extends Model
 {
-    protected $table = 'lecturers_hkis';
+    protected $table = 'lecturer_hkis';
     
     protected $fillable = [
         'lecturer_id',
         'hki_type',
         'title',
+        'quartile',
         'certificate_number',
-        'issue_date',
-        'description'
+        'publish_date'
     ];
 
     public function lecturer(): BelongsTo {

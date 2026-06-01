@@ -28,8 +28,10 @@ class UpdateLecturerEducationRequest extends FormRequest
             'country' => 'nullable|string|max:255',
             'university' => 'nullable|string|max:255',
             'study_program' => 'nullable|string|max:255',
+            'study_type' => 'nullable|string|max:255',
+            'scholarship' => 'nullable|string|max:255',
             'graduation_year' => 'nullable|integer',
-            'predicate' => 'nullable|string|max:255'
+            'predicate' => 'nullable|string|max:255' 
         ];
     }
 }
