@@ -5,6 +5,10 @@ namespace App\Models\PelaksanaanPenelitian;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use App\Models\Lecturer;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+
 
 class Publication extends Model
 {
@@ -27,6 +31,27 @@ class Publication extends Model
     ];
     public function lecturer(): BelongsToMany{
             return $this->belongsToMany(Lecturer::class, 'publication_authors');
-        }
+    }
+
+    protected static function booted()
+    {
+        static::saving (function ($user){
+            if ($user->isDirty('url')) { 
+                    // genearate uuid
+                    $file = $user->url;
+                    $filename = Str::uuid() . '.' . $file->extension();
+                    $user->url = $file->storeAs('publications', $filename, 'public');
+                } 
+                elseif (is_null($user->url) && $user->exists && $user->getOriginal('url')) {
+                    Storage::disk('public')->delete($user->getOriginal('url'));
+                }
+            });
+        static::deleted(function ($user) {
+            if ($user->url) {
+                Storage::disk('public')->delete($user->url);
+            }
+        });
+
+    }
 
 }

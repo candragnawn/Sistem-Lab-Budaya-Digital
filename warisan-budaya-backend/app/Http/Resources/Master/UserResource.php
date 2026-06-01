@@ -22,9 +22,10 @@ class UserResource extends JsonResource
     public function toArray(Request $request): array
     {
         $data = [
-            'id' => $this -> id,
+            'id' => $this->id,
             'nama' => $this->name,
             'email' => $this->email,
+            'avatar_path' => $this->avatar_path ? asset('storage/' . $this->avatar_path) : null,
         ];
 
         if ($this->token) {
