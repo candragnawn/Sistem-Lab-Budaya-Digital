@@ -14,7 +14,6 @@ class InpassingResource extends JsonResource
             'golongan_kepangkatan' => $this->rank_group,
             'nomor_sk' => $this->decree_number,
             'tanggal_berlaku' => $this->effective_date,
-            'catatan' => $this->notes,
         ];
     }
 }
