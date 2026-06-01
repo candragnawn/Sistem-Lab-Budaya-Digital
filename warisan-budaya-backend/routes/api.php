@@ -43,75 +43,95 @@ use App\Http\Controllers\Api\ProfessionalMembershipController;
 use App\Http\Controllers\Api\OtherSupportingActivityController;
 use App\Http\Controllers\Api\ScholarshipController;
 use App\Http\Controllers\Api\IdentityController;
+use App\Http\Controllers\Api\CertificationController;
+use App\Http\Controllers\Api\PublicationAuthorController;
+use App\Http\Controllers\Api\LecturerStatController;
+use App\Http\Controllers\Api\OtherDataController;
+use App\Http\Controllers\Api\PositionController;
+use App\Http\Controllers\Api\RankController;
+use App\Http\Controllers\Api\WorkContractController;
+use App\Http\Controllers\Api\SourceSyncController;
+use App\Http\Controllers\Api\UserController;
 
-//auth
+// Auth
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
 
 Route::middleware('auth:sanctum')->group(function () {
+
+    // Auth
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
     Route::get('/me', [AuthController::class, 'me']);
 
+    // Master
     Route::apiResource('lecturers', LecturerController::class);
     Route::apiResource('categories', CategoryController::class);
-    Route::apiResource('publications', PublicationController::class);
-    Route::apiResource('research', ResearchController::class);
-    Route::apiResource('community-services', CommunityServiceController::class);
-    Route::apiResource('jobs', JobController::class);
-    Route::apiResource('speakers', SpeakerController::class);
-    Route::apiResource('tests', TestController::class);
-    Route::apiResource('functional-positions', FunctionalPositionController::class);
-    Route::apiResource('awards', AwardController::class);
-    Route::apiResource('welfares', WelfareController::class);
-    Route::apiResource('allowances', AllowanceController::class);
-    Route::apiResource('lecturer-educations', LecturerEducationController::class);
-    Route::apiResource('hkis', HKIController::class);
-    Route::apiResource('lecturer-employments', LecturerEmploymentController::class);
-    Route::apiResource('lecturer-academics', LecturerAcademicController::class);
+    Route::apiResource('users', UserController::class);
+
+    // Profile
+    Route::apiResource('identities', IdentityController::class);
     Route::apiResource('lecturer-addresses', LecturerAddressController::class);
     Route::apiResource('lecturer-families', LecturerFamilyController::class);
-    Route::apiResource('inpassings', InpassingController::class);
+    Route::apiResource('lecturer-academics', LecturerAcademicController::class);
+    Route::apiResource('lecturer-employments', LecturerEmploymentController::class);
+    Route::apiResource('functional-positions', FunctionalPositionController::class);
+    Route::apiResource('structural-positions', StructuralPositionController::class);
+    Route::apiResource('positions', PositionController::class);
+    Route::apiResource('ranks', RankController::class);
+    Route::apiResource('work-contracts', WorkContractController::class);
     Route::apiResource('placements', PlacementController::class);
+    Route::apiResource('inpassings', InpassingController::class);
     Route::apiResource('professor-emerituses', ProfessorEmeritusController::class);
+    Route::apiResource('allowances', AllowanceController::class);
+    Route::apiResource('welfares', WelfareController::class);
+    Route::apiResource('scholarships', ScholarshipController::class);
+    Route::apiResource('awards', AwardController::class);
+
+    // Kualifikasi & Pendidikan
+    Route::apiResource('lecturer-educations', LecturerEducationController::class);
+    Route::apiResource('certifications', CertificationController::class);
     Route::apiResource('diklats', DiklatController::class);
+    Route::apiResource('tests', TestController::class);
+
+    // Pelaksanaan Pendidikan
     Route::apiResource('teachings', TeachingController::class);
+    Route::apiResource('teaching-materials', TeachingMaterialController::class);
     Route::apiResource('student-supervisions', StudentSupervisionController::class);
     Route::apiResource('student-examinations', StudentExaminationController::class);
-    Route::apiResource('teaching-materials', TeachingMaterialController::class);
     Route::apiResource('student-developments', StudentDevelopmentController::class);
     Route::apiResource('visiting-scientists', VisitingScientistController::class);
     Route::apiResource('detaserings', DetaseringController::class);
     Route::apiResource('academic-orations', AcademicOrationController::class);
     Route::apiResource('lecturer-mentorings', LecturerMentoringController::class);
-    Route::apiResource('additional-tasks', AdditionalTaskController::class);
+
+    // Pelaksanaan Penelitian
+    Route::apiResource('research', ResearchController::class);
+    Route::apiResource('publications', PublicationController::class);
+    Route::apiResource('publication-authors', PublicationAuthorController::class);
+    Route::apiResource('hkis', HKIController::class);
+
+    // Pelaksanaan Pengabdian
+    Route::apiResource('community-services', CommunityServiceController::class);
+
+    // Penunjang
+    Route::apiResource('jobs', JobController::class);
+    Route::apiResource('speakers', SpeakerController::class);
     Route::apiResource('journal-managers', JournalManagerController::class);
-    Route::apiResource('structural-positions', StructuralPositionController::class);
+    Route::apiResource('additional-tasks', AdditionalTaskController::class);
     Route::apiResource('professional-memberships', ProfessionalMembershipController::class);
     Route::apiResource('other-supporting-activities', OtherSupportingActivityController::class);
-    Route::apiResource('scholarships', ScholarshipController::class);
 
-    // Auto-generated routes
-    Route::apiResource('certifications', App\Http\Controllers\Api\CertificationController::class);
-    Route::apiResource('tests', App\Http\Controllers\Api\TestController::class);
-    Route::apiResource('diklats', App\Http\Controllers\Api\DiklatController::class);
-    Route::apiResource('publication-authors', App\Http\Controllers\Api\PublicationAuthorController::class);
-    Route::apiResource('identities', App\Http\Controllers\Api\IdentityController::class);
-    Route::apiResource('lecturer-stats', App\Http\Controllers\Api\LecturerStatController::class);
-    Route::apiResource('other-datas', App\Http\Controllers\Api\OtherDataController::class);
-    Route::apiResource('positions', App\Http\Controllers\Api\PositionController::class);
-    Route::apiResource('ranks', App\Http\Controllers\Api\RankController::class);
-    Route::apiResource('work-contracts', App\Http\Controllers\Api\WorkContractController::class);
-    Route::apiResource('source-syncs', App\Http\Controllers\Api\SourceSyncController::class);
-    Route::apiResource('users', App\Http\Controllers\Api\UserController::class);
-
+    // Lain-lain
+    Route::apiResource('lecturer-stats', LecturerStatController::class);
+    Route::apiResource('other-datas', OtherDataController::class);
+    Route::apiResource('source-syncs', SourceSyncController::class);
 });
 
+// Public
 Route::prefix('public')->group(function () {
-
     Route::get('/lecturers', [LecturerController::class, 'index']);
     Route::get('/lecturers/{id}', [LecturerController::class, 'show']);
-
 });

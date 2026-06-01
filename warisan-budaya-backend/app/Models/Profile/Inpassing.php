@@ -8,7 +8,7 @@ use App\Models\Lecturer;
 
 class Inpassing extends Model
 {
-    protected $table = 'lecturer_inpassings';
+    protected $table = 'inpassings';
 
     protected $fillable = [
         'lecturer_id',
