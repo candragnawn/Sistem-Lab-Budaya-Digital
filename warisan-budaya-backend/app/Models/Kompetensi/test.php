@@ -8,6 +8,8 @@ use App\Models\Lecturer;
 
 class test extends Model
 {
+    protected $table = "tests";
+
     protected $fillable = [
         'lecturer_id',
         'test_name',
@@ -16,7 +18,7 @@ class test extends Model
         'year',
     ];
 
-    public function lecturer(): BelongsTo
+    public function Lecturer(): BelongsTo
     {
         return $this->belongsTo(Lecturer::class);
 

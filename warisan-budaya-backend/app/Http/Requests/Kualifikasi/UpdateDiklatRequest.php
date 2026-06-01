@@ -2,28 +2,24 @@
 
 namespace App\Http\Requests\Kualifikasi;
 
-use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateDiklatRequest extends FormRequest
+class UpdatediklatRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, ValidationRule|array<mixed>|string>
-     */
     public function rules(): array
     {
         return [
-            //
+            'lecturer_id' => 'nullable|string|max:255',
+            'training_name' => 'nullable|string|max:255',
+            'training_type' => 'nullable|string|max:255',
+            'organizer' => 'nullable|string|max:255',
+            'year' => 'nullable|string|max:255',
+            'status' => 'nullable|string|max:255',
         ];
     }
 }

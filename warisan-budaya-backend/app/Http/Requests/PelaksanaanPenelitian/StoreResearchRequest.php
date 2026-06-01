@@ -2,28 +2,23 @@
 
 namespace App\Http\Requests\PelaksanaanPenelitian;
 
-use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreResearchRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, ValidationRule|array<mixed>|string>
-     */
     public function rules(): array
     {
         return [
-            //
+            'lecturer_id' => 'nullable|string|max:255',
+            'title' => 'nullable|string|max:255',
+            'scientific_field' => 'nullable|string|max:255',
+            'implementation_year' => 'nullable|string|max:255',
+            'duration' => 'nullable|string|max:255',
         ];
     }
 }

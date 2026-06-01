@@ -2,28 +2,28 @@
 
 namespace App\Http\Requests\Profile;
 
-use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateEmploymentRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, ValidationRule|array<mixed>|string>
-     */
     public function rules(): array
     {
         return [
-            //
+            'lecturer_id' => 'nullable|string|max:255',
+            'nip' => 'nullable|string|max:255',
+            'sk_cpns_number' => 'nullable|string|max:255',
+            'sk_cpns_date' => 'nullable|string|max:255',
+            'rank_group' => 'nullable|string|max:255',
+            'sk_date' => 'nullable|string|max:255',
+            'work_years' => 'nullable|string|max:255',
+            'work_months' => 'nullable|string|max:255',
+            'employment_status' => 'nullable|string|max:255',
+            'active_status' => 'nullable|string|max:255',
         ];
     }
 }
