@@ -24,9 +24,9 @@ class StorePublicationRequest extends FormRequest
             'journal_name' => 'nullable|string|max:255',
             'issn' => 'nullable|string|max:255',
             'doi' => 'nullable|string|max:255',
-            'is_verified' => 'nullable|boolean',
+            'is_verified' => 'required|boolean',
             'year' => 'nullable|string|max:255',
-            'url' => 'nullable|string|max:255',
+            'url' => 'required|file|mimes:pdf|max:2048',
         ];
     }
 }
