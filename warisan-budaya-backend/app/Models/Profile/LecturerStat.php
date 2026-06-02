@@ -8,7 +8,7 @@ use App\Models\Lecturer;
 
 class LecturerStat extends Model
 {
-    protected $table = 'v_lecturers_stats';
+    protected $table = 'v_lecturer_stats';
     public $timestamps = false;
     protected $primaryKey = 'lecturer_id';
     public $incrementing = false;
