@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Models\Lecturer;
 
-class Academic extends Model
+class LecturerAcademic extends Model
 {
     protected $table = 'academics';
     
