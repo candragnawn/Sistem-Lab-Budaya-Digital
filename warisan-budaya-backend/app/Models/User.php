@@ -12,6 +12,7 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use App\Models\Lecturer;
+use App\Service\ImageConverter;
 
 class User extends Authenticatable
 {
@@ -58,16 +59,14 @@ class User extends Authenticatable
     {
         static::saving(function ($user) {
             if ($user->isDirty('avatar_path')) {
-                //ganti avatar delete yang sebelumnya
+                //ganti avatar (delete) yang sebelumnya
                 if ($user->avatar_path instanceof UploadedFile) {
                     if ($user->exists && $user->getOriginal('avatar_path')) {
                         Storage::disk('public')->delete($user->getOriginal('avatar_path'));
                     }
                     
-                    // genearate uuid
-                    $file = $user->avatar_path;
-                    $filename = Str::uuid() . '.' . $file->extension();
-                    $user->avatar_path = $file->storeAs('avatars', $filename, 'public');
+                    // konversi ke webp
+                    $user->avatar_path = ImageConverter::convertToWebp($user->avatar_path, 'avatars');
                 } 
                 elseif (is_null($user->avatar_path) && $user->exists && $user->getOriginal('avatar_path')) {
                     Storage::disk('public')->delete($user->getOriginal('avatar_path'));
