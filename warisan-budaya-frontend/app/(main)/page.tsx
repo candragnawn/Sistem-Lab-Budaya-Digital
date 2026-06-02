@@ -8,7 +8,7 @@ export default function Page() {
       <div className="w-full bg-white px-6 py-3 border-b shadow-sm">
         <div className="max-w-7xl mx-auto">
           <p className="text-sm text-gray-600">
-            <span className="font-semibold text-brand-navy">Universitas Udayana </span> / Laboratorium Warisan Budaya Digital
+            <span className="font-semibold text-brand-navy">Universitas Udayana </span> / Digital Cultural katalog Heritage
           </p>
         </div>
       </div>
