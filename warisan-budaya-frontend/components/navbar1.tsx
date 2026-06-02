@@ -59,7 +59,7 @@ const Navbar1 = ({
     url: "/",
     src: "/SIWADA.svg",
     alt: "logo",
-    title: "SIWADA",
+    title: "DIGICULT  ",
   },
   menu = [
     { title: "Daftar Dosen", url: "/daftar-dosen" },
