@@ -14,7 +14,7 @@ class UpdateDetaseringRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'lecturer_id' => 'nullable|string|max:255',
+            'lecturer_id' => 'nullable|exists:lecturers,id',
             'target_university' => 'nullable|string|max:255',
             'activity_category' => 'nullable|string|max:255',
             'assignment_decree_number' => 'nullable|string|max:255',

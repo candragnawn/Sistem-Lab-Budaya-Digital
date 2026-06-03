@@ -15,6 +15,7 @@ return new class extends Migration {
             $table->string('citizenship')->nullable();
             $table->string('npwp')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('addresses', function (Blueprint $table) {
@@ -30,6 +31,7 @@ return new class extends Migration {
             $table->string('postal_code', 10)->nullable();
             $table->string('phone_number')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('families', function (Blueprint $table) {
@@ -40,6 +42,7 @@ return new class extends Migration {
             $table->string('spouse_nip')->nullable();
             $table->string('spouse_occupation')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('educations', function (Blueprint $table) {
@@ -71,6 +74,7 @@ return new class extends Migration {
             $table->string('predicate')->nullable();
 
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('certificates', function (Blueprint $table) {
@@ -82,6 +86,7 @@ return new class extends Migration {
             $table->string('certificate_sk_number');
             $table->year('certification_year');
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('employments', function (Blueprint $table) {
@@ -97,6 +102,7 @@ return new class extends Migration {
             $table->string('employment_status')->nullable();
             $table->string('active_status')->default('Aktif');
             $table->timestamps();
+            $table->softDeletes();
         });
 
 

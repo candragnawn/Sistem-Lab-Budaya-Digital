@@ -14,7 +14,7 @@ class UpdateAwardRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'lecturer_id' => 'nullable|string|max:255',
+            'lecturer_id' => 'nullable|exists:lecturers,id',
             'award_name' => 'nullable|string|max:255',
             'award_type' => 'nullable|string|max:255',
             'institution' => 'nullable|string|max:255',

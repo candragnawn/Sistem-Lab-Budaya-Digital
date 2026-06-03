@@ -3,10 +3,14 @@
 namespace App\Models\Academic;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Models\Lecturer;
 class LecturerTeaching extends Model
-{
+{ 
+    use SoftDeletes;
+    use HasFactory;
 protected $table = "teachings";
 protected $fillable = [
     'lecturer_id',

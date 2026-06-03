@@ -14,7 +14,7 @@ class UpdateStudentExaminationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'lecturer_id' => 'nullable|string|max:255',
+            'lecturer_id' => 'nullable|exists:lecturers,id',
             'examination_title' => 'nullable|string|max:255',
             'scientific_field' => 'nullable|string|max:255',
             'examination_type' => 'nullable|string|max:255',

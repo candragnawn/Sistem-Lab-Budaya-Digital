@@ -14,7 +14,7 @@ class StorediklatRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'lecturer_id' => 'nullable|string|max:255',
+            'lecturer_id' => 'nullable|exists:lecturers,id',
             'training_name' => 'nullable|string|max:255',
             'training_type' => 'nullable|string|max:255',
             'organizer' => 'nullable|string|max:255',

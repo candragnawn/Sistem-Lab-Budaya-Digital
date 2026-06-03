@@ -14,7 +14,7 @@ class StoreScholarshipRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'lecturer_id' => 'nullable|string|max:255',
+            'lecturer_id' => 'nullable|exists:lecturers,id',
             'scholarship_type' => 'nullable|string|max:255',
             'scholarship_name' => 'nullable|string|max:255',
             'start_year' => 'nullable|string|max:255',

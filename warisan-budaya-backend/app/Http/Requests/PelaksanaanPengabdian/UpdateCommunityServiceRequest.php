@@ -14,7 +14,7 @@ class UpdateCommunityServiceRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'lecturer_id' => 'nullable|string|max:255',
+            'lecturer_id' => 'nullable|exists:lecturers,id',
             'title' => 'nullable|string|max:255',
             'scientific_field' => 'nullable|string|max:255',
             'implementation_year' => 'nullable|string|max:255',

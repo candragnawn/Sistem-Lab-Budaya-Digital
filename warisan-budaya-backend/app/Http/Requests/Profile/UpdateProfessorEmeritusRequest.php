@@ -14,7 +14,7 @@ class UpdateProfessorEmeritusRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'lecturer_id' => 'nullable|string|max:255',
+            'lecturer_id' => 'nullable|exists:lecturers,id',
             'title_name' => 'nullable|string|max:255',
             'university' => 'nullable|string|max:255',
             'start_date' => 'nullable|string|max:255',

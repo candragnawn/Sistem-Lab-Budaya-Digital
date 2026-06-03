@@ -14,7 +14,7 @@ class StoreEmploymentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'lecturer_id' => 'nullable|string|max:255',
+            'lecturer_id' => 'nullable|exists:lecturers,id',
             'nip' => 'nullable|string|max:255',
             'sk_cpns_number' => 'nullable|string|max:255',
             'sk_cpns_date' => 'nullable|string|max:255',

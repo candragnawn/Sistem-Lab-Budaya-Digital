@@ -14,7 +14,7 @@ class StorePlacementRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'lecturer_id' => 'nullable|string|max:255',
+            'lecturer_id' => 'nullable|exists:lecturers,id',
             'status' => 'nullable|string|max:255',
             'employment_bond' => 'nullable|string|max:255',
             'education_level' => 'nullable|string|max:255',

@@ -44,6 +44,7 @@ return new class extends Migration {
             // Sync
             $table->timestamp('last_synced_at')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('categories', function (Blueprint $table) {
@@ -53,6 +54,7 @@ return new class extends Migration {
             $table->text('description')->nullable();
             $table->string('icon')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('academics', function (Blueprint $table) {
@@ -63,6 +65,7 @@ return new class extends Migration {
             $table->string('science_branch')->nullable();
             $table->string('sinta_id')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('lecturer_work_contracts', function (Blueprint $table) {
@@ -72,6 +75,7 @@ return new class extends Migration {
             $table->string('current_status')->nullable();
             $table->string('tmt')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

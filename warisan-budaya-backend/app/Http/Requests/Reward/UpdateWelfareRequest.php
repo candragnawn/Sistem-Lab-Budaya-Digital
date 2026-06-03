@@ -14,7 +14,7 @@ class UpdateWelfareRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'lecturer_id' => 'nullable|string|max:255',
+            'lecturer_id' => 'nullable|exists:lecturers,id',
             'welfare_type' => 'nullable|string|max:255',
             'welfare_service' => 'nullable|string|max:255',
             'organizer' => 'nullable|string|max:255',

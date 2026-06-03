@@ -17,6 +17,7 @@ return new class extends Migration {
             $table->date('tmt');
             $table->date('received_date')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('inpassings', function (Blueprint $table) {
@@ -26,6 +27,7 @@ return new class extends Migration {
             $table->string('decree_number');
             $table->date('effective_date');
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('functional_positions', function (Blueprint $table) {
@@ -37,6 +39,7 @@ return new class extends Migration {
             $table->date('effective_date');
             $table->string('civil_servant_status');
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('structural_positions', function (Blueprint $table) {
@@ -47,6 +50,7 @@ return new class extends Migration {
             $table->date('start_date');
             $table->date('end_date')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('placements', function (Blueprint $table) {
@@ -62,6 +66,7 @@ return new class extends Migration {
             $table->date('end_date')->nullable();
             $table->string('assignment_homebase')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('professor_emerituses', function (Blueprint $table) {
@@ -72,6 +77,7 @@ return new class extends Migration {
             $table->date('start_date');
             $table->date('end_date')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('diklats', function (Blueprint $table) {
@@ -83,6 +89,7 @@ return new class extends Migration {
             $table->year('year');
             $table->string('status');
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('tests', function (Blueprint $table) {
@@ -93,6 +100,7 @@ return new class extends Migration {
             $table->string('organizer');
             $table->year('year');
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('allowances', function (Blueprint $table) {
@@ -106,6 +114,7 @@ return new class extends Migration {
             $table->year('end_year')->nullable();
             $table->decimal('amount', 15, 2);
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('welfares', function (Blueprint $table) {
@@ -117,6 +126,7 @@ return new class extends Migration {
             $table->year('start_year');
             $table->year('selection_year');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

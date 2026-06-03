@@ -14,7 +14,7 @@ class UpdatePositionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'lecturer_id' => 'nullable|string|max:255',
+            'lecturer_id' => 'nullable|exists:lecturers,id',
             'position_name' => 'nullable|string|max:255',
             'sk_number' => 'nullable|string|max:255',
             'sk_date' => 'nullable|string|max:255',

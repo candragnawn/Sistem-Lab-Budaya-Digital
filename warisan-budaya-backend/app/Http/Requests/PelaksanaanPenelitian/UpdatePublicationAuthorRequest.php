@@ -14,7 +14,7 @@ class UpdatePublicationAuthorRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'lecturer_id' => 'nullable|string|max:255',
+            'lecturer_id' => 'nullable|exists:lecturers,id',
             'publication_id' => 'nullable|string|max:255',
             'author_position' => 'nullable|string|max:255',
         ];

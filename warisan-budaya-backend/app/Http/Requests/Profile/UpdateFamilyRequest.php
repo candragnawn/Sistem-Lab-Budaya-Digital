@@ -14,7 +14,7 @@ class UpdateFamilyRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'lecturer_id' => 'nullable|string|max:255',
+            'lecturer_id' => 'nullable|exists:lecturers,id',
             'marital_status' => 'nullable|string|max:255',
             'spouse_name' => 'nullable|string|max:255',
             'spouse_nip' => 'nullable|string|max:255',

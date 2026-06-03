@@ -14,7 +14,7 @@ class StoreStudentSupervisionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'lecturer_id' => 'nullable|string|max:255',
+            'lecturer_id' => 'nullable|exists:lecturers,id',
             'semester' => 'nullable|string|max:255',
             'activity_category' => 'nullable|string|max:255',
             'supervision_type' => 'nullable|string|max:255',

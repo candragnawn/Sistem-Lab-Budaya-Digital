@@ -14,7 +14,7 @@ class UpdateIdentityRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'lecturer_id' => 'nullable|string|max:255',
+            'lecturer_id' => 'nullable|exists:lecturers,id',
             'nik' => 'nullable|string|max:255',
             'religion' => 'nullable|string|max:255',
             'citizenship' => 'nullable|string|max:255',
