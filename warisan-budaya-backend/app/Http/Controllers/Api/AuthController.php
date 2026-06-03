@@ -7,11 +7,12 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Http\Resources\Master\UserResource;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\DB;
 use App\Http\Requests\Auth\RegisterAuthRequest;
 use App\Http\Requests\Auth\LoginAuthRequest;
 use App\Models\Lecturer;
 use App\service\SyncCoordinator;
+
 class AuthController extends Controller
 {
     public function register(RegisterAuthRequest $request)
@@ -21,15 +22,24 @@ class AuthController extends Controller
             "email" => $request->email,
             "nidn" => $request->nidn,
         ]);
+        // Bungkus dalam transaction — kalau User gagal, Lecturer ikut di-rollback
+        $result = DB::transaction(function () use ($request) {
+            $lecturer = Lecturer::create([
+                'name'  => $request->name,
+                'email' => $request->email,
+            ]);
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'lecturer_id' => $lecturer->id,
-        ]);
+            $user = User::create([
+                'name'        => $request->name,
+                'email'       => $request->email,
+                'password'    => Hash::make($request->password),
+                'lecturer_id' => $lecturer->id,
+            ]);
 
-        $token = $user->createToken('auth_token')->plainTextToken;
+            return [$user, $user->createToken('auth_token')->plainTextToken];
+        });
+
+        [$user, $token] = $result;
 
         // Auto-Sync SISTER dengan Graceful Error Handling
         if ($request->nidn) {
@@ -41,6 +51,7 @@ class AuthController extends Controller
         }
 
        return new UserResource($user, $token);
+        return new UserResource($user, $token);
     }
 
     public function login(LoginAuthRequest $request)
@@ -49,26 +60,29 @@ class AuthController extends Controller
 
         if (!$user || !Hash::check($request->password, $user->password)) {
             return response()->json([
-                'message' => 'Invalid login credentials.'
+                'success' => false,
+                'message' => 'Email atau password salah.',
             ], 401);
         }
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
         return new UserResource($user, $token);
-        
     }
 
     public function me(Request $request)
     {
         return new UserResource($request->user());
     }
+
     public function logout(Request $request)
     {
-        $request->user()->currentAccessToken()->delete();
+        // Revoke SEMUA token user (bukan hanya current token)
+        $request->user()->tokens()->delete();
 
         return response()->json([
-            'message' => 'Logged out successfully'
+            'success' => true,
+            'message' => 'Logged out successfully',
         ]);
     }
 }

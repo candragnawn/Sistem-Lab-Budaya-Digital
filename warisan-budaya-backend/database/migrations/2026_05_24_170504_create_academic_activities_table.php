@@ -17,6 +17,7 @@ return new class extends Migration {
             $table->unsignedSmallInteger('student_count');
             $table->tinyInteger('credits');
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('student_supervisions', function (Blueprint $table) {
@@ -28,6 +29,7 @@ return new class extends Migration {
             $table->string('scientific_field');
             $table->string('study_program');
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('student_examinations', function (Blueprint $table) {
@@ -38,6 +40,7 @@ return new class extends Migration {
             $table->string('examination_type');
             $table->string('study_program');
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('teaching_materials', function (Blueprint $table) {
@@ -48,6 +51,8 @@ return new class extends Migration {
             $table->date('publication_date');
             $table->string('publisher');
             $table->timestamps();
+            $table->softDeletes();
+            $table->softDeletes();
         });
 
         Schema::create('student_developments', function (Blueprint $table) {
@@ -59,6 +64,7 @@ return new class extends Migration {
             $table->string('guidance_type');
             $table->string('study_program');
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('visiting_scientists', function (Blueprint $table) {
@@ -68,6 +74,7 @@ return new class extends Migration {
             $table->string('duration');
             $table->date('activity_date');
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('detaserings', function (Blueprint $table) {
@@ -78,6 +85,7 @@ return new class extends Migration {
             $table->string('assignment_decree_number');
             $table->date('decree_date');
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('academic_orations', function (Blueprint $table) {
@@ -89,6 +97,7 @@ return new class extends Migration {
             $table->string('organizer');
             $table->date('activity_date');
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('lecturer_mentors', function (Blueprint $table) {
@@ -98,6 +107,7 @@ return new class extends Migration {
             $table->date('start_date');
             $table->date('end_date')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

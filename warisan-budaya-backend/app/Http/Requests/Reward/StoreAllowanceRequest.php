@@ -14,7 +14,7 @@ class StoreAllowanceRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'lecturer_id' => 'nullable|string|max:255',
+            'lecturer_id' => 'nullable|exists:lecturers,id',
             'allowance_type' => 'nullable|string|max:255',
             'allowance_name' => 'nullable|string|max:255',
             'granting_institution' => 'nullable|string|max:255',

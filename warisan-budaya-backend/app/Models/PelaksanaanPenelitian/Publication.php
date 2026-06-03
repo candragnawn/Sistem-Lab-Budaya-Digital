@@ -8,10 +8,12 @@ use App\Models\Lecturer;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Publication extends Model
 {
+    use SoftDeletes;
+
     protected $table = "publications";
 
     protected $fillable = [

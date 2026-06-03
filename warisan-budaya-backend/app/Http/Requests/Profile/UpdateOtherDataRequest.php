@@ -14,7 +14,7 @@ class UpdateOtherDataRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'lecturer_id' => 'nullable|string|max:255',
+            'lecturer_id' => 'nullable|exists:lecturers,id',
             'data_key' => 'nullable|string|max:255',
             'data_value' => 'nullable|string|max:255',
             'notes' => 'nullable|string|max:255',

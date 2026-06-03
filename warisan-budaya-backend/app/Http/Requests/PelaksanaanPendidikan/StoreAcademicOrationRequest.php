@@ -14,7 +14,7 @@ class StoreAcademicOrationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'lecturer_id' => 'nullable|string|max:255',
+            'lecturer_id' => 'nullable|exists:lecturers,id',
             'activity_category' => 'nullable|string|max:255',
             'paper_title' => 'nullable|string|max:255',
             'guest_lecturer_name' => 'nullable|string|max:255',

@@ -14,7 +14,7 @@ class UpdateOtherSupportingActivityRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'lecturer_id' => 'nullable|string|max:255',
+            'lecturer_id' => 'nullable|exists:lecturers,id',
             'activity_name' => 'nullable|string|max:255',
             'organizing_institution' => 'nullable|string|max:255',
             'decree_number' => 'nullable|string|max:255',

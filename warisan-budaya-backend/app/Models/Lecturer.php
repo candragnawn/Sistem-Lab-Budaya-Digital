@@ -2,11 +2,15 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Support\Facades\Storage;
 
 //profile
 use App\Models\Profile\Academic;
@@ -78,6 +82,8 @@ use App\Models\Reward\Welfare;
 
 class Lecturer extends Model
 {
+    use HasFactory, SoftDeletes;
+    
     protected $table = 'lecturers';
     protected $fillable = [
             'nidn', 'nip', 'name', 'name_registered_dukcapil', 'email', 'phone',
@@ -89,8 +95,16 @@ class Lecturer extends Model
     
 
 
-    public function academic(): HasOne
-     {
+    protected function photoUrl(): Attribute {
+        return Attribute::make(
+            get: fn () => $this->photo_path
+                ? Storage::url($this->photo_path)
+                : null
+        );
+    }
+
+public function academic(): HasOne
+    {
         return $this->hasOne(Academic::class, 'lecturer_id');
     }
 

@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('lecturer_hkis', function (Blueprint $table) {
-            $table->string('certificate_number')->nullable();
-            $table->dropColumn('certificate_type')->nullable();
-        });
+        if (!Schema::hasColumn('lecturer_hkis', 'certificate_number')) {
+                Schema::table('lecturer_hkis', function (Blueprint $table) {
+                    $table->string('certificate_number')->nullable();
+                });
+        }
     }
 
     /**

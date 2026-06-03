@@ -5,8 +5,12 @@ namespace App\Models\PelaksanaanPendidikan;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Models\Lecturer;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 class Teaching extends Model
 {
+    use SoftDeletes;
+
     protected $table = "teachings";
 
     protected $fillable = [

@@ -14,7 +14,7 @@ class StoreInpassingRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'lecturer_id' => 'nullable|string|max:255',
+            'lecturer_id' => 'nullable|exists:lecturers,id',
             'rank_group' => 'nullable|string|max:255',
             'decree_number' => 'nullable|string|max:255',
             'effective_date' => 'nullable|string|max:255',

@@ -14,7 +14,7 @@ class UpdateRankRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'lecturer_id' => 'nullable|string|max:255',
+            'lecturer_id' => 'nullable|exists:lecturers,id',
             'group_code' => 'nullable|string|max:255',
             'rank_name' => 'nullable|string|max:255',
             'sk_number' => 'nullable|string|max:255',

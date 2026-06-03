@@ -14,7 +14,7 @@ class UpdateAddressRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'lecturer_id' => 'nullable|string|max:255',
+            'lecturer_id' => 'nullable|exists:lecturers,id',
             'email' => 'nullable|string|max:255',
             'address' => 'nullable|string|max:255',
             'rt' => 'nullable|string|max:255',

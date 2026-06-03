@@ -21,6 +21,7 @@ return new class extends Migration
     Schema::table('users', function (Blueprint $table) {
         $table->dropForeign(['lecturer_id']);
         $table->dropColumn('lecturer_id');
+        $table->softDeletes();
    });
 }
 };

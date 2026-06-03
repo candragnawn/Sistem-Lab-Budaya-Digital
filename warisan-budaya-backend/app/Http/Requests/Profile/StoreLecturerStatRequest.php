@@ -14,7 +14,7 @@ class StoreLecturerStatRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'lecturer_id' => 'nullable|string|max:255',
+            'lecturer_id' => 'nullable|exists:lecturers,id',
             'total_publications' => 'nullable|string|max:255',
             'total_citations' => 'nullable|string|max:255',
             'total_students' => 'nullable|string|max:255',

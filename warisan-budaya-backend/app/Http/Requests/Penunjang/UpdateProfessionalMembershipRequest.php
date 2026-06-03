@@ -14,7 +14,7 @@ class UpdateProfessionalMembershipRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'lecturer_id' => 'nullable|string|max:255',
+            'lecturer_id' => 'nullable|exists:lecturers,id',
             'organization_name' => 'nullable|string|max:255',
             'role' => 'nullable|string|max:255',
             'membership_start' => 'nullable|string|max:255',

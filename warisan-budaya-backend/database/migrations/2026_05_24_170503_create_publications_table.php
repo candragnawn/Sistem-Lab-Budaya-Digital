@@ -24,6 +24,7 @@ return new class extends Migration {
             $table->year('year');
             $table->string('url')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('lecturer_hkis', function (Blueprint $table) {
@@ -35,6 +36,7 @@ return new class extends Migration {
             $table->string('quartile', 5)->nullable();
             $table->date('publish_date');
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('researchs', function (Blueprint $table) {
@@ -45,6 +47,7 @@ return new class extends Migration {
             $table->string('implementation_year', 9);
             $table->string('duration');
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('community_services', function (Blueprint $table) {
@@ -55,6 +58,7 @@ return new class extends Migration {
             $table->string('implementation_year', 9);
             $table->integer('duration');
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('speakers', function (Blueprint $table) {
@@ -66,6 +70,7 @@ return new class extends Migration {
             $table->string('organizer');
             $table->date('activity_date');
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('journal_managers', function (Blueprint $table) {
@@ -78,6 +83,7 @@ return new class extends Migration {
             $table->boolean('is_active')->default(true);
             $table->string('role');
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('professional_memberships', function (Blueprint $table) {
@@ -89,6 +95,7 @@ return new class extends Migration {
             $table->year('membership_end')->nullable();
             $table->string('professional_institution');
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('awards', function (Blueprint $table) {
@@ -99,6 +106,7 @@ return new class extends Migration {
             $table->string('institution');
             $table->year('year');
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('scholarships', function (Blueprint $table) {
@@ -110,6 +118,7 @@ return new class extends Migration {
             $table->year('end_year')->nullable();
             $table->boolean('is_active')->default(false);
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('other_supporting_activities', function (Blueprint $table) {
@@ -122,6 +131,7 @@ return new class extends Migration {
             $table->date('end_date')->nullable();
             $table->string('role');
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('additional_tasks', function (Blueprint $table) {
@@ -133,6 +143,7 @@ return new class extends Migration {
             $table->date('start_date');
             $table->date('end_date')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('source_syncs', function (Blueprint $table) {
@@ -144,6 +155,7 @@ return new class extends Migration {
             $table->timestamp('started_at')->nullable();
             $table->timestamp('finished_at')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('publication_authors', function (Blueprint $table) {
@@ -151,6 +163,7 @@ return new class extends Migration {
             $table->foreignId('lecturer_id')->constrained('lecturers')->onDelete('cascade');
             $table->foreignId('publication_id')->constrained('publications')->onDelete('cascade');
             $table->string('author_position');
+            $table->softDeletes();
 
         });
     }
@@ -170,5 +183,6 @@ return new class extends Migration {
         Schema::dropIfExists('hkis');
         Schema::dropIfExists('publications');
         Schema::dropIfExists('publication_author');
+        
     }
 };

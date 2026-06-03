@@ -14,7 +14,7 @@ class StorecertificationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'lecturer_id' => 'nullable|string|max:255',
+            'lecturer_id' => 'nullable|exists:lecturers,id',
             'certification_type' => 'nullable|string|max:255',
             'study_type' => 'nullable|string|max:255',
             'educator_registration_number' => 'nullable|string|max:255',

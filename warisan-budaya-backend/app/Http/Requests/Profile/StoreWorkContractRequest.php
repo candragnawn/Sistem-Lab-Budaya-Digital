@@ -14,7 +14,7 @@ class StoreWorkContractRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'lecturer_id' => 'nullable|string|max:255',
+            'lecturer_id' => 'nullable|exists:lecturers,id',
             'work_status' => 'nullable|string|max:255',
             'current_status' => 'nullable|string|max:255',
             'tmt' => 'nullable|string|max:255',

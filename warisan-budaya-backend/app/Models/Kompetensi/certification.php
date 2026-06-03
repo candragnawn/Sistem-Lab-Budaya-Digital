@@ -5,7 +5,7 @@ namespace App\Models\Kompetensi;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Models\Lecturer;
-class certification extends Model
+class Certification extends Model
 {
     protected $table = "certificates";
     protected $fillable = [

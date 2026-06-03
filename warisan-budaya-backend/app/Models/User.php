@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use App\Models\Lecturer;
 use App\Service\ImageConverter;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class User extends Authenticatable
 {
@@ -84,6 +85,14 @@ class User extends Authenticatable
     public function lecturer()
     {
         return $this->belongsTo(Lecturer::class, 'lecturer_id');
+    }
+
+    protected function avatarUrl(): Attribute {
+        return Attribute::make(
+            get: fn () => $this->avatar_path
+                ? Storage::url($this->avatar_path)
+                : null
+        );
     }
 
 

@@ -2,13 +2,16 @@
 
 namespace App\Models\Profile;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Models\Lecturer;
 
 class Family extends Model
 {
-    protected $table = 'lecturer_families';
+    use HasFactory;
+
+    protected $table = 'families';
 
     protected $fillable = [
         'lecturer_id',
