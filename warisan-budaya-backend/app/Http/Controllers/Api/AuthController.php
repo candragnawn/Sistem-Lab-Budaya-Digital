@@ -11,14 +11,15 @@ use Illuminate\Validation\ValidationException;
 use App\Http\Requests\Auth\RegisterAuthRequest;
 use App\Http\Requests\Auth\LoginAuthRequest;
 use App\Models\Lecturer;
+use App\service\SyncCoordinator;
 class AuthController extends Controller
 {
     public function register(RegisterAuthRequest $request)
     {
-        $lecturer  = Lecturer::create([
-            "name"=> $request->name,
-            "email"=> $request->email,
-
+        $lecturer = Lecturer::create([
+            "name" => $request->name,
+            "email" => $request->email,
+            "nidn" => $request->nidn,
         ]);
 
         $user = User::create([
@@ -29,6 +30,15 @@ class AuthController extends Controller
         ]);
 
         $token = $user->createToken('auth_token')->plainTextToken;
+
+        // Auto-Sync SISTER dengan Graceful Error Handling
+        if ($request->nidn) {
+            try {
+                app(SyncCoordinator::class)->syncAll($lecturer);
+            } catch (\Exception $e) {
+                \Illuminate\Support\Facades\Log::error("[AuthController] Gagal auto-sync saat registrasi untuk NIDN {$request->nidn}: " . $e->getMessage());
+            }
+        }
 
        return new UserResource($user, $token);
     }

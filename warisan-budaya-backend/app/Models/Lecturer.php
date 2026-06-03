@@ -80,14 +80,17 @@ class Lecturer extends Model
 {
     protected $table = 'lecturers';
     protected $fillable = [
-         'nip','name', 'email', 'title_prefix', 'title_suffix', 
-        'bio', 'education', 'status', 'photo_path'
+            'nidn', 'nip', 'name', 'name_registered_dukcapil', 'email', 'phone',
+            'title_prefix', 'title_suffix', 'bio', 'gender', 'birth_date', 'birth_place',
+            'status', 'photo_path', 'is_verified', 'faculty', 'department', 'study_program',
+            'sinta_id', 'scopus_id', 'sister_id', 'google_scholar_id', 'orcid_id',
+            'sinta_score_3yr', 'sinta_score_total', 'last_synced_at'
     ];
-    // 
+    
 
 
-public function academic(): HasOne
-    {
+    public function academic(): HasOne
+     {
         return $this->hasOne(Academic::class, 'lecturer_id');
     }
 
@@ -116,9 +119,9 @@ public function academic(): HasOne
     }
 
     // Statistik dosen
-    public function stats(): HasMany
+    public function stats(): HasOne
     {
-        return $this->hasMany(LecturerStat::class, 'lecturer_id');
+        return $this->hasOne(LecturerStat::class, 'lecturer_id');
     }
 
  
@@ -170,8 +173,7 @@ public function academic(): HasOne
 
     public function teachings(): HasMany
     {
-        return $this->hasMany(LecturerTeaching::class, 'lecturer_id')
-                    ->orderBy('academic_year', 'desc');
+        return $this->hasMany(LecturerTeaching::class, 'lecturer_id');
     }
 
   

@@ -35,4 +35,11 @@ return [
         ],
     ],
 
+    'sister' => [
+        'url' => env('SISTER_URL', 'https://sister-api.kemdikbud.go.id/ws-sandbox.php/1.0'),
+        'username' => env('SISTER_USERNAME'),
+        'password' => env('SISTER_PASSWORD'),
+        'id_pengguna' => env('SISTER_ID_PENGGUNA'),
+    ],
+
 ];

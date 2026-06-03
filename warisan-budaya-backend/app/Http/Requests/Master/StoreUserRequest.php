@@ -27,7 +27,7 @@ class StoreUserRequest extends FormRequest
             'email' => 'required',
             'password' => 'required|min:8',
             'avatar_path' => 'nullable|image|mimes:jpg,jpeg,png,svg|max:2048',
-
+            'lecturer_id' => 'nullable|exists:lecturers,id|unique:users,lecturer_id'
         ];
     }
 }
