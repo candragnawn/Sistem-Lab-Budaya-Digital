@@ -18,7 +18,7 @@ class LecturerAcademic extends Model
         'sinta_id'
     ];
 
-    public function Lecturers(): BelongsTo {
+    public function lecturer(): BelongsTo {
         return $this->belongsTo(Lecturer::class, 'lecturer_id');
     }
 }

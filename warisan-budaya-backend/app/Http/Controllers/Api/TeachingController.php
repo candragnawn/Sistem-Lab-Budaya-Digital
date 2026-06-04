@@ -14,4 +14,9 @@ class TeachingController extends BaseCrudController
     protected $storeRequest = StoreLecturerTeachingRequest::class;
     protected $updateRequest = UpdateLecturerTeachingRequest::class;
     protected $with = ['lecturer'];
+
+    protected array $searchable = ['course_name', 'scientific_field', 'class'];
+    protected array $sortable = ['course_name', 'created_at', 'id'];
+    protected array $includable = ['lecturer'];
+    protected array $countable = [];
 }

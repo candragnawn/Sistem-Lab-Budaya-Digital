@@ -70,6 +70,9 @@
         Route::get('/me', [AuthController::class, 'me']);
 
         // Master
+        Route::get('lecturers/trash', [LecturerController::class, 'trash']);
+        Route::post('lecturers/{id}/restore', [LecturerController::class, 'restore']);
+        Route::delete('lecturers/{id}/force-delete', [LecturerController::class, 'forceDelete']);
         Route::apiResource('lecturers', LecturerController::class);
         Route::apiResource('categories', CategoryController::class);
         Route::apiResource('users', UserController::class);
@@ -100,6 +103,9 @@
         Route::apiResource('tests', TestController::class);
 
         // Pelaksanaan Pendidikan
+        Route::get('teachings/trash', [TeachingController::class, 'trash']);
+        Route::post('teachings/{id}/restore', [TeachingController::class, 'restore']);
+        Route::delete('teachings/{id}/force-delete', [TeachingController::class, 'forceDelete']);
         Route::apiResource('teachings', TeachingController::class);
         Route::apiResource('teaching-materials', TeachingMaterialController::class);
         Route::apiResource('student-supervisions', StudentSupervisionController::class);
@@ -111,7 +117,14 @@
         Route::apiResource('lecturer-mentorings', LecturerMentoringController::class);
 
         // Pelaksanaan Penelitian
+        Route::get('research/trash', [ResearchController::class, 'trash']);
+        Route::post('research/{id}/restore', [ResearchController::class, 'restore']);
+        Route::delete('research/{id}/force-delete', [ResearchController::class, 'forceDelete']);
         Route::apiResource('research', ResearchController::class);
+
+        Route::get('publications/trash', [PublicationController::class, 'trash']);
+        Route::post('publications/{id}/restore', [PublicationController::class, 'restore']);
+        Route::delete('publications/{id}/force-delete', [PublicationController::class, 'forceDelete']);
         Route::apiResource('publications', PublicationController::class);
         Route::apiResource('publication-authors', PublicationAuthorController::class);
         Route::apiResource('hkis', HKIController::class);
