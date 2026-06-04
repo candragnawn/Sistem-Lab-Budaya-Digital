@@ -52,6 +52,7 @@
     use App\Http\Controllers\Api\WorkContractController;
     use App\Http\Controllers\Api\SourceSyncController;
     use App\Http\Controllers\Api\UserController;
+    use App\service\SyncCoordinator;
 
 
     // Auth — throttle ketat untuk mencegah brute-force
@@ -131,6 +132,7 @@
         Route::apiResource('lecturer-stats', LecturerStatController::class);
         Route::apiResource('other-datas', OtherDataController::class);
         Route::apiResource('source-syncs', SourceSyncController::class);
+        Route::post('/sync', [SyncCoordinator::class, 'syncData']);
     });
 
     // Public
