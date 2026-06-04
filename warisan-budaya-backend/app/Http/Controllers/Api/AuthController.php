@@ -12,21 +12,18 @@ use App\Http\Requests\Auth\RegisterAuthRequest;
 use App\Http\Requests\Auth\LoginAuthRequest;
 use App\Models\Lecturer;
 use App\service\SyncCoordinator;
+use App\Jobs\SyncLecturerData;
 
 class AuthController extends Controller
 {
     public function register(RegisterAuthRequest $request)
     {
-        $lecturer = Lecturer::create([
-            "name" => $request->name,
-            "email" => $request->email,
-            "nidn" => $request->nidn,
-        ]);
-        // Bungkus dalam transaction — kalau User gagal, Lecturer ikut di-rollback
+        // Bungkus dalam transaction kalau User gagal, Lecturer ikut di-rollback
         $result = DB::transaction(function () use ($request) {
             $lecturer = Lecturer::create([
                 'name'  => $request->name,
                 'email' => $request->email,
+                'nidn'  => $request->nidn,
             ]);
 
             $user = User::create([
@@ -36,21 +33,16 @@ class AuthController extends Controller
                 'lecturer_id' => $lecturer->id,
             ]);
 
-            return [$user, $user->createToken('auth_token')->plainTextToken];
+            return [$user, $lecturer, $user->createToken('auth_token')->plainTextToken];
         });
 
-        [$user, $token] = $result;
+        [$user, $lecturer, $token] = $result;
 
-        // Auto-Sync SISTER dengan Graceful Error Handling
+        // Auto-Sync SISTER, SINTA, Scopus secara Asynchronous (Latar Belakang)
         if ($request->nidn) {
-            try {
-                app(SyncCoordinator::class)->syncAll($lecturer);
-            } catch (\Exception $e) {
-                \Illuminate\Support\Facades\Log::error("[AuthController] Gagal auto-sync saat registrasi untuk NIDN {$request->nidn}: " . $e->getMessage());
-            }
+            SyncLecturerData::dispatch($lecturer);
         }
 
-       return new UserResource($user, $token);
         return new UserResource($user, $token);
     }
 

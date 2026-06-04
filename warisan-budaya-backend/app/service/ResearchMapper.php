@@ -21,6 +21,7 @@ class ResearchMapper
                     'year' => $pub['year'] ?? null,
                 ],
                 [
+                    'lecturer_id' => $lecturer->id,
                     'doi' => $pub['doi'] ?? null,
                     'journal_name' => $pub['journal_name'] ?? null,
                     'issn' => $pub['issn'] ?? null,
@@ -33,10 +34,15 @@ class ResearchMapper
                 ]
             );
 
-            PublicationAuthor::firstOrCreate([
-                'lecturer_id' => $lecturer->id,
-                'publication_id' => $publication->id,
-            ]);
+            PublicationAuthor::firstOrCreate(
+                [
+                    'lecturer_id' => $lecturer->id,
+                    'publication_id' => $publication->id,
+                ],
+                [
+                    'author_position' => 'Belum Ditentukan'
+                ]
+            );
         }
     }
 
