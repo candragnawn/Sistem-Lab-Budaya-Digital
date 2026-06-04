@@ -38,14 +38,17 @@ class Publication extends Model
     protected static function booted()
     {
         static::saving (function ($user){
-            if ($user->isDirty('url')) { 
-                    // genearate uuid
+            if ($user->isDirty('url') && $user->url instanceof UploadedFile) { 
+                    // generate uuid
                     $file = $user->url;
                     $filename = Str::uuid() . '.' . $file->extension();
                     $user->url = $file->storeAs('publications', $filename, 'public');
                 } 
                 elseif (is_null($user->url) && $user->exists && $user->getOriginal('url')) {
-                    Storage::disk('public')->delete($user->getOriginal('url'));
+                    // Hanya hapus jika URL aslinya adalah path file lokal (bukan link web)
+                    if (!str_starts_with($user->getOriginal('url'), 'http')) {
+                        Storage::disk('public')->delete($user->getOriginal('url'));
+                    }
                 }
             });
         static::deleted(function ($user) {

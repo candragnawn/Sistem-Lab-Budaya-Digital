@@ -42,4 +42,13 @@ return [
         'id_pengguna' => env('SISTER_ID_PENGGUNA'),
     ],
 
+    'sinta' => [
+        'url' => env('SINTA_API_URL', 'https://sinta.kemdikbud.go.id'),
+        'key' => env('SINTA_API_KEY'),
+    ],
+
+    'elsevier' => [
+        'key' => env('ELSEVIER_API_KEY', '524aec30d56a04a3ecbf048591b690e6'),
+    ],
+
 ];

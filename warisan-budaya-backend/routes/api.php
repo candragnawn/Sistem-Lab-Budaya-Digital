@@ -52,6 +52,7 @@
     use App\Http\Controllers\Api\WorkContractController;
     use App\Http\Controllers\Api\SourceSyncController;
     use App\Http\Controllers\Api\UserController;
+    use App\Http\Controllers\Api\SyncController;
 
 
     // Auth — throttle ketat untuk mencegah brute-force
@@ -143,7 +144,9 @@
         // Lain-lain
         Route::apiResource('lecturer-stats', LecturerStatController::class);
         Route::apiResource('other-datas', OtherDataController::class);
-        Route::apiResource('source-syncs', SourceSyncController::class);
+        Route::post('/sync/{lecturerId}', [SyncController::class, 'syncAll']);
+
+
     });
 
     // Public
@@ -207,5 +210,4 @@
     // Lain-lain
     Route::apiResource('lecturer-stats', LecturerStatController::class)->only(['index', 'show']);
     Route::apiResource('other-datas', OtherDataController::class)->only(['index', 'show']);
-    Route::apiResource('source-syncs', SourceSyncController::class)->only(['index', 'show']);
     });

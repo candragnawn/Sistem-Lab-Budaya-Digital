@@ -10,7 +10,6 @@ return new class extends Migration {
         Schema::create('publications', function (Blueprint $table) {
             $table->id();
             $table->foreignId('lecturer_id')->constrained('lecturers')->onDelete('cascade');
-            $table->foreignId('categories_id')->constrained('categories')->onDelete('cascade');
             $table->string('title');
             $table->enum('category', ['PENELITIAN', 'PENGABDIAN']);
             $table->string('type');

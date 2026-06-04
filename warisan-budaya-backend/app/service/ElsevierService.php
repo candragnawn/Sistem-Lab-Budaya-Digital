@@ -63,7 +63,7 @@ class ElsevierService
                     'year' => isset($item['prism:coverDate']) ? date('Y', strtotime($item['prism:coverDate'])) : null,
                     'type' => $item['subtypeDescription'] ?? 'Article',
                     'source' => 'Scopus',
-                    'category' => 'Jurnal Internasional',
+                    'category' => 'PENELITIAN',
                     'url' => $item['prism:url'] ?? null,
                     'is_verified' => true,
                 ];
