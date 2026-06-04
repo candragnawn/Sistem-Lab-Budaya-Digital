@@ -11,13 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('lecturers', function (Blueprint $table) {
-            $table->index('email');
-            $table->index('nidn');
-            $table->index('nip');
-            $table->index('sinta_id');
-            $table->index('status');
-        });
+        try {
+            Schema::table('lecturers', function (Blueprint $table) {
+                $table->index('email');
+                $table->index('nidn');
+                $table->index('nip');
+                $table->index('sinta_id');
+                $table->index('status');
+            });
+        } catch (\Exception $e) {}
 
         $tablesWithLecturerId = [
             'publications', 'research', 'community_services', 'awards', 
@@ -30,18 +32,20 @@ return new class extends Migration
 
         foreach ($tablesWithLecturerId as $tableName) {
             if (Schema::hasTable($tableName)) {
-                Schema::table($tableName, function (Blueprint $table) {
-                    $table->index('lecturer_id');
-                });
+                try {
+                    Schema::table($tableName, function (Blueprint $table) {
+                        $table->index('lecturer_id');
+                    });
+                } catch (\Exception $e) {}
             }
         }
 
         if (Schema::hasTable('publications')) {
-            Schema::table('publications', function (Blueprint $table) {
-                $table->index('year');
-                $table->index('Lecturer_id');   
-
-            });
+            try {
+                Schema::table('publications', function (Blueprint $table) {
+                    $table->index('year');
+                });
+            } catch (\Exception $e) {}
         }
     }
 
