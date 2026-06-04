@@ -15,4 +15,9 @@ class ResearchController extends BaseCrudController
     protected $storeRequest = StoreResearchRequest::class;
     protected $updateRequest = UpdateResearchRequest::class;
     protected $with = ['lecturer'];
+
+    protected array $searchable = ['title', 'scientific_field'];
+    protected array $sortable = ['title', 'implementation_year', 'created_at', 'id'];
+    protected array $includable = ['lecturer'];
+    protected array $countable = [];
 }

@@ -18,7 +18,7 @@ class Diklat extends Model
         'status',
     ];
 
-    public function Lecturer(): BelongsTo
+    public function lecturer(): BelongsTo
     {
         return $this->belongsTo(Lecturer::class);
 

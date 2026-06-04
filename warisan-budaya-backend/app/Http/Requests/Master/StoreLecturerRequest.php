@@ -26,4 +26,21 @@ class StoreLecturerRequest extends FormRequest
             //
         ];
     }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array<string, string>
+     */
+    public function messages(): array
+    {
+        return [
+            'required' => 'Kolom :attribute wajib diisi.',
+            'unique' => 'Data :attribute sudah terdaftar di sistem.',
+            'exists' => 'Data :attribute yang dipilih tidak valid atau tidak ditemukan.',
+            'email' => 'Format :attribute harus berupa alamat email yang valid.',
+            'max' => 'Kolom :attribute tidak boleh lebih dari :max karakter.',
+            'name.required' => 'Nama dosen wajib diisi.',
+        ];
+    }
 }

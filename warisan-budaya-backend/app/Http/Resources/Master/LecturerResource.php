@@ -22,6 +22,8 @@ class LecturerResource extends JsonResource
         'bio' => $this->bio,
         'photo_url' => $this->photo_url,
         'status_aktif' => $this->status,
+        'birth_date' => $this->birth_date?->format('Y-m-d'),
+        'created_at' => $this->created_at?->format('Y-m-d H:i:s'),
 
         // Stats — hanya muncul kalau relasi stats di-load
         'statistik' => $this->when($this->relationLoaded('stats'), function () {
