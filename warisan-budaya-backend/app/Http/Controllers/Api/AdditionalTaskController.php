@@ -7,6 +7,8 @@ use App\Http\Requests\PelaksanaanPendidikan\StoreAdditionalTaskRequest;
 use App\Http\Requests\PelaksanaanPendidikan\UpdateAdditionalTaskRequest;
 use App\Http\Resources\PelaksanaanPendidikan\AdditionalTaskResource;
 
+use App\Http\Controllers\Api\BaseCrudController;
+
 class AdditionalTaskController extends BaseCrudController
 {
     protected $model = AdditionalTask::class;

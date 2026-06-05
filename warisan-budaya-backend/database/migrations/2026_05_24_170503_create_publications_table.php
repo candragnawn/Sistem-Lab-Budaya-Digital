@@ -12,7 +12,13 @@ return new class extends Migration {
             $table->foreignId('lecturer_id')->constrained('lecturers')->onDelete('cascade');
             $table->string('title');
             $table->enum('category', ['PENELITIAN', 'PENGABDIAN']);
-            $table->string('type');
+            $table->enum('type', [
+                'JURNAL',
+                'PROSIDING',
+                'BUKU',
+                'HKI'
+            ]);
+
             $table->string('source')->nullable();      // scopus, sinta, manual
             $table->string('quartile')->nullable();    // Q1, Q2, Q3, Q4
             $table->string('document_url')->nullable();
@@ -170,6 +176,7 @@ return new class extends Migration {
     public function down(): void
     {
         Schema::dropIfExists('source_syncs');
+        Schema::dropIfExists('publication_author');
         Schema::dropIfExists('additional_tasks');
         Schema::dropIfExists('other_supporting_activities');
         Schema::dropIfExists('scholarships');
