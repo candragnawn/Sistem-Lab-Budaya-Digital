@@ -36,7 +36,7 @@ abstract class BaseCrudController extends Controller
     /**
      * Default eager load relations
      */
-    protected array $with = [];
+    protected $with = [];
 
     /**
      * API Resource class for responses
