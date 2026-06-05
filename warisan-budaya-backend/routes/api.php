@@ -197,7 +197,7 @@
     Route::apiResource('hkis', HKIController::class)->only(['index', 'show']);
 
     // Pelaksanaan Pengabdian
-    Route::apiResource('community-services', CommunityServiceController::class)->only(['index', 'show']);
+    Route::apiResource('comunityservice', CommunityServiceController::class)->only(['index', 'show']);
 
     // Penunjang
     Route::apiResource('jobs', JobController::class)->only(['index', 'show']);
