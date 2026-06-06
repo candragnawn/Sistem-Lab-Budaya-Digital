@@ -28,13 +28,21 @@ Yang udah :
 - narik api ke sinta (kurang api key )
 - mapper data ke database
 - singkronisasi secara asyncronus (latar belakang)
+- pake redis buat nampung cache (06/06/2026 13:27)
 
 yang belum :
 - algoritma fuzzy matching buat ngecegah data redudan
-- pake redis buat nampung cache
 - normalisasi string biar fuzzy gampang nyarinya
 - singkronisasi data dari api eksternal pas registrasi pake nidn (belum di test, soanya perlu api sinta buat ambil scopus_id)
+- install laravel horizon 
 
 yang masih bingung :
 - isiin tombol singkronisasi manual / gak (karna takutnya di registrasi gagal singkron)
 - adain singkronisasi berkala (takut data nya redudansi (ada data lain dari sumber api external lain))
+
+tutorial redis :
+install redis : https://www.youtube.com/watch?v=JhWorLlO3jU
+
+pertama install wsl windows, baru ikutin langkah ini : https://redis.io/docs/latest/operate/oss_and_stack/install/archive/install-redis/install-redis-on-windows/
+
+baru kalok udah selesai install jalanin redis nya di ubuntu pake perintah : `sudo service redis-server start`

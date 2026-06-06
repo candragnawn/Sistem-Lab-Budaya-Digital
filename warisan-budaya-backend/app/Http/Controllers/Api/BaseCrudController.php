@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 
 /**
  * BaseCrudController - Advanced CRUD with filtering, pagination, and soft deletes
@@ -106,30 +108,35 @@ abstract class BaseCrudController extends Controller
     {
         $query = $this->model::query();
 
-        // 1️⃣ Apply ownership filter (lecturer_id)
+        // Apply ownership filter (lecturer_id)
         $query = $this->applyOwnershipFilter($request, $query);
 
-        // 2️⃣ Apply soft delete filter (show active by default, unless ?with_trashed=1)
+        // Apply soft delete filter (show active by default, unless ?with_trashed=1)
         $query = $this->applySoftDeleteFilter($request, $query);
 
-        // 3️⃣ Apply search filter
+        // Apply search filter
         $query = $this->applySearch($request, $query);
 
-        // 4️⃣ Apply generic filters from query string
+        // Apply generic filters from query string
         $query = $this->applyFilters($request, $query);
 
-        // 5️⃣ Apply eager loading (relations)
+        // Apply eager loading (relations)
         $query = $this->applyIncludes($request, $query);
 
-        // 6️⃣ Apply count on relations
+        // Apply count on relations
         $query = $this->applyWithCount($request, $query);
 
-        // 7️⃣ Apply sorting
+        // Apply sorting
         $query = $this->applySorting($request, $query);
 
-        // 8️⃣ Apply pagination with dynamic per_page
+        // Apply pagination with dynamic per_page
         $perPage = $this->getPerPage($request);
-        $paginated = $query->paginate($perPage);
+        
+        $cacheKey = $this->getCacheKey($request, 'index_');
+
+        $paginated = $this->rememberCache($cacheKey, function () use ($query, $perPage) {
+            return $query->paginate($perPage);
+        });
 
         return $this->successPaginatedResponse($paginated, $request);
     }
@@ -148,19 +155,19 @@ abstract class BaseCrudController extends Controller
 
         $query = $this->model::onlyTrashed();
 
-        // 1️⃣ Apply ownership filter
+        // Apply ownership filter
         $query = $this->applyOwnershipFilter($request, $query);
 
-        // 2️⃣ Apply search filter
+        // Apply search filter
         $query = $this->applySearch($request, $query);
 
-        // 3️⃣ Apply eager loading
+        // Apply eager loading
         $query = $this->applyIncludes($request, $query);
 
-        // 4️⃣ Apply sorting
+        // Apply sorting
         $query = $this->applySorting($request, $query);
 
-        // 5️⃣ Apply pagination
+        // Apply pagination
         $perPage = $this->getPerPage($request);
         $paginated = $query->paginate($perPage);
 
@@ -184,12 +191,14 @@ abstract class BaseCrudController extends Controller
         }
 
         // Wrap in transaction for data consistency
-        $item = \DB::transaction(function () use ($validated) {
+        $item = DB::transaction(function () use ($validated) {
             return $this->model::create($validated);
         });
 
         // Load relations
         $this->loadRelations($item);
+
+        $this->flushCache();
 
         return $this->successResponse(
             $this->resource ? new $this->resource($item) : $item,
@@ -216,9 +225,13 @@ abstract class BaseCrudController extends Controller
         $query = $this->applyIncludes($request, $query);
         $query = $this->applyWithCount($request, $query);
 
-        $item = $query->findOrFail($id);
+        $cacheKey = $this->getCacheKey($request, 'show_' . $id);
 
-        // ✅ CRITICAL: Check ownership on read operations
+        $item = $this->rememberCache($cacheKey, function () use ($query, $id) {
+            return $query->findOrFail($id);
+        });
+
+        // CRITICAL: Check ownership on read operations
         $this->checkOwnership($request, $item);
 
         return $this->successResponse(
@@ -236,20 +249,23 @@ abstract class BaseCrudController extends Controller
     {
         $item = $this->model::findOrFail($id);
 
-        // ✅ Check ownership
+        // Check ownership
         $this->checkOwnership($request, $item);
 
         // Get validated data
         $requestClass = app($this->updateRequest);
         $validated = $request->validate($requestClass->rules());
 
-        // Update in transaction
-        \DB::transaction(function () use ($item, $validated) {
+        // Wrap in transaction for data consistency
+        $item = DB::transaction(function () use ($item, $validated) {
             $item->update($validated);
+            return $item;
         });
 
         // Reload relations
         $this->loadRelations($item);
+
+        $this->flushCache();
 
         return $this->successResponse(
             $this->resource ? new $this->resource($item) : $item,
@@ -267,13 +283,15 @@ abstract class BaseCrudController extends Controller
     {
         $item = $this->model::findOrFail($id);
 
-        // ✅ Check ownership
+        // Check ownership
         $this->checkOwnership($request, $item);
 
         // Soft delete in transaction
-        \DB::transaction(function () use ($item) {
+        DB::transaction(function () use ($item) {
             $item->delete();
         });
+
+        $this->flushCache();
 
         return $this->successResponse(
             null,
@@ -297,7 +315,7 @@ abstract class BaseCrudController extends Controller
         // Get including soft deleted
         $item = $this->model::withTrashed()->findOrFail($id);
 
-        // ✅ Check ownership
+        // Check ownership
         $this->checkOwnership($request, $item);
 
         // Check if actually deleted
@@ -306,9 +324,11 @@ abstract class BaseCrudController extends Controller
         }
 
         // Restore in transaction
-        \DB::transaction(function () use ($item) {
+        DB::transaction(function () use ($item) {
             $item->restore();
         });
+
+        $this->flushCache();
 
         return $this->successResponse(
             $this->resource ? new $this->resource($item) : $item,
@@ -332,13 +352,15 @@ abstract class BaseCrudController extends Controller
         // Get including soft deleted
         $item = $this->model::withTrashed()->findOrFail($id);
 
-        // ✅ Check ownership
+        //Check ownership
         $this->checkOwnership($request, $item);
 
         // Permanently delete in transaction
-        \DB::transaction(function () use ($item) {
+        DB::transaction(function () use ($item) {
             $item->forceDelete();
         });
+
+        $this->flushCache();
 
         return $this->successResponse(
             null,
@@ -349,12 +371,12 @@ abstract class BaseCrudController extends Controller
 
     /**
      * ============================================================================
-     * 📍 FILTERING & QUERY BUILDING METHODS
+     * FILTERING & QUERY BUILDING METHODS
      * ============================================================================
      */
 
     /**
-     * 1️⃣ Apply ownership filter based on lecturer_id
+     * Apply ownership filter based on lecturer_id
      * Prevents users from seeing other lecturers' data
      */
     protected function applyOwnershipFilter(Request $request, $query)
@@ -366,7 +388,7 @@ abstract class BaseCrudController extends Controller
     }
 
     /**
-     * 2️⃣ Apply soft delete filter
+     * Apply soft delete filter
      * By default shows only active records unless ?with_trashed=1
      */
     protected function applySoftDeleteFilter(Request $request, $query)
@@ -390,7 +412,7 @@ abstract class BaseCrudController extends Controller
     }
 
     /**
-     * 3️⃣ Apply search across searchable columns
+     * Apply search across searchable columns
      * Example: ?search=john
      */
     protected function applySearch(Request $request, $query)
@@ -409,7 +431,7 @@ abstract class BaseCrudController extends Controller
     }
 
     /**
-     * 4️⃣ Apply generic filters from query parameters
+     * Apply generic filters from query parameters
      * Example: ?status=active&faculty=FMIPA
      */
     protected function applyFilters(Request $request, $query)
@@ -430,7 +452,7 @@ abstract class BaseCrudController extends Controller
     }
 
     /**
-     * 5️⃣ Apply relation includes
+     * Apply relation includes
      * Example: ?include=lecturer,category,publications
      */
     protected function applyIncludes(Request $request, $query)
@@ -455,7 +477,7 @@ abstract class BaseCrudController extends Controller
     }
 
     /**
-     * 6️⃣ Apply relation counts
+     * Apply relation counts
      * Example: ?with_count=publications,teachings
      */
     protected function applyWithCount(Request $request, $query)
@@ -480,7 +502,7 @@ abstract class BaseCrudController extends Controller
     }
 
     /**
-     * 7️⃣ Apply sorting
+     * Apply sorting
      * Example: ?sort=name:asc (default) or ?sort=created_at:desc
      */
     protected function applySorting(Request $request, $query)
@@ -627,5 +649,22 @@ abstract class BaseCrudController extends Controller
         }
 
         return response()->json($response, $code);
+    }
+
+    protected function getCacheKey(Request $request, string $prefix = ''): string
+    {
+        $tableName = app($this->model)->getTable();
+        $queryString = http_build_query($request->query());
+        return $tableName . '_' . $prefix . md5($request->url() . '?' . $queryString);
+    }
+
+    protected function rememberCache(string $key, \Closure $callback)
+    {
+        return Cache::tags([app($this->model)->getTable()])->remember($key, 86400, $callback);
+    }
+
+    protected function flushCache(): void
+    {
+        Cache::tags([app($this->model)->getTable()])->flush();
     }
 }
