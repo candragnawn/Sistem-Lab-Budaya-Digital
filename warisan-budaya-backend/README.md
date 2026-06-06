@@ -35,6 +35,7 @@ yang belum :
 - normalisasi string biar fuzzy gampang nyarinya
 - singkronisasi data dari api eksternal pas registrasi pake nidn (belum di test, soanya perlu api sinta buat ambil scopus_id)
 - install laravel horizon 
+- buat queue belum ya pake redis, baru cache aja
 
 yang masih bingung :
 - isiin tombol singkronisasi manual / gak (karna takutnya di registrasi gagal singkron)
