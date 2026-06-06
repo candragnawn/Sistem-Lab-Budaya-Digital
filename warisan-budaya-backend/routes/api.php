@@ -53,6 +53,7 @@
     use App\Http\Controllers\Api\SourceSyncController;
     use App\Http\Controllers\Api\UserController;
     use App\Http\Controllers\Api\SyncController;
+    use App\Http\Controllers\Api\ProfileAggregationController;
 
 
     // Auth — throttle ketat untuk mencegah brute-force
@@ -69,6 +70,7 @@
             return $request->user();
         });
         Route::get('/me', [AuthController::class, 'me']);
+        Route::get('/me/data-pribadi', [ProfileAggregationController::class, 'dataPribadi']);
 
         // Master
         Route::get('lecturers/trash', [LecturerController::class, 'trash']);
@@ -151,6 +153,7 @@
 
     // Public
     Route::prefix('public')->name('public.')->group(function () {
+    Route::get('lecturers/{id}/analytics', [LecturerController::class, 'analytics']);
     Route::apiResource('lecturers', LecturerController::class)->only(['index', 'show']);
     Route::apiResource('categories', CategoryController::class)->only(['index', 'show']);
 

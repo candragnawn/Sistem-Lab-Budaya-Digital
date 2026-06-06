@@ -11,11 +11,12 @@ class AdditionalTaskResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'tugas_tambahan' => $this->additional_task,
-            'unit_kerja' => $this->work_unit,
-            'institusi' => $this->institution,
-            'tanggal_mulai' => $this->start_date,
-            'tanggal_selesai' => $this->end_date,
+            'tugas_tambahan' => $this->task_name ?? null,
+            'unit_kerja' => $this->work_unit ?? null,
+            'perguruan_tinggi' => $this->university ?? null,
+            'tmt_tugas' => $this->start_date ?? null,
+            'tst_tugas' => $this->end_date ?? null,
+            'nomor_sk' => $this->decree_number ?? $this->sk_number ?? null,
         ];
     }
 }

@@ -49,6 +49,8 @@ export const lecturerApi = {
     axios.get<ApiResponse<LecturerStat>>(`/lecturers/${id}/stats`),
   getPublicProfile: (id: number) =>
     axios.get<ApiResponse<Lecturer & { stats: LecturerStat }>>(`/public/lecturers/${id}`),
+  getAnalytics: (id: number) =>
+    axios.get<ApiResponse<{ pub_trend: any[], research_trend: any[] }>>(`/public/lecturers/${id}/analytics`),
 };
 
 // ============================================================
@@ -93,6 +95,7 @@ export const visitingScientistApi = createApiService<VisitingScientist>('visitin
 
 export const researchApi = createApiService<Research>('research');
 export const publicationApi = createApiService<Publication>('publications');
+export const publicPublicationApi = createApiService<Publication>('public/publications');
 export const authorPublicationApi = createApiService<AuthorPublication>('author-publications');
 export const hkiApi = createApiService<HKI>('hki');
 

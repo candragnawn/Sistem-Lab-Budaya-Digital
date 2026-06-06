@@ -1,5 +1,6 @@
 import { createContext, useState, useEffect, ReactNode } from 'react';
 import { useParams } from 'react-router';
+import { lecturerApi } from '../services/api';
 
 export interface Dosen {
   id: number;
@@ -98,8 +99,8 @@ const mockDosens: Dosen[] = [
   },
   {
     id: 3,
-    name: 'Luh Putu Sendi',
-    title_prefix: '',
+    name: 'Anak Agung Gede Arya Kadyanan',
+    title_prefix: 'Dr.',
     title_suffix: 'S.Sn., M.Sn.',
     nidn: '1122334',
     nip: '198901012015011001',
@@ -124,17 +125,51 @@ export function DosenProvider({ children }: DosenProviderProps) {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    let isMounted = true;
     if (params.dosenId) {
       setIsLoading(true);
-      // Simulate API call
-      setTimeout(() => {
-        const dosen = mockDosens.find(d => d.id === parseInt(params.dosenId!));
-        setCurrentDosen(dosen || null);
-        setIsLoading(false);
-      }, 100);
+      lecturerApi.getPublicProfile(parseInt(params.dosenId))
+        .then(response => {
+          if (isMounted) {
+            const data = response.data.data;
+            setCurrentDosen({
+              id: data.id,
+              name: data.name,
+              title_prefix: data.title_prefix,
+              title_suffix: data.title_suffix,
+              nidn: data.nidn,
+              nip: data.nip,
+              email: data.email,
+              phone: data.phone,
+              photo_path: data.photo_path || data.photo_url,
+              faculty: data.faculty,
+              department: data.department,
+              study_program: data.study_program,
+              bio: data.bio,
+              status: data.status,
+              sinta_id: data.sinta_id,
+              scopus_id: data.scopus_id,
+              google_scholar_id: data.google_scholar_id,
+              orcid_id: data.orcid_id,
+              sinta_score: data.stats?.sinta_score_total || 0,
+              total_publications: data.publications_count || 0,
+            } as Dosen);
+            setIsLoading(false);
+          }
+        })
+        .catch(err => {
+          console.error("Failed to load lecturer profile", err);
+          if (isMounted) {
+            // Fallback to mock data for missing charts/stats
+            const mock = mockDosens.find(d => d.id === parseInt(params.dosenId!));
+            setCurrentDosen(mock || null);
+            setIsLoading(false);
+          }
+        });
     } else {
       setCurrentDosen(null);
     }
+    return () => { isMounted = false; };
   }, [params.dosenId]);
 
   const value: DosenContextType = {

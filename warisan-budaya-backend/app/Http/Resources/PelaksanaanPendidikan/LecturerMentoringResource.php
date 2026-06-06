@@ -11,9 +11,10 @@ class LecturerMentoringResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'nama_pembimbing' => $this->mentor_name,
-            'tanggal_mulai' => $this->start_date,
-            'tanggal_selesai' => $this->end_date,
+            'nama_dosen_binaan' => $this->mentor_name ?? $this->mentee_name ?? null,
+            'tahapan_bimbingan' => $this->stage ?? null,
+            'tmt' => $this->start_date ?? null,
+            'tst' => $this->end_date ?? null,
         ];
     }
 }

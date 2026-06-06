@@ -78,7 +78,7 @@ export function DosenList() {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Cari nama atau ID kontributor..."
-                className="w-full pl-8 pr-3 py-1.5 text-xs bg-[#111827] border border-gray-700 rounded-[4px] focus:outline-none focus:ring-1 focus:ring-[#06B6D4] placeholder:text-gray-400 text-white"
+                className="w-full pl-8 pr-3 py-2.5 text-xs bg-[#111827] border border-gray-700 rounded-[2px] focus:outline-none focus:ring-1 focus:ring-[#06B6D4] placeholder:text-gray-400 text-white"
               />
             </div>
 

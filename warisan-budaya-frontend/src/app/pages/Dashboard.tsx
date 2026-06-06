@@ -7,8 +7,11 @@ import { PublicBanner } from '../components/UI/PublicBanner';
 import { useAuth } from '../hooks/useAuth';
 import { useDosen } from '../hooks/useDosen';
 import { Link } from 'react-router';
+import { useEffect, useState } from 'react';
+import { publicPublicationApi, lecturerApi } from '../services/api';
+import type { Publication } from '../types';
 
-const pubTrend = [
+const initialPubTrend = [
   { year: '2020', publikasi: 3, sitasi: 12 },
   { year: '2021', publikasi: 5, sitasi: 24 },
   { year: '2022', publikasi: 4, sitasi: 31 },
@@ -16,7 +19,7 @@ const pubTrend = [
   { year: '2024', publikasi: 6, sitasi: 58 },
 ];
 
-const researchTrend = [
+const initialResearchTrend = [
   { year: '2020', penelitian: 2, pengabdian: 1 },
   { year: '2021', penelitian: 3, pengabdian: 2 },
   { year: '2022', penelitian: 2, pengabdian: 3 },
@@ -43,6 +46,42 @@ export function Dashboard() {
   const { user, isAuthenticated } = useAuth();
   const { currentDosen, isLoading } = useDosen();
   const dosenId = currentDosen?.id;
+
+  const [recentPubs, setRecentPubs] = useState<any[]>(recentPublications);
+  const [pubTrend, setPubTrend] = useState<any[]>(initialPubTrend);
+  const [researchTrend, setResearchTrend] = useState<any[]>(initialResearchTrend);
+
+  useEffect(() => {
+    if (dosenId) {
+      publicPublicationApi.getAll({ lecturer_id: dosenId, sort: 'publish_date:desc', per_page: 3 })
+        .then(res => {
+          if (res.data && res.data.data && res.data.data.length > 0) {
+            setRecentPubs(res.data.data.map((p: any) => ({
+              id: p.id,
+              title: p.judul_artikel || p.title,
+              journal: p.nama_jurnal_penerbit || p.journal_name,
+              year: p.tanggal_terbit ? new Date(p.tanggal_terbit).getFullYear() : (p.year || 2024),
+              quartile: p.quartile,
+              verified: p.verified
+            })));
+          }
+        })
+        .catch(err => console.error("Failed to fetch publications", err));
+
+      lecturerApi.getAnalytics(dosenId)
+        .then(res => {
+          if (res.data?.data) {
+            if (res.data.data.pub_trend?.length > 0) {
+              setPubTrend(res.data.data.pub_trend);
+            }
+            if (res.data.data.research_trend?.length > 0) {
+              setResearchTrend(res.data.data.research_trend);
+            }
+          }
+        })
+        .catch(err => console.error("Failed to fetch analytics", err));
+    }
+  }, [dosenId]);
 
   // Use current dosen data from context
   const displayName = currentDosen
@@ -204,25 +243,27 @@ export function Dashboard() {
       <div className="bg-[#1F2937] border border-gray-700 rounded-[4px]">
         <div className="px-4 py-3 border-b border-gray-700 flex items-center justify-between">
           <p className="text-xs text-white">Publikasi Terbaru</p>
-          <Link to={`/dosen/${dosenId}/pelaksanaan-penelitian/publikasi-karya`} className="text-[10px] text-[#06B6D4] hover:underline">Lihat semua</Link>
+          <Link to={`/dosen/${dosenId}/pelaksanaan-penelitian/publikasi-karya`} className="text-[10px] text-white hover:underline">Lihat semua</Link>
         </div>
         <div className="divide-y divide-gray-700">
-          {recentPublications.map(pub => (
+          {recentPubs.map(pub => (
             <div key={pub.id} className="px-4 py-3 flex items-start justify-between gap-3">
               <div className="flex-1 min-w-0">
                 <p className="text-xs font-medium text-white leading-snug">{pub.title}</p>
                 <p className="text-[10px] text-gray-400 mt-0.5">{pub.journal} · {pub.year}</p>
               </div>
               <div className="flex items-center gap-1.5 shrink-0">
-                <span className="px-1.5 py-0.5 bg-[#06B6D4]/20 text-[#06B6D4] border border-[#06B6D4]/30 rounded text-[10px]">
-                  {pub.quartile}
-                </span>
+                {pub.quartile && (
+                  <span className="px-1.5 py-0.5 bg-[#06B6D4]/20 text-[#06B6D4] border border-[#06B6D4]/30 rounded text-[10px]">
+                    {pub.quartile}
+                  </span>
+                )}
                 {pub.verified ? (
-                  <span className="px-1.5 py-0.5 bg-green-500/20 text-green-400 border border-green-500/30 rounded text-[10px]">
+                  <span className="px-1.5 py-0.5  text-white border border-green-500/30 rounded text-[10px]">
                     Verified
                   </span>
                 ) : (
-                  <span className="px-1.5 py-0.5 bg-amber-500/20 text-amber-400 border border-amber-500/30 rounded text-[10px]">
+                  <span className="px-1.5 py-0.5  text-white border border-amber-500/30 rounded text-[10px]">
                     Pending
                   </span>
                 )}
