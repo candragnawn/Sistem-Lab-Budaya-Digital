@@ -2,13 +2,13 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Lecturer;
 use App\Models\Category;
-use App\Models\Publication;
 use App\Models\Event;
-use Illuminate\Support\Facades\DB;
+use App\Models\PelaksanaanPenelitian\Publication;
+use App\Models\PelaksanaanPenelitian\Research;
+use App\Models\PelaksanaanPengabdian\CommunityService;
 use Illuminate\Support\Str;
 
 class LabSeeder extends Seeder

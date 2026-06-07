@@ -66,7 +66,7 @@ export function Dashboard() {
             })));
           }
         })
-        .catch(err => console.error("Failed to fetch publications", err));
+        .catch(err => console.error("Failed to fetch pufblications", err));
 
       lecturerApi.getAnalytics(dosenId)
         .then(res => {
