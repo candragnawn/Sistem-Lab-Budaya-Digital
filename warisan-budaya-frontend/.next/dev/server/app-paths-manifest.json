@@ -1,5 +1,0 @@
-{
-  "/(main)/daftar-dosen/page": "app/(main)/daftar-dosen/page.js",
-  "/(main)/dosen/[id]/page": "app/(main)/dosen/[id]/page.js",
-  "/(main)/page": "app/(main)/page.js"
-}
