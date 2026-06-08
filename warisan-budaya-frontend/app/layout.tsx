@@ -20,19 +20,7 @@ export default function RootLayout({
       suppressHydrationWarning
       className={cn("antialiased", fontMono.variable, "font-sans", geist.variable)}
     >
-      <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              try {
-                if (localStorage.getItem('user')) {
-                  document.documentElement.classList.add('is-logged-in');
-                }
-              } catch (e) {}
-            `,
-          }}
-        />
-      </head>
+
       <body>
         <ThemeProvider>
           <header className="sticky top-0 z-50">

@@ -95,32 +95,26 @@ export default function DiklatPage() {
               </div>
             </div>
             <div>
-              <h1 className="text-xl font-bold text-gray-900">Kadek Pasek Divandra Kusuma</h1>
+              <h1 className="text-xl font-semibold text-gray-700">Kadek Pasek Divandra Kusuma</h1>
               <p className="text-sm text-[#C9A84C] font-medium">Guru Besar</p>
               <p className="text-xs text-gray-400">
                 Prodi DIK · Fakultas Nomor 3 · Universitas Ganteng
               </p>
               <div className="mt-2 flex flex-wrap gap-2">
-                <span className="inline-flex items-center rounded-full bg-red-100 px-2.5 py-0.5 text-[10px] font-bold text-red-700">
+                <span className="inline-flex items-center rounded-full bg-slate-100 px-2.5 py-0.5 text-[10px] font-medium text-slate-600">
                   NIDN: 0001196801
                 </span>
-                <span className="inline-flex items-center rounded-full bg-blue-100 px-2.5 py-0.5 text-[10px] font-bold text-blue-700">
+                <span className="inline-flex items-center rounded-full bg-indigo-50 px-2.5 py-0.5 text-[10px] font-medium text-indigo-600">
                   NIP: 196809311993162660
                 </span>
-                <span className="inline-flex items-center rounded-full bg-green-100 px-2.5 py-0.5 text-[10px] font-bold text-green-700">
+                <span className="inline-flex items-center rounded-full bg-teal-50 px-2.5 py-0.5 text-[10px] font-medium text-teal-600">
                   SISTERID: 5678991
                 </span>
               </div>
             </div>
           </div>
           <div className="flex gap-2">
-            <Button
-              size="sm"
-              className="bg-[#1E3A5F] text-white hover:bg-[#2a4f7a] text-xs gap-1.5"
-            >
-              <RefreshCw className="h-3 w-3" />
-              Sync Sekarang
-            </Button>
+            
             <Button
               size="sm"
               variant="outline"
@@ -151,7 +145,7 @@ export default function DiklatPage() {
               <p className="text-xs font-bold uppercase tracking-wider text-[#C9A84C] mb-1">
                 KUALIFIKASI
               </p>
-              <h2 className="text-2xl font-bold text-gray-900">Diklat</h2>
+              <h2 className="text-2xl font-medium text-gray-600">Diklat</h2>
               <p className="mt-1.5 text-sm text-gray-500">
                 Riwayat pendidikan dan pelatihan (Diklat) yang pernah diikuti.
               </p>
@@ -162,7 +156,7 @@ export default function DiklatPage() {
                 <span className="text-xs font-semibold text-yellow-700">Sebagian</span>
               </div>
               <div className="flex items-center rounded-full bg-gray-100 px-3 py-1.5">
-                <span className="text-xs font-bold text-gray-600">{totalData} data</span>
+                <span className="text-xs font-medium text-gray-500">{totalData} data</span>
               </div>
             </div>
           </div>
@@ -204,25 +198,25 @@ export default function DiklatPage() {
             <table className="w-full text-sm" id="diklat-table">
               <thead>
                 <tr className="border-b border-gray-200 bg-gray-50/80">
-                  <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500 w-16">
+                  <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-400 w-16">
                     No.
                   </th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">
+                  <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-400">
                     Nama Diklat
                   </th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">
+                  <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-400">
                     Penyelenggara
                   </th>
-                  <th className="px-4 py-3 text-center text-xs font-semibold uppercase tracking-wider text-gray-500">
+                  <th className="px-4 py-3 text-center text-xs font-medium uppercase tracking-wider text-gray-400">
                     Tahun
                   </th>
-                  <th className="px-4 py-3 text-center text-xs font-semibold uppercase tracking-wider text-gray-500">
+                  <th className="px-4 py-3 text-center text-xs font-medium uppercase tracking-wider text-gray-400">
                     Jml Jam
                   </th>
-                  <th className="px-4 py-3 text-center text-xs font-semibold uppercase tracking-wider text-gray-500">
+                  <th className="px-4 py-3 text-center text-xs font-medium uppercase tracking-wider text-gray-400">
                     Sertifikat
                   </th>
-                  <th className="px-4 py-3 text-center text-xs font-semibold uppercase tracking-wider text-gray-500 w-28">
+                  <th className="px-4 py-3 text-center text-xs font-medium uppercase tracking-wider text-gray-400 w-28">
                     Aksi
                   </th>
                 </tr>

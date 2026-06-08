@@ -212,7 +212,7 @@ const Navbar1 = ({
                     onClick={() => setShowDropdown(!showDropdown)}
                     className="flex items-center gap-3 cursor-pointer text-white hover:opacity-80 transition-opacity select-none"
                   >
-                    <div className="h-9 w-9 rounded-full border-2 border-yellow-400 overflow-hidden bg-white/20">
+                    <div className="h-9 w-9 rounded-full border border-white/30 overflow-hidden bg-white/20">
                       <img
                         src={user.photo}
                         alt="Foto Profil"
@@ -223,7 +223,7 @@ const Navbar1 = ({
                       <span className="text-xs font-semibold leading-none">
                         {user.name}
                       </span>
-                      <span className="text-[10px] text-yellow-400 font-medium mt-1">
+                      <span className="text-[10px] text-white/50 font-medium mt-1">
                         {user.role}
                       </span>
                     </div>
@@ -330,7 +330,7 @@ const Navbar1 = ({
                       {user ? (
                         <div className="space-y-3">
                           <div className="flex items-center gap-3 text-black">
-                            <div className="h-10 w-10 rounded-full border-2 border-yellow-500 overflow-hidden bg-gray-100">
+                            <div className="h-10 w-10 rounded-full border border-gray-300 overflow-hidden bg-gray-100">
                               <img
                                 src={user.photo}
                                 alt="Foto Profil"
@@ -341,7 +341,7 @@ const Navbar1 = ({
                               <span className="text-sm font-semibold leading-none">
                                 {user.name}
                               </span>
-                              <span className="text-xs text-yellow-600 font-medium mt-1">
+                              <span className="text-xs text-gray-500 font-medium mt-1">
                                 {user.role}
                               </span>
                             </div>

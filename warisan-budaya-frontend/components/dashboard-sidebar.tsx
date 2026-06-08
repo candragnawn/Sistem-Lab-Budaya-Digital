@@ -33,6 +33,7 @@ const sidebarItems: SidebarItem[] = [
     icon: <User className="h-4 w-4" />,
     children: [
       { title: "Data Pribadi", href: "/dashboard/profil" },
+      { title: "Portofolio Publik", href: "/dashboard/portofolio-publik" },
       { title: "Inpassing", href: "/dashboard/profil/inpassing", badge: "SISTER" },
       { title: "Jabatan Fungsional", href: "/dashboard/profil/jabatan", badge: "DATA" },
       { title: "Kepangkatan", href: "/dashboard/profil/kepangkatan", badge: "SISTER" },
@@ -54,31 +55,68 @@ const sidebarItems: SidebarItem[] = [
     title: "Kompetensi",
     href: "/dashboard/kompetensi",
     icon: <Award className="h-4 w-4" />,
+    children: [
+      { title: "Sertifikasi", href: "/dashboard/kompetensi/sertifikasi" },
+      { title: "Tes", href: "/dashboard/kompetensi/tes" },
+    ],
   },
   {
     title: "Pelaksanaan Pendidikan",
     href: "/dashboard/pelaksanaan-pendidikan",
     icon: <BookOpen className="h-4 w-4" />,
+    children: [
+      { title: "Pengajaran", href: "/dashboard/pelaksanaan-pendidikan/pengajaran" },
+      { title: "Bimbingan Mahasiswa", href: "/dashboard/pelaksanaan-pendidikan/bimbingan" },
+      { title: "Penguji", href: "/dashboard/pelaksanaan-pendidikan/penguji" },
+      { title: "Bahan Ajar", href: "/dashboard/pelaksanaan-pendidikan/bahan-ajar" },
+      { title: "Pengembangan Mahasiswa", href: "/dashboard/pelaksanaan-pendidikan/pengembangan" },
+      { title: "Visiting Scientist", href: "/dashboard/pelaksanaan-pendidikan/visiting" },
+      { title: "Detasering", href: "/dashboard/pelaksanaan-pendidikan/detasering" },
+      { title: "Orasi Ilmiah", href: "/dashboard/pelaksanaan-pendidikan/orasi" },
+      { title: "Pembimbingan Dosen", href: "/dashboard/pelaksanaan-pendidikan/pembimbingan" },
+    ],
   },
   {
     title: "Pelaksanaan Pengabdian",
     href: "/dashboard/pelaksanaan-pengabdian",
     icon: <HandHeart className="h-4 w-4" />,
+    children: [
+      { title: "Penelitian", href: "/dashboard/pelaksanaan-pengabdian/penelitian" },
+      { title: "Publikasi Karya", href: "/dashboard/pelaksanaan-pengabdian/publikasi" },
+      { title: "HKI", href: "/dashboard/pelaksanaan-pengabdian/hki" },
+    ],
   },
   {
     title: "Penunjang",
     href: "/dashboard/penunjang",
     icon: <Puzzle className="h-4 w-4" />,
+    children: [
+      { title: "Tugas Tambahan", href: "/dashboard/penunjang/tugas-tambahan" },
+      { title: "Manajer Jurnal", href: "/dashboard/penunjang/manajer-jurnal" },
+      { title: "Jabatan Struktural", href: "/dashboard/penunjang/jabatan-struktural" },
+      { title: "Keanggotaan Profesi", href: "/dashboard/penunjang/keanggotaan" },
+      { title: "Kegiatan Penunjang Lain", href: "/dashboard/penunjang/kegiatan-lain" },
+      { title: "Beasiswa", href: "/dashboard/penunjang/beasiswa" },
+    ],
   },
   {
     title: "Reward",
     href: "/dashboard/reward",
     icon: <Trophy className="h-4 w-4" />,
+    children: [
+      { title: "Penghargaan", href: "/dashboard/reward/penghargaan" },
+      { title: "Kesejahteraan", href: "/dashboard/reward/kesejahteraan" },
+    ],
   },
   {
     title: "Data Dokumen",
     href: "/dashboard/data-dokumen",
     icon: <FileText className="h-4 w-4" />,
+    children: [
+      { title: "Dokumen Pribadi", href: "/dashboard/data-dokumen/pribadi" },
+      { title: "Dokumen Akademik", href: "/dashboard/data-dokumen/akademik" },
+      { title: "Dokumen Pendukung", href: "/dashboard/data-dokumen/pendukung" },
+    ],
   },
 ];
 
@@ -169,14 +207,14 @@ export function DashboardSidebar({ isOpen: controlledIsOpen, setIsOpen: controll
               <div className="flex h-6 w-6 items-center justify-center rounded bg-yellow-400/20">
                 <Menu className="h-3.5 w-3.5 text-yellow-400" />
               </div>
-              <span className="text-xs font-semibold uppercase tracking-wider text-white/80">
+              <span className="text-xs font-medium uppercase tracking-wider text-white/70">
                 Menu Navigasi
               </span>
             </div>
             {/* Tombol X di dalam header sidebar saat terbuka */}
             <button
               onClick={() => setIsOpen(false)}
-              className="flex h-7 w-7 items-center justify-center rounded-md bg-white/10 text-white/80 hover:bg-white/20 hover:text-white transition-colors"
+              className="flex h-7 w-7 items-center justify-center rounded-md bg-white/10 text-white/70 hover:bg-white/20 hover:text-white transition-colors"
               aria-label="Tutup sidebar"
             >
               <X className="h-4 w-4" />
@@ -186,7 +224,7 @@ export function DashboardSidebar({ isOpen: controlledIsOpen, setIsOpen: controll
 
         {/* Navigation Items */}
         <nav className="flex-1 overflow-y-auto px-3 py-3">
-          <ul className="space-y-1">
+          <ul className="space-y-0.5">
             {sidebarItems.map((item) => (
               <li key={item.title}>
                 {item.children ? (
@@ -194,30 +232,30 @@ export function DashboardSidebar({ isOpen: controlledIsOpen, setIsOpen: controll
                     <button
                       onClick={() => toggleExpanded(item.title)}
                       className={cn(
-                        "group flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all duration-200",
+                        "group flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm transition-all duration-200",
                         isParentActive(item)
-                          ? "bg-brand-navy text-white shadow-md"
-                          : "text-gray-700 hover:bg-gray-100 hover:text-brand-navy",
+                          ? "bg-brand-navy text-white shadow-sm"
+                          : "text-gray-600 hover:bg-gray-100 hover:text-gray-800",
                       )}
                     >
                       <span
                         className={cn(
-                          "flex h-7 w-7 items-center justify-center rounded-md transition-colors",
+                          "flex h-6 w-6 items-center justify-center rounded-md transition-colors",
                           isParentActive(item)
                             ? "bg-white/20 text-white"
-                            : "bg-gray-100 text-gray-500 group-hover:bg-brand-navy/10 group-hover:text-brand-navy",
+                            : "bg-gray-100 text-gray-400 group-hover:bg-brand-navy/10 group-hover:text-brand-navy",
                         )}
                       >
                         {item.icon}
                       </span>
-                      <span className="flex-1 text-left">{item.title}</span>
+                      <span className="flex-1 text-left font-medium">{item.title}</span>
                       {item.badge && (
                         <span
                           className={cn(
-                            "rounded-full px-2 py-0.5 text-[10px] font-bold",
+                            "rounded-full px-2 py-0.5 text-[10px] font-medium",
                             isParentActive(item)
-                              ? "bg-yellow-400 text-brand-navy"
-                              : "bg-gray-200 text-gray-600",
+                              ? "bg-yellow-400/80 text-brand-navy"
+                              : "bg-gray-200 text-gray-500",
                           )}
                         >
                           {item.badge}
@@ -228,7 +266,7 @@ export function DashboardSidebar({ isOpen: controlledIsOpen, setIsOpen: controll
                           className={cn(
                             "h-3.5 w-3.5 transition-transform",
                             isParentActive(item)
-                              ? "text-white/70"
+                              ? "text-white/60"
                               : "text-gray-400",
                           )}
                         />
@@ -237,7 +275,7 @@ export function DashboardSidebar({ isOpen: controlledIsOpen, setIsOpen: controll
                           className={cn(
                             "h-3.5 w-3.5 transition-transform",
                             isParentActive(item)
-                              ? "text-white/70"
+                              ? "text-white/60"
                               : "text-gray-400",
                           )}
                         />
@@ -253,22 +291,22 @@ export function DashboardSidebar({ isOpen: controlledIsOpen, setIsOpen: controll
                           : "max-h-0 opacity-0",
                       )}
                     >
-                      <ul className="ml-5 mt-1 space-y-0.5 border-l-2 border-gray-200 pl-4">
+                      <ul className="ml-5 mt-0.5 space-y-0.5 border-l border-gray-200 pl-3 pb-1">
                         {item.children.map((child) => (
                           <li key={child.title}>
                             <Link
                               href={child.href}
                               className={cn(
-                                "flex items-center justify-between rounded-md px-3 py-2 text-xs font-medium transition-all duration-200",
+                                "flex items-center justify-between rounded-md px-3 py-1.5 text-xs transition-all duration-200",
                                 isActive(child.href)
-                                  ? "bg-blue-50 text-brand-navy font-semibold"
+                                  ? "bg-blue-50 text-brand-navy font-medium"
                                   : "text-gray-500 hover:bg-gray-50 hover:text-gray-700",
                               )}
                               onClick={() => isMobile && setIsOpen(false)}
                             >
                               <span>{child.title}</span>
                               {child.badge && (
-                                <span className="rounded bg-blue-100 px-1.5 py-0.5 text-[9px] font-bold text-blue-600">
+                                <span className="rounded bg-blue-100 px-1.5 py-0.5 text-[9px] font-medium text-blue-600">
                                   {child.badge}
                                 </span>
                               )}
@@ -282,31 +320,31 @@ export function DashboardSidebar({ isOpen: controlledIsOpen, setIsOpen: controll
                   <Link
                     href={item.href}
                     className={cn(
-                      "group flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all duration-200",
+                      "group flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-all duration-200",
                       isActive(item.href)
-                        ? "bg-brand-navy text-white shadow-md"
-                        : "text-gray-700 hover:bg-gray-100 hover:text-brand-navy",
+                        ? "bg-brand-navy text-white shadow-sm"
+                        : "text-gray-600 hover:bg-gray-100 hover:text-gray-800",
                     )}
                     onClick={() => isMobile && setIsOpen(false)}
                   >
                     <span
                       className={cn(
-                        "flex h-7 w-7 items-center justify-center rounded-md transition-colors",
+                        "flex h-6 w-6 items-center justify-center rounded-md transition-colors",
                         isActive(item.href)
                           ? "bg-white/20 text-white"
-                          : "bg-gray-100 text-gray-500 group-hover:bg-brand-navy/10 group-hover:text-brand-navy",
+                          : "bg-gray-100 text-gray-400 group-hover:bg-brand-navy/10 group-hover:text-brand-navy",
                       )}
                     >
                       {item.icon}
                     </span>
-                    <span className="flex-1">{item.title}</span>
+                    <span className="flex-1 font-medium">{item.title}</span>
                     {item.badge && (
                       <span
                         className={cn(
-                          "rounded-full px-2 py-0.5 text-[10px] font-bold",
+                          "rounded-full px-2 py-0.5 text-[10px] font-medium",
                           isActive(item.href)
-                            ? "bg-yellow-400 text-brand-navy"
-                            : "bg-gray-200 text-gray-600",
+                            ? "bg-yellow-400/80 text-brand-navy"
+                            : "bg-gray-200 text-gray-500",
                         )}
                       >
                         {item.badge}

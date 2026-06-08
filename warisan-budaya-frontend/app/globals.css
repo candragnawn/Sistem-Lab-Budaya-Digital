@@ -132,5 +132,23 @@
     }
 }
 
-html:not(.is-logged-in) .auth-only { display: none !important; }
-html.is-logged-in .unauth-only { display: none !important; }
+
+/* Muted color utilities — digunakan konsisten di semua halaman dashboard */
+.text-muted-heading {
+  @apply font-semibold text-gray-600;
+}
+.badge-section-label {
+  @apply text-xs font-medium uppercase tracking-wider text-gray-400;
+}
+.badge-count {
+  @apply text-xs font-medium text-gray-500;
+}
+.badge-status-active {
+  @apply inline-flex items-center rounded-full bg-emerald-50 px-2 py-0.5 text-[11px] font-medium text-emerald-700;
+}
+.badge-status-done {
+  @apply inline-flex items-center rounded-full bg-gray-100 px-2 py-0.5 text-[11px] font-medium text-gray-500;
+}
+.badge-status-running {
+  @apply inline-flex items-center rounded-full bg-sky-50 px-2 py-0.5 text-[11px] font-medium text-sky-700;
+}

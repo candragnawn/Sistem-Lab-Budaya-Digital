@@ -30,8 +30,8 @@ export default function PenempatanPage() {
               <div className="absolute -bottom-0.5 -right-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-green-500 ring-2 ring-white"><CheckCircle className="h-3 w-3 text-white" /></div>
             </div>
             <div>
-              <h1 className="text-xl font-bold text-gray-900">{user.name}</h1>
-              <p className="text-sm text-brand-gold font-medium">{user.role}</p>
+              <h1 className="text-xl font-semibold text-gray-700">{user.name}</h1>
+              <p className="text-sm text-amber-600/80 font-medium">{user.role}</p>
               <div className="mt-2 flex items-center gap-1 text-xs text-gray-500"><MapPin className="h-3 w-3" /> Universitas Udayana, Jimbaran</div>
             </div>
           </div>
@@ -43,15 +43,15 @@ export default function PenempatanPage() {
       </div>
       <div className="flex items-center gap-2 text-sm">
         <Home className="h-4 w-4 text-gray-400" /><span className="text-gray-400">Ikhtisar</span><ChevronRight className="h-3 w-3 text-gray-400" />
-        <span className="text-brand-navy font-medium">Profil</span><ChevronRight className="h-3 w-3 text-gray-400" /><span className="text-brand-navy font-semibold">Penempatan</span>
+        <span className="text-brand-navy font-medium">Profil</span><ChevronRight className="h-3 w-3 text-gray-400" /><span className="text-brand-navy/80 font-medium">Penempatan</span>
       </div>
       <div className="rounded-xl bg-white shadow-sm border border-gray-100 overflow-hidden">
         <div className="bg-gradient-to-r from-brand-navy/5 to-transparent p-6 border-b border-gray-100">
           <div className="flex items-start justify-between">
-            <div><p className="text-xs font-bold uppercase tracking-wider text-brand-gold mb-1">PROFIL · SISTER</p><h2 className="text-2xl font-bold text-gray-900">Penempatan</h2><p className="mt-1.5 text-sm text-gray-500">Data penempatan dan unit kerja dosen yang disinkronkan dari SISTER.</p></div>
+            <div><p className="text-xs font-medium uppercase tracking-wider text-amber-600/70 mb-1">PROFIL · SISTER</p><h2 className="text-2xl font-medium text-gray-600">Penempatan</h2><p className="mt-1.5 text-sm text-gray-500">Data penempatan dan unit kerja dosen yang disinkronkan dari SISTER.</p></div>
             <div className="flex items-center gap-3">
               <div className="flex items-center gap-1.5 rounded-full bg-purple-50 border border-purple-200 px-3 py-1.5"><CheckCircle className="h-3.5 w-3.5 text-purple-600" /><span className="text-xs font-semibold text-purple-700">SISTER</span></div>
-              <div className="flex items-center rounded-full bg-gray-100 px-3 py-1.5"><span className="text-xs font-bold text-gray-600">{filteredData.length} data</span></div>
+              <div className="flex items-center rounded-full bg-gray-100 px-3 py-1.5"><span className="text-xs font-medium text-gray-500">{filteredData.length} data</span></div>
             </div>
           </div>
         </div>
@@ -66,13 +66,13 @@ export default function PenempatanPage() {
           <div className="overflow-x-auto rounded-lg border border-gray-200">
             <table className="w-full text-sm" id="penempatan-table">
               <thead><tr className="border-b border-gray-200 bg-gray-50/80">
-                <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500 w-12">No.</th>
-                <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">Unit Kerja</th>
-                <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">Perguruan Tinggi</th>
-                <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">Jabatan</th>
-                <th className="px-4 py-3 text-center text-xs font-semibold uppercase tracking-wider text-gray-500">TMT</th>
-                <th className="px-4 py-3 text-center text-xs font-semibold uppercase tracking-wider text-gray-500">Status</th>
-                <th className="px-4 py-3 text-center text-xs font-semibold uppercase tracking-wider text-gray-500 w-28">Aksi</th>
+                <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-400 w-12">No.</th>
+                <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-400">Unit Kerja</th>
+                <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-400">Perguruan Tinggi</th>
+                <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-400">Jabatan</th>
+                <th className="px-4 py-3 text-center text-xs font-medium uppercase tracking-wider text-gray-400">TMT</th>
+                <th className="px-4 py-3 text-center text-xs font-medium uppercase tracking-wider text-gray-400">Status</th>
+                <th className="px-4 py-3 text-center text-xs font-medium uppercase tracking-wider text-gray-400 w-28">Aksi</th>
               </tr></thead>
               <tbody className="divide-y divide-gray-100">
                 {filteredData.map((item, idx) => (

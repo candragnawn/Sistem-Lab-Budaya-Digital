@@ -30,8 +30,8 @@ export default function PejabatPage() {
               <div className="absolute -bottom-0.5 -right-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-green-500 ring-2 ring-white"><CheckCircle className="h-3 w-3 text-white" /></div>
             </div>
             <div>
-              <h1 className="text-xl font-bold text-gray-900">{user.name}</h1>
-              <p className="text-sm text-brand-gold font-medium">{user.role}</p>
+              <h1 className="text-xl font-semibold text-gray-700">{user.name}</h1>
+              <p className="text-sm text-amber-600/80 font-medium">{user.role}</p>
             </div>
           </div>
           <div className="flex gap-2">
@@ -42,15 +42,15 @@ export default function PejabatPage() {
       </div>
       <div className="flex items-center gap-2 text-sm">
         <Home className="h-4 w-4 text-gray-400" /><span className="text-gray-400">Ikhtisar</span><ChevronRight className="h-3 w-3 text-gray-400" />
-        <span className="text-brand-navy font-medium">Profil</span><ChevronRight className="h-3 w-3 text-gray-400" /><span className="text-brand-navy font-semibold">Pejabat Struktural</span>
+        <span className="text-brand-navy font-medium">Profil</span><ChevronRight className="h-3 w-3 text-gray-400" /><span className="text-brand-navy/80 font-medium">Pejabat Struktural</span>
       </div>
       <div className="rounded-xl bg-white shadow-sm border border-gray-100 overflow-hidden">
         <div className="bg-gradient-to-r from-brand-navy/5 to-transparent p-6 border-b border-gray-100">
           <div className="flex items-start justify-between">
-            <div><p className="text-xs font-bold uppercase tracking-wider text-brand-gold mb-1">PROFIL · SISTER</p><h2 className="text-2xl font-bold text-gray-900">Pejabat Struktural</h2><p className="mt-1.5 text-sm text-gray-500">Riwayat jabatan struktural yang pernah atau sedang diemban.</p></div>
+            <div><p className="text-xs font-medium uppercase tracking-wider text-amber-600/70 mb-1">PROFIL · SISTER</p><h2 className="text-2xl font-medium text-gray-600">Pejabat Struktural</h2><p className="mt-1.5 text-sm text-gray-500">Riwayat jabatan struktural yang pernah atau sedang diemban.</p></div>
             <div className="flex items-center gap-3">
               <div className="flex items-center gap-1.5 rounded-full bg-purple-50 border border-purple-200 px-3 py-1.5"><CheckCircle className="h-3.5 w-3.5 text-purple-600" /><span className="text-xs font-semibold text-purple-700">SISTER</span></div>
-              <div className="flex items-center rounded-full bg-gray-100 px-3 py-1.5"><span className="text-xs font-bold text-gray-600">{filteredData.length} data</span></div>
+              <div className="flex items-center rounded-full bg-gray-100 px-3 py-1.5"><span className="text-xs font-medium text-gray-500">{filteredData.length} data</span></div>
             </div>
           </div>
         </div>
@@ -65,14 +65,14 @@ export default function PejabatPage() {
           <div className="overflow-x-auto rounded-lg border border-gray-200">
             <table className="w-full text-sm" id="pejabat-table">
               <thead><tr className="border-b border-gray-200 bg-gray-50/80">
-                <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500 w-12">No.</th>
-                <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">Nama Jabatan</th>
-                <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">Unit Kerja</th>
-                <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">No. SK</th>
-                <th className="px-4 py-3 text-center text-xs font-semibold uppercase tracking-wider text-gray-500">TMT</th>
-                <th className="px-4 py-3 text-center text-xs font-semibold uppercase tracking-wider text-gray-500">S/D</th>
-                <th className="px-4 py-3 text-center text-xs font-semibold uppercase tracking-wider text-gray-500">Status</th>
-                <th className="px-4 py-3 text-center text-xs font-semibold uppercase tracking-wider text-gray-500 w-28">Aksi</th>
+                <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-400 w-12">No.</th>
+                <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-400">Nama Jabatan</th>
+                <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-400">Unit Kerja</th>
+                <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-400">No. SK</th>
+                <th className="px-4 py-3 text-center text-xs font-medium uppercase tracking-wider text-gray-400">TMT</th>
+                <th className="px-4 py-3 text-center text-xs font-medium uppercase tracking-wider text-gray-400">S/D</th>
+                <th className="px-4 py-3 text-center text-xs font-medium uppercase tracking-wider text-gray-400">Status</th>
+                <th className="px-4 py-3 text-center text-xs font-medium uppercase tracking-wider text-gray-400 w-28">Aksi</th>
               </tr></thead>
               <tbody className="divide-y divide-gray-100">
                 {filteredData.map((item, idx) => (
@@ -84,7 +84,7 @@ export default function PejabatPage() {
                     <td className="px-4 py-4 text-center text-gray-600">{item.tmt}</td>
                     <td className="px-4 py-4 text-center text-gray-600">{item.sampai}</td>
                     <td className="px-4 py-4 text-center">
-                      <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-[11px] font-medium ${item.status === "Aktif" ? "bg-green-50 text-green-700" : "bg-gray-100 text-gray-600"}`}>{item.status}</span>
+                      <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-[11px] font-medium ${item.status === "Aktif" ? "bg-emerald-50 text-emerald-700" : "bg-gray-100 text-gray-600"}`}>{item.status}</span>
                     </td>
                     <td className="px-4 py-4"><div className="flex items-center justify-center gap-1">
                       <button className="flex h-8 w-8 items-center justify-center rounded-lg text-gray-400 hover:bg-blue-50 hover:text-blue-600" id={`view-pejabat-${item.id}`}><Eye className="h-4 w-4" /></button>

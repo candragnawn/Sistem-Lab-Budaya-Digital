@@ -30,31 +30,31 @@ export default function InpassingPage() {
               <div className="absolute -bottom-0.5 -right-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-green-500 ring-2 ring-white"><CheckCircle className="h-3 w-3 text-white" /></div>
             </div>
             <div>
-              <h1 className="text-xl font-bold text-gray-900">{user.name}</h1>
-              <p className="text-sm text-brand-gold font-medium">{user.role}</p>
+              <h1 className="text-xl font-semibold text-gray-700">{user.name}</h1>
+              <p className="text-sm text-amber-600/80 font-medium">{user.role}</p>
               <div className="mt-2 flex flex-wrap gap-2">
-                <span className="inline-flex items-center rounded-full bg-red-100 px-2.5 py-0.5 text-[10px] font-bold text-red-700">NIDN: 0001196801</span>
-                <span className="inline-flex items-center rounded-full bg-blue-100 px-2.5 py-0.5 text-[10px] font-bold text-blue-700">NIP: 196809311993162660</span>
+                <span className="inline-flex items-center rounded-full bg-slate-100 px-2.5 py-0.5 text-[10px] font-medium text-slate-600">NIDN: 0001196801</span>
+                <span className="inline-flex items-center rounded-full bg-indigo-50 px-2.5 py-0.5 text-[10px] font-medium text-indigo-600">NIP: 196809311993162660</span>
               </div>
             </div>
           </div>
           <div className="flex gap-2">
-            <Button size="sm" className="bg-brand-navy text-white hover:bg-brand-navy/90 text-xs gap-1.5"><RefreshCw className="h-3 w-3" /> Sync Sekarang</Button>
+            
             <Button size="sm" variant="outline" className="text-xs gap-1.5 border-gray-300"><Download className="h-3 w-3" /> Unduh CV</Button>
           </div>
         </div>
       </div>
       <div className="flex items-center gap-2 text-sm">
         <Home className="h-4 w-4 text-gray-400" /><span className="text-gray-400">Ikhtisar</span><ChevronRight className="h-3 w-3 text-gray-400" />
-        <span className="text-brand-navy font-medium">Profil</span><ChevronRight className="h-3 w-3 text-gray-400" /><span className="text-brand-navy font-semibold">Inpassing</span>
+        <span className="text-brand-navy font-medium">Profil</span><ChevronRight className="h-3 w-3 text-gray-400" /><span className="text-brand-navy/80 font-medium">Inpassing</span>
       </div>
       <div className="rounded-xl bg-white shadow-sm border border-gray-100 overflow-hidden">
         <div className="bg-gradient-to-r from-brand-navy/5 to-transparent p-6 border-b border-gray-100">
           <div className="flex items-start justify-between">
-            <div><p className="text-xs font-bold uppercase tracking-wider text-brand-gold mb-1">PROFIL</p><h2 className="text-2xl font-bold text-gray-900">Inpassing</h2><p className="mt-1.5 text-sm text-gray-500">Data inpassing jabatan fungsional dosen yang telah ditetapkan.</p></div>
+            <div><p className="text-xs font-medium uppercase tracking-wider text-amber-600/70 mb-1">PROFIL</p><h2 className="text-2xl font-medium text-gray-600">Inpassing</h2><p className="mt-1.5 text-sm text-gray-500">Data inpassing jabatan fungsional dosen yang telah ditetapkan.</p></div>
             <div className="flex items-center gap-3">
-              <div className="flex items-center gap-1.5 rounded-full bg-green-50 border border-green-200 px-3 py-1.5"><CheckCircle className="h-3.5 w-3.5 text-green-600" /><span className="text-xs font-semibold text-green-700">Terverifikasi</span></div>
-              <div className="flex items-center rounded-full bg-gray-100 px-3 py-1.5"><span className="text-xs font-bold text-gray-600">{filteredData.length} data</span></div>
+              <div className="flex items-center gap-1.5 rounded-full bg-green-50 border border-green-200 px-3 py-1.5"><CheckCircle className="h-3.5 w-3.5 text-green-600" /><span className="text-xs font-medium text-emerald-700">Terverifikasi</span></div>
+              <div className="flex items-center rounded-full bg-gray-100 px-3 py-1.5"><span className="text-xs font-medium text-gray-500">{filteredData.length} data</span></div>
             </div>
           </div>
         </div>
@@ -69,14 +69,14 @@ export default function InpassingPage() {
           <div className="overflow-x-auto rounded-lg border border-gray-200">
             <table className="w-full text-sm" id="inpassing-table">
               <thead><tr className="border-b border-gray-200 bg-gray-50/80">
-                <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500 w-12">No.</th>
-                <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">Jabatan</th>
-                <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">Pangkat / Gol</th>
-                <th className="px-4 py-3 text-center text-xs font-semibold uppercase tracking-wider text-gray-500">AK</th>
-                <th className="px-4 py-3 text-center text-xs font-semibold uppercase tracking-wider text-gray-500">TMT</th>
-                <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">No. SK</th>
-                <th className="px-4 py-3 text-center text-xs font-semibold uppercase tracking-wider text-gray-500">Status</th>
-                <th className="px-4 py-3 text-center text-xs font-semibold uppercase tracking-wider text-gray-500 w-28">Aksi</th>
+                <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-400 w-12">No.</th>
+                <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-400">Jabatan</th>
+                <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-400">Pangkat / Gol</th>
+                <th className="px-4 py-3 text-center text-xs font-medium uppercase tracking-wider text-gray-400">AK</th>
+                <th className="px-4 py-3 text-center text-xs font-medium uppercase tracking-wider text-gray-400">TMT</th>
+                <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-400">No. SK</th>
+                <th className="px-4 py-3 text-center text-xs font-medium uppercase tracking-wider text-gray-400">Status</th>
+                <th className="px-4 py-3 text-center text-xs font-medium uppercase tracking-wider text-gray-400 w-28">Aksi</th>
               </tr></thead>
               <tbody className="divide-y divide-gray-100">
                 {filteredData.map((item, idx) => (

@@ -105,32 +105,26 @@ export default function ProfilPage() {
               </div>
             </div>
             <div>
-              <h1 className="text-xl font-bold text-gray-900">{profilData.nama}</h1>
+              <h1 className="text-xl font-semibold text-gray-700">{profilData.nama}</h1>
               <p className="text-sm text-gray-500">{profilData.jabatanAkademik}</p>
               <p className="text-xs text-gray-400">
                 Prodi DIK · Fakultas Nomor 3 · Universitas Ganteng
               </p>
               <div className="mt-2 flex flex-wrap gap-2">
-                <span className="inline-flex items-center rounded-full bg-red-100 px-2.5 py-0.5 text-[10px] font-bold text-red-700">
+                <span className="inline-flex items-center rounded-full bg-slate-100 px-2.5 py-0.5 text-[10px] font-medium text-slate-600">
                   NIDN: {profilData.nidn}
                 </span>
-                <span className="inline-flex items-center rounded-full bg-blue-100 px-2.5 py-0.5 text-[10px] font-bold text-blue-700">
+                <span className="inline-flex items-center rounded-full bg-indigo-50 px-2.5 py-0.5 text-[10px] font-medium text-indigo-600">
                   NIP: {profilData.nip}
                 </span>
-                <span className="inline-flex items-center rounded-full bg-green-100 px-2.5 py-0.5 text-[10px] font-bold text-green-700">
+                <span className="inline-flex items-center rounded-full bg-teal-50 px-2.5 py-0.5 text-[10px] font-medium text-teal-600">
                   SISTERID: {profilData.sintaID}
                 </span>
               </div>
             </div>
           </div>
           <div className="flex gap-2">
-            <Button
-              size="sm"
-              className="bg-brand-navy text-white hover:bg-brand-navy/90 text-xs gap-1.5"
-            >
-              <RefreshCw className="h-3 w-3" />
-              Sync Sekarang
-            </Button>
+            
             <Button
               size="sm"
               variant="outline"
@@ -150,8 +144,8 @@ export default function ProfilPage() {
           {/* Profil Card */}
           <div className="rounded-xl bg-white p-5 shadow-sm border border-gray-100">
             <div className="mb-4 flex items-center gap-2">
-              <h2 className="text-sm font-bold text-gray-900">Profil</h2>
-              <span className="flex items-center gap-1 rounded-full bg-green-50 px-2 py-0.5 text-[10px] font-semibold text-green-600">
+              <h2 className="text-sm font-semibold text-gray-600">Profil</h2>
+              <span className="flex items-center gap-1 rounded-full bg-emerald-50 px-2 py-0.5 text-[10px] font-medium text-emerald-600">
                 <CheckCircle className="h-3 w-3" />
                 Data Terverifikasi
               </span>
@@ -179,10 +173,10 @@ export default function ProfilPage() {
             </div>
 
             <div className="flex justify-center gap-2 mb-5">
-              <span className="rounded bg-green-100 px-2 py-0.5 text-[9px] font-bold text-green-700">
+              <span className="rounded bg-teal-50 px-2 py-0.5 text-[9px] font-medium text-teal-600 border border-teal-100">
                 ✉ SISTER
               </span>
-              <span className="rounded bg-gray-100 px-2 py-0.5 text-[9px] font-bold text-gray-600">
+              <span className="rounded bg-gray-100 px-2 py-0.5 text-[9px] font-medium text-gray-500">
                 ✎ Manual
               </span>
             </div>
@@ -201,7 +195,7 @@ export default function ProfilPage() {
                   {profilData.bidangKeahlian.map((keahlian) => (
                     <span
                       key={keahlian}
-                      className="rounded-full border border-brand-gold bg-brand-gold/10 px-2.5 py-0.5 text-[10px] font-medium text-amber-800"
+                      className="rounded-full border border-amber-200 bg-amber-50 px-2.5 py-0.5 text-[10px] font-medium text-amber-700"
                     >
                       {keahlian}
                     </span>
@@ -214,7 +208,7 @@ export default function ProfilPage() {
           {/* Kependudukan Card */}
           <div className="rounded-xl bg-white p-5 shadow-sm border border-gray-100">
             <div className="mb-4 flex items-center justify-between">
-              <h2 className="text-sm font-bold text-gray-900">Kependudukan</h2>
+              <h2 className="text-sm font-semibold text-gray-600">Kependudukan</h2>
               <Button
                 size="sm"
                 variant="outline"
@@ -240,7 +234,7 @@ export default function ProfilPage() {
           {/* Alamat dan Kontak */}
           <div className="rounded-xl bg-white p-5 shadow-sm border border-gray-100">
             <div className="mb-4 flex items-center justify-between">
-              <h2 className="text-sm font-bold text-gray-900">
+              <h2 className="text-sm font-semibold text-gray-600">
                 Alamat dan Kontak
               </h2>
               <Button
@@ -298,7 +292,7 @@ export default function ProfilPage() {
           {/* Jabatan Fungsional & Akademik */}
           <div className="rounded-xl bg-white p-5 shadow-sm border border-gray-100">
             <div className="mb-4 flex items-center justify-between">
-              <h2 className="text-sm font-bold text-gray-900">
+              <h2 className="text-sm font-semibold text-gray-600">
                 Jabatan Fungsional & Akademik
               </h2>
               <Button
@@ -330,7 +324,7 @@ export default function ProfilPage() {
 
             {/* Metrik Akademik */}
             <div className="mt-5">
-              <h3 className="mb-3 text-xs font-bold uppercase tracking-wider text-gray-500">
+              <h3 className="mb-3 text-xs font-medium uppercase tracking-wider text-gray-400">
                 Metrik Akademik
               </h3>
               <div className="space-y-3 text-xs">
@@ -376,7 +370,7 @@ export default function ProfilPage() {
           {/* Kepegawaian */}
           <div className="rounded-xl bg-white p-5 shadow-sm border border-gray-100">
             <div className="mb-4 flex items-center justify-between">
-              <h2 className="text-sm font-bold text-gray-900">Kepegawaian</h2>
+              <h2 className="text-sm font-semibold text-gray-600">Kepegawaian</h2>
               <Button
                 size="sm"
                 variant="outline"
@@ -389,7 +383,7 @@ export default function ProfilPage() {
 
             {/* DATA DARI SIASN */}
             <div className="mb-4">
-              <p className="mb-2 text-[10px] font-bold uppercase tracking-wider text-gray-400">
+              <p className="mb-2 text-[10px] font-medium uppercase tracking-wider text-gray-400">
                 Data dari SIASN
               </p>
               <div className="rounded-lg border border-gray-100 bg-gray-50/50 p-3 space-y-2.5 text-xs">
@@ -407,7 +401,7 @@ export default function ProfilPage() {
 
             {/* DATA KEPEGAWAIAN */}
             <div>
-              <p className="mb-2 text-[10px] font-bold uppercase tracking-wider text-gray-400">
+              <p className="mb-2 text-[10px] font-medium uppercase tracking-wider text-gray-400">
                 Data Kepegawaian
               </p>
               <div className="space-y-2.5 text-xs">
@@ -430,7 +424,7 @@ export default function ProfilPage() {
 
           {/* Identitas Akademik */}
           <div className="rounded-xl bg-white p-5 shadow-sm border border-gray-100">
-            <h2 className="mb-4 text-sm font-bold text-gray-900">
+            <h2 className="mb-4 text-sm font-semibold text-gray-600">
               Identitas Akademik
             </h2>
             <div className="space-y-2.5 text-xs">
@@ -443,7 +437,7 @@ export default function ProfilPage() {
 
             {/* Skor Akademik */}
             <div className="mt-5">
-              <p className="mb-3 text-[10px] font-bold uppercase tracking-wider text-gray-400">
+              <p className="mb-3 text-[10px] font-medium uppercase tracking-wider text-gray-400">
                 Skor Akademik
               </p>
               <div className="grid grid-cols-2 gap-3">
@@ -495,18 +489,18 @@ function ScoreCard({
   color: "blue" | "red" | "green" | "purple";
 }) {
   const colorMap = {
-    blue: "bg-blue-50 border-blue-200 text-blue-700",
-    red: "bg-red-50 border-red-200 text-red-700",
-    green: "bg-green-50 border-green-200 text-green-700",
-    purple: "bg-purple-50 border-purple-200 text-purple-700",
+    blue: "bg-brand-navy/5 border-brand-navy/15 text-brand-navy",
+    red: "bg-brand-navy/8 border-brand-navy/20 text-brand-navy/80",
+    green: "bg-brand-gold/5 border-brand-gold/20 text-amber-800",
+    purple: "bg-brand-navy/5 border-brand-navy/15 text-brand-navy/70",
   };
 
   return (
     <div
       className={`flex flex-col items-center rounded-lg border p-3 ${colorMap[color]}`}
     >
-      <span className="text-2xl font-bold">{value}</span>
-      <span className="mt-1 text-[10px] font-semibold uppercase tracking-wider opacity-70">
+      <span className="text-2xl font-semibold">{value}</span>
+      <span className="mt-1 text-[10px] font-medium uppercase tracking-wider opacity-60">
         {label}
       </span>
     </div>

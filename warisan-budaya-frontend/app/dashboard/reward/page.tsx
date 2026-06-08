@@ -15,9 +15,9 @@ const rewardData = [
 ];
 
 const tingkatColors: Record<string, string> = {
-  "Internasional": "bg-purple-50 text-purple-700",
-  "Nasional": "bg-blue-50 text-blue-700",
-  "Universitas": "bg-green-50 text-green-700",
+  "Internasional": "bg-violet-50 text-violet-600",
+  "Nasional": "bg-sky-50 text-sky-600",
+  "Universitas": "bg-emerald-50 text-emerald-700",
 };
 
 export default function RewardPage() {
@@ -39,32 +39,32 @@ export default function RewardPage() {
               <div className="absolute -bottom-0.5 -right-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-green-500 ring-2 ring-white"><CheckCircle className="h-3 w-3 text-white" /></div>
             </div>
             <div>
-              <h1 className="text-xl font-bold text-gray-900">{user.name}</h1>
-              <p className="text-sm text-brand-gold font-medium">{user.role}</p>
+              <h1 className="text-xl font-semibold text-gray-700">{user.name}</h1>
+              <p className="text-sm text-amber-600/80 font-medium">{user.role}</p>
               <div className="mt-2 flex items-center gap-1 text-xs text-gray-500"><Trophy className="h-3 w-3" /> {rewardData.length} penghargaan tercatat</div>
             </div>
           </div>
           <div className="flex gap-2">
-            <Button size="sm" className="bg-brand-navy text-white hover:bg-brand-navy/90 text-xs gap-1.5"><RefreshCw className="h-3 w-3" /> Sync Sekarang</Button>
+            
             <Button size="sm" variant="outline" className="text-xs gap-1.5 border-gray-300"><Download className="h-3 w-3" /> Unduh CV</Button>
           </div>
         </div>
       </div>
       <div className="flex items-center gap-2 text-sm">
-        <Home className="h-4 w-4 text-gray-400" /><span className="text-gray-400">Ikhtisar</span><ChevronRight className="h-3 w-3 text-gray-400" /><span className="text-brand-navy font-semibold">Reward</span>
+        <Home className="h-4 w-4 text-gray-400" /><span className="text-gray-400">Ikhtisar</span><ChevronRight className="h-3 w-3 text-gray-400" /><span className="text-brand-navy/80 font-medium">Reward</span>
       </div>
 
       {/* Stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
           { label: "Total Penghargaan", value: rewardData.length, icon: <Trophy className="h-5 w-5" />, color: "text-brand-gold bg-brand-gold/10" },
-          { label: "Tingkat Internasional", value: rewardData.filter(d => d.tingkat === "Internasional").length, icon: <Star className="h-5 w-5" />, color: "text-purple-600 bg-purple-50" },
-          { label: "Tingkat Nasional", value: rewardData.filter(d => d.tingkat === "Nasional").length, icon: <Star className="h-5 w-5" />, color: "text-blue-600 bg-blue-50" },
-          { label: "Tanda Jasa", value: rewardData.filter(d => d.jenis === "Tanda Jasa").length, icon: <CheckCircle className="h-5 w-5" />, color: "text-green-600 bg-green-50" },
+          { label: "Tingkat Internasional", value: rewardData.filter(d => d.tingkat === "Internasional").length, icon: <Star className="h-5 w-5" />, color: "text-violet-500 bg-violet-50/60" },
+          { label: "Tingkat Nasional", value: rewardData.filter(d => d.tingkat === "Nasional").length, icon: <Star className="h-5 w-5" />, color: "text-sky-600 bg-sky-50" },
+          { label: "Tanda Jasa", value: rewardData.filter(d => d.jenis === "Tanda Jasa").length, icon: <CheckCircle className="h-5 w-5" />, color: "text-emerald-600 bg-emerald-50/60" },
         ].map((stat, idx) => (
           <div key={idx} className="rounded-xl bg-white p-4 shadow-sm border border-gray-100">
             <div className={`h-8 w-8 rounded-lg ${stat.color} flex items-center justify-center mb-3`}>{stat.icon}</div>
-            <p className="text-2xl font-bold text-gray-900">{stat.value}</p>
+            <p className="text-2xl font-medium text-gray-600">{stat.value}</p>
             <p className="text-xs text-gray-500 mt-0.5">{stat.label}</p>
           </div>
         ))}
@@ -73,8 +73,8 @@ export default function RewardPage() {
       <div className="rounded-xl bg-white shadow-sm border border-gray-100 overflow-hidden">
         <div className="bg-gradient-to-r from-brand-gold/5 to-transparent p-6 border-b border-gray-100">
           <div className="flex items-start justify-between">
-            <div><p className="text-xs font-bold uppercase tracking-wider text-brand-gold mb-1">REWARD</p><h2 className="text-2xl font-bold text-gray-900">Penghargaan &amp; Tanda Jasa</h2><p className="mt-1.5 text-sm text-gray-500">Daftar penghargaan dan tanda jasa yang telah diterima.</p></div>
-            <div className="flex items-center rounded-full bg-gray-100 px-3 py-1.5"><span className="text-xs font-bold text-gray-600">{filteredData.length} data</span></div>
+            <div><p className="text-xs font-medium uppercase tracking-wider text-amber-600/70 mb-1">REWARD</p><h2 className="text-2xl font-medium text-gray-600">Penghargaan &amp; Tanda Jasa</h2><p className="mt-1.5 text-sm text-gray-500">Daftar penghargaan dan tanda jasa yang telah diterima.</p></div>
+            <div className="flex items-center rounded-full bg-gray-100 px-3 py-1.5"><span className="text-xs font-medium text-gray-500">{filteredData.length} data</span></div>
           </div>
         </div>
         <div className="p-6">
@@ -90,7 +90,7 @@ export default function RewardPage() {
               <div key={item.id} className="flex items-center gap-4 rounded-xl border border-gray-200 p-4 hover:border-brand-gold/40 hover:bg-brand-gold/5 transition-all">
                 <div className="h-12 w-12 rounded-xl bg-brand-gold/10 flex items-center justify-center shrink-0"><Trophy className="h-6 w-6 text-brand-gold" /></div>
                 <div className="flex-1 min-w-0">
-                  <h3 className="font-semibold text-gray-900 text-sm">{item.nama}</h3>
+                  <h3 className="font-medium text-gray-700 text-sm">{item.nama}</h3>
                   <p className="text-xs text-gray-500">{item.pemberi} · {item.tahun}</p>
                 </div>
                 <div className="flex items-center gap-2 shrink-0">

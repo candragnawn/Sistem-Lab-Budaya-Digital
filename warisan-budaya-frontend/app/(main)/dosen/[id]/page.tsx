@@ -23,7 +23,7 @@ export default function DosenProfilePage() {
   const [categories, setCategories] = useState<Category[]>(initialCategories);
   const [activeSubCategory, setActiveSubCategory] = useState<string>("pendidikan-formal");
 
-  const isOwner = true;
+  const isOwner = false; // Public view only
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 1500);
@@ -44,8 +44,9 @@ export default function DosenProfilePage() {
   const activeCategory = categories.find((c) => c.id === activeTab);
   const activeSub = (() => {
     if (!activeCategory) return null;
-    const sub = activeCategory.subCategories.find((s) => s.id === activeSubCategory);
-    return sub || activeCategory.subCategories[0];
+    const visibleSubs = activeCategory.subCategories.filter(s => s.visible || isOwner);
+    const sub = visibleSubs.find((s) => s.id === activeSubCategory);
+    return sub || visibleSubs[0];
   })();
 
   const totalVisible = categories.reduce(
@@ -244,23 +245,12 @@ export default function DosenProfilePage() {
 
         {activeTab !== "overview" && activeTab !== "publications" && activeCategory && (
           <div className="animate-[fadeIn_0.3s_ease]">
-            {isOwner && (
-              <div className="mb-5 flex flex-col sm:flex-row items-start sm:items-center gap-3 bg-blue-50 border border-blue-200 rounded-xl px-5 py-3.5">
-                <div className="flex items-center gap-2 text-blue-700">
-                  <Settings className="w-4 h-4" />
-                  <span className="text-sm font-semibold">Mode Pengelolaan Profil</span>
-                </div>
-                <span className="text-xs text-blue-600">
-                  Atur visibilitas setiap sub-kategori dengan tombol <Eye className="inline w-3.5 h-3.5 mx-0.5" /> / <EyeOff className="inline w-3.5 h-3.5 mx-0.5" />.
-                  Saat ini <span className="font-bold">{totalVisible} dari {totalSubCats}</span> sub-kategori ditampilkan ke publik.
-                </span>
-              </div>
-            )}
+            {/* Mode Pengelolaan Profil removed from public view */}
 
             <div className="flex flex-col lg:flex-row gap-6 items-start">
 
               <div className="w-full lg:w-64 flex-shrink-0 flex flex-row lg:flex-col gap-2 overflow-x-auto lg:overflow-x-visible pb-3 lg:pb-0">
-                {activeCategory.subCategories.map((sub) => {
+                {activeCategory.subCategories.filter(s => s.visible || isOwner).map((sub) => {
                   const isActive = activeSub?.id === sub.id;
                   return (
                     <div
@@ -275,7 +265,7 @@ export default function DosenProfilePage() {
                         className={`flex-grow text-left px-3 py-2 text-xs md:text-sm font-semibold rounded-lg transition-colors whitespace-nowrap lg:whitespace-normal ${isActive
                           ? "text-[#1E40AF]"
                           : "text-slate-600"
-                          } ${!sub.visible && !isOwner ? "opacity-40" : ""}`}
+                          }`}
                       >
                         {sub.label}
                         {!sub.visible && isOwner && (
