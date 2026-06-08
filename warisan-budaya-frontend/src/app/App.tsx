@@ -63,13 +63,13 @@ import { Tunjangan } from './pages/reward/Tunjangan';
 function ComingSoon({ title }: { title: string }) {
   return (
     <div className="flex flex-col items-center justify-center py-20 text-center">
-      <div className="w-14 h-14 bg-[#06B6D4]/20 rounded-[6px] flex items-center justify-center mb-4">
-        <svg className="w-7 h-7 text-[#06B6D4]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <div className="w-14 h-14 bg-info/20 rounded-[6px] flex items-center justify-center mb-4">
+        <svg className="w-7 h-7 text-info" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
         </svg>
       </div>
-      <h2 className="text-base font-medium text-white">{title}</h2>
-      <p className="text-xs text-gray-400 mt-1.5 max-w-xs">
+      <h2 className="text-base font-medium text-brand-card">{title}</h2>
+      <p className="text-xs text-text-placeholder mt-1.5 max-w-xs">
         Halaman ini akan segera tersedia. Formulir dan tabel data sedang dalam tahap pengembangan.
       </p>
     </div>

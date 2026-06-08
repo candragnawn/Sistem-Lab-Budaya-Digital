@@ -28,12 +28,12 @@ const initialResearchTrend = [
 ];
 
 const stats = [
-  { label: 'Total Publikasi', value: '25', icon: FileText, color: '#06B6D4', bg: 'rgba(6, 182, 212, 0.2)' },
-  { label: 'Total Sitasi', value: '170', icon: TrendingUp, color: '#06B6D4', bg: 'rgba(6, 182, 212, 0.2)' },
-  { label: 'Bimbingan Mhs', value: '48', icon: Users, color: '#06B6D4', bg: 'rgba(6, 182, 212, 0.2)' },
-  { label: 'Skor SINTA 3Thn', value: '1.24', icon: Award, color: '#06B6D4', bg: 'rgba(6, 182, 212, 0.2)' },
-  { label: 'Skor SINTA Total', value: '3.87', icon: Award, color: '#06B6D4', bg: 'rgba(6, 182, 212, 0.2)' },
-  { label: 'Penelitian', value: '14', icon: FlaskConical, color: '#06B6D4', bg: 'rgba(6, 182, 212, 0.2)' },
+  { label: 'Total Publikasi', value: '25', icon: FileText, color: `var(--theme-info)`, bg: 'rgba(6, 182, 212, 0.2)' },
+  { label: 'Total Sitasi', value: '170', icon: TrendingUp, color: `var(--theme-info)`, bg: 'rgba(6, 182, 212, 0.2)' },
+  { label: 'Bimbingan Mhs', value: '48', icon: Users, color: `var(--theme-info)`, bg: 'rgba(6, 182, 212, 0.2)' },
+  { label: 'Skor SINTA 3Thn', value: '1.24', icon: Award, color: `var(--theme-info)`, bg: 'rgba(6, 182, 212, 0.2)' },
+  { label: 'Skor SINTA Total', value: '3.87', icon: Award, color: `var(--theme-info)`, bg: 'rgba(6, 182, 212, 0.2)' },
+  { label: 'Penelitian', value: '14', icon: FlaskConical, color: `var(--theme-info)`, bg: 'rgba(6, 182, 212, 0.2)' },
 ];
 
 const recentPublications = [
@@ -97,8 +97,8 @@ export function Dashboard() {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <div className="text-center">
-          <div className="w-12 h-12 border-4 border-[#06B6D4] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-sm text-gray-400">Loading...</p>
+          <div className="w-12 h-12 border-4 border-info border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-sm text-text-placeholder">Loading...</p>
         </div>
       </div>
     );
@@ -111,18 +111,18 @@ export function Dashboard() {
       {/* Profile + IDs */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
         {/* Profile Card */}
-        <div className="lg:col-span-2 bg-[#1F2937] border border-gray-700 rounded-[4px] p-4">
+        <div className="lg:col-span-2 bg-surface-dark border border-border-dark rounded-[4px] p-4">
           <div className="flex items-start gap-4">
-            <div className="w-16 h-16 rounded-[4px] bg-[#06B6D4] text-white flex items-center justify-center text-xl shrink-0">
+            <div className="w-16 h-16 rounded-[4px] bg-info text-brand-card flex items-center justify-center text-xl shrink-0">
               {currentDosen?.name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2) || 'RH'}
             </div>
             <div className="flex-1 min-w-0">
               <div className="flex items-start justify-between gap-2">
                 <div>
-                  <h2 className="text-sm text-white">{displayName}</h2>
-                  <p className="text-xs text-gray-400 mt-0.5">NIDN: {displayNIDN} · NIP: {displayNIP}</p>
+                  <h2 className="text-sm text-brand-card">{displayName}</h2>
+                  <p className="text-xs text-text-placeholder mt-0.5">NIDN: {displayNIDN} · NIP: {displayNIP}</p>
                 </div>
-                <span className="flex items-center gap-1 px-2 py-0.5 bg-[#06B6D4]/20 border border-[#06B6D4]/30 rounded text-[10px] text-[#06B6D4] shrink-0">
+                <span className="flex items-center gap-1 px-2 py-0.5 bg-info/20 border border-info/30 rounded text-[10px] text-info shrink-0">
                   <CheckCircle className="w-3 h-3" strokeWidth={2} />
                   Terverifikasi
                 </span>
@@ -137,21 +137,21 @@ export function Dashboard() {
                   ['Jabatan', 'Lektor Kepala'],
                 ].map(([k, v]) => (
                   <div key={k}>
-                    <p className="text-[10px] text-gray-400">{k}</p>
-                    <p className="text-xs text-gray-200 mt-0.5">{v}</p>
+                    <p className="text-[10px] text-text-placeholder">{k}</p>
+                    <p className="text-xs text-gray-100 mt-0.5">{v}</p>
                   </div>
                 ))}
               </div>
             </div>
           </div>
-          <p className="text-xs text-gray-300 mt-3 leading-relaxed border-t border-gray-700 pt-3">
+          <p className="text-xs text-gray-00 mt-3 leading-relaxed border-t border-border-dark pt-3">
             {currentDosen?.bio || 'Dosen tetap dengan keahlian di bidang kecerdasan buatan dan machine learning. Aktif dalam penelitian lintas bidang ilmu komputer dan teknologi informasi. Telah menghasilkan lebih dari 25 publikasi ilmiah di jurnal internasional bereputasi.'}
           </p>
         </div>
 
         {/* External IDs */}
-        <div className="bg-[#1F2937] border border-gray-700 rounded-[4px] p-4">
-          <p className="text-xs text-white mb-3">ID Akademik Eksternal</p>
+        <div className="bg-surface-dark border border-border-dark rounded-[4px] p-4">
+          <p className="text-xs text-brand-card mb-3">ID Akademik Eksternal</p>
           <div className="space-y-2.5">
             {[
               { label: 'SINTA ID', value: currentDosen?.sinta_id || 'S-12345678', url: '#' },
@@ -162,11 +162,11 @@ export function Dashboard() {
             ].map(item => (
               <div key={item.label} className="flex items-center justify-between">
                 <div>
-                  <p className="text-[10px] text-gray-400">{item.label}</p>
+                  <p className="text-[10px] text-text-placeholder">{item.label}</p>
                   <p className="text-xs text-gray-200 font-medium">{item.value}</p>
                 </div>
                 <a href={item.url} className="p-1 hover:bg-gray-800 rounded transition-colors">
-                  <ExternalLink className="w-3 h-3 text-gray-400 hover:text-[#06B6D4]" strokeWidth={2} />
+                  <ExternalLink className="w-3 h-3 text-text-placeholder hover:text-info" strokeWidth={2} />
                 </a>
               </div>
             ))}
@@ -179,14 +179,14 @@ export function Dashboard() {
         {stats.map((s, i) => {
           const Icon = s.icon;
           return (
-            <div key={i} className="bg-[#1F2937] border border-gray-700 rounded-[4px] p-3">
+            <div key={i} className="bg-surface-dark border border-border-dark rounded-[4px] p-3">
               <div className="flex items-center justify-between mb-2">
-                <p className="text-[10px] text-gray-400 leading-tight">{s.label}</p>
+                <p className="text-[10px] text-text-placeholder leading-tight">{s.label}</p>
                 <div className="w-6 h-6 rounded-[4px] flex items-center justify-center shrink-0" style={{ backgroundColor: s.bg }}>
                   <Icon className="w-3.5 h-3.5" style={{ color: s.color }} strokeWidth={2} />
                 </div>
               </div>
-              <p className="text-xl text-white">{s.value}</p>
+              <p className="text-xl text-brand-card">{s.value}</p>
             </div>
           );
         })}
@@ -194,76 +194,76 @@ export function Dashboard() {
 
       {/* Charts */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        <div className="bg-[#1F2937] border border-gray-700 rounded-[4px] p-4">
+        <div className="bg-surface-dark border border-border-dark rounded-[4px] p-4">
           <div className="flex items-center justify-between mb-3">
-            <p className="text-xs text-white">Tren Publikasi & Sitasi</p>
-            <span className="text-[10px] text-gray-400">2020 – 2024</span>
+            <p className="text-xs text-brand-card">Tren Publikasi & Sitasi</p>
+            <span className="text-[10px] text-text-placeholder">2020 – 2024</span>
           </div>
           <ResponsiveContainer width="100%" height={180}>
             <AreaChart data={pubTrend}>
               <defs>
                 <linearGradient id="pubGrad" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#06B6D4" stopOpacity={0.3} />
-                  <stop offset="95%" stopColor="#06B6D4" stopOpacity={0} />
+                  <stop offset="5%" stopColor="var(--theme-info)" stopOpacity={0.3} />
+                  <stop offset="95%" stopColor="var(--theme-info)" stopOpacity={0} />
                 </linearGradient>
                 <linearGradient id="sitGrad" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#0891B2" stopOpacity={0.3} />
-                  <stop offset="95%" stopColor="#0891B2" stopOpacity={0} />
+                  <stop offset="5%" stopColor="var(--theme-info-hover)" stopOpacity={0.3} />
+                  <stop offset="95%" stopColor="var(--theme-info-hover)" stopOpacity={0} />
                 </linearGradient>
               </defs>
-              <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
-              <XAxis dataKey="year" tick={{ fontSize: 10, fill: '#9CA3AF' }} axisLine={false} tickLine={false} />
-              <YAxis tick={{ fontSize: 10, fill: '#9CA3AF' }} axisLine={false} tickLine={false} />
-              <Tooltip contentStyle={{ fontSize: 11, border: '1px solid #374151', borderRadius: 6, backgroundColor: '#1F2937', color: '#fff' }} />
-              <Area type="monotone" dataKey="publikasi" stroke="#06B6D4" fill="url(#pubGrad)" strokeWidth={2} name="Publikasi" />
-              <Area type="monotone" dataKey="sitasi" stroke="#0891B2" fill="url(#sitGrad)" strokeWidth={2} name="Sitasi" />
+              <CartesianGrid strokeDasharray="3 3" stroke="var(--theme-border-dark)" />
+              <XAxis dataKey="year" tick={{ fontSize: 10, fill: `var(--text-placeholder)` }} axisLine={false} tickLine={false} />
+              <YAxis tick={{ fontSize: 10, fill: `var(--text-placeholder)` }} axisLine={false} tickLine={false} />
+              <Tooltip contentStyle={{ fontSize: 11, border: `1px solid var(--theme-border-dark)`, borderRadius: 6, backgroundColor: `var(--theme-surface-dark)`, color: `var(--brand-card)` }} />
+              <Area type="monotone" dataKey="publikasi" stroke="var(--theme-info)" fill="url(#pubGrad)" strokeWidth={2} name="Publikasi" />
+              <Area type="monotone" dataKey="sitasi" stroke="var(--theme-info-hover)" fill="url(#sitGrad)" strokeWidth={2} name="Sitasi" />
             </AreaChart>
           </ResponsiveContainer>
         </div>
 
-        <div className="bg-[#1F2937] border border-gray-700 rounded-[4px] p-4">
+        <div className="bg-surface-dark border border-border-dark rounded-[4px] p-4">
           <div className="flex items-center justify-between mb-3">
-            <p className="text-xs text-white">Penelitian & Pengabdian</p>
-            <span className="text-[10px] text-gray-400">2020 – 2024</span>
+            <p className="text-xs text-brand-card">Penelitian & Pengabdian</p>
+            <span className="text-[10px] text-text-placeholder">2020 – 2024</span>
           </div>
           <ResponsiveContainer width="100%" height={180}>
             <BarChart data={researchTrend} barSize={14}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#374151" vertical={false} />
-              <XAxis dataKey="year" tick={{ fontSize: 10, fill: '#9CA3AF' }} axisLine={false} tickLine={false} />
-              <YAxis tick={{ fontSize: 10, fill: '#9CA3AF' }} axisLine={false} tickLine={false} />
-              <Tooltip contentStyle={{ fontSize: 11, border: '1px solid #374151', borderRadius: 6, backgroundColor: '#1F2937', color: '#fff' }} />
-              <Bar dataKey="penelitian" fill="#06B6D4" radius={[3, 3, 0, 0]} name="Penelitian" />
-              <Bar dataKey="pengabdian" fill="#0891B2" radius={[3, 3, 0, 0]} name="Pengabdian" />
+              <CartesianGrid strokeDasharray="3 3" stroke="var(--theme-border-dark)" vertical={false} />
+              <XAxis dataKey="year" tick={{ fontSize: 10, fill: `var(--text-placeholder)` }} axisLine={false} tickLine={false} />
+              <YAxis tick={{ fontSize: 10, fill: `var(--text-placeholder)` }} axisLine={false} tickLine={false} />
+              <Tooltip contentStyle={{ fontSize: 11, border: `1px solid var(--theme-border-dark)`, borderRadius: 6, backgroundColor: `var(--theme-surface-dark)`, color: `var(--brand-card)` }} />
+              <Bar dataKey="penelitian" fill="var(--theme-info)" radius={[3, 3, 0, 0]} name="Penelitian" />
+              <Bar dataKey="pengabdian" fill="var(--theme-info-hover)" radius={[3, 3, 0, 0]} name="Pengabdian" />
             </BarChart>
           </ResponsiveContainer>
         </div>
       </div>
 
       {/* Recent Publications */}
-      <div className="bg-[#1F2937] border border-gray-700 rounded-[4px]">
-        <div className="px-4 py-3 border-b border-gray-700 flex items-center justify-between">
-          <p className="text-xs text-white">Publikasi Terbaru</p>
-          <Link to={`/dosen/${dosenId}/pelaksanaan-penelitian/publikasi-karya`} className="text-[10px] text-white hover:underline">Lihat semua</Link>
+      <div className="bg-surface-dark border border-border-dark rounded-[4px]">
+        <div className="px-4 py-3 border-b border-border-dark flex items-center justify-between">
+          <p className="text-xs text-brand-card">Publikasi Terbaru</p>
+          <Link to={`/dosen/${dosenId}/pelaksanaan-penelitian/publikasi-karya`} className="text-[10px] text-brand-card hover:underline">Lihat semua</Link>
         </div>
         <div className="divide-y divide-gray-700">
           {recentPubs.map(pub => (
             <div key={pub.id} className="px-4 py-3 flex items-start justify-between gap-3">
               <div className="flex-1 min-w-0">
-                <p className="text-xs font-medium text-white leading-snug">{pub.title}</p>
-                <p className="text-[10px] text-gray-400 mt-0.5">{pub.journal} · {pub.year}</p>
+                <p className="text-xs font-medium text-brand-card leading-snug">{pub.title}</p>
+                <p className="text-[10px] text-text-placeholder mt-0.5">{pub.journal} · {pub.year}</p>
               </div>
               <div className="flex items-center gap-1.5 shrink-0">
                 {pub.quartile && (
-                  <span className="px-1.5 py-0.5 bg-[#06B6D4]/20 text-[#06B6D4] border border-[#06B6D4]/30 rounded text-[10px]">
+                  <span className="px-1.5 py-0.5 bg-info/20 text-info border border-info/30 rounded text-[10px]">
                     {pub.quartile}
                   </span>
                 )}
                 {pub.verified ? (
-                  <span className="px-1.5 py-0.5  text-white border border-green-500/30 rounded text-[10px]">
+                  <span className="px-1.5 py-0.5  text-brand-card border border-green-500/30 rounded text-[10px]">
                     Verified
                   </span>
                 ) : (
-                  <span className="px-1.5 py-0.5  text-white border border-amber-500/30 rounded text-[10px]">
+                  <span className="px-1.5 py-0.5  text-brand-card border border-amber-500/30 rounded text-[10px]">
                     Pending
                   </span>
                 )}

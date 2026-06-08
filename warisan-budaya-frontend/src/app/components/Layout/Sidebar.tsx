@@ -130,7 +130,7 @@ function NavItem({ group }: { group: NavGroup }) {
       <button
         onClick={() => setOpen(!open)}
         className={`w-full flex items-center justify-between px-3 py-2 text-gray-300 hover:bg-gray-700 transition-colors text-xs ${
-          isActive ? 'bg-gray-700 text-[#06B6D4]' : ''
+          isActive ? 'bg-gray-700 text-info' : ''
         }`}
       >
         <div className="flex items-center gap-2">
@@ -141,7 +141,7 @@ function NavItem({ group }: { group: NavGroup }) {
       </button>
 
       {open && group.children && (
-        <div className="bg-[#111827]">
+        <div className="bg-surface-darker">
           {group.children.map(child => {
             const fullPath = `/dosen/${dosenId}${child.path}`;
             const childActive = location.pathname === fullPath;
@@ -149,8 +149,8 @@ function NavItem({ group }: { group: NavGroup }) {
               <Link
                 key={child.path}
                 to={fullPath}
-                className={`block px-3 py-2 pl-9 text-xs text-gray-400 hover:bg-gray-700 hover:text-white transition-colors ${
-                  childActive ? 'bg-[#06B6D4]/20 text-[#06B6D4] border-l-2 border-[#06B6D4]' : ''
+                className={`block px-3 py-2 pl-9 text-xs text-text-placeholder hover:bg-gray-700 hover:text-brand-card transition-colors ${
+                  childActive ? 'bg-info/20 text-info border-l-2 border-info' : ''
                 }`}
               >
                 {child.title}
@@ -182,7 +182,7 @@ function Clock() {
   };
 
   return (
-    <div className="bg-[#111827] border border-gray-700 px-3 py-1.5 rounded text-[10px] text-gray-300 font-medium text-center">
+    <div className="bg-surface-darker border border-border-dark px-3 py-1.5 rounded text-[10px] text-gray-300 font-medium text-center">
       {formatDate(time)}
     </div>
   );
@@ -201,13 +201,13 @@ export function Sidebar() {
 
   return (
     <aside
-      className="w-60 flex flex-col h-screen fixed left-0 top-0 z-20 text-white bg-[#1F2937]"
+      className="w-60 flex flex-col h-screen fixed left-0 top-0 z-20 text-brand-card bg-surface-dark"
     >
       {/* Header with Logo */}
       <div className="p-4 pb-3">
         <Link to="/dosen" className="flex items-center gap-2 mb-3 hover:opacity-80 transition-opacity">
           <div className="w-8 h-8  rounded-[4px] flex items-center justify-center shrink-0">
-            <Database className="w-4 h-4 text-white" strokeWidth={2} />
+            <Database className="w-4 h-4 text-brand-card" strokeWidth={2} />
           </div>
           <div className="text-sm tracking-wide">Digital Cultural Heritage</div>
         </Link>
@@ -220,11 +220,11 @@ export function Sidebar() {
           <div>Profil Dosen:</div>
           {currentDosen ? (
             <>
-              <div className="font-medium mt-0.5 text-white">{firstName}</div>
-              {lastName && <div className="font-medium text-white">{lastName}</div>}
+              <div className="font-medium mt-0.5 text-brand-card">{firstName}</div>
+              {lastName && <div className="font-medium text-brand-card">{lastName}</div>}
             </>
           ) : (
-            <div className="font-medium mt-0.5 text-white">Loading...</div>
+            <div className="font-medium mt-0.5 text-brand-card">Loading...</div>
           )}
         </div>
       </div>
@@ -237,7 +237,7 @@ export function Sidebar() {
       </nav>
 
       {/* Footer */}
-      <div className="p-3 border-t border-white/10 text-[10px] text-white/60 text-center">
+      <div className="p-3 border-t border-white/10 text-[10px] text-brand-card/60 text-center">
         © 2026 DCH
       </div>
     </aside>

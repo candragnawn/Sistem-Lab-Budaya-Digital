@@ -28,11 +28,11 @@ export function StatusBadge({ status, type = 'default' }: {
   type?: 'success' | 'warning' | 'error' | 'info' | 'default';
 }) {
   const styles = {
-    success: 'bg-[#16A34A]/10 text-[#16A34A] border-[#16A34A]/20',
+    success: 'bg-success-alt/10 text-success-alt border-success-alt/20',
     warning: 'bg-amber-600/10 text-amber-600 border-amber-600/20',
     error: 'bg-red-600/10 text-red-600 border-red-600/20',
-    info: 'bg-[#06B6D4]/10 text-[#06B6D4] border-[#06B6D4]/20',
-    default: 'bg-gray-700/50 text-gray-400 border-gray-700',
+    info: 'bg-info/10 text-info border-info/20',
+    default: 'bg-gray-700/50 text-text-placeholder border-border-dark',
   };
 
   return (
@@ -72,11 +72,11 @@ export function EmptyState({ message, description }: { message?: string; descrip
 
   return (
     <div className="flex flex-col items-center justify-center py-16 px-4 text-center">
-      <div className="w-12 h-12 bg-[#111827] rounded-[6px] flex items-center justify-center mb-3">
-        <Eye className="w-5 h-5 text-gray-400" />
+      <div className="w-12 h-12 bg-surface-darker rounded-[6px] flex items-center justify-center mb-3">
+        <Eye className="w-5 h-5 text-text-placeholder" />
       </div>
-      <p className="text-sm font-medium text-white">{defaultMessage}</p>
-      <p className="text-xs text-gray-400 mt-1">{defaultDescription}</p>
+      <p className="text-sm font-medium text-brand-card">{defaultMessage}</p>
+      <p className="text-xs text-text-placeholder mt-1">{defaultDescription}</p>
     </div>
   );
 }
@@ -118,18 +118,18 @@ export function CrudPage<T extends { id: number | string }>({
       {/* Header */}
       <div className="flex items-start justify-between gap-3">
         <div>
-          <h1 className="text-base font-medium text-white">{title}</h1>
-          {subtitle && <p className="text-xs text-gray-400 mt-0.5">{subtitle}</p>}
+          <h1 className="text-base font-medium text-brand-card">{title}</h1>
+          {subtitle && <p className="text-xs text-text-placeholder mt-0.5">{subtitle}</p>}
         </div>
         <div className="flex items-center gap-2 shrink-0">
-          <button className="flex items-center gap-1.5 px-2.5 py-1.5 text-xs border border-gray-700 rounded-[6px] text-gray-200 hover:bg-gray-800 transition-colors">
+          <button className="flex items-center gap-1.5 px-2.5 py-1.5 text-xs border border-border-dark rounded-[6px] text-gray-200 hover:bg-gray-800 transition-colors">
             <Download className="w-3.5 h-3.5" />
             Export
           </button>
           {canWrite && onAdd && (
             <button
               onClick={onAdd}
-              className="flex items-center gap-1.5 px-2.5 py-1.5 text-xs bg-[#06B6D4] text-white rounded-[6px] hover:bg-[#0891B2] transition-colors"
+              className="flex items-center gap-1.5 px-2.5 py-1.5 text-xs bg-info text-brand-card rounded-[6px] hover:bg-info-hover transition-colors"
             >
               <Plus className="w-3.5 h-3.5" />
               {addLabel}
@@ -142,44 +142,44 @@ export function CrudPage<T extends { id: number | string }>({
       {stats && stats.length > 0 && (
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           {stats.map((s, i) => (
-            <div key={i} className="bg-[#1F2937] border border-gray-700 rounded-[6px] px-3 py-2.5">
-              <p className="text-[10px] text-gray-400">{s.label}</p>
-              <p className="text-lg font-medium text-white mt-0.5">{s.value}</p>
+            <div key={i} className="bg-surface-dark border border-border-dark rounded-[6px] px-3 py-2.5">
+              <p className="text-[10px] text-text-placeholder">{s.label}</p>
+              <p className="text-lg font-medium text-brand-card mt-0.5">{s.value}</p>
             </div>
           ))}
         </div>
       )}
 
       {/* Table Card */}
-      <div className="bg-[#1F2937] border border-gray-700 rounded-[6px]">
+      <div className="bg-surface-dark border border-border-dark rounded-[6px]">
         {/* Toolbar */}
-        <div className="px-4 py-2.5 border-b border-gray-700 flex items-center justify-between gap-3">
+        <div className="px-4 py-2.5 border-b border-border-dark flex items-center justify-between gap-3">
           <div className="relative">
-            <Search className="w-3.5 h-3.5 absolute left-2.5 top-1/2 -translate-y-1/2 text-gray-400" />
+            <Search className="w-3.5 h-3.5 absolute left-2.5 top-1/2 -translate-y-1/2 text-text-placeholder" />
             <input
               type="text"
               value={search}
               onChange={e => { setSearch(e.target.value); setPage(1); }}
               placeholder={searchPlaceholder}
-              className="pl-8 pr-3 py-1.5 text-xs bg-[#111827] border border-[#374151] text-white rounded-[4px] focus:outline-none focus:ring-1 focus:ring-[#06B6D4] placeholder:text-gray-400 w-52"
+              className="pl-8 pr-3 py-1.5 text-xs bg-surface-darker border border-border-dark text-brand-card rounded-[4px] focus:outline-none focus:ring-1 focus:ring-info placeholder:text-text-placeholder w-52"
             />
           </div>
-          <p className="text-[10px] text-gray-400">{filtered.length} data ditemukan</p>
+          <p className="text-[10px] text-text-placeholder">{filtered.length} data ditemukan</p>
         </div>
 
         {/* Table */}
         <div className="overflow-x-auto">
           <table className="w-full">
-            <thead className="bg-[#111827] border-b border-gray-700">
+            <thead className="bg-surface-darker border-b border-border-dark">
               <tr>
-                <th className="px-4 py-2.5 text-left text-[10px] font-medium text-gray-400 w-8">#</th>
+                <th className="px-4 py-2.5 text-left text-[10px] font-medium text-text-placeholder w-8">#</th>
                 {columns.map((col, i) => (
-                  <th key={i} className={`px-4 py-2.5 text-left text-[10px] font-medium text-gray-400 ${col.className ?? ''}`}>
+                  <th key={i} className={`px-4 py-2.5 text-left text-[10px] font-medium text-text-placeholder ${col.className ?? ''}`}>
                     {col.header}
                   </th>
                 ))}
                 {(onView || (canWrite && (onEdit || onDelete))) && (
-                  <th className="px-4 py-2.5 text-right text-[10px] font-medium text-gray-400 w-24">Aksi</th>
+                  <th className="px-4 py-2.5 text-right text-[10px] font-medium text-text-placeholder w-24">Aksi</th>
                 )}
               </tr>
             </thead>
@@ -193,9 +193,9 @@ export function CrudPage<T extends { id: number | string }>({
               ) : (
                 paginated.map((row, ri) => (
                   <tr key={row.id} className="hover:bg-gray-800 transition-colors">
-                    <td className="px-4 py-2.5 text-[10px] text-gray-400">{(page - 1) * perPage + ri + 1}</td>
+                    <td className="px-4 py-2.5 text-[10px] text-text-placeholder">{(page - 1) * perPage + ri + 1}</td>
                     {columns.map((col, ci) => (
-                      <td key={ci} className={`px-4 py-2.5 text-xs text-white ${col.className ?? ''}`}>
+                      <td key={ci} className={`px-4 py-2.5 text-xs text-brand-card ${col.className ?? ''}`}>
                         {typeof col.accessor === 'function'
                           ? col.accessor(row)
                           : String(row[col.accessor] ?? '-')}
@@ -205,17 +205,17 @@ export function CrudPage<T extends { id: number | string }>({
                       <td className="px-4 py-2.5">
                         <div className="flex items-center justify-end gap-1">
                           {onView && (
-                            <button onClick={() => onView(row)} className="p-1.5 hover:bg-gray-700 rounded transition-colors text-gray-400 hover:text-[#06B6D4]" title="Lihat">
+                            <button onClick={() => onView(row)} className="p-1.5 hover:bg-gray-700 rounded transition-colors text-text-placeholder hover:text-info" title="Lihat">
                               <Eye className="w-3.5 h-3.5" />
                             </button>
                           )}
                           {canWrite && onEdit && (
-                            <button onClick={() => onEdit(row)} className="p-1.5 hover:bg-gray-700 rounded transition-colors text-gray-400 hover:text-[#06B6D4]" title="Edit">
+                            <button onClick={() => onEdit(row)} className="p-1.5 hover:bg-gray-700 rounded transition-colors text-text-placeholder hover:text-info" title="Edit">
                               <Edit className="w-3.5 h-3.5" />
                             </button>
                           )}
                           {canWrite && onDelete && (
-                            <button onClick={() => onDelete(row)} className="p-1.5 hover:bg-red-900/20 rounded transition-colors text-gray-400 hover:text-red-500" title="Hapus">
+                            <button onClick={() => onDelete(row)} className="p-1.5 hover:bg-red-900/20 rounded transition-colors text-text-placeholder hover:text-red-500" title="Hapus">
                               <Trash2 className="w-3.5 h-3.5" />
                             </button>
                           )}
@@ -230,8 +230,8 @@ export function CrudPage<T extends { id: number | string }>({
         </div>
 
         {/* Pagination */}
-        <div className="px-4 py-2.5 border-t border-gray-700 flex items-center justify-between">
-          <p className="text-[10px] text-gray-400">
+        <div className="px-4 py-2.5 border-t border-border-dark flex items-center justify-between">
+          <p className="text-[10px] text-text-placeholder">
             Halaman {page} dari {totalPages} · {filtered.length} total
           </p>
           <div className="flex items-center gap-1">
@@ -240,7 +240,7 @@ export function CrudPage<T extends { id: number | string }>({
               disabled={page === 1}
               className="p-1.5 rounded hover:bg-gray-700 disabled:opacity-30 transition-colors"
             >
-              <ChevronLeft className="w-3.5 h-3.5 text-gray-400" />
+              <ChevronLeft className="w-3.5 h-3.5 text-text-placeholder" />
             </button>
             {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
               const pg = Math.max(1, Math.min(page - 2, totalPages - 4)) + i;
@@ -251,8 +251,8 @@ export function CrudPage<T extends { id: number | string }>({
                   onClick={() => setPage(pg)}
                   className={`w-6 h-6 rounded text-[10px] transition-colors ${
                     pg === page
-                      ? 'bg-[#06B6D4] text-white'
-                      : 'text-gray-400 hover:bg-gray-700'
+                      ? 'bg-info text-brand-card'
+                      : 'text-text-placeholder hover:bg-gray-700'
                   }`}
                 >
                   {pg}
@@ -264,7 +264,7 @@ export function CrudPage<T extends { id: number | string }>({
               disabled={page === totalPages}
               className="p-1.5 rounded hover:bg-gray-700 disabled:opacity-30 transition-colors"
             >
-              <ChevronRight className="w-3.5 h-3.5 text-gray-400" />
+              <ChevronRight className="w-3.5 h-3.5 text-text-placeholder" />
             </button>
           </div>
         </div>

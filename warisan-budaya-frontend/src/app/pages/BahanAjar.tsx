@@ -87,9 +87,9 @@ const bahanAjarData: BahanAjarItem[] = [
 ];
 
 const JENIS_COLORS: Record<string, { bg: string; text: string; border: string }> = {
-  Modul: { bg: '#EFF6FF', text: '#1D4ED8', border: '#BFDBFE' },
-  'Buku Ajar': { bg: '#F0FDF4', text: '#15803D', border: '#BBF7D0' },
-  Diktat: { bg: '#FFF7ED', text: '#C2410C', border: '#FED7AA' },
+  Modul: { bg: `var(--theme-jenis-modul-bg)`, text: `var(--theme-jenis-modul-text)`, border: `var(--theme-jenis-modul-border)` },
+  'Buku Ajar': { bg: `var(--theme-jenis-buku-bg)`, text: `var(--theme-jenis-buku-text)`, border: `var(--theme-jenis-buku-border)` },
+  Diktat: { bg: `var(--theme-jenis-diktat-bg)`, text: `var(--theme-jenis-diktat-text)`, border: `var(--theme-jenis-diktat-border)` },
 };
 
 export function BahanAjar() {
@@ -102,14 +102,14 @@ export function BahanAjar() {
   return (
     <div>
       {/* Subsection heading */}
-      <p style={{ fontSize: '15px', fontWeight: 500, color: '#0F172A', marginBottom: '12px' }}>
+      <p style={{ fontSize: '15px', fontWeight: 500, color: `var(--text-main)`, marginBottom: '12px' }}>
         Bahan Ajar
       </p>
 
       {/* Master card container */}
       <div
         style={{
-          backgroundColor: '#FFFFFF',
+          backgroundColor: `var(--brand-card)`,
           borderRadius: '4px',
           border: '1px solid #E2E8F0',
           overflow: 'hidden',
@@ -118,7 +118,7 @@ export function BahanAjar() {
         {/* Alert infobar */}
         <div
           style={{
-            backgroundColor: '#E0F2FE',
+            backgroundColor: `var(--theme-info-subtle)`,
             border: '1px solid #BAE6FD',
             borderRadius: '4px',
             margin: '12px 12px 0 12px',
@@ -129,9 +129,9 @@ export function BahanAjar() {
           }}
         >
           <Info
-            style={{ width: '15px', height: '15px', color: '#0284C7', flexShrink: 0, marginTop: '1px' }}
+            style={{ width: '15px', height: '15px', color: `var(--theme-info-icon)`, flexShrink: 0, marginTop: '1px' }}
           />
-          <p style={{ fontSize: '12px', fontWeight: 400, color: '#0369A1', margin: 0, lineHeight: '1.5' }}>
+          <p style={{ fontSize: '12px', fontWeight: 400, color: `var(--theme-info-text)`, margin: 0, lineHeight: '1.5' }}>
             Pastikan Kategori bahan ajar telah sesuai dengan ketentuan{' '}
             <span style={{ textDecoration: 'underline' }}>PO BKD 2021</span>
             {' '}sebelum melakukan pengisian data. Bahan ajar yang telah diverifikasi tidak dapat diedit tanpa persetujuan admin.
@@ -148,10 +148,10 @@ export function BahanAjar() {
           }}
         >
           <div>
-            <p style={{ fontSize: '13px', fontWeight: 500, color: '#334155', margin: 0 }}>
+            <p style={{ fontSize: '13px', fontWeight: 500, color: `var(--text-body)`, margin: 0 }}>
               Daftar Bahan Ajar
             </p>
-            <p style={{ fontSize: '11px', fontWeight: 400, color: '#94A3B8', margin: 0, marginTop: '1px' }}>
+            <p style={{ fontSize: '11px', fontWeight: 400, color: `var(--text-placeholder)`, margin: 0, marginTop: '1px' }}>
               Total {data.length} bahan ajar terdaftar
             </p>
           </div>
@@ -160,8 +160,8 @@ export function BahanAjar() {
               display: 'inline-flex',
               alignItems: 'center',
               gap: '5px',
-              backgroundColor: '#10B981',
-              color: '#FFFFFF',
+              backgroundColor: `var(--theme-success)`,
+              color: `var(--brand-card)`,
               border: 'none',
               borderRadius: '4px',
               padding: '6px 12px',
@@ -180,7 +180,7 @@ export function BahanAjar() {
         <div style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse' }}>
             <thead>
-              <tr style={{ backgroundColor: '#F1F5F9', borderBottom: '1px solid #E2E8F0' }}>
+              <tr style={{ backgroundColor: `var(--brand-divider)`, borderBottom: '1px solid #E2E8F0' }}>
                 <th
                   style={{
                     width: '44px',
@@ -188,7 +188,7 @@ export function BahanAjar() {
                     textAlign: 'center',
                     fontSize: '12px',
                     fontWeight: 500,
-                    color: '#475569',
+                    color: `var(--text-muted)`,
                     letterSpacing: '0.03em',
                     textTransform: 'uppercase',
                     whiteSpace: 'nowrap',
@@ -202,7 +202,7 @@ export function BahanAjar() {
                     textAlign: 'left',
                     fontSize: '12px',
                     fontWeight: 500,
-                    color: '#475569',
+                    color: `var(--text-muted)`,
                     letterSpacing: '0.03em',
                     textTransform: 'uppercase',
                   }}
@@ -215,7 +215,7 @@ export function BahanAjar() {
                     textAlign: 'left',
                     fontSize: '12px',
                     fontWeight: 500,
-                    color: '#475569',
+                    color: `var(--text-muted)`,
                     letterSpacing: '0.03em',
                     textTransform: 'uppercase',
                     whiteSpace: 'nowrap',
@@ -229,7 +229,7 @@ export function BahanAjar() {
                     textAlign: 'left',
                     fontSize: '12px',
                     fontWeight: 500,
-                    color: '#475569',
+                    color: `var(--text-muted)`,
                     letterSpacing: '0.03em',
                     textTransform: 'uppercase',
                   }}
@@ -242,7 +242,7 @@ export function BahanAjar() {
                     textAlign: 'center',
                     fontSize: '12px',
                     fontWeight: 500,
-                    color: '#475569',
+                    color: `var(--text-muted)`,
                     letterSpacing: '0.03em',
                     textTransform: 'uppercase',
                     whiteSpace: 'nowrap',
@@ -256,7 +256,7 @@ export function BahanAjar() {
                     textAlign: 'center',
                     fontSize: '12px',
                     fontWeight: 500,
-                    color: '#475569',
+                    color: `var(--text-muted)`,
                     letterSpacing: '0.03em',
                     textTransform: 'uppercase',
                     whiteSpace: 'nowrap',
@@ -270,7 +270,7 @@ export function BahanAjar() {
                     textAlign: 'left',
                     fontSize: '12px',
                     fontWeight: 500,
-                    color: '#475569',
+                    color: `var(--text-muted)`,
                     letterSpacing: '0.03em',
                     textTransform: 'uppercase',
                     whiteSpace: 'nowrap',
@@ -284,7 +284,7 @@ export function BahanAjar() {
                     textAlign: 'center',
                     fontSize: '12px',
                     fontWeight: 500,
-                    color: '#475569',
+                    color: `var(--text-muted)`,
                     letterSpacing: '0.03em',
                     textTransform: 'uppercase',
                     whiteSpace: 'nowrap',
@@ -298,16 +298,16 @@ export function BahanAjar() {
               {paginatedData.map((item, index) => {
                 const rowNum = (currentPage - 1) * rowsPerPage + index + 1;
                 const jenisStyle = JENIS_COLORS[item.jenis] ?? {
-                  bg: '#F8FAFC',
-                  text: '#475569',
-                  border: '#E2E8F0',
+                  bg: `var(--brand-bg)`,
+                  text: `var(--text-muted)`,
+                  border: `var(--brand-border)`,
                 };
                 return (
                   <tr
                     key={item.id}
                     style={{ borderBottom: '1px solid #E2E8F0' }}
                     onMouseEnter={(e) => {
-                      (e.currentTarget as HTMLTableRowElement).style.backgroundColor = '#FAFBFC';
+                      (e.currentTarget as HTMLTableRowElement).style.backgroundColor = `var(--theme-bg-hover)`;
                     }}
                     onMouseLeave={(e) => {
                       (e.currentTarget as HTMLTableRowElement).style.backgroundColor = 'transparent';
@@ -320,7 +320,7 @@ export function BahanAjar() {
                         textAlign: 'center',
                         fontSize: '13px',
                         fontWeight: 400,
-                        color: '#94A3B8',
+                        color: `var(--text-placeholder)`,
                       }}
                     >
                       {rowNum}
@@ -332,7 +332,7 @@ export function BahanAjar() {
                         style={{
                           fontSize: '13px',
                           fontWeight: 400,
-                          color: '#334155',
+                          color: `var(--text-body)`,
                           margin: 0,
                           maxWidth: '260px',
                         }}
@@ -366,7 +366,7 @@ export function BahanAjar() {
                         padding: '9px 12px',
                         fontSize: '13px',
                         fontWeight: 400,
-                        color: '#334155',
+                        color: `var(--text-body)`,
                         whiteSpace: 'nowrap',
                       }}
                     >
@@ -380,7 +380,7 @@ export function BahanAjar() {
                         textAlign: 'center',
                         fontSize: '13px',
                         fontWeight: 400,
-                        color: '#334155',
+                        color: `var(--text-body)`,
                       }}
                     >
                       {item.tahun}
@@ -393,7 +393,7 @@ export function BahanAjar() {
                         textAlign: 'center',
                         fontSize: '13px',
                         fontWeight: 400,
-                        color: '#334155',
+                        color: `var(--text-body)`,
                       }}
                     >
                       {item.semester}
@@ -405,7 +405,7 @@ export function BahanAjar() {
                         padding: '9px 12px',
                         fontSize: '13px',
                         fontWeight: 400,
-                        color: '#334155',
+                        color: `var(--text-body)`,
                         maxWidth: '200px',
                       }}
                     >
@@ -435,14 +435,14 @@ export function BahanAjar() {
                             display: 'inline-flex',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            backgroundColor: '#06B6D4',
+                            backgroundColor: `var(--theme-info)`,
                             border: 'none',
                             borderRadius: '4px',
                             cursor: 'pointer',
                             flexShrink: 0,
                           }}
                         >
-                          <Eye style={{ width: '13px', height: '13px', color: '#FFFFFF' }} />
+                          <Eye style={{ width: '13px', height: '13px', color: `var(--brand-card)` }} />
                         </button>
 
                         {/* Edit */}
@@ -454,14 +454,14 @@ export function BahanAjar() {
                             display: 'inline-flex',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            backgroundColor: '#F59E0B',
+                            backgroundColor: `var(--theme-warning)`,
                             border: 'none',
                             borderRadius: '4px',
                             cursor: 'pointer',
                             flexShrink: 0,
                           }}
                         >
-                          <SquarePen style={{ width: '13px', height: '13px', color: '#FFFFFF' }} />
+                          <SquarePen style={{ width: '13px', height: '13px', color: `var(--brand-card)` }} />
                         </button>
 
                         {/* Delete */}
@@ -473,14 +473,14 @@ export function BahanAjar() {
                             display: 'inline-flex',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            backgroundColor: '#EF4444',
+                            backgroundColor: `var(--theme-danger)`,
                             border: 'none',
                             borderRadius: '4px',
                             cursor: 'pointer',
                             flexShrink: 0,
                           }}
                         >
-                          <Trash2 style={{ width: '13px', height: '13px', color: '#FFFFFF' }} />
+                          <Trash2 style={{ width: '13px', height: '13px', color: `var(--brand-card)` }} />
                         </button>
                       </div>
                     </td>
@@ -501,7 +501,7 @@ export function BahanAjar() {
             borderTop: '1px solid #F1F5F9',
           }}
         >
-          <p style={{ fontSize: '12px', fontWeight: 400, color: '#94A3B8', margin: 0 }}>
+          <p style={{ fontSize: '12px', fontWeight: 400, color: `var(--text-placeholder)`, margin: 0 }}>
             Menampilkan {(currentPage - 1) * rowsPerPage + 1}–{Math.min(currentPage * rowsPerPage, data.length)} dari {data.length} data
           </p>
           <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
@@ -516,9 +516,9 @@ export function BahanAjar() {
                 justifyContent: 'center',
                 border: '1px solid #E2E8F0',
                 borderRadius: '4px',
-                backgroundColor: currentPage === 1 ? '#F8FAFC' : '#FFFFFF',
+                backgroundColor: currentPage === 1 ? `var(--brand-bg)` : `var(--brand-card)`,
                 cursor: currentPage === 1 ? 'not-allowed' : 'pointer',
-                color: currentPage === 1 ? '#CBD5E1' : '#475569',
+                color: currentPage === 1 ? `var(--switch-background)` : `var(--text-muted)`,
               }}
             >
               <ChevronLeft style={{ width: '14px', height: '14px' }} />
@@ -535,8 +535,8 @@ export function BahanAjar() {
                   justifyContent: 'center',
                   border: page === currentPage ? '1px solid #0F52BA' : '1px solid #E2E8F0',
                   borderRadius: '4px',
-                  backgroundColor: page === currentPage ? '#0F52BA' : '#FFFFFF',
-                  color: page === currentPage ? '#FFFFFF' : '#475569',
+                  backgroundColor: page === currentPage ? `var(--brand-primary)` : `var(--brand-card)`,
+                  color: page === currentPage ? `var(--brand-card)` : `var(--text-muted)`,
                   fontSize: '12px',
                   fontWeight: page === currentPage ? 500 : 400,
                   cursor: 'pointer',
@@ -556,9 +556,9 @@ export function BahanAjar() {
                 justifyContent: 'center',
                 border: '1px solid #E2E8F0',
                 borderRadius: '4px',
-                backgroundColor: currentPage === totalPages ? '#F8FAFC' : '#FFFFFF',
+                backgroundColor: currentPage === totalPages ? `var(--brand-bg)` : `var(--brand-card)`,
                 cursor: currentPage === totalPages ? 'not-allowed' : 'pointer',
-                color: currentPage === totalPages ? '#CBD5E1' : '#475569',
+                color: currentPage === totalPages ? `var(--switch-background)` : `var(--text-muted)`,
               }}
             >
               <ChevronRight style={{ width: '14px', height: '14px' }} />

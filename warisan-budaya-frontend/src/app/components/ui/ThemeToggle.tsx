@@ -12,7 +12,7 @@ export function ThemeToggle({ className = '' }: { className?: string }) {
         relative flex items-center gap-1.5 rounded-full transition-all duration-300
         px-2 py-1
         ${theme === 'dark'
-          ? 'bg-gray-800 hover:bg-gray-700 text-gray-300 hover:text-white'
+          ? 'bg-gray-800 hover:bg-gray-700 text-gray-300 hover:text-brand-card'
           : 'bg-sky-100 hover:bg-sky-200 text-sky-700'
         }
         ${className}

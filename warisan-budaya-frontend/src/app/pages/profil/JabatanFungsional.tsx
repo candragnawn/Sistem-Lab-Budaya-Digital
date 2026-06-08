@@ -17,29 +17,29 @@ export function JabatanFungsional() {
 
       <div className="space-y-0">
         {/* Tab Navigation */}
-        <div className="bg-[#1F2937] border-b border-gray-700 -mx-4 -mt-4 mb-4 px-4">
+        <div className="bg-surface-dark border-b border-border-dark -mx-4 -mt-4 mb-4 px-4">
           <div className="flex gap-6">
             {['Data Pribadi', 'Jabatan Fungsional', 'Kepangkatan', 'Riwayat Pendidikan'].map((tab, i) => (
               <button
                 key={tab}
                 className={`px-1 py-3 text-xs relative ${
                   i === 1
-                    ? 'text-white font-medium'
-                    : 'text-gray-400 hover:text-gray-200'
+                    ? 'text-brand-card font-medium'
+                    : 'text-text-placeholder hover:text-gray-200'
                 }`}
               >
                 {tab}
-                {i === 1 && <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#06B6D4]" />}
+                {i === 1 && <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-info" />}
               </button>
             ))}
           </div>
         </div>
 
         {/* Full-Width Table Card */}
-        <div className="bg-[#1F2937] border border-gray-700 rounded-[4px]">
+        <div className="bg-surface-dark border border-border-dark rounded-[4px]">
           {/* Card Header with Actions */}
-          <div className="px-3.5 py-3 border-b border-gray-700 flex items-center justify-between">
-            <h3 className="text-[14px] font-medium text-white">Jabatan Fungsional</h3>
+          <div className="px-3.5 py-3 border-b border-border-dark flex items-center justify-between">
+            <h3 className="text-[14px] font-medium text-brand-card">Jabatan Fungsional</h3>
             {canWrite && (
               <div className="flex items-center gap-2">
                 {/* Riwayat Ajuan - Ghost Button */}
@@ -49,7 +49,7 @@ export function JabatanFungsional() {
                 </button>
 
                 {/* Tambah Jabatan - Primary Button */}
-                <button className="flex items-center gap-1.5 px-2.5 py-1.5 bg-[#06B6D4] text-white text-[11px] font-medium rounded-[4px] hover:bg-[#0891B2] transition-colors">
+                <button className="flex items-center gap-1.5 px-2.5 py-1.5 bg-info text-brand-card text-[11px] font-medium rounded-[4px] hover:bg-info-hover transition-colors">
                   <Plus className="w-3.5 h-3.5" strokeWidth={2} />
                   Tambah Jabatan
                 </button>
@@ -61,21 +61,21 @@ export function JabatanFungsional() {
         <div className="overflow-x-auto">
           <table className="w-full">
             {/* Table Header */}
-            <thead className="bg-[#111827]">
+            <thead className="bg-surface-darker">
               <tr className="h-9">
-                <th className="px-3 text-left text-[11px] font-medium text-gray-400">
+                <th className="px-3 text-left text-[11px] font-medium text-text-placeholder">
                   Jabatan Fungsional
                 </th>
-                <th className="px-3 text-left text-[11px] font-medium text-gray-400">
+                <th className="px-3 text-left text-[11px] font-medium text-text-placeholder">
                   Nomor SK
                 </th>
-                <th className="px-3 text-left text-[11px] font-medium text-gray-400">
+                <th className="px-3 text-left text-[11px] font-medium text-text-placeholder">
                   Terhitung Mulai Tanggal
                 </th>
-                <th className="px-3 text-left text-[11px] font-medium text-gray-400">
+                <th className="px-3 text-left text-[11px] font-medium text-text-placeholder">
                   Status Pegawai
                 </th>
-                <th className="px-3 text-right text-[11px] font-medium text-gray-400">
+                <th className="px-3 text-right text-[11px] font-medium text-text-placeholder">
                   Aksi
                 </th>
               </tr>
@@ -86,23 +86,23 @@ export function JabatanFungsional() {
               {data.map((row, i) => (
                 <tr
                   key={row.id}
-                  className={`h-11 hover:bg-gray-800 ${i < data.length - 1 ? 'border-b border-gray-700' : ''}`}
+                  className={`h-11 hover:bg-gray-800 ${i < data.length - 1 ? 'border-b border-border-dark' : ''}`}
                 >
-                  <td className="px-3 text-[12px] text-white">{row.jabatan}</td>
-                  <td className="px-3 text-[12px] text-white">{row.sk_number}</td>
-                  <td className="px-3 text-[12px] text-white">{row.tmt}</td>
-                  <td className="px-3 text-[12px] text-white">{row.status}</td>
+                  <td className="px-3 text-[12px] text-brand-card">{row.jabatan}</td>
+                  <td className="px-3 text-[12px] text-brand-card">{row.sk_number}</td>
+                  <td className="px-3 text-[12px] text-brand-card">{row.tmt}</td>
+                  <td className="px-3 text-[12px] text-brand-card">{row.status}</td>
                   <td className="px-3">
                     <div className="flex items-center justify-end gap-2">
                       {/* Lihat Rincian - Ghost Button */}
-                      <button className="px-1.5 py-0.5 bg-[#1F2937] border border-gray-700 rounded-[2px] text-[11px] text-gray-200 hover:bg-gray-800 transition-colors">
+                      <button className="px-1.5 py-0.5 bg-surface-dark border border-border-dark rounded-[2px] text-[11px] text-gray-200 hover:bg-gray-800 transition-colors">
                         Lihat Rincian
                       </button>
 
                       {canWrite && (
                         <>
                           {/* Ubah - Ghost Button */}
-                          <button className="px-1.5 py-0.5 bg-[#1F2937] border border-gray-700 rounded-[2px] text-[11px] text-gray-200 hover:bg-gray-800 transition-colors">
+                          <button className="px-1.5 py-0.5 bg-surface-dark border border-border-dark rounded-[2px] text-[11px] text-gray-200 hover:bg-gray-800 transition-colors">
                             Ubah
                           </button>
 

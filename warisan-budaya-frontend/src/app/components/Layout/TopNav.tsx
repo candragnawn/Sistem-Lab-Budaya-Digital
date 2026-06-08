@@ -117,12 +117,12 @@ export function TopNav() {
   };
 
   return (
-    <header className="h-12 bg-[#1F2937] border-b border-gray-700 flex items-center justify-between px-4 fixed top-0 left-60 right-0 z-10 shadow-sm">
+    <header className="h-12 bg-surface-dark border-b border-border-dark flex items-center justify-between px-4 fixed top-0 left-60 right-0 z-10 shadow-sm">
       <div className="flex items-center gap-3">
         {/* Back to Dosen List */}
         <Link
           to="/dosen"
-          className="flex items-center gap-1.5 px-2 py-1 text-xs text-gray-400 hover:text-[#06B6D4] hover:bg-gray-800 rounded transition-colors"
+          className="flex items-center gap-1.5 px-2 py-1 text-xs text-text-placeholder hover:text-info hover:bg-gray-800 rounded transition-colors"
           title="Kembali ke Daftar Dosen"
         >
           <ArrowLeft className="w-3.5 h-3.5" strokeWidth={2} />
@@ -130,15 +130,15 @@ export function TopNav() {
         </Link>
 
         {/* Breadcrumbs */}
-        <div className="flex items-center gap-2 text-xs text-gray-400">
+        <div className="flex items-center gap-2 text-xs text-text-placeholder">
           <Home className="w-3.5 h-3.5" strokeWidth={2} />
         {breadcrumbs.map((crumb, i) => (
           <div key={i} className="flex items-center gap-2">
             {i > 0 && <ChevronRight className="w-3 h-3" strokeWidth={2} />}
             {crumb.path && i < breadcrumbs.length - 1 ? (
-              <Link to={crumb.path} className="hover:text-[#06B6D4] transition-colors">{crumb.label}</Link>
+              <Link to={crumb.path} className="hover:text-info transition-colors">{crumb.label}</Link>
             ) : (
-              <span className={i === breadcrumbs.length - 1 ? 'text-white font-medium' : ''}>
+              <span className={i === breadcrumbs.length - 1 ? 'text-brand-card font-medium' : ''}>
                 {crumb.label}
               </span>
             )}
@@ -149,51 +149,51 @@ export function TopNav() {
 
       <div className="flex items-center gap-3">
         <div className="relative">
-          <Search className="w-3.5 h-3.5 absolute left-2.5 top-1/2 -translate-y-1/2 text-gray-400" strokeWidth={2} />
+          <Search className="w-3.5 h-3.5 absolute left-2.5 top-1/2 -translate-y-1/2 text-text-placeholder" strokeWidth={2} />
           <input
             type="text"
             placeholder="Cari data..."
-            className="w-56 pl-8 pr-3 py-1.5 text-xs bg-[#111827] border border-gray-700 rounded-[4px] focus:outline-none focus:ring-1 focus:ring-[#06B6D4] placeholder:text-gray-400 text-white"
+            className="w-56 pl-8 pr-3 py-1.5 text-xs bg-surface-darker border border-border-dark rounded-[4px] focus:outline-none focus:ring-1 focus:ring-info placeholder:text-text-placeholder text-brand-card"
           />
         </div>
 
         {isAuthenticated && (
           <button className="relative p-1.5 hover:bg-gray-800 rounded transition-colors">
-            <Bell className="w-4 h-4 text-gray-400" strokeWidth={2} />
+            <Bell className="w-4 h-4 text-text-placeholder" strokeWidth={2} />
             <span className="absolute top-0.5 right-0.5 w-1.5 h-1.5 bg-red-500 rounded-full"></span>
           </button>
         )}
 
-        <div className="pl-3 border-l border-gray-700">
+        <div className="pl-3 border-l border-border-dark">
           {isAuthenticated && user ? (
             <div className="relative" ref={dropdownRef}>
               <button
                 onClick={() => setShowDropdown(!showDropdown)}
                 className="flex items-center gap-2 hover:bg-gray-800 rounded-[6px] px-2 py-1 transition-colors"
               >
-                <div className="w-7 h-7 rounded-full bg-[#06B6D4] text-white flex items-center justify-center text-[10px] font-medium shrink-0">
+                <div className="w-7 h-7 rounded-full bg-info text-brand-card flex items-center justify-center text-[10px] font-medium shrink-0">
                   {getInitials(user.name)}
                 </div>
                 <div className="text-right hidden md:block">
-                  <p className="text-xs text-white">{user.name}</p>
-                  <p className="text-[10px] text-gray-400">
-                    <span className="bg-gray-800 text-[#06B6D4] px-1.5 py-0.5 rounded">
+                  <p className="text-xs text-brand-card">{user.name}</p>
+                  <p className="text-[10px] text-text-placeholder">
+                    <span className="bg-gray-800 text-info px-1.5 py-0.5 rounded">
                       {user.role === 'dosen' ? 'Dosen' : 'Admin'}
                     </span>
                   </p>
                 </div>
-                <ChevronDown className="w-3.5 h-3.5 text-gray-400" strokeWidth={2} />
+                <ChevronDown className="w-3.5 h-3.5 text-text-placeholder" strokeWidth={2} />
               </button>
 
               {/* Dropdown Menu */}
               {showDropdown && (
-                <div className="absolute right-0 mt-1 w-48 bg-[#1F2937] border border-gray-700 rounded-[6px] shadow-lg py-1 z-50">
+                <div className="absolute right-0 mt-1 w-48 bg-surface-dark border border-border-dark rounded-[6px] shadow-lg py-1 z-50">
                   <button
                     onClick={() => {
                       navigate('/profil/data-pribadi');
                       setShowDropdown(false);
                     }}
-                    className="w-full px-3 py-2 text-xs text-left hover:bg-gray-800 flex items-center gap-2 text-white"
+                    className="w-full px-3 py-2 text-xs text-left hover:bg-gray-800 flex items-center gap-2 text-brand-card"
                   >
                     <User className="w-3.5 h-3.5" strokeWidth={2} />
                     Profile Saya
@@ -202,12 +202,12 @@ export function TopNav() {
                     onClick={() => {
                       setShowDropdown(false);
                     }}
-                    className="w-full px-3 py-2 text-xs text-left hover:bg-gray-800 flex items-center gap-2 text-white"
+                    className="w-full px-3 py-2 text-xs text-left hover:bg-gray-800 flex items-center gap-2 text-brand-card"
                   >
                     <Settings className="w-3.5 h-3.5" strokeWidth={2} />
                     Pengaturan
                   </button>
-                  <div className="border-t border-gray-700 my-1"></div>
+                  <div className="border-t border-border-dark my-1"></div>
                   <button
                     onClick={handleLogout}
                     className="w-full px-3 py-2 text-xs text-left hover:bg-red-900/20 flex items-center gap-2 text-red-400"
@@ -221,7 +221,7 @@ export function TopNav() {
           ) : (
             <button
               onClick={() => navigate('/login')}
-              className="flex items-center gap-1.5 px-3 py-1.5 text-xs bg-[#06B6D4] text-white rounded-[4px] hover:bg-[#0891B2] transition-colors"
+              className="flex items-center gap-1.5 px-3 py-1.5 text-xs bg-info text-brand-card rounded-[4px] hover:bg-info-hover transition-colors"
             >
               Login
             </button>

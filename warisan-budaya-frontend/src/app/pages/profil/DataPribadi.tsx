@@ -108,7 +108,7 @@ export function DataPribadi() {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center py-20">
-        <Loader2 className="w-8 h-8 border-[#06B6D4] animate-spin" />
+        <Loader2 className="w-8 h-8 border-info animate-spin" />
       </div>
     );
   }
@@ -116,19 +116,19 @@ export function DataPribadi() {
   return (
     <div className="space-y-0">
       {/* Tab Navigation */}
-      <div className="bg-[#1F2937] border-b border-gray-700 -mx-4 -mt-4 mb-4 px-4">
+      <div className="bg-surface-dark border-b border-border-dark -mx-4 -mt-4 mb-4 px-4">
         <div className="flex gap-6">
           {['Data Pribadi', 'Jabatan Fungsional', 'Kepangkatan', 'Riwayat Pendidikan'].map((tab, i) => (
             <button
               key={tab}
               className={`px-1 py-3 text-xs relative ${
                 i === 0
-                  ? 'text-white font-medium'
-                  : 'text-gray-400 hover:text-gray-200'
+                  ? 'text-brand-card font-medium'
+                  : 'text-text-placeholder hover:text-gray-200'
               }`}
             >
               {tab}
-              {i === 0 && <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#06B6D4]" />}
+              {i === 0 && <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-info" />}
             </button>
           ))}
         </div>
@@ -138,14 +138,14 @@ export function DataPribadi() {
       <div className="grid grid-cols-12 gap-3.5">
         {/* LEFT PANEL (col-span-5) - Profil Identity Card */}
         <div className="col-span-5">
-          <div className="bg-[#1F2937] border border-gray-700 rounded-[4px]">
+          <div className="bg-surface-dark border border-border-dark rounded-[4px]">
             {/* Card Header */}
-            <div className="px-3.5 py-3 border-b border-gray-700 flex items-center justify-between">
-              <h3 className="text-[13px] font-medium text-white">Profil</h3>
+            <div className="px-3.5 py-3 border-b border-border-dark flex items-center justify-between">
+              <h3 className="text-[13px] font-medium text-brand-card">Profil</h3>
               {biodata?.status_verifikasi && (
-                <div className="flex items-center gap-1.5 px-1.5 py-0.5 bg-[#16A34A]/10 border border-[#16A34A]/20 rounded-[4px]">
-                  <CheckCircle className="w-3 h-3 text-[#16A34A]" strokeWidth={1.5} />
-                  <span className="text-[11px] font-medium text-[#16A34A]">Data Terverifikasi</span>
+                <div className="flex items-center gap-1.5 px-1.5 py-0.5 bg-success-alt/10 border border-success-alt/20 rounded-[4px]">
+                  <CheckCircle className="w-3 h-3 text-success-alt" strokeWidth={1.5} />
+                  <span className="text-[11px] font-medium text-success-alt">Data Terverifikasi</span>
                 </div>
               )}
             </div>
@@ -153,18 +153,18 @@ export function DataPribadi() {
             {/* Card Body */}
             <div className="p-3.5">
               {/* Portrait Photo */}
-              <div className="aspect-[3/4] bg-[#111827] border border-gray-700 rounded-[4px] flex items-center justify-center mb-3 overflow-hidden">
+              <div className="aspect-[3/4] bg-surface-darker border border-border-dark rounded-[4px] flex items-center justify-center mb-3 overflow-hidden">
                 {biodata?.foto_url ? (
                   <img src={biodata.foto_url} alt={biodata.nama} className="w-full h-full object-cover" />
                 ) : (
-                  <svg className="w-16 h-16 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                  <svg className="w-16 h-16 text-text-placeholder" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                   </svg>
                 )}
               </div>
 
               {/* Upload Button */}
-              <button className="w-full h-[30px] bg-[#06B6D4] text-white text-[11px] font-medium rounded-[4px] flex items-center justify-center gap-1.5 hover:bg-[#0891B2] transition-colors mb-3">
+              <button className="w-full h-[30px] bg-info text-brand-card text-[11px] font-medium rounded-[4px] flex items-center justify-center gap-1.5 hover:bg-info-hover transition-colors mb-3">
                 <Upload className="w-3.5 h-3.5" strokeWidth={1.5} />
                 Unggah Foto
               </button>
@@ -183,11 +183,11 @@ export function DataPribadi() {
                   <div
                     key={label}
                     className={`flex items-center justify-between py-2 ${
-                      i < arr.length - 1 ? 'border-b border-gray-700' : ''
+                      i < arr.length - 1 ? 'border-b border-border-dark' : ''
                     }`}
                   >
-                    <span className="text-[11px] text-gray-400">{label}</span>
-                    <span className="text-[11px] text-white text-right max-w-[60%]">{value}</span>
+                    <span className="text-[11px] text-text-placeholder">{label}</span>
+                    <span className="text-[11px] text-brand-card text-right max-w-[60%]">{value}</span>
                   </div>
                 ))}
               </div>
@@ -198,10 +198,10 @@ export function DataPribadi() {
         {/* RIGHT PANEL (col-span-7) - Stacked Cards */}
         <div className="col-span-7 space-y-3">
           {/* Card 1: Kependudukan */}
-          <div className="bg-[#1F2937] border border-gray-700 rounded-[4px]">
-            <div className="px-3.5 py-3 border-b border-gray-700 flex items-center justify-between">
-              <h3 className="text-[13px] font-medium text-white">Data Kependudukan</h3>
-              <button className="text-[11px] text-[#06B6D4] hover:underline">Ajukan Perubahan</button>
+          <div className="bg-surface-dark border border-border-dark rounded-[4px]">
+            <div className="px-3.5 py-3 border-b border-border-dark flex items-center justify-between">
+              <h3 className="text-[13px] font-medium text-brand-card">Data Kependudukan</h3>
+              <button className="text-[11px] text-info hover:underline">Ajukan Perubahan</button>
             </div>
             <div className="p-3.5 space-y-0">
               {[
@@ -215,21 +215,21 @@ export function DataPribadi() {
                 <div
                   key={label}
                   className={`flex items-center justify-between py-2 ${
-                    i < arr.length - 1 ? 'border-b border-gray-700' : ''
+                    i < arr.length - 1 ? 'border-b border-border-dark' : ''
                   }`}
                 >
-                  <span className="text-[11px] text-gray-400">{label}</span>
-                  <span className="text-[11px] text-white text-right max-w-[60%]">{value}</span>
+                  <span className="text-[11px] text-text-placeholder">{label}</span>
+                  <span className="text-[11px] text-brand-card text-right max-w-[60%]">{value}</span>
                 </div>
               ))}
             </div>
           </div>
 
           {/* Card 2: Alamat dan Kontak */}
-          <div className="bg-[#1F2937] border border-gray-700 rounded-[4px]">
-            <div className="px-3.5 py-3 border-b border-gray-700 flex items-center justify-between">
-              <h3 className="text-[13px] font-medium text-white">Alamat dan Kontak</h3>
-              <button className="text-[11px] text-[#06B6D4] hover:underline">Ajukan Perubahan</button>
+          <div className="bg-surface-dark border border-border-dark rounded-[4px]">
+            <div className="px-3.5 py-3 border-b border-border-dark flex items-center justify-between">
+              <h3 className="text-[13px] font-medium text-brand-card">Alamat dan Kontak</h3>
+              <button className="text-[11px] text-info hover:underline">Ajukan Perubahan</button>
             </div>
             <div className="p-3.5 space-y-0">
               {[
@@ -249,12 +249,12 @@ export function DataPribadi() {
                 <div
                   key={label}
                   className={`flex items-center justify-between py-2 ${
-                    i < arr.length - 1 ? 'border-b border-gray-700' : ''
+                    i < arr.length - 1 ? 'border-b border-border-dark' : ''
                   }`}
                 >
-                  <span className="text-[11px] text-gray-400">{label}</span>
+                  <span className="text-[11px] text-text-placeholder">{label}</span>
                   <span className={`text-[11px] text-right max-w-[60%] ${
-                    value.includes('Tidak ada') ? 'italic text-gray-400' : 'text-white'
+                    value.includes('Tidak ada') ? 'italic text-text-placeholder' : 'text-brand-card'
                   }`}>
                     {value}
                   </span>
@@ -264,15 +264,15 @@ export function DataPribadi() {
           </div>
 
           {/* Card 3: Kepegawaian */}
-          <div className="bg-[#1F2937] border border-gray-700 rounded-[4px]">
-            <div className="px-3.5 py-3 border-b border-gray-700 flex items-center justify-between">
-              <h3 className="text-[13px] font-medium text-white">Kepegawaian</h3>
-              <button className="text-[11px] text-[#06B6D4] hover:underline">Ajukan Perubahan</button>
+          <div className="bg-surface-dark border border-border-dark rounded-[4px]">
+            <div className="px-3.5 py-3 border-b border-border-dark flex items-center justify-between">
+              <h3 className="text-[13px] font-medium text-brand-card">Kepegawaian</h3>
+              <button className="text-[11px] text-info hover:underline">Ajukan Perubahan</button>
             </div>
 
             {/* Sub-header band */}
-            <div className="px-3.5 py-1.5 bg-[#111827] border-y border-gray-700">
-              <p className="text-[11px] font-medium text-gray-400">Data dari SIASN</p>
+            <div className="px-3.5 py-1.5 bg-surface-darker border-y border-border-dark">
+              <p className="text-[11px] font-medium text-text-placeholder">Data dari SIASN</p>
             </div>
 
             <div className="p-3.5 space-y-0">
@@ -293,21 +293,21 @@ export function DataPribadi() {
                 <div
                   key={label}
                   className={`flex items-center justify-between py-2 ${
-                    i < arr.length - 1 ? 'border-b border-gray-700' : ''
+                    i < arr.length - 1 ? 'border-b border-border-dark' : ''
                   }`}
                 >
-                  <span className="text-[11px] text-gray-400">{label}</span>
-                  <span className="text-[11px] text-white text-right max-w-[60%]">{value}</span>
+                  <span className="text-[11px] text-text-placeholder">{label}</span>
+                  <span className="text-[11px] text-brand-card text-right max-w-[60%]">{value}</span>
                 </div>
               ))}
             </div>
           </div>
 
           {/* Card 4: Bidang Keilmuan */}
-          <div className="bg-[#1F2937] border border-gray-700 rounded-[4px]">
-            <div className="px-3.5 py-3 border-b border-gray-700 flex items-center justify-between">
-              <h3 className="text-[13px] font-medium text-white">Bidang Keilmuan</h3>
-              <button className="text-[11px] text-[#06B6D4] hover:underline">Ajukan Perubahan</button>
+          <div className="bg-surface-dark border border-border-dark rounded-[4px]">
+            <div className="px-3.5 py-3 border-b border-border-dark flex items-center justify-between">
+              <h3 className="text-[13px] font-medium text-brand-card">Bidang Keilmuan</h3>
+              <button className="text-[11px] text-info hover:underline">Ajukan Perubahan</button>
             </div>
             <div className="p-3.5 space-y-0">
               {[
@@ -323,12 +323,12 @@ export function DataPribadi() {
                 <div
                   key={label}
                   className={`flex items-center justify-between py-2 ${
-                    i < arr.length - 1 ? 'border-b border-gray-700' : ''
+                    i < arr.length - 1 ? 'border-b border-border-dark' : ''
                   }`}
                 >
-                  <span className="text-[11px] text-gray-400">{label}</span>
+                  <span className="text-[11px] text-text-placeholder">{label}</span>
                   <span className={`text-[11px] text-right max-w-[60%] ${
-                    value.includes('Tidak ada') ? 'italic text-gray-400' : 'text-white'
+                    value.includes('Tidak ada') ? 'italic text-text-placeholder' : 'text-brand-card'
                   }`}>
                     {value}
                   </span>
@@ -338,34 +338,34 @@ export function DataPribadi() {
           </div>
 
           {/* Card 5: Data Keluarga */}
-          <div className="bg-[#1F2937] border border-gray-700 rounded-[4px]">
-            <div className="px-3.5 py-3 border-b border-gray-700 flex items-center justify-between">
-              <h3 className="text-[13px] font-medium text-white">Data Keluarga</h3>
-              <button className="text-[11px] text-[#06B6D4] hover:underline">Ajukan Perubahan</button>
+          <div className="bg-surface-dark border border-border-dark rounded-[4px]">
+            <div className="px-3.5 py-3 border-b border-border-dark flex items-center justify-between">
+              <h3 className="text-[13px] font-medium text-brand-card">Data Keluarga</h3>
+              <button className="text-[11px] text-info hover:underline">Ajukan Perubahan</button>
             </div>
 
             {keluarga && keluarga.length > 0 ? (
               <div className="overflow-x-auto">
                 <table className="w-full">
                   <thead>
-                    <tr className="bg-[#111827]">
-                      <th className="px-3.5 py-2.5 text-left text-[11px] font-medium text-gray-400">Nama Lengkap</th>
-                      <th className="px-3.5 py-2.5 text-left text-[11px] font-medium text-gray-400">Hubungan Keluarga</th>
-                      <th className="px-3.5 py-2.5 text-left text-[11px] font-medium text-gray-400">Tanggal Lahir</th>
-                      <th className="px-3.5 py-2.5 text-left text-[11px] font-medium text-gray-400">Jenjang Pendidikan</th>
-                      <th className="px-3.5 py-2.5 text-left text-[11px] font-medium text-gray-400">Pekerjaan</th>
-                      <th className="px-3.5 py-2.5 text-left text-[11px] font-medium text-gray-400">Status</th>
+                    <tr className="bg-surface-darker">
+                      <th className="px-3.5 py-2.5 text-left text-[11px] font-medium text-text-placeholder">Nama Lengkap</th>
+                      <th className="px-3.5 py-2.5 text-left text-[11px] font-medium text-text-placeholder">Hubungan Keluarga</th>
+                      <th className="px-3.5 py-2.5 text-left text-[11px] font-medium text-text-placeholder">Tanggal Lahir</th>
+                      <th className="px-3.5 py-2.5 text-left text-[11px] font-medium text-text-placeholder">Jenjang Pendidikan</th>
+                      <th className="px-3.5 py-2.5 text-left text-[11px] font-medium text-text-placeholder">Pekerjaan</th>
+                      <th className="px-3.5 py-2.5 text-left text-[11px] font-medium text-text-placeholder">Status</th>
                     </tr>
                   </thead>
                   <tbody>
                     {keluarga.map((family, i) => (
-                      <tr key={family.id} className={i < keluarga.length - 1 ? 'border-b border-gray-700' : ''}>
-                        <td className="px-3.5 py-2.5 text-[11px] text-white">{family.nama_lengkap || '-'}</td>
-                        <td className="px-3.5 py-2.5 text-[11px] text-white">{family.hubungan_keluarga || '-'}</td>
-                        <td className="px-3.5 py-2.5 text-[11px] text-white">{family.tanggal_lahir || '-'}</td>
-                        <td className="px-3.5 py-2.5 text-[11px] text-white">{family.jenjang_pendidikan || '-'}</td>
-                        <td className="px-3.5 py-2.5 text-[11px] text-white">{family.pekerjaan || '-'}</td>
-                        <td className="px-3.5 py-2.5 text-[11px] text-white">{family.status_hidup || '-'}</td>
+                      <tr key={family.id} className={i < keluarga.length - 1 ? 'border-b border-border-dark' : ''}>
+                        <td className="px-3.5 py-2.5 text-[11px] text-brand-card">{family.nama_lengkap || '-'}</td>
+                        <td className="px-3.5 py-2.5 text-[11px] text-brand-card">{family.hubungan_keluarga || '-'}</td>
+                        <td className="px-3.5 py-2.5 text-[11px] text-brand-card">{family.tanggal_lahir || '-'}</td>
+                        <td className="px-3.5 py-2.5 text-[11px] text-brand-card">{family.jenjang_pendidikan || '-'}</td>
+                        <td className="px-3.5 py-2.5 text-[11px] text-brand-card">{family.pekerjaan || '-'}</td>
+                        <td className="px-3.5 py-2.5 text-[11px] text-brand-card">{family.status_hidup || '-'}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -373,7 +373,7 @@ export function DataPribadi() {
               </div>
             ) : (
               <div className="p-3.5 text-center">
-                <p className="text-[11px] italic text-gray-400">(Tidak ada data keluarga)</p>
+                <p className="text-[11px] italic text-text-placeholder">(Tidak ada data keluarga)</p>
               </div>
             )}
           </div>
