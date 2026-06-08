@@ -177,6 +177,26 @@ const mockDosens: Dosen[] = [
     total_citations: 89,
     tahun_upload: 2026,
   },
+  {
+    id: 7,
+    name: 'Kadek Sapta Budiarta',
+    title_prefix: 'Dr.',
+    title_suffix: 'S.Sn., M.Sn.',
+    nidn: '1122334',
+    nip: '198901012015011001',
+    email: 'luh.putu@university.ac.id',
+    faculty: 'MIPA',
+    department: 'Informatika',
+    study_program: 'Informatika',
+    bio: 'Dosen dengan fokus di bidang data science dan analytics.',
+    status: 'active',
+    sinta_score: 120,
+    scopus_h_index: 2,
+    google_scholar_h_index: 10,
+    total_publications: 15,
+    total_citations: 89,
+    tahun_upload: 2026,
+  },
 ];
 
 export function DosenProvider({ children }: DosenProviderProps) {

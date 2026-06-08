@@ -20,8 +20,8 @@
   --accent-gold-border: rgba(212, 168, 67, 0.25);
 
   /* --- Info Cyan (kept for data/charts, secondary accent) --- */
-  --theme-info: #22AECF;
-  /* --theme-info-hover: #1A94B0; */
+  --theme-info: #668a93;
+  --theme-info-hover: #1A94B0;
   --theme-info-subtle: rgba(34, 174, 207, 0.1);
 
   /* --- Semantic Colors --- */
@@ -309,16 +309,8 @@
   }
 }
 
-/* ============================================
-   UTILITY CLASSES
-   ============================================ */
 
-/* Gold accent line — used on active sidebar items */
-.border-l-gold {
-  border-left: 2px solid var(--accent-gold);
-}
 
-/* Subtle grid texture overlay for cards */
 .texture-grid::before {
   content: '';
   position: absolute;
@@ -331,12 +323,10 @@
   border-radius: inherit;
 }
 
-/* Glow effect for accent elements */
 .glow-gold {
   box-shadow: 0 0 12px rgba(212, 168, 67, 0.2), 0 0 40px rgba(212, 168, 67, 0.05);
 }
 
-/* Stat card value typography */
 .stat-value {
   font-family: var(--font-mono);
   font-size: 1.5rem;

@@ -108,7 +108,7 @@ export function DosenList() {
             <Link
               key={dosen.id}
               to={`/dosen/${dosen.id}`}
-              className="block bg-surface-dark border border-border-dark rounded-[4px] p-4 hover:border-info hover:shadow-sm transition-all"
+              className="block bg-surface-dark border border-border-dark rounded-[4px] p-4 hover:border-info-hover hover:shadow-sm transition-all"
             >
               <div className="flex items-start gap-4">
                 {/* Photo */}

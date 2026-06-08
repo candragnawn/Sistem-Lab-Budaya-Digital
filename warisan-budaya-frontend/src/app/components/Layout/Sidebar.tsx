@@ -130,7 +130,7 @@ function NavItem({ group }: { group: NavGroup }) {
       <button
         onClick={() => setOpen(!open)}
         className={`w-full flex items-center justify-between px-3 py-2 text-gray-300 hover:bg-gray-700 transition-colors text-xs ${
-          isActive ? 'bg-gray-700 text-info' : ''
+          isActive ? 'bg-gray-700' : ''
         }`}
       >
         <div className="flex items-center gap-2">
@@ -150,7 +150,7 @@ function NavItem({ group }: { group: NavGroup }) {
                 key={child.path}
                 to={fullPath}
                 className={`block px-3 py-2 pl-9 text-xs text-text-placeholder hover:bg-gray-700 hover:text-brand-card transition-colors ${
-                  childActive ? 'bg-info/20 text-info border-l-2 border-info' : ''
+                  childActive ? 'bg-info/20 border-l-2 border-info' : ''
                 }`}
               >
                 {child.title}
