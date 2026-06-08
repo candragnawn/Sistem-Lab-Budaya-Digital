@@ -11,7 +11,7 @@ interface TopNavProps {
 
 function buildBreadcrumb(pathname: string, dosenId?: string): { label: string; path?: string }[] {
   const map: Record<string, string> = {
-    [`/dosen/${dosenId}`]: 'Dashboard',
+        [`/dosen/${dosenId}`]: 'Dashboard',
     // Profil
     [`/dosen/${dosenId}/profil/data-pribadi`]: 'Data pribadi',
     [`/dosen/${dosenId}/profil/inpassing`]: 'Inpassing',

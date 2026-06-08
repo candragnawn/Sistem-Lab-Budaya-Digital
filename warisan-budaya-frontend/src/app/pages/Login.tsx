@@ -37,7 +37,7 @@ export function Login() {
           <div className="w-12 h-12 bg-[#06B6D4] rounded-[4px] flex items-center justify-center mx-auto mb-3">
             <Database className="w-6 h-6 text-white" strokeWidth={2} />
           </div>
-          <CardTitle className="text-base text-white">Digital Cultural Heritage</CardTitle>
+          <CardTitle className="text-base text-gray">Digital Cultural Heritage</CardTitle>
           <p className="text-xs text-gray-400 mt-1">Sistem Informasi Penelitian Dosen</p>
         </CardHeader>
         <CardContent>
