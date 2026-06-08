@@ -58,7 +58,6 @@ return new class extends Migration {
             $table->string('publisher');
             $table->timestamps();
             $table->softDeletes();
-            $table->softDeletes();
         });
 
         Schema::create('student_developments', function (Blueprint $table) {

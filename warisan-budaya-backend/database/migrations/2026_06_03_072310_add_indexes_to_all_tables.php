@@ -11,15 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        try {
-            Schema::table('lecturers', function (Blueprint $table) {
-                $table->index('email');
-                $table->index('nidn');
-                $table->index('nip');
-                $table->index('sinta_id');
-                $table->index('status');
-            });
-        } catch (\Exception $e) {}
+        Schema::table('lecturers', function (Blueprint $table) {
+            $table->index('sinta_id');
+            $table->index('status');
+        });
 
         $tablesWithLecturerId = [
             'publications', 'research', 'community_services', 'awards', 
@@ -32,11 +27,9 @@ return new class extends Migration
 
         foreach ($tablesWithLecturerId as $tableName) {
             if (Schema::hasTable($tableName)) {
-                try {
                     Schema::table($tableName, function (Blueprint $table) {
                         $table->index('lecturer_id');
                     });
-                } catch (\Exception $e) {}
             }
         }
 

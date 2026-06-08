@@ -11,13 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        foreach (['lecturers', 'publications', 'research', 'teachings'] as $tableName) {
-            if (Schema::hasTable($tableName)) {
-                Schema::table($tableName, function (Blueprint $table) {
-                    $table->softDeletes();
-                });
-            }
-        }
+        
     }
 
     /**

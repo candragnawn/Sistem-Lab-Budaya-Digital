@@ -27,15 +27,13 @@ Yang udah :
 - narik api ke sister ( kurang api key , username, password, user_id sama token aja)
 - narik api ke sinta (kurang api key )
 - mapper data ke database
-- singkronisasi secara asyncronus (latar belakang)
+- singkronisasi secara asyncronus pake horizon(latar belakang)
 - pake redis buat nampung cache (06/06/2026 13:27)
 
 yang belum :
 - algoritma fuzzy matching buat ngecegah data redudan
 - normalisasi string biar fuzzy gampang nyarinya
 - singkronisasi data dari api eksternal pas registrasi pake nidn (belum di test, soanya perlu api sinta buat ambil scopus_id)
-- install laravel horizon 
-- buat queue belum ya pake redis, baru cache aja
 
 yang masih bingung :
 - isiin tombol singkronisasi manual / gak (karna takutnya di registrasi gagal singkron)

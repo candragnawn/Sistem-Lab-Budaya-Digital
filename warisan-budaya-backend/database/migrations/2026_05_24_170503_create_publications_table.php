@@ -13,6 +13,7 @@ return new class extends Migration {
             $table->string('title');
             $table->enum('category', ['PENELITIAN', 'PENGABDIAN']);
             $table->enum('type', [
+                'ARTIKEL',
                 'JURNAL',
                 'PROSIDING',
                 'BUKU',
@@ -21,7 +22,6 @@ return new class extends Migration {
 
             $table->string('source')->nullable();      // scopus, sinta, manual
             $table->string('quartile')->nullable();    // Q1, Q2, Q3, Q4
-            $table->string('document_url')->nullable();
             $table->string('journal_name')->nullable();
             $table->string('issn')->nullable();
             $table->string('doi')->nullable();
@@ -168,6 +168,7 @@ return new class extends Migration {
             $table->foreignId('lecturer_id')->constrained('lecturers')->onDelete('cascade');
             $table->foreignId('publication_id')->constrained('publications')->onDelete('cascade');
             $table->string('author_position');
+            $table->timestamps();
             $table->softDeletes();
 
         });

@@ -61,10 +61,10 @@ class ElsevierService
                     'issn' => $item['prism:issn'] ?? null,
                     'doi' => $item['prism:doi'] ?? null,
                     'year' => isset($item['prism:coverDate']) ? date('Y', strtotime($item['prism:coverDate'])) : null,
-                    'type' => $item['subtypeDescription'] ?? 'Article',
+                    'type' => self::mapScopusTypeToEnum($item['subtypeDescription'] ?? ''),
                     'source' => 'Scopus',
                     'category' => 'PENELITIAN',
-                    'url' => $item['prism:url'] ?? null,
+                    'url' => isset($item['prism:doi']) ? 'https://doi.org/' . $item['prism:doi'] : self::extractScopusLink($item['link'] ?? []),
                     'is_verified' => true,
                 ];
             }, $entries);
@@ -96,5 +96,30 @@ class ElsevierService
         }
 
         return $response->json();
+    }
+
+    private static function mapScopusTypeToEnum(string $scopusType): string
+    {
+        $type = strtolower($scopusType);
+        if (str_contains($type, 'conference') || str_contains($type, 'proceeding')) {
+            return 'PROSIDING';
+        } elseif (str_contains($type, 'book')) {
+            return 'BUKU';
+        } elseif (str_contains($type, 'journal')) {
+            return 'JURNAL';
+        }
+        
+        // Default untuk Article, Review, Letter, dll.
+        return 'ARTIKEL';
+    }
+
+    private static function extractScopusLink(array $links): ?string
+    {
+        foreach ($links as $link) {
+            if (isset($link['@ref']) && $link['@ref'] === 'scopus' && isset($link['@href'])) {
+                return $link['@href'];
+            }
+        }
+        return null;
     }
 }
