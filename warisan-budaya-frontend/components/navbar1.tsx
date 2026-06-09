@@ -62,61 +62,8 @@ const Navbar1 = ({
     title: "DIGICULT  ",
   },
   menu = [
+    { title: "Home", url: "/" },
     { title: "Daftar Dosen", url: "/daftar-dosen" },
-    {
-      title: "Publikasi",
-      url: "#",
-      items: [
-        {
-          title: "Artikel Ilmiah",
-          description: "The latest industry news, updates, and info",
-          icon: <Book className="size-5 shrink-0" />,
-          url: "#",
-        },
-        {
-          title: "Hak Paten",
-          description: "Our mission is to innovate and empower the world",
-          icon: <Trees className="size-5 shrink-0" />,
-          url: "#",
-        },
-        {
-          title: "Publikasi Karya",
-          description: "Browse job listing and discover our workspace",
-          icon: <Sunset className="size-5 shrink-0" />,
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Arsip Digital",
-      url: "#",
-      items: [
-        {
-          title: "Help Center",
-          description: "Get all the answers you need right here",
-          icon: <Zap className="size-5 shrink-0" />,
-          url: "#",
-        },
-        {
-          title: "Contact Us",
-          description: "We are here to help you with any questions you have",
-          icon: <Sunset className="size-5 shrink-0" />,
-          url: "#",
-        },
-        {
-          title: "Status",
-          description: "Check the current status of our services and APIs",
-          icon: <Trees className="size-5 shrink-0" />,
-          url: "#",
-        },
-        {
-          title: "Terms of Service",
-          description: "Our terms and conditions for using our services",
-          icon: <Book className="size-5 shrink-0" />,
-          url: "#",
-        },
-      ],
-    },
     { title: "Dashboard", url: "/dashboard/profil" },
   ],
   auth = {
@@ -176,6 +123,11 @@ const Navbar1 = ({
     router.push("/login");
   };
 
+  const isAuthenticated = Boolean(user);
+  const filteredMenu = menu.filter(
+    (item) => item.title !== "Dashboard" || isAuthenticated,
+  );
+
   return (
     <section
       className={cn(
@@ -184,106 +136,99 @@ const Navbar1 = ({
       )}
     >
       <div className="w-full px-6 h-15 flex items-center">
-        <nav className="hidden w-full items-center lg:flex relative">
-          <div className="flex items-center">
-            <Link
-              href={logo.url}
-              className="flex items-center gap-2 text-foreground"
-            >
-              <img src={logo.src} className="max-h-7" alt={logo.alt} />
-              <span className="text-lg font-semibold tracking-tighter">
-                {logo.title}
-              </span>
-            </Link>
-          </div>
-          
-          <div className="absolute left-1/2 -translate-x-1/2 flex items-center">
+        <nav className="hidden w-full items-center lg:flex justify-between relative">
+          <Link
+            href={logo.url}
+            className="flex items-center gap-2 text-foreground"
+          >
+            <img src={logo.src} className="max-h-7" alt={logo.alt} />
+            <span className="text-lg font-semibold tracking-tighter">
+              {logo.title}
+            </span>
+          </Link>
+
+          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
             <NavigationMenu>
-              <NavigationMenuList>
-                {menu.map((item) => renderMenuItem(item))}
+              <NavigationMenuList className="flex items-center gap-4">
+                {filteredMenu.map((item) => renderMenuItem(item))}
               </NavigationMenuList>
             </NavigationMenu>
           </div>
-          <div className="flex gap-2 ml-auto">
-            <div className="auth-only">
-              {user ? (
-                <div className="relative" ref={dropdownRef}>
-                  <div
-                    onClick={() => setShowDropdown(!showDropdown)}
-                    className="flex items-center gap-3 cursor-pointer text-white hover:opacity-80 transition-opacity select-none"
-                  >
-                    <div className="h-9 w-9 rounded-full border border-white/30 overflow-hidden bg-white/20">
-                      <img
-                        src={user.photo}
-                        alt="Foto Profil"
-                        className="h-full w-full object-cover"
-                      />
-                    </div>
-                    <div className="flex flex-col text-left">
-                      <span className="text-xs font-semibold leading-none">
-                        {user.name}
-                      </span>
-                      <span className="text-[10px] text-white/50 font-medium mt-1">
-                        {user.role}
-                      </span>
-                    </div>
-                    <ChevronDown
-                      className={cn(
-                        "h-3.5 w-3.5 opacity-80 ml-1 transition-transform duration-200",
-                        showDropdown && "rotate-180",
-                      )}
+
+          <div className="flex gap-2">
+            {user ? (
+              <div className="relative" ref={dropdownRef}>
+                <div
+                  onClick={() => setShowDropdown(!showDropdown)}
+                  className="flex items-center gap-3 cursor-pointer text-white hover:opacity-80 transition-opacity select-none"
+                >
+                  <div className="h-9 w-9 rounded-full border border-white/30 overflow-hidden bg-white/20">
+                    <img
+                      src={user.photo}
+                      alt="Foto Profil"
+                      className="h-full w-full object-cover"
                     />
                   </div>
-
-                  {/* Dropdown Menu */}
-                  {showDropdown && (
-                    <div className="absolute right-0 top-full mt-2 w-52 rounded-lg bg-white shadow-xl border border-gray-100 overflow-hidden z-50 animate-in fade-in slide-in-from-top-2 duration-200">
-                      <div className="p-3 border-b border-gray-100 bg-gray-50">
-                        <p className="text-xs font-semibold text-gray-800">
-                          {user.name}
-                        </p>
-                        <p className="text-[10px] text-gray-500">{user.role}</p>
-                      </div>
-                      <div className="py-1">
-                        <Link
-                          href="/dashboard/profil"
-                          className="flex items-center gap-2.5 px-3 py-2 text-xs text-gray-700 hover:bg-gray-50 transition-colors"
-                          onClick={() => setShowDropdown(false)}
-                        >
-                          <User className="h-3.5 w-3.5 text-gray-400" />
-                          Profil Saya
-                        </Link>
-                        <Link
-                          href="/dashboard/profil"
-                          className="flex items-center gap-2.5 px-3 py-2 text-xs text-gray-700 hover:bg-gray-50 transition-colors"
-                          onClick={() => setShowDropdown(false)}
-                        >
-                          <Settings className="h-3.5 w-3.5 text-gray-400" />
-                          Pengaturan
-                        </Link>
-                      </div>
-                      <div className="border-t border-gray-100">
-                        <button
-                          onClick={handleLogout}
-                          className="flex w-full items-center gap-2.5 px-3 py-2.5 text-xs text-red-600 hover:bg-red-50 transition-colors"
-                        >
-                          <LogOut className="h-3.5 w-3.5" />
-                          Keluar
-                        </button>
-                      </div>
-                    </div>
-                  )}
+                  <div className="flex flex-col text-left">
+                    <span className="text-xs font-semibold leading-none">
+                      {user.name}
+                    </span>
+                    <span className="text-[10px] text-white/50 font-medium mt-1">
+                      {user.role}
+                    </span>
+                  </div>
+                  <ChevronDown
+                    className={cn(
+                      "h-3.5 w-3.5 opacity-80 ml-1 transition-transform duration-200",
+                      showDropdown && "rotate-180",
+                    )}
+                  />
                 </div>
-              ) : (
-                <div className="h-9 w-32 bg-white/10 rounded animate-pulse" />
-              )}
-            </div>
 
-            <div className="unauth-only flex gap-2">
+                {/* Dropdown Menu */}
+                {showDropdown && (
+                  <div className="absolute right-0 top-full mt-2 w-52 rounded-lg bg-white shadow-xl border border-gray-100 overflow-hidden z-50 animate-in fade-in slide-in-from-top-2 duration-200">
+                    <div className="p-3 border-b border-gray-100 bg-gray-50">
+                      <p className="text-xs font-semibold text-gray-800">
+                        {user.name}
+                      </p>
+                      <p className="text-[10px] text-gray-500">{user.role}</p>
+                    </div>
+                    <div className="py-1">
+                      <Link
+                        href="/dashboard/profil"
+                        className="flex items-center gap-2.5 px-3 py-2 text-xs text-gray-700 hover:bg-gray-50 transition-colors"
+                        onClick={() => setShowDropdown(false)}
+                      >
+                        <User className="h-3.5 w-3.5 text-gray-400" />
+                        Profil Saya
+                      </Link>
+                      <Link
+                        href="/dashboard/profil"
+                        className="flex items-center gap-2.5 px-3 py-2 text-xs text-gray-700 hover:bg-gray-50 transition-colors"
+                        onClick={() => setShowDropdown(false)}
+                      >
+                        <Settings className="h-3.5 w-3.5 text-gray-400" />
+                        Pengaturan
+                      </Link>
+                    </div>
+                    <div className="border-t border-gray-100">
+                      <button
+                        onClick={handleLogout}
+                        className="flex w-full items-center gap-2.5 px-3 py-2.5 text-xs text-red-600 hover:bg-red-50 transition-colors"
+                      >
+                        <LogOut className="h-3.5 w-3.5" />
+                        Keluar
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
+            ) : (
               <Button asChild variant="outline" size="sm">
                 <Link href={auth.login.url}>{auth.login.title}</Link>
               </Button>
-            </div>
+            )}
           </div>
         </nav>
 
@@ -322,56 +267,52 @@ const Navbar1 = ({
                     collapsible
                     className="flex w-full flex-col gap-4"
                   >
-                    {menu.map((item) => renderMobileMenuItem(item))}
+                    {filteredMenu.map((item) => renderMobileMenuItem(item))}
                   </Accordion>
 
-                  <div className="flex flex-col gap-3">
-                    <div className="auth-only space-y-3">
-                      {user ? (
-                        <div className="space-y-3">
-                          <div className="flex items-center gap-3 text-black">
-                            <div className="h-10 w-10 rounded-full border border-gray-300 overflow-hidden bg-gray-100">
-                              <img
-                                src={user.photo}
-                                alt="Foto Profil"
-                                className="h-full w-full object-cover"
-                              />
-                            </div>
-                            <div className="flex flex-col text-left">
-                              <span className="text-sm font-semibold leading-none">
-                                {user.name}
-                              </span>
-                              <span className="text-xs text-gray-500 font-medium mt-1">
-                                {user.role}
-                              </span>
-                            </div>
+                  {user ? (
+                    <div className="flex flex-col gap-3">
+                      <div className="space-y-3">
+                        <div className="flex items-center gap-3 text-black">
+                          <div className="h-10 w-10 rounded-full border border-gray-300 overflow-hidden bg-gray-100">
+                            <img
+                              src={user.photo}
+                              alt="Foto Profil"
+                              className="h-full w-full object-cover"
+                            />
                           </div>
-                          <Link
-                            href="/dashboard/profil"
-                            className="flex items-center gap-2 text-sm text-gray-700 hover:text-brand-navy"
-                          >
-                            <User className="h-4 w-4" />
-                            Profil Saya
-                          </Link>
-                          <button
-                            onClick={handleLogout}
-                            className="flex items-center gap-2 text-sm text-red-600 hover:text-red-700"
-                          >
-                            <LogOut className="h-4 w-4" />
-                            Keluar
-                          </button>
+                          <div className="flex flex-col text-left">
+                            <span className="text-sm font-semibold leading-none">
+                              {user.name}
+                            </span>
+                            <span className="text-xs text-gray-500 font-medium mt-1">
+                              {user.role}
+                            </span>
+                          </div>
                         </div>
-                      ) : (
-                        <div className="h-10 w-full bg-gray-100 rounded animate-pulse" />
-                      )}
+                        <Link
+                          href="/dashboard/profil"
+                          className="flex items-center gap-2 text-sm text-gray-700 hover:text-brand-navy"
+                        >
+                          <User className="h-4 w-4" />
+                          Profil Saya
+                        </Link>
+                        <button
+                          onClick={handleLogout}
+                          className="flex items-center gap-2 text-sm text-red-600 hover:text-red-700"
+                        >
+                          <LogOut className="h-4 w-4" />
+                          Keluar
+                        </button>
+                      </div>
                     </div>
-
-                    <div className="unauth-only flex flex-col gap-3">
+                  ) : (
+                    <div className="flex flex-col gap-3">
                       <Button asChild variant="outline">
                         <Link href={auth.login.url}>{auth.login.title}</Link>
                       </Button>
                     </div>
-                  </div>
+                  )}
                 </div>
               </SheetContent>
             </Sheet>
