@@ -20,7 +20,8 @@
   --accent-gold-border: rgba(212, 168, 67, 0.25);
 
   /* --- Info Cyan (kept for data/charts, secondary accent) --- */
-  --theme-info: #668a93;
+  --theme-info: #22AECF;
+  --theme-info-landing: #236979;
   --theme-info-hover: #1A94B0;
   --theme-info-subtle: rgba(34, 174, 207, 0.1);
 
@@ -200,6 +201,7 @@
 
   /* Semantic */
   --color-info: var(--theme-info);
+  --color-info-landing: var(--theme-info-landing);
   --color-info-hover: var(--theme-info-hover);
   --color-success: var(--theme-success);
   --color-warning: var(--theme-warning);

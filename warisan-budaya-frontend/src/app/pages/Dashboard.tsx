@@ -122,7 +122,7 @@ export function Dashboard() {
                   <h2 className="text-sm text-brand-card">{displayName}</h2>
                   <p className="text-xs text-text-placeholder mt-0.5">NIDN: {displayNIDN} · NIP: {displayNIP}</p>
                 </div>
-                <span className="flex items-center gap-1 px-2 py-0.5 bg-info/20 border border-info/30 rounded text-[10px] text-info shrink-0">
+                <span className="flex items-center gap-1 px-2 py-0.5 bg-info/20 border border-info/30 rounded text-[10px] text-white shrink-0">
                   <CheckCircle className="w-3 h-3" strokeWidth={2} />
                   Terverifikasi
                 </span>

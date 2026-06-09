@@ -35,7 +35,7 @@ export function DosenList() {
       <nav className="bg-surface-dark border-b border-border-dark">
         <div className="container mx-auto px-4 py-3 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-info rounded-[4px] flex items-center justify-center">
+            <div className="w-8 h-8 flex items-center justify-center">
               <Database className="w-4 h-4 text-brand-card" strokeWidth={2} />
             </div>
             <span className="text-sm text-brand-card">Digital Cultural Heritage</span>
@@ -43,7 +43,7 @@ export function DosenList() {
           <div className="flex items-center gap-3">
             <Link
               to="/dosen"
-              className="text-xs text-text-placeholder hover:text-info transition-colors"
+              className="text-xs text-text-placeholder hover:text-white transition-colors"
             >
               Daftar Dosen
             </Link>

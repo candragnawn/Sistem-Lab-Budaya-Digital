@@ -116,23 +116,7 @@ export function DataPribadi() {
   return (
     <div className="space-y-0">
       {/* Tab Navigation */}
-      <div className="bg-surface-dark border-b border-border-dark -mx-4 -mt-4 mb-4 px-4">
-        <div className="flex gap-6">
-          {['Data Pribadi', 'Jabatan Fungsional', 'Kepangkatan', 'Riwayat Pendidikan'].map((tab, i) => (
-            <button
-              key={tab}
-              className={`px-1 py-3 text-xs relative ${
-                i === 0
-                  ? 'text-brand-card font-medium'
-                  : 'text-text-placeholder hover:text-gray-200'
-              }`}
-            >
-              {tab}
-              {i === 0 && <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-info" />}
-            </button>
-          ))}
-        </div>
-      </div>
+    
 
       {/* 12-column asymmetric grid: 5 + 7 */}
       <div className="grid grid-cols-12 gap-3.5">
