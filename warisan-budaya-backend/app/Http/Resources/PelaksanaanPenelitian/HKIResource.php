@@ -11,11 +11,13 @@ class HKIResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'jenis_hki' => $this->hki_type,
-            'judul' => $this->title,
-            'quartil' => $this->quartile,
-            'nomor_sertifikat' => $this->certificate_number,
-            'tanggal_terbit' => $this->publish_date,
+            'judul_hki' => $this->title ?? null,
+            'kategori_kegiatan' => $this->category ?? null,
+            'jenis_hki' => $this->hki_type ?? $this->type ?? null,
+            'nomor_pendaftaran' => $this->registration_number ?? null,
+            'nomor_paten_sertifikat' => $this->certificate_number ?? null,
+            'tanggal_terbit' => $this->publish_date ?? null,
+            'status_hki' => $this->status ?? null,
         ];
     }
 }

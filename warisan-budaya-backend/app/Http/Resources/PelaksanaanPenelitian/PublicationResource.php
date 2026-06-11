@@ -11,17 +11,18 @@ class PublicationResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'judul' => $this->title,
-            'kategori' => $this->category,
-            'tipe' => $this->type,
-            'sumber' => $this->source,
-            'kuartil' => $this->quartile,
-            'nama_jurnal' => $this->journal_name,
-            'issn' => $this->issn,
-            'doi' => $this->doi,
-            'status_verifikasi' => $this->is_verified,
-            'tahun' => $this->year,
-            'url' => $this->url ? asset('storage/' . $this->url) : null,
+            'judul_artikel' => $this->title ?? null,
+            'nama_jurnal_penerbit' => $this->journal_name ?? $this->publisher ?? null,
+            'kategori_kegiatan' => $this->category ?? null,
+            'jenis_publikasi' => $this->publication_type ?? $this->type ?? null,
+            'tanggal_terbit' => $this->publish_date ?? $this->date ?? null,
+            'volume' => $this->volume ?? null,
+            'nomor_jurnal' => $this->issue ?? $this->number ?? null,
+            'doi' => $this->doi ?? null,
+            'issn' => $this->issn ?? null,
+            'peran_penulis' => $this->author_role ?? null,
+            'quartile' => $this->quartile ?? null,
+            'verified' => $this->is_verified ?? false,
         ];
     }
 }

@@ -1,0 +1,109 @@
+/* ============================================================
+   LIGHT MODE OVERRIDES
+   Applied when <html class="light-mode"> is set
+   ============================================================ */
+
+html.light-mode {
+  /* Backgrounds */
+  --page-bg:       #F0F4F8;
+  --surface-1:     #FFFFFF;
+  --surface-2:     #F8FAFC;
+  --surface-3:     #EEF2F7;
+
+  /* Borders */
+  --border-subtle: #DDE3EC;
+  --border-mid:    #C8D0DC;
+
+  /* Text */
+  --text-primary:  #0F172A;
+  --text-secondary:#374151;
+  --text-muted:    #6B7280;
+  --text-placeholder: #9CA3AF;
+
+  /* Accent (stays cyan) */
+  --accent-color:  #0284C7;
+  --accent-hover:  #0369A1;
+  --accent-subtle: #E0F2FE;
+
+  /* Sidebar */
+  --sidebar-bg:    #1A2332;
+  --sidebar-text:  #CBD5E1;
+  --sidebar-active:#0EA5E9;
+
+  /* Input */
+  --input-bg:      #FFFFFF;
+  --input-border:  #D1D9E0;
+  --input-focus:   #0284C7;
+}
+
+html.dark-mode,
+html:not(.light-mode) {
+  --page-bg:       #0F172A;
+  --surface-1:     #1F2937;
+  --surface-2:     #111827;
+  --surface-3:     #0F172A;
+
+  --border-subtle: #374151;
+  --border-mid:    #4B5563;
+
+  --text-primary:  #F9FAFB;
+  --text-secondary:#D1D5DB;
+  --text-muted:    #9CA3AF;
+  --text-placeholder: #6B7280;
+
+  --accent-color:  #06B6D4;
+  --accent-hover:  #0891B2;
+  --accent-subtle: rgba(6, 182, 212, 0.12);
+
+  --sidebar-bg:    #1F2937;
+  --sidebar-text:  #D1D5DB;
+  --sidebar-active:#06B6D4;
+
+  --input-bg:      #111827;
+  --input-border:  #374151;
+  --input-focus:   #06B6D4;
+}
+
+/* ============================================================
+   THEME-AWARE UTILITY CLASSES
+   ============================================================ */
+
+/* Page backgrounds */
+.t-page    { background-color: var(--page-bg); }
+.t-surface { background-color: var(--surface-1); }
+.t-surface-2 { background-color: var(--surface-2); }
+.t-surface-3 { background-color: var(--surface-3); }
+
+/* Borders */
+.t-border  { border-color: var(--border-subtle); }
+.t-border-mid { border-color: var(--border-mid); }
+
+/* Text */
+.t-text        { color: var(--text-primary); }
+.t-text-sec    { color: var(--text-secondary); }
+.t-text-muted  { color: var(--text-muted); }
+
+/* Accent */
+.t-accent      { color: var(--accent-color); }
+.t-accent-bg   { background-color: var(--accent-color); }
+.t-accent-subtle { background-color: var(--accent-subtle); }
+
+/* Input */
+.t-input {
+  background-color: var(--input-bg);
+  border-color: var(--input-border);
+  color: var(--text-primary);
+}
+.t-input::placeholder { color: var(--text-placeholder); }
+.t-input:focus {
+  outline: none;
+  border-color: var(--input-focus);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--input-focus) 20%, transparent);
+}
+
+/* Sidebar */
+.t-sidebar     { background-color: var(--sidebar-bg); }
+.t-sidebar-text { color: var(--sidebar-text); }
+
+/* Hover helpers */
+.t-hover:hover { background-color: var(--surface-2); }

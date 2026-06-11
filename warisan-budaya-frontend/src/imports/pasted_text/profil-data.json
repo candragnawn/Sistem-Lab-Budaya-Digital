@@ -1,0 +1,261 @@
+[
+  {
+    "title": "Profil",
+    "icon": "UserIcon",
+    "path": "/profil",
+    "children": [
+      { 
+        "title": "Data pribadi", 
+        "path": "/profil/data-pribadi", 
+        "resource": ["identities", "lecturer-addresses", "lecturer-families", "lecturer-academics", "lecturer-employments", "positions", "work-contracts"],
+        "fields": ["biodata", "kependudukan", "kepegawaian", "alamat_kontak", "keluarga", "bidang_keilmuan"]
+      },
+      { 
+        "title": "Inpassing", 
+        "path": "/profil/inpassing", 
+        "resource": "inpassings",
+        "fields": ["pangkat_golongan", "nomor_sk", "tanggal_sk", "tmt_inpassing", "angka_kredit", "masa_kerja_tahun", "masa_kerja_bulan"]
+      },
+      { 
+        "title": "Jabatan fungsional", 
+        "path": "/profil/jabatan-fungsional", 
+        "resource": "functional-positions",
+        "fields": ["jabatan_fungsional", "nomor_sk", "tmt_jabatan", "angka_kredit", "kelebihan_angka_kredit", "status_pegawai"]
+      },
+      { 
+        "title": "Kepangkatan", 
+        "path": "/profil/kepangkatan", 
+        "resource": "ranks",
+        "fields": ["golongan_pangkat", "nomor_sk", "tanggal_sk", "tmt_pangkat", "masa_kerja_tahun", "masa_kerja_bulan"]
+      },
+      { 
+        "title": "Penempatan", 
+        "path": "/profil/penempatan", 
+        "resource": "placements",
+        "fields": ["status_ikatan_kerja", "nomor_sk", "tanggal_sk", "tmt_tugas", "tanggal_keluar", "tst_tugas", "perguruan_tinggi", "unit_kerja", "homebase_status"]
+      },
+      { 
+        "title": "Profesor Emeritus", 
+        "path": "/profil/profesor-emeritus", 
+        "resource": "professor-emerituses",
+        "fields": ["nama_gelar", "perguruan_tinggi", "tmt", "tst"]
+      }
+    ]
+  },
+  {
+    "title": "Kualifikasi",
+    "icon": "AcademicCapIcon",
+    "path": "/kualifikasi",
+    "children": [
+      { 
+        "title": "Pendidikan formal", 
+        "path": "/kualifikasi/pendidikan-formal", 
+        "resource": "lecturer-educations",
+        "fields": ["jenjang_pendidikan", "nama_perguruan_tinggi", "fakultas", "program_studi", "tahun_masuk", "tahun_lulus", "gelar_akademik", "nomor_ijazah"]
+      },
+      { 
+        "title": "Diklat", 
+        "path": "/kualifikasi/diklat", 
+        "resource": "diklats",
+        "fields": ["nama_diklat", "jenis_diklat", "penyelenggara", "tahun_pelaksanaan", "tanggal_mulai", "tanggal_selesai", "nomor_sertifikat"]
+      },
+      { 
+        "title": "Riwayat Pekerjaan", 
+        "path": "/kualifikasi/riwayat-pekerjaan", "resource": "jobs",
+        "fields": ["perusahaan_organisasi", "jabatan_posisi", "tanggal_mulai", "tanggal_selesai", "deskripsi_tugas"]
+      }
+    ]
+  },
+  {
+    "title": "Kompetensi",
+    "icon": "AwardIcon",
+    "path": "/kompetensi",
+    "children": [
+      { 
+        "title": "Sertifikasi", 
+        "path": "/kompetensi/sertifikasi", 
+        "resource": "certifications",
+        "fields": ["jenis_sertifikasi", "nomor_peserta", "nomor_sertifikat", "tahun_sertifikasi", "sk_penetapan"]
+      },
+      { 
+        "title": "Tes", 
+        "path": "/kompetensi/tes", 
+        "resource": "tests",
+        "fields": ["jenis_tes", "nama_tes", "penyelenggara", "tanggal_tes", "skor_nilai"]
+      }
+    ]
+  },
+  {
+    "title": "Pelaks. pendidikan",
+    "icon": "BookOpenIcon",
+    "path": "/pelaksanaan-pendidikan",
+    "children": [
+      { 
+        "title": "Pengajaran", 
+        "path": "/pelaksanaan-pendidikan/pengajaran", 
+        "resource": "teachings",
+        "fields": ["mata_kuliah", "kelas", "jenis_evaluasi", "sks_kuliah", "sks_tatap_muka", "sks_praktikum", "sks_praktek_lapangan", "sks_simulasi", "semester"]
+      },
+      { 
+        "title": "Bimbingan Mahasiswa", 
+        "path": "/pelaksanaan-pendidikan/bimbingan-mahasiswa", 
+        "resource": "student-supervisions",
+        "fields": ["judul_aktivitas", "jenis_aktivitas", "kategori_kegiatan", "peran_pembimbing", "tanggal_mulai", "tanggal_selesai", "status_kelulusan"]
+      },
+      { 
+        "title": "Pengujian mahasiswa", 
+        "path": "/pelaksanaan-pendidikan/pengujian-mahasiswa", 
+        "resource": "student-examinations",
+        "fields": ["judul_aktivitas", "jenis_aktivitas", "kategori_kegiatan", "peran_penguji", "tanggal_pelaksanaan"]
+      },
+      { 
+        "title": "Bahan Ajar", 
+        "path": "/pelaksanaan-pendidikan/bahan-ajar", 
+        "resource": "teaching-materials",
+        "fields": ["jenis_bahan_ajar", "judul_bahan_ajar", "tanggal_terbit", "penerbit"]
+      },
+      { 
+        "title": "Pembinaan Mahasiswa", 
+        "path": "/pelaksanaan-pendidikan/pembinaan-mahasiswa", 
+        "resource": "student-developments",
+        "fields": ["nama_kegiatan", "peran_pembina", "kategori_kegiatan", "tanggal_mulai", "tanggal_selesai"]
+      },
+      { 
+        "title": "Visiting Scientist", 
+        "path": "/pelaksanaan-pendidikan/visiting-scientist", 
+        "resource": "visiting-scientists",
+        "fields": ["perguruan_tinggi_tujuan", "lama_kegiatan", "kategori_kegiatan", "tanggal_mulai", "tanggal_selesai"]
+      },
+      { 
+        "title": "Detasering", 
+        "path": "/pelaksanaan-pendidikan/detasering", 
+        "resource": "detaserings",
+        "fields": ["jenis_detasering", "perguruan_tinggi_mitra", "nama_program", "tmt", "tst"]
+      },
+      { 
+        "title": "Orasi Ilmiah", 
+        "path": "/pelaksanaan-pendidikan/orasi-ilmiah", 
+        "resource": "academic-orations",
+        "fields": ["nama_pertemuan_ilmiah", "judul_orasi", "penyelenggara", "tanggal_pelaksanaan"]
+      },
+      { 
+        "title": "Pembimbing dosen", 
+        "path": "/pelaksanaan-pendidikan/pembimbing-dosen", 
+        "resource": "lecturer-mentorings",
+        "fields": ["nama_dosen_binaan", "tahapan_bimbingan", "tmt", "tst"]
+      },
+      { 
+        "title": "Tugas tambahan", 
+        "path": "/pelaksanaan-pendidikan/tugas-tambahan", 
+        "resource": "additional-tasks",
+        "fields": ["tugas_tambahan", "unit_kerja", "perguruan_tinggi", "tmt_tugas", "tst_tugas", "nomor_sk"]
+      }
+    ]
+  },
+  {
+    "title": "Pelaks. penelitian",
+    "icon": "BeakerIcon",
+    "path": "/pelaksanaan-penelitian",
+    "children": [
+      { 
+        "title": "Penelitian", 
+        "path": "/pelaksanaan-penelitian/penelitian", 
+        "resource": "research",
+        "fields": ["judul_penelitian", "kategori_kegiatan", "peran_peneliti", "lembaga_sumber_dana", "tahun_pelaksanaan", "lama_kegiatan_bulan"]
+      },
+      { 
+        "title": "Publikasi karya", 
+        "path": "/pelaksanaan-penelitian/publikasi-karya", 
+        "resource": ["publications", "publication-authors"],
+        "fields": ["judul_artikel", "nama_jurnal_penerbit", "kategori_kegiatan", "jenis_publikasi", "tanggal_terbit", "volume", "nomor_jurnal", "doi", "issn", "peran_penulis"]
+      },
+      { 
+        "title": "Paten/HKI", 
+        "path": "/pelaksanaan-penelitian/paten-hki", 
+        "resource": "hkis",
+        "fields": ["judul_hki", "kategori_kegiatan", "jenis_hki", "nomor_pendaftaran", "nomor_paten_sertifikat", "tanggal_terbit", "status_hki"]
+      }
+    ]
+  },
+  {
+    "title": "Pelaks. pengabdian",
+    "icon": "UserGroupIcon",
+    "path": "/pelaksanaan-pengabdian",
+    "children": [
+      { 
+        "title": "Pengabdian", 
+        "path": "/pelaksanaan-pengabdian/pengabdian", 
+        "resource": "community-services",
+        "fields": ["judul_kegiatan", "kategori_kegiatan", "peran_pengabdi", "lembaga_sumber_dana", "tahun_pelaksanaan"]
+      },
+      { 
+        "title": "Pembicara", 
+        "path": "/pelaksanaan-pengabdian/pembicara", 
+        "resource": "speakers",
+        "fields": ["nama_pertemuan_ilmiah", "judul_makalah", "penyelenggara", "waktu_pelaksanaan"]
+      },
+      { 
+        "title": "Pengelola jurnal", 
+        "path": "/pelaksanaan-pengabdian/pengelola-jurnal", 
+        "resource": "journal-managers",
+        "fields": ["nama_jurnal", "peran_editor_reviewer", "penerbit", "tmt", "tst"]
+      },
+      { 
+        "title": "Jabatan struktural", 
+        "path": "/pelaksanaan-pengabdian/jabatan-struktural", 
+        "resource": "structural-positions",
+        "fields": ["jabatan_struktural", "unit_kerja", "perguruan_tinggi", "tmt", "tst"]
+      }
+    ]
+  },
+  {
+    "title": "Penunjang",
+    "icon": "BriefcaseIcon",
+    "path": "/penunjang",
+    "children": [
+      { 
+        "title": "Anggota profesi", 
+        "path": "/penunjang/anggota-profesi", 
+        "resource": "professional-memberships",
+        "fields": ["nama_organisasi", "peran_jabatan", "mulai_keanggotaan", "selesai_keanggotaan"]
+      },
+      { 
+        "title": "Penghargaan", 
+        "path": "/penunjang/penghargaan", 
+        "resource": "awards",
+        "fields": ["nama_penghargaan", "jenis_penghargaan", "instansi_pemberi", "tahun_perolehan"]
+      },
+      { 
+        "title": "Penunjang lain", 
+        "path": "/penunjang/penunjang-lain", 
+        "resource": "other-supporting-activities",
+        "fields": ["nama_kegiatan", "peran_kedudukan", "tempat_pelaksanaan", "tanggal_pelaksanaan"]
+      }
+    ]
+  },
+  {
+    "title": "Reward",
+    "icon": "GiftIcon",
+    "path": "/reward",
+    "children": [
+      { 
+        "title": "Beasiswa", 
+        "path": "/reward/beasiswa", 
+        "resource": "scholarships",
+        "fields": ["jenis_beasiswa", "nama_beasiswa", "institusi_pemberi", "tahun_mulai", "tahun_selesai"]
+      },
+      { 
+        "title": "Kesejahteraan", 
+        "path": "/reward/kesejahteraan", 
+        "resource": "welfares",
+        "fields": ["jenis_kesejahteraan", "penyelenggara", "nomor_kartu", "status_aktif"]
+      },
+      { 
+        "title": "Tunjangan", 
+        "path": "/reward/tunjangan", 
+        "resource": "allowances",
+        "fields": ["jenis_tunjangan", "nomor_sk", "sumber_dana", "besar_tunjangan", "status_pembayaran"]
+      }
+    ]
+  }
+]

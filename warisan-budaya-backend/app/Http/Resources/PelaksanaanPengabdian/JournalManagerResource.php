@@ -11,12 +11,11 @@ class JournalManagerResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'nama_jurnal' => $this->journal_name,
-            'nomor_sk' => $this->decree_number,
-            'tanggal_berlaku' => $this->effective_date,
-            'tanggal_selesai' => $this->end_date,
-            'status_aktif' => $this->is_active,
-            'peran' => $this->role,
+            'nama_jurnal' => $this->journal_name ?? null,
+            'peran_editor_reviewer' => $this->role ?? null,
+            'penerbit' => $this->publisher ?? null,
+            'tmt' => $this->start_date ?? null,
+            'tst' => $this->end_date ?? null,
         ];
     }
 }

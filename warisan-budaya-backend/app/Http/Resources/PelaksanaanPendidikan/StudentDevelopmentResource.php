@@ -11,11 +11,11 @@ class StudentDevelopmentResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'semester' => $this->semester,
-            'kategori_kegiatan' => $this->activity_category,
-            'judul_bimbingan' => $this->guidance_title,
-            'jenis_bimbingan' => $this->guidance_type,
-            'program_studi' => $this->study_program,
+            'nama_kegiatan' => $this->guidance_title ?? $this->activity_name ?? null,
+            'peran_pembina' => $this->role ?? $this->guidance_type ?? null,
+            'kategori_kegiatan' => $this->activity_category ?? null,
+            'tanggal_mulai' => $this->start_date ?? null,
+            'tanggal_selesai' => $this->end_date ?? null,
         ];
     }
 }

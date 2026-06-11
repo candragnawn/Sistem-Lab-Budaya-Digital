@@ -11,10 +11,11 @@ class StudentExaminationResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'judul_ujian' => $this->examination_title,
-            'bidang_ilmu' => $this->scientific_field,
-            'jenis_ujian' => $this->examination_type,
-            'program_studi' => $this->study_program,
+            'judul_aktivitas' => $this->examination_title ?? null,
+            'jenis_aktivitas' => $this->examination_type ?? null,
+            'kategori_kegiatan' => $this->activity_category ?? null,
+            'peran_penguji' => $this->role ?? null,
+            'tanggal_pelaksanaan' => $this->examination_date ?? $this->date ?? null,
         ];
     }
 }

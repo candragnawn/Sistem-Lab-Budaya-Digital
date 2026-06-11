@@ -11,11 +11,10 @@ class AcademicOrationResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'kategori_kegiatan' => $this->activity_category,
-            'judul_makalah' => $this->paper_title,
-            'nama_dosen_tamu' => $this->guest_lecturer_name,
-            'penyelenggara' => $this->organizer,
-            'tanggal_kegiatan' => $this->activity_date,
+            'nama_pertemuan_ilmiah' => $this->activity_category ?? null,
+            'judul_orasi' => $this->paper_title ?? null,
+            'penyelenggara' => $this->organizer ?? null,
+            'tanggal_pelaksanaan' => $this->activity_date ?? null,
         ];
     }
 }

@@ -11,12 +11,15 @@ class TeachingResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'nama_mata_kuliah' => $this->course_name,
-            'jenis_mata_kuliah' => $this->course_type,
-            'bidang_ilmu' => $this->scientific_field,
-            'kelas' => $this->class,
-            'jumlah_mahasiswa' => $this->student_count,
-            'sks' => $this->credits,
+            'mata_kuliah' => $this->course_name ?? null,
+            'kelas' => $this->class ?? null,
+            'jenis_evaluasi' => $this->course_type ?? null,
+            'sks_kuliah' => $this->credits ?? null,
+            'sks_tatap_muka' => null,
+            'sks_praktikum' => null,
+            'sks_praktek_lapangan' => null,
+            'sks_simulasi' => null,
+            'semester' => $this->semester ?? null,
         ];
     }
 }

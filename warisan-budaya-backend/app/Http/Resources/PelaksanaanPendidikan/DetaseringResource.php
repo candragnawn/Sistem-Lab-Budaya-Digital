@@ -11,10 +11,11 @@ class DetaseringResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'universitas_tujuan' => $this->target_university,
-            'kategori_kegiatan' => $this->activity_category,
-            'nomor_sk_penugasan' => $this->assignment_decree_number,
-            'tanggal_sk' => $this->decree_date,
+            'jenis_detasering' => $this->activity_category ?? null,
+            'perguruan_tinggi_mitra' => $this->target_university ?? null,
+            'nama_program' => $this->program_name ?? null,
+            'tmt' => $this->decree_date ?? $this->start_date ?? null,
+            'tst' => $this->end_date ?? null,
         ];
     }
 }

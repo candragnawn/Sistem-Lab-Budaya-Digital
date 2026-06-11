@@ -11,10 +11,11 @@ class StructuralPositionResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'jabatan_struktural' => $this->structural_position,
-            'nomor_sk' => $this->decree_number,
-            'tanggal_mulai' => $this->start_date,
-            'tanggal_selesai' => $this->end_date,
+            'jabatan_struktural' => $this->position_name ?? $this->structural_position ?? null,
+            'unit_kerja' => $this->work_unit ?? null,
+            'perguruan_tinggi' => $this->university ?? null,
+            'tmt' => $this->start_date ?? null,
+            'tst' => $this->end_date ?? null,
         ];
     }
 }

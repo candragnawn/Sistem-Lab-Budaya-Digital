@@ -1,0 +1,89 @@
+Ini prompt UI Figma yang siap pakai untuk sistem dashboard SISTER Profil ini:
+
+SISTER Dashboard — Profil Module UI Kit
+Design a high-fidelity institutional dashboard UI for an Indonesian academic staff information system (SISTER/SIASN). The module is called "Profil" and contains two distinct layout patterns that must be designed as separate frames/pages.
+
+DESIGN SYSTEM
+Typography: Plus Jakarta Sans. Weights: Regular (400) and Medium (500) only — never Semibold or Bold. Hierarchy is communicated through size and color, not weight.
+Colors:
+
+Background workspace: #F4F6F9
+Card/panel surface: #FFFFFF
+Border: #E2E8F0 (1px)
+Divider (table rows): #F1F5F9
+Primary blue: #0F52BA
+Text primary: #0F172A
+Text body: #334155
+Text muted/label: #64748B
+Text placeholder (empty state): #94A3B8, italic
+Success badge: text #16A34A, bg #F0FDF4, border #DCFCE7
+
+Borders & Radius: All cards, buttons, inputs use border 1px #E2E8F0 with border-radius 4px (sharp, crisp — not pill-shaped). Zero drop shadows anywhere. Completely flat UI.
+Icons: Lucide icon set. 14–16px size. 1.5px stroke weight. Consistent across all components.
+Spacing system: 4pt base grid. Component internal padding 14–16px. Card gaps 12–14px.
+
+FRAME 1 — Layout A: Multi-Card Dashboard (Data Pribadi)
+Full-width frame at 1280px wide. Top navigation tab strip with tabs: Data Pribadi (active), Jabatan Fungsional, Kepangkatan, Riwayat Pendidikan. Active tab shows 2px bottom border in #0F52BA.
+Below the tab strip, a workspace area with #F4F6F9 background and 16px padding. Content area is a 12-column asymmetric grid split into col-span-5 left and col-span-7 right with 14px gap.
+LEFT PANEL — "Profil" identity card:
+
+Card header: title "Profil" left-aligned (13px medium #0F172A), right side shows a verified badge with check-circle icon + label "Data Terverifikasi" (11px medium #16A34A, bg #F0FDF4, border #DCFCE7, radius 4px, padding 2px 7px)
+Card body: centered portrait photo placeholder in 3:4 aspect ratio (light grey #F4F6F9 fill, 1px border, radius 4px, user icon centered in #94A3B8)
+Below photo: full-width button "Unggah Foto" with upload icon (bg #0F52BA, white text 11px medium, radius 4px, height 30px)
+Metadata list below button: 6 rows — NIDN, Nama, Nama Terdaftar Dukcapil, Jenis Kelamin, Tempat Lahir, Tanggal Lahir. Each row is a horizontal flex: label left (11px #64748B), value right (11px #334155). Rows separated by 1px #F1F5F9 bottom border. No colons.
+
+RIGHT PANEL — stacked cards with 12px gap:
+Card 1 "Alamat dan Kontak":
+
+Header: title left, "Ajukan Perubahan" link right (11px #0F52BA)
+10 data rows: Email, Alamat, RT, RW, Desa/Kelurahan, Kecamatan/Kota/Kabupaten, Provinsi, Kode Pos, No. Telepon Rumah, No. Ponsel. Same label/value layout as left panel. Empty values show "(Tidak ada data)" in italic #94A3B8.
+
+Card 2 "Kepegawaian":
+
+Header: title left, "Ajukan Perubahan" link right
+Sub-header band: "Data dari SIASN" — 11px medium #64748B, bg #F8FAFC, full-width, 6px vertical padding, top and bottom 1px #F1F5F9 border
+3 data rows: NIP, Nomor SK CPNS/PNS/PPPK, TMT SK CPNS/PNS/PPPK
+
+
+FRAME 2 — Layout B: Full-Width Table View (Jabatan Fungsional)
+Full-width frame at 1280px. Same top tab strip as Frame 1 but "Jabatan Fungsional" is the active tab.
+Workspace: single full-width white card panel, 1px border #E2E8F0, radius 4px, no shadow.
+Card header (flex row, 12px 14px padding, bottom border 1px #E2E8F0):
+
+Left: section title "Jabatan Fungsional" (14px medium #0F172A)
+Right: two action elements side by side:
+
+"+ Tambah Jabatan" button: bg #0F52BA, white text 11px medium, radius 4px, padding 5px 10px, plus icon
+"Riwayat Ajuan" ghost button: transparent bg, clock icon + label, 11px #334155, radius 4px, padding 5px 6px
+
+
+
+Table inside card:
+
+Table header row: bg #F1F5F9, height 36px. 5 columns: Jabatan Fungsional, Nomor SK, Terhitung Mulai Tanggal, Status Pegawai, Aksi. Text 11px medium #64748B left-aligned, 12px horizontal cell padding.
+Table body rows: height 44px, 1px bottom border #F1F5F9. Text 12px regular #334155. Show 3 sample rows of data.
+Aksi column: three inline interactive elements per row:
+
+"Hapus" — text only, 11px #EF4444, hover underline
+"Lihat Rincian" — button, bg white, border 1px #E2E8F0, radius 2px, padding 2px 6px, 11px #334155
+"Ubah" — same style as Lihat Rincian
+
+
+
+
+COMPONENT CHECKLIST FOR AUTO LAYOUT
+Build these as reusable Figma components:
+
+DataRow — label + value horizontal pair, 1px bottom divider, 100% width
+CardHeader — title + optional right action, with bottom border
+VerifiedBadge — icon + label, green semantic colors
+ActionButton/Primary — blue filled, radius 4px
+ActionButton/Ghost — border only, radius 4px
+TableHeaderCell — 11px medium muted, left-aligned
+TableDataCell — 12px regular body, left-aligned
+AksiCell — Hapus + Lihat Rincian + Ubah inline group
+NavTab — active and inactive states, 2px bottom indicator
+
+All components use Auto Layout with Hug/Fill constraints. All text styles registered as local styles. All colors registered as local color styles matching the palette above.
+
+Prompt ini bisa langsung di-paste ke Figma AI, atau ke tools seperti Figma First Draft, Anima, atau diberikan ke desainer sebagai design brief yang detail.
