@@ -17,11 +17,20 @@ export default function DosenProfilePage() {
   const params = useParams();
   const _id = params.id as string;
 
+  const defaultCategory =
+    initialCategories.find((cat) => cat.subCategories.some((sub) => sub.visible)) ??
+    initialCategories[0];
+  const defaultCategoryId = defaultCategory?.id ?? "kualifikasi";
+  const defaultSubCategoryId =
+    defaultCategory?.subCategories.find((sub) => sub.visible)?.id ??
+    defaultCategory?.subCategories[0]?.id ??
+    "pendidikan-formal";
+
   const [isLoading, setIsLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState<TabType>("overview");
+  const [activeTab, setActiveTab] = useState<TabType>(defaultCategoryId);
   const [sortBy, setSortBy] = useState<SortType>("year-desc");
   const [categories, setCategories] = useState<Category[]>(initialCategories);
-  const [activeSubCategory, setActiveSubCategory] = useState<string>("pendidikan-formal");
+  const [activeSubCategory, setActiveSubCategory] = useState<string>(defaultSubCategoryId);
 
   const isOwner = false; // Public view only
 
@@ -72,11 +81,79 @@ export default function DosenProfilePage() {
   const tabs: { key: TabType; label: string; count?: number }[] = [
     { key: "overview", label: "Ringkasan (Overview)" },
     { key: "publications", label: "Publikasi", count: profileData.publications.length },
-    ...categories.map(cat => ({ key: cat.id, label: cat.label })),
   ];
 
   return (
-    <div className="min-h-screen bg-[#F5F5F5] relative pb-20">
+    <div className="relative min-h-screen bg-[#F5F5F5] pb-20">
+      <aside className="fixed left-0 top-[57px] z-40 hidden h-[calc(100vh-57px)] w-[260px] flex-col border-r border-slate-200 bg-white shadow-xl lg:flex">
+        <div className="border-b border-slate-100 bg-gradient-to-r from-[#0F172A] to-[#1E40AF] px-4 py-3">
+          <div className="flex items-center gap-2">
+            <div className="flex h-6 w-6 items-center justify-center rounded bg-white/10">
+              <BookOpen className="h-3.5 w-3.5 text-white" />
+            </div>
+            <span className="text-xs font-medium uppercase tracking-wider text-white/70">
+              Menu Kategori
+            </span>
+          </div>
+        </div>
+
+        <nav className="flex-1 overflow-y-auto px-3 py-3">
+          <ul className="space-y-1">
+            {categories.map((cat) => {
+              const isCategoryActive = activeTab === cat.id;
+              return (
+                <li key={cat.id}>
+                  <button
+                    onClick={() => {
+                      setActiveTab(cat.id);
+                      const firstVisible = cat.subCategories.find((sub) => sub.visible || isOwner);
+                      if (firstVisible) {
+                        setActiveSubCategory(firstVisible.id);
+                      }
+                    }}
+                    className={`group flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-all duration-200 ${
+                      isCategoryActive
+                        ? "bg-[#1E40AF] text-white shadow-sm"
+                        : "text-slate-600 hover:bg-slate-100 hover:text-slate-800"
+                    }`}
+                  >
+                    <span className={`flex h-7 w-7 items-center justify-center rounded-md ${
+                      isCategoryActive
+                        ? "bg-white/15 text-white"
+                        : "bg-slate-100 text-slate-500 group-hover:bg-blue-50 group-hover:text-[#1E40AF]"
+                    }`}>
+                      {cat.icon}
+                    </span>
+                    <span className="flex-1 text-left font-semibold">{cat.label}</span>
+                  </button>
+
+                  {isCategoryActive && (
+                    <ul className="mt-1 ml-5 space-y-1 border-l border-slate-200 pl-3 pb-1">
+                      {activeCategory?.subCategories.filter((sub) => sub.visible || isOwner).map((sub) => {
+                        const isActive = activeSub?.id === sub.id;
+                        return (
+                          <li key={sub.id}>
+                            <button
+                              onClick={() => setActiveSubCategory(sub.id)}
+                              className={`flex w-full items-center justify-between rounded-md px-3 py-1.5 text-xs transition-all duration-200 ${
+                                isActive
+                                  ? "bg-blue-50 text-[#1E40AF] font-semibold"
+                                  : "text-slate-500 hover:bg-slate-50 hover:text-slate-700"
+                              }`}
+                            >
+                              <span>{sub.label}</span>
+                            </button>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  )}
+                </li>
+              );
+            })}
+          </ul>
+        </nav>
+      </aside>
 
       <div className="w-full bg-white py-3 border-b border-slate-100 text-center text-sm md:text-[15px] font-medium relative z-20">
         <span className="text-[#1E40AF] hover:underline cursor-pointer">Universitas Udayana</span>
@@ -84,9 +161,8 @@ export default function DosenProfilePage() {
         <span className="text-slate-500">Laboratorium Warisan Budaya Digital</span>
       </div>
 
-
       <div className="w-full bg-white border-b border-slate-200/80 shadow-sm relative z-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 lg:pl-[280px]">
           <div className="py-8 flex flex-col md:flex-row gap-8 items-start md:items-center">
             <div className="flex-shrink-0">
               <div className="w-32 h-32 rounded-full bg-[#0088CC] flex items-center justify-center text-white text-5xl font-light shadow-inner overflow-hidden">
@@ -141,8 +217,7 @@ export default function DosenProfilePage() {
         </div>
       </div>
 
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-8">
+      <div className="relative z-10 pt-8 pb-12 px-4 sm:px-6 lg:pl-[280px] lg:pr-8">
         {activeTab === "overview" && (
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <div className="space-y-6">
@@ -245,63 +320,20 @@ export default function DosenProfilePage() {
 
         {activeTab !== "overview" && activeTab !== "publications" && activeCategory && (
           <div className="animate-[fadeIn_0.3s_ease]">
-            {/* Mode Pengelolaan Profil removed from public view */}
-
-            <div className="flex flex-col lg:flex-row gap-6 items-start">
-
-              <div className="w-full lg:w-64 flex-shrink-0 flex flex-row lg:flex-col gap-2 overflow-x-auto lg:overflow-x-visible pb-3 lg:pb-0">
-                {activeCategory.subCategories.filter(s => s.visible || isOwner).map((sub) => {
-                  const isActive = activeSub?.id === sub.id;
-                  return (
-                    <div
-                      key={sub.id}
-                      className={`flex items-center justify-between gap-1 p-1 lg:p-1.5 rounded-xl border transition-all w-full min-w-[200px] lg:min-w-0 ${isActive
-                        ? "bg-[#1E40AF]/5 border-[#1E40AF]/20"
-                        : "bg-white border-slate-200/60 hover:bg-slate-50"
-                        }`}
-                    >
-                      <button
-                        onClick={() => setActiveSubCategory(sub.id)}
-                        className={`flex-grow text-left px-3 py-2 text-xs md:text-sm font-semibold rounded-lg transition-colors whitespace-nowrap lg:whitespace-normal ${isActive
-                          ? "text-[#1E40AF]"
-                          : "text-slate-600"
-                          }`}
-                      >
-                        {sub.label}
-                        {!sub.visible && isOwner && (
-                          <span className="block mt-0.5 text-[10px] text-orange-600 font-bold">(Tersembunyi)</span>
-                        )}
-                      </button>
-                      {isOwner && (
-                        <button
-                          title={sub.visible ? "Sembunyikan dari publik" : "Tampilkan ke publik"}
-                          onClick={() => handleToggleVisibility(activeCategory.id, sub.id)}
-                          className={`p-1.5 rounded-lg flex-shrink-0 transition-colors ${sub.visible ? "text-green-600 hover:bg-green-100/50" : "text-slate-400 hover:bg-slate-100"}`}
-                        >
-                          {sub.visible ? <Eye className="w-4 h-4" /> : <EyeOff className="w-4 h-4" />}
-                        </button>
-                      )}
-                    </div>
-                  );
-                })}
-              </div>
-
-
-              <div className="flex-1 w-full min-w-0">
-                {activeSub ? (
-                  <ProfileTable
-                    key={activeSub.id}
-                    activeSub={activeSub}
-                    categories={categories}
-                    isOwner={isOwner}
-                  />
-                ) : (
-                  <div className="flex flex-col items-center justify-center bg-white rounded-xl shadow-sm border border-slate-100 py-24 text-slate-400">
-                    <BookOpen className="w-10 h-10 mb-3 opacity-40" />
-                    <p className="text-sm font-medium">Pilih sub-kategori</p>
-                  </div>
-                )}
-              </div>
+            <div className="w-full">
+              {activeSub ? (
+                <ProfileTable
+                  key={activeSub.id}
+                  activeSub={activeSub}
+                  categories={categories}
+                  isOwner={isOwner}
+                />
+              ) : (
+                <div className="flex flex-col items-center justify-center bg-white rounded-xl shadow-sm border border-slate-100 py-24 text-slate-400">
+                  <BookOpen className="w-10 h-10 mb-3 opacity-40" />
+                  <p className="text-sm font-medium">Pilih sub-kategori</p>
+                </div>
+              )}
             </div>
           </div>
         )}
