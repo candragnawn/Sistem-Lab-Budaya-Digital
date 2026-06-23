@@ -3,107 +3,57 @@ import Link from "next/link";
 
 const Footer = () => {
   return (
-    <footer className="w-full mt-auto border-t-2 border-yellow-400">
-      <div className="relative w-full h-[90px] overflow-hidden">
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "linear-gradient(to bottom, rgba(30, 58, 95, 0.4) 0%, var(--color-brand-navy) 100%)",
-          }}
-        />
-      </div>
+    <footer className="w-full mt-auto border-t-2 border-yellow-400 bg-transparent">
+      {/* Top thin gradient */}
+      <div className="h-2 w-full bg-gradient-to-b from-yellow-400 to-transparent" />
 
-      <div className="bg-brand-navy text-white border-b-2 ">
-        <div className="max-w-7xl mx-auto px-6 py-10 grid grid-cols-1 md:grid-cols-3 gap-10 vorde">
+      <div className="bg-[#123456] text-white">
+        <div className="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Column 1: Logo & Description */}
           <div className="flex flex-col gap-3">
             <Link href="/" className="flex items-center gap-3">
               <Image
                 src="/SIWADA.svg"
                 alt="SIWADA Logo"
-                width={36}
-                height={36}
+                width={40}
+                height={40}
                 className="shrink-0"
               />
-              <span className="text-lg font-bold tracking-tight text-white">
-                SIWADA
-              </span>
+              <span className="text-lg font-bold tracking-tight text-white">SIWADA</span>
             </Link>
-            <p className="text-sm text-white/70 leading-relaxed mt-1">
-              Digital Cultural katalog Heritage
-            </p>
+            <p className="text-sm text-white/80 leading-relaxed mt-1">Digital Cultural katalog Heritage</p>
           </div>
 
           {/* Column 2: Navigasi */}
-          <div className="flex flex-col gap-3">
-            <h3 className="text-brand-gold font-semibold text-base mb-1">
-              Navigasi
-            </h3>
-            <nav className="flex flex-col gap-2">
-              <Link
-                href="#"
-                className="text-sm text-white/70 hover:text-white transition-colors duration-200"
-              >
-                Dosen
-              </Link>
-              <Link
-                href="#"
-                className="text-sm text-white/70 hover:text-white transition-colors duration-200"
-              >
-                Publikasi
-              </Link>
-              <Link
-                href="#"
-                className="text-sm text-white/70 hover:text-white transition-colors duration-200"
-              >
-                Arsip Digital
-              </Link>
-              <Link
-                href="#"
-                className="text-sm text-white/70 hover:text-white transition-colors duration-200"
-              >
-              </Link>
+          <div className="flex flex-col gap-2">
+            <h3 className="text-yellow-300 font-semibold text-base">Navigasi</h3>
+            <nav className="flex flex-col gap-2 mt-2">
+              <Link href="#" className="text-sm text-white/80 hover:text-white transition-colors">Dosen</Link>
+              <Link href="#" className="text-sm text-white/80 hover:text-white transition-colors">Publikasi</Link>
+              <Link href="#" className="text-sm text-white/80 hover:text-white transition-colors">Arsip Digital</Link>
             </nav>
           </div>
 
           {/* Column 3: Kontak */}
-          <div className="flex flex-col gap-3">
-            <h3 className="text-brand-gold font-semibold text-base mb-1">
-              Kontak
-            </h3>
-            <div className="flex flex-col gap-2 text-sm text-white/70">
+          <div className="flex flex-col gap-2">
+            <h3 className="text-yellow-300 font-semibold text-base">Kontak</h3>
+            <div className="flex flex-col gap-1 text-sm text-white/80 mt-2">
               <p>Fakultas Teknik, Universitas Udayana</p>
               <p>Jl. Raya Kampus Unud, Bukit Jimbaran</p>
-              <a
-                href="mailto:labbudayadigital@unud.ac.id"
-                className="hover:text-white transition-colors duration-200"
-              >
-                labbudayadigital@unud.ac.id
-              </a>
+              <a href="mailto:labbudayadigital@unud.ac.id" className="hover:text-white transition-colors">labbudayadigital@unud.ac.id</a>
             </div>
           </div>
         </div>
       </div>
 
       {/* Bottom copyright bar */}
-      <div className="bg-brand-navy/95 text-white/50 border-t border-white/10">
+      <div className="bg-[#0F172A] text-white/60">
         <div className="max-w-7xl mx-auto px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs">
           <p>© 2026 Digital Cultural katalog Heritage</p>
           <div className="flex items-center gap-4">
-            <Link
-              href="#"
-              className="hover:text-white transition-colors duration-200"
-            >
-              Kebijakan Privasi
-            </Link>
+            <Link href="#" className="hover:text-white transition-colors">Kebijakan Privasi</Link>
             <span className="text-white/30">·</span>
-            <Link
-              href="#"
-              className="hover:text-white transition-colors duration-200"
-            >
-              Syarat &amp; Ketentuan
-            </Link>
+            <Link href="#" className="hover:text-white transition-colors">Syarat &amp; Ketentuan</Link>
           </div>
         </div>
       </div>
