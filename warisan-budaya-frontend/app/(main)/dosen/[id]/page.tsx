@@ -12,6 +12,9 @@ import type { TabType, SortType, Category } from "./types";
 import { initialCategories, dummyProfileData } from "./data";
 import ProfileTable from "./_components/ProfileTable";
 import PublicationCard from "./_components/PublicationCard";
+import { DosenSidebar } from "./_components/DosenSidebar";
+import PublicationTrendChart from "./_components/PublicationTrendChart";
+import ResearchBarChart from "./_components/ResearchBarChart";
 
 export default function DosenProfilePage() {
   const params = useParams();
@@ -31,6 +34,7 @@ export default function DosenProfilePage() {
   const [sortBy, setSortBy] = useState<SortType>("year-desc");
   const [categories, setCategories] = useState<Category[]>(initialCategories);
   const [activeSubCategory, setActiveSubCategory] = useState<string>(defaultSubCategoryId);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   const isOwner = false; // Public view only
 
@@ -42,6 +46,12 @@ export default function DosenProfilePage() {
   if (isLoading) return <Loading />;
 
   const profileData = dummyProfileData;
+
+  const totalPublications = profileData.publications.length;
+  const totalCitations = profileData.publications.reduce((acc, p) => acc + (p.citations || 0), 0);
+  const bimbinganCount =
+    categories.find((c) => c.id === "pelaksanaan-pendidikan")?.subCategories.find((s) => s.id === "bimbingan-mahasiswa")?.rows.length ?? 0;
+  const researchCount = profileData.publications.filter((p) => /research|journal/i.test(p.type)).length;
 
   const sortedPublications = [...profileData.publications].sort((a, b) => {
     if (sortBy === "year-desc") return b.year - a.year;
@@ -85,75 +95,16 @@ export default function DosenProfilePage() {
 
   return (
     <div className="relative min-h-screen bg-[#F5F5F5] pb-20">
-      <aside className="fixed left-0 top-[57px] z-40 hidden h-[calc(100vh-57px)] w-[260px] flex-col border-r border-slate-200 bg-white shadow-xl lg:flex">
-        <div className="border-b border-slate-100 bg-gradient-to-r from-[#0F172A] to-[#1E40AF] px-4 py-3">
-          <div className="flex items-center gap-2">
-            <div className="flex h-6 w-6 items-center justify-center rounded bg-white/10">
-              <BookOpen className="h-3.5 w-3.5 text-white" />
-            </div>
-            <span className="text-xs font-medium uppercase tracking-wider text-white/70">
-              Menu Kategori
-            </span>
-          </div>
-        </div>
-
-        <nav className="flex-1 overflow-y-auto px-3 py-3">
-          <ul className="space-y-1">
-            {categories.map((cat) => {
-              const isCategoryActive = activeTab === cat.id;
-              return (
-                <li key={cat.id}>
-                  <button
-                    onClick={() => {
-                      setActiveTab(cat.id);
-                      const firstVisible = cat.subCategories.find((sub) => sub.visible || isOwner);
-                      if (firstVisible) {
-                        setActiveSubCategory(firstVisible.id);
-                      }
-                    }}
-                    className={`group flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-all duration-200 ${
-                      isCategoryActive
-                        ? "bg-[#1E40AF] text-white shadow-sm"
-                        : "text-slate-600 hover:bg-slate-100 hover:text-slate-800"
-                    }`}
-                  >
-                    <span className={`flex h-7 w-7 items-center justify-center rounded-md ${
-                      isCategoryActive
-                        ? "bg-white/15 text-white"
-                        : "bg-slate-100 text-slate-500 group-hover:bg-blue-50 group-hover:text-[#1E40AF]"
-                    }`}>
-                      {cat.icon}
-                    </span>
-                    <span className="flex-1 text-left font-semibold">{cat.label}</span>
-                  </button>
-
-                  {isCategoryActive && (
-                    <ul className="mt-1 ml-5 space-y-1 border-l border-slate-200 pl-3 pb-1">
-                      {activeCategory?.subCategories.filter((sub) => sub.visible || isOwner).map((sub) => {
-                        const isActive = activeSub?.id === sub.id;
-                        return (
-                          <li key={sub.id}>
-                            <button
-                              onClick={() => setActiveSubCategory(sub.id)}
-                              className={`flex w-full items-center justify-between rounded-md px-3 py-1.5 text-xs transition-all duration-200 ${
-                                isActive
-                                  ? "bg-blue-50 text-[#1E40AF] font-semibold"
-                                  : "text-slate-500 hover:bg-slate-50 hover:text-slate-700"
-                              }`}
-                            >
-                              <span>{sub.label}</span>
-                            </button>
-                          </li>
-                        );
-                      })}
-                    </ul>
-                  )}
-                </li>
-              );
-            })}
-          </ul>
-        </nav>
-      </aside>
+      <DosenSidebar
+        categories={categories}
+        activeTab={activeTab}
+        activeSubCategory={activeSubCategory}
+        setActiveTab={setActiveTab}
+        setActiveSubCategory={setActiveSubCategory}
+        isOwner={isOwner}
+        isOpen={isSidebarOpen}
+        setIsOpen={setIsSidebarOpen}
+      />
 
       <div className="w-full bg-white py-3 border-b border-slate-100 text-center text-sm md:text-[15px] font-medium relative z-20">
         <span className="text-[#1E40AF] hover:underline cursor-pointer">Universitas Udayana</span>
@@ -217,73 +168,84 @@ export default function DosenProfilePage() {
         </div>
       </div>
 
-      <div className="relative z-10 pt-8 pb-12 px-4 sm:px-6 lg:pl-[280px] lg:pr-8">
+      <div className={`relative z-10 pt-8 pb-12 px-4 sm:px-6 lg:pr-8 ${isSidebarOpen ? "lg:pl-[280px]" : "lg:pl-4"}`}>
         {activeTab === "overview" && (
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <div className="space-y-6">
-              <div className="bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden">
-                <div className="pb-2 pt-5 px-6 border-b border-slate-50 mb-4">
-                  <h2 className="text-base font-bold text-slate-800 flex items-center gap-2">
-                    <BarChart2 className="w-5 h-5 text-slate-700" /> Metrik Peneliti
-                  </h2>
-                </div>
-                <div className="px-6 pb-6">
-                  <div className="grid grid-cols-2 gap-4">
-                    {[
-                      { label: "SINTA SCORE\nOVERALL", value: profileData.metrics.sintaOverall, large: true },
-                      { label: "SINTA SCORE\n3YR", value: profileData.metrics.sinta3Yr, large: true },
-                      { label: "SCOPUS H-\nINDEX", value: profileData.metrics.scopusHIndex, large: false },
-                      { label: "WOS H-INDEX\n\u00a0", value: profileData.metrics.wosHIndex, large: false },
-                    ].map((m, i) => (
-                      <div key={i} className="bg-[#F8FAFC] border border-slate-100 rounded-lg p-4 flex flex-col items-center justify-center text-center">
-                        <span className="text-[10px] text-slate-400 font-bold tracking-wider mb-2 whitespace-pre-line">{m.label}</span>
-                        <span className={`font-bold text-slate-800 ${m.large ? "text-2xl" : "text-xl"}`}>{m.value}</span>
-                      </div>
-                    ))}
+          <div className="space-y-6">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              <div className="lg:col-span-2">
+                <div className="bg-white rounded-xl shadow-sm border border-slate-100 p-6 flex gap-6 items-start">
+                  <div className="flex-shrink-0">
+                    <div className="w-28 h-28 rounded-full bg-[#0088CC] flex items-center justify-center text-white text-4xl overflow-hidden">
+                      <img src={profileData.imageUrl} alt={profileData.name} className="w-full h-full object-cover rounded-full" />
+                    </div>
+                  </div>
+                  <div className="flex-1">
+                    <h1 className="text-2xl font-bold text-slate-800">{profileData.name}</h1>
+                    <p className="text-sm text-slate-500 mt-2">{profileData.program} • {profileData.university}</p>
+                    <p className="mt-4 text-slate-600">{profileData.tags.join(' • ')}</p>
                   </div>
                 </div>
               </div>
-
-              <div className="bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden">
-                <div className="pb-4 pt-5 px-6">
-                  <h2 className="text-base font-bold text-slate-800 flex items-center gap-2">
-                    <TrendingUp className="w-5 h-5 text-slate-700" /> Aktivitas Terbaru
-                  </h2>
-                </div>
-                <div className="px-8 pb-8">
-                  <div className="relative border-l-2 border-slate-200 ml-4 mt-2 space-y-8">
-                    {profileData.activities.map((act, idx) => (
-                      <div key={idx} className="relative pl-6">
-                        <div className="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-slate-700 border-4 border-white shadow-sm" />
-                        <div className="flex items-center gap-3">
-                          <span className="text-lg font-bold text-slate-700">{act.year}</span>
-                          <div className="bg-slate-100 rounded px-2 py-1 flex items-center gap-1 border border-slate-200">
-                            <span className="text-sm font-bold text-slate-600">{act.count}</span>
-                            <span className="text-[10px] text-slate-500 font-medium">Publikasi</span>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
+              <div>
+                <div className="bg-white rounded-xl shadow-sm border border-slate-100 p-4">
+                  <h3 className="text-sm font-semibold text-slate-700 mb-3">ID Akademik & Eksternal</h3>
+                  <ul className="text-sm text-slate-500 space-y-2">
+                    <li>SIWADA ID: <strong className="text-slate-700">{profileData.SiwadaId}</strong></li>
+                    <li>Scopus ID: <span className="text-slate-700">—</span></li>
+                    <li>Google Scholar: <span className="text-slate-700">—</span></li>
+                    <li>ORCID: <span className="text-slate-700">—</span></li>
+                  </ul>
                 </div>
               </div>
             </div>
 
-            <div className="lg:col-span-2">
-              <div className="bg-white rounded-xl shadow-sm border border-slate-100">
-                <div className="flex flex-row items-center justify-between pb-4 pt-5 px-6 border-b border-slate-50 mb-2">
-                  <h2 className="text-base font-bold text-slate-800 flex items-center gap-2">
-                    <FileText className="w-5 h-5 text-slate-700" /> Publikasi Terbaru
-                  </h2>
-                  <button onClick={() => setActiveTab("publications")} className="text-sm text-slate-700 hover:text-slate-900 font-semibold flex items-center gap-1">
-                    Lihat Semua <ChevronRight className="w-4 h-4" />
-                  </button>
-                </div>
-                <div className="px-6 pb-6 pt-2 space-y-4">
-                  {sortedPublications.slice(0, 3).map((pub) => (
-                    <PublicationCard key={pub.id} pub={pub} />
-                  ))}
-                </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4">
+              <div className="col-span-1 sm:col-span-2 lg:col-span-1 bg-white rounded-xl border border-slate-100 p-4 shadow-sm">
+                <p className="text-xs text-slate-500">Total Publikasi</p>
+                <div className="text-2xl font-bold text-slate-800">{totalPublications}</div>
+              </div>
+              <div className="col-span-1 sm:col-span-2 lg:col-span-1 bg-white rounded-xl border border-slate-100 p-4 shadow-sm">
+                <p className="text-xs text-slate-500">Total Sitasi</p>
+                <div className="text-2xl font-bold text-slate-800">{totalCitations}</div>
+              </div>
+              <div className="col-span-1 sm:col-span-2 lg:col-span-1 bg-white rounded-xl border border-slate-100 p-4 shadow-sm">
+                <p className="text-xs text-slate-500">Bimbingan Mhs</p>
+                <div className="text-2xl font-bold text-slate-800">{bimbinganCount}</div>
+              </div>
+              <div className="col-span-1 sm:col-span-2 lg:col-span-1 bg-white rounded-xl border border-slate-100 p-4 shadow-sm">
+                <p className="text-xs text-slate-500">Skor SINTA 3Thn</p>
+                <div className="text-2xl font-bold text-slate-800">{profileData.metrics.sinta3Yr}</div>
+              </div>
+              <div className="col-span-1 sm:col-span-2 lg:col-span-1 bg-white rounded-xl border border-slate-100 p-4 shadow-sm">
+                <p className="text-xs text-slate-500">Skor SINTA Total</p>
+                <div className="text-2xl font-bold text-slate-800">{profileData.metrics.sintaOverall}</div>
+              </div>
+              <div className="col-span-1 sm:col-span-2 lg:col-span-1 bg-white rounded-xl border border-slate-100 p-4 shadow-sm">
+                <p className="text-xs text-slate-500">Penelitian</p>
+                <div className="text-2xl font-bold text-slate-800">{researchCount}</div>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              <div className="lg:col-span-2 bg-white rounded-xl border border-slate-100 p-4 shadow-sm">
+                <h4 className="text-sm font-semibold text-slate-700 mb-3">Tren Publikasi & Sitasi</h4>
+                <PublicationTrendChart data={profileData.activities.map(a => ({ year: Number(a.year), count: a.count }))} />
+              </div>
+              <div className="bg-white rounded-xl border border-slate-100 p-4 shadow-sm">
+                <h4 className="text-sm font-semibold text-slate-700 mb-3">Penelitian & Pengabdian</h4>
+                <ResearchBarChart publications={profileData.publications} />
+              </div>
+            </div>
+
+            <div className="bg-white rounded-xl border border-slate-100 p-4 shadow-sm">
+              <div className="flex items-center justify-between mb-3">
+                <h3 className="text-base font-bold text-slate-800">Publikasi Terbaru</h3>
+                <button onClick={() => setActiveTab("publications")} className="text-sm text-slate-700 font-semibold">Lihat semua</button>
+              </div>
+              <div className="space-y-3">
+                {sortedPublications.slice(0, 5).map((pub) => (
+                  <PublicationCard key={pub.id} pub={pub} />
+                ))}
               </div>
             </div>
           </div>
