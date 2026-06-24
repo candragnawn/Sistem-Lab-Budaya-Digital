@@ -30,14 +30,13 @@ export default function DosenProfilePage() {
     "pendidikan-formal";
 
   const [isLoading, setIsLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState<TabType>(defaultCategoryId);
+  const [activeTab, setActiveTab] = useState<TabType>("overview");
   const [sortBy, setSortBy] = useState<SortType>("year-desc");
   const [categories, setCategories] = useState<Category[]>(initialCategories);
   const [activeSubCategory, setActiveSubCategory] = useState<string>(defaultSubCategoryId);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
-  const isOwner = false; // Public view only
-
+  const isOwner = false; 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 1500);
     return () => clearTimeout(timer);
@@ -90,7 +89,6 @@ export default function DosenProfilePage() {
 
   const tabs: { key: TabType; label: string; count?: number }[] = [
     { key: "overview", label: "Ringkasan (Overview)" },
-    { key: "publications", label: "Publikasi", count: profileData.publications.length },
   ];
 
   return (

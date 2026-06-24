@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BookOpen, ChevronDown, ChevronRight, Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { Category } from "../types";
@@ -38,8 +38,21 @@ export function DosenSidebar({
     );
   };
 
+  const hasVisibleSubs = (category: Category) =>
+    category.subCategories.some((sub) => sub.visible || isOwner);
+
   const isCategoryActive = (categoryId: string) => activeTab === categoryId;
   const isSubActive = (subId: string) => activeSubCategory === subId;
+
+  useEffect(() => {
+    const activeCategory = categories.find((cat) => cat.id === activeTab);
+
+    if (activeCategory && hasVisibleSubs(activeCategory)) {
+      setExpandedItems((prev) =>
+        prev.includes(activeTab) ? prev : [...prev, activeTab],
+      );
+    }
+  }, [activeTab, categories, isOwner]);
 
   return (
     <>
@@ -85,16 +98,15 @@ export function DosenSidebar({
             {categories.map((category) => {
               const activeParent = isCategoryActive(category.id);
               const visibleSubs = category.subCategories.filter((sub) => sub.visible || isOwner);
-              const showSubs = activeParent || expandedItems.includes(category.id);
+              const showSubs = expandedItems.includes(category.id);
 
               return (
                 <li key={category.id}>
                   <button
                     type="button"
                     onClick={() => {
-                      setActiveTab(category.id);
-                      if (visibleSubs.length > 0) {
-                        setActiveSubCategory(visibleSubs[0].id);
+                      if (visibleSubs.length === 0) {
+                        setActiveTab(category.id);
                       }
                       toggleExpanded(category.id);
                     }}
@@ -105,7 +117,7 @@ export function DosenSidebar({
                         : "text-slate-700 hover:bg-slate-100 hover:text-slate-900",
                     )}
                   >
-                    <span
+                    <span 
                       className={cn(
                         "flex h-7 w-7 items-center justify-center rounded-md transition-colors",
                         activeParent
@@ -124,27 +136,35 @@ export function DosenSidebar({
                     />
                   </button>
 
-                  {showSubs && visibleSubs.length > 0 && (
-                    <ul className="mt-1 ml-5 space-y-1 border-l border-slate-200 pl-3 pb-2">
-                      {visibleSubs.map((sub) => (
-                        <li key={sub.id}>
-                          <button
-                            type="button"
-                            onClick={() => setActiveSubCategory(sub.id)}
-                            className={cn(
-                              "flex w-full items-center justify-between rounded-md px-3 py-1.5 text-xs transition-all duration-200",
-                              isSubActive(sub.id)
-                                ? "bg-blue-50 text-[#1E40AF] font-semibold"
-                                : "text-slate-500 hover:bg-slate-50 hover:text-slate-700",
-                            )}
-                          >
-                            <span>{sub.label}</span>
-                            <ChevronRight className="h-3.5 w-3.5 text-slate-400" />
-                          </button>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
+                  <div className={cn(
+                    "overflow-hidden transition-all duration-300",
+                    showSubs ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0",
+                  )}>
+                    {visibleSubs.length > 0 && (
+                      <ul className="mt-1 ml-5 space-y-1 border-l border-slate-200 pl-3 pb-2">
+                        {visibleSubs.map((sub) => (
+                          <li key={sub.id}>
+                            <button
+                              type="button"
+                            onClick={() => {
+                              setActiveTab(category.id);
+                              setActiveSubCategory(sub.id);
+                            }}
+                              className={cn(
+                                "flex w-full items-center justify-between rounded-md px-3 py-1.5 text-xs transition-all duration-200",
+                                isSubActive(sub.id)
+                                  ? "bg-blue-50 text-[#1E40AF] font-semibold"
+                                  : "text-slate-500 hover:bg-slate-50 hover:text-slate-700",
+                              )}
+                            >
+                              <span>{sub.label}</span>
+                              <ChevronRight className="h-3.5 w-3.5 text-slate-400" />
+                            </button>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
                 </li>
               );
             })}

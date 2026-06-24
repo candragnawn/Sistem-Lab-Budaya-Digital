@@ -385,7 +385,7 @@ export const initialCategories: Category[] = [
 ];
 export const dummyProfileData: ProfileData = {
   name: "Prof. Dr. Ivan Ganteng, S.cin",
-  imageUrl: "/ivan-profile.png",
+  imageUrl: "/ivankeren.jpeg",
   university: "Universitas Udayana",
   program: "Fakultas Informatika",
   SiwadaId: "0001196801",
