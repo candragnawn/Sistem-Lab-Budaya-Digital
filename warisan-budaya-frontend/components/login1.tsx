@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
+import api from "@/lib/axios";
 
 interface Login1Props {
   heading?: string;
@@ -48,25 +49,42 @@ const Login1 = ({
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
     setIsLoading(true);
 
-    setTimeout(() => {
-      if (
-        email === DUMMY_ACCOUNT.email &&
-        password === DUMMY_ACCOUNT.password
-      ) {
-        localStorage.setItem("user", JSON.stringify(DUMMY_ACCOUNT.user));
+    try {
+      const response = await api.post("/login", {
+        email,
+        password,
+      });
+
+      if (response.data && response.data.data) {
+        const userData = response.data.data;
+        // Simpan data dari UserResource
+        localStorage.setItem("user", JSON.stringify({
+          id: userData.id,
+          name: userData.nama,
+          email: userData.email,
+          role: "Dosen", // Default role
+          photo: userData.avatar_path || "/ivan-profile.png",
+          access_token: userData.access_token
+        }));
+        
         document.documentElement.classList.add("is-logged-in");
         window.dispatchEvent(new Event("auth-change"));
         router.push("/dashboard/profil");
-      } else {
-        setError("Email atau password salah. Gunakan ivan@gmail.com / 123456");
-        setIsLoading(false);
       }
-    }, 800);
+    } catch (err: any) {
+      if (err.response && err.response.data && err.response.data.message) {
+        setError(err.response.data.message);
+      } else {
+        setError("Email atau password salah.");
+      }
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (

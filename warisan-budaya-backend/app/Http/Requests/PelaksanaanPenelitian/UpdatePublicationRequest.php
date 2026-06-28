@@ -26,7 +26,7 @@ class UpdatePublicationRequest extends FormRequest
             'doi' => 'nullable|string|max:255',
             'is_verified' => 'required|boolean',
             'year' => 'nullable|string|max:255',
-            'url' => 'required|file|mimes:pdf|max:2048',
+            'url' => 'nullable|file|mimes:pdf|max:2048',
         ];
     }
 }

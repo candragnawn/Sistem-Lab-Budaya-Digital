@@ -45,3 +45,8 @@ install redis : https://www.youtube.com/watch?v=JhWorLlO3jU
 pertama install wsl windows, baru ikutin langkah ini : https://redis.io/docs/latest/operate/oss_and_stack/install/archive/install-redis/install-redis-on-windows/
 
 baru kalok udah selesai install jalanin redis nya di ubuntu pake perintah : `sudo service redis-server start`
+
+
+di frontend :
+lib yg ku tambah :
+- SWR + Axios

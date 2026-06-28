@@ -59,7 +59,7 @@ const Navbar1 = ({
     url: "/",
     src: "/SIWADA.svg",
     alt: "logo",
-    title: "DIGICULT  ",
+    title: "Digital Culture Heritage Website",
   },
   menu = [
     { title: "Home", url: "/" },

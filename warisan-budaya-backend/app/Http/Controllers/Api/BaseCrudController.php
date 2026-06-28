@@ -660,11 +660,26 @@ abstract class BaseCrudController extends Controller
 
     protected function rememberCache(string $key, \Closure $callback)
     {
-        return Cache::tags([app($this->model)->getTable()])->remember($key, 86400, $callback);
+        try {
+            if (Cache::getStore() instanceof \Illuminate\Cache\TaggableStore || method_exists(Cache::getStore(), 'tags')) {
+                return Cache::tags([app($this->model)->getTable()])->remember($key, 86400, $callback);
+            }
+        } catch (\Exception $e) {
+            // Fallback
+        }
+        return Cache::remember($key, 86400, $callback);
     }
 
     protected function flushCache(): void
     {
-        Cache::tags([app($this->model)->getTable()])->flush();
+        try {
+            if (Cache::getStore() instanceof \Illuminate\Cache\TaggableStore || method_exists(Cache::getStore(), 'tags')) {
+                Cache::tags([app($this->model)->getTable()])->flush();
+                return;
+            }
+        } catch (\Exception $e) {
+            // Fallback
+        }
+        Cache::flush();
     }
 }
