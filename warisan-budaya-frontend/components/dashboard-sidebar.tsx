@@ -33,7 +33,6 @@ const sidebarItems: SidebarItem[] = [
     icon: <User className="h-4 w-4" />,
     children: [
       { title: "Data Pribadi", href: "/dashboard/profil" },
-      { title: "Portofolio Publik", href: "/dashboard/portofolio-publik" },
       { title: "Inpassing", href: "/dashboard/profil/inpassing", badge: "SISTER" },
       { title: "Jabatan Fungsional", href: "/dashboard/profil/jabatan", badge: "DATA" },
       { title: "Kepangkatan", href: "/dashboard/profil/kepangkatan", badge: "SISTER" },

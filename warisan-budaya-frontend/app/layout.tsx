@@ -3,6 +3,7 @@ import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@/lib/utils";
 import { Navbar1 } from "@/components/navbar1";
+import { Toaster } from "sonner";
 
 const geist = Geist({ subsets: ['latin'], variable: '--font-sans' })
 const fontMono = Geist_Mono({
@@ -27,6 +28,7 @@ export default function RootLayout({
             <Navbar1 />
           </header>
           {children}
+          <Toaster richColors position="top-right" />
         </ThemeProvider>
       </body>
     </html>

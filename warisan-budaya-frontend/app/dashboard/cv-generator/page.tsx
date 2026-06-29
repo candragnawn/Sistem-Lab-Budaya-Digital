@@ -27,7 +27,7 @@ export default function CvGeneratorPage() {
   // Jika cvData berubah (baru digenerate), otomatis trigger print
   useEffect(() => {
     if (cvData && printRef.current && !isLoading) {
-      // Small delay to ensure component is fully rendered
+      
       setTimeout(() => {
         handlePrint();
       }, 500);
@@ -43,7 +43,7 @@ export default function CvGeneratorPage() {
       
       if (response.data.success) {
         setCvData(response.data.data);
-        setIsLoading(false); // <--- FIX: Akhiri loading setelah data diterima
+        setIsLoading(false); 
       } else {
         toast.error(response.data.message || "Gagal meng-generate CV");
         setIsLoading(false);
@@ -59,7 +59,7 @@ export default function CvGeneratorPage() {
     <div className="p-6">
       <div className="flex justify-between items-center mb-6">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">AI CV Generator</h1>
+          <h1 className="text-gray-600 text-2xl font-bold tracking-tight">AI CV Generator</h1>
           <p className="text-gray-500 text-sm mt-1">
             Satu klik untuk merangkum seluruh pengalaman Anda menjadi CV profesional.
           </p>
@@ -72,7 +72,7 @@ export default function CvGeneratorPage() {
             <FileText className="h-8 w-8 text-blue-600" />
           </div>
           
-          <h2 className="text-xl font-semibold mb-2">Siap Mencetak CV Anda?</h2>
+          <h2 className="text-xl text-gray-600 font-semibold mb-2">Siap Mencetak CV Anda?</h2>
           <p className="text-gray-600 mb-6 text-sm">
             Sistem akan otomatis mengambil data Profil, Pendidikan, Publikasi, dan Pengalaman Anda, lalu 
             menggunakan AI (Gemini) untuk menuliskan narasi profesional secara cerdas.
@@ -81,7 +81,7 @@ export default function CvGeneratorPage() {
           <Button 
             onClick={handleGenerate} 
             disabled={isLoading}
-            className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700"
+            className="w-full sm:w-auto bg-black-600 hover:bg-blue-700"
           >
             {isLoading ? (
               <>
@@ -98,7 +98,6 @@ export default function CvGeneratorPage() {
         </div>
       </div>
 
-      {/* Hidden render area for react-to-print */}
       <div className="hidden">
         {cvData && (
           <CanvaTemplate ref={printRef} data={cvData} />
