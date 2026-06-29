@@ -76,13 +76,24 @@ const sidebarItems: SidebarItem[] = [
     ],
   },
   {
+    title: "Pelaksanaan Penelitian",
+    href: "/dashboard/pelaksanaan-penelitian",
+    icon: <HandHeart className="h-4 w-4" />,
+    children: [
+      { title: "Penelitian", href: "/dashboard/pelaksanaan-penelitian/penelitian" },
+      { title: "Publikasi Karya", href: "/dashboard/pelaksanaan-penelitian/publikasi" },
+      { title: "HKI", href: "/dashboard/pelaksanaan-penelitian/hki" },
+    ],
+  },
+  {
     title: "Pelaksanaan Pengabdian",
     href: "/dashboard/pelaksanaan-pengabdian",
     icon: <HandHeart className="h-4 w-4" />,
     children: [
-      { title: "Penelitian", href: "/dashboard/pelaksanaan-pengabdian/penelitian" },
-      { title: "Publikasi Karya", href: "/dashboard/pelaksanaan-pengabdian/publikasi" },
-      { title: "HKI", href: "/dashboard/pelaksanaan-pengabdian/hki" },
+      { title: "Pengabdian", href: "/dashboard/pelaksanaan-pengabdian/pengabdian" },
+      { title: "Pembicara", href: "/dashboard/pelaksanaan-pengabdian/pembicara" },
+      { title: "Pengelola Jurnal", href: "/dashboard/pelaksanaan-pengabdian/pengelola-jurnal" },
+      { title: "Jabatan Struktural", href: "/dashboard/pelaksanaan-pengabdian/jabatan-struktural" },
     ],
   },
   {
@@ -91,8 +102,6 @@ const sidebarItems: SidebarItem[] = [
     icon: <Puzzle className="h-4 w-4" />,
     children: [
       { title: "Tugas Tambahan", href: "/dashboard/penunjang/tugas-tambahan" },
-      { title: "Manajer Jurnal", href: "/dashboard/penunjang/manajer-jurnal" },
-      { title: "Jabatan Struktural", href: "/dashboard/penunjang/jabatan-struktural" },
       { title: "Keanggotaan Profesi", href: "/dashboard/penunjang/keanggotaan" },
       { title: "Kegiatan Penunjang Lain", href: "/dashboard/penunjang/kegiatan-lain" },
       { title: "Beasiswa", href: "/dashboard/penunjang/beasiswa" },

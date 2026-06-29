@@ -110,7 +110,7 @@ export default function PenelitianPage() {
 
       <div className="flex items-center gap-2 text-sm">
         <Home className="h-4 w-4 text-gray-400" /><span className="text-gray-400">Ikhtisar</span><ChevronRight className="h-3 w-3 text-gray-400" />
-        <span className="text-brand-navy font-medium">Pelaksanaan Pengabdian</span><ChevronRight className="h-3 w-3 text-gray-400" /><span className="text-brand-navy/80 font-medium">Penelitian</span>
+        <span className="text-brand-navy font-medium">Pelaksanaan Penelitian</span><ChevronRight className="h-3 w-3 text-gray-400" /><span className="text-brand-navy/80 font-medium">Penelitian</span>
       </div>
 
       <div className="rounded-xl bg-white shadow-sm border border-gray-100 overflow-hidden">
