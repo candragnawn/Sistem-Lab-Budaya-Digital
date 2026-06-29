@@ -153,11 +153,15 @@ export default function PublikasiPage() {
           <table className="w-full text-sm">
             <thead><tr className="border-b border-gray-200 bg-gray-50/80">
               <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-400 w-12">No.</th>
-              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-400">Publikasi</th>
-              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-400">Jurnal/Sumber</th>
-              <th className="px-4 py-3 text-center text-xs font-medium uppercase tracking-wider text-gray-400">Kategori</th>
+              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-400 min-w-[450px] w-1/3">Publikasi</th>
+              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-400">Sumber</th>
+              <th className="px-4 py-3 text-center text-xs font-medium uppercase tracking-wider text-gray-400">Kuartil</th>
+              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-400 min-w-[340px] w-1/3">Nama Jurnal</th>
+              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-400">ISSN</th>
+              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-400">DOI</th>
               <th className="px-4 py-3 text-center text-xs font-medium uppercase tracking-wider text-gray-400">Tahun</th>
               <th className="px-4 py-3 text-center text-xs font-medium uppercase tracking-wider text-gray-400">Status</th>
+              <th className="px-4 py-3 text-center text-xs font-medium uppercase tracking-wider text-gray-400">URL</th>
               <th className="px-4 py-3 text-center text-xs font-medium uppercase tracking-wider text-gray-400 w-28">Aksi</th>
             </tr></thead>
             <tbody className="divide-y divide-gray-100">
@@ -165,19 +169,27 @@ export default function PublikasiPage() {
                 <tr key={item.id} className="hover:bg-gray-50/50">
                   <td className="px-4 py-4 text-gray-500 align-top">{idx + 1}</td>
                   <td className="px-4 py-4 align-top">
-                    <div className="font-medium text-gray-800">{item.judul}</div>
-                    <div className="text-xs text-gray-500 mt-1 uppercase">{item.tipe}</div>
+                    <div className="font-medium text-gray-800 leading-relaxed">{item.judul}</div>
+                    <div className="flex flex-wrap items-center gap-2 mt-2">
+                      <span className="text-[10px] font-bold tracking-wider text-brand-navy uppercase bg-brand-navy/10 px-2 py-0.5 rounded">{item.kategori}</span>
+                      <span className="text-[10px] font-medium text-gray-500 uppercase border border-gray-200 px-2 py-0.5 rounded">{item.tipe}</span>
+                    </div>
                   </td>
-                  <td className="px-4 py-4 align-top">
-                    <div className="text-gray-800 font-medium">{item.nama_jurnal} <span className="text-xs text-brand-navy font-bold">{item.kuartil}</span></div>
-                    <div className="text-xs text-gray-500 mt-1">Sumber: {item.sumber}</div>
-                  </td>
-                  <td className="px-4 py-4 text-center text-gray-600 align-top text-xs font-semibold">{item.kategori}</td>
-                  <td className="px-4 py-4 text-center text-gray-600 align-top font-mono">{item.tahun}</td>
+                  <td className="px-4 py-4 align-top text-gray-600">{item.sumber || "-"}</td>
+                  <td className="px-4 py-4 text-center align-top text-gray-600 font-bold text-brand-navy">{item.kuartil || "-"}</td>
+                  <td className="px-4 py-4 align-top text-gray-800">{item.nama_jurnal || "-"}</td>
+                  <td className="px-4 py-4 align-top text-gray-600 text-xs">{item.issn || "-"}</td>
+                  <td className="px-4 py-4 align-top text-gray-600 text-xs">{item.doi || "-"}</td>
+                  <td className="px-4 py-4 text-center align-top font-mono text-gray-600">{item.tahun}</td>
                   <td className="px-4 py-4 text-center align-top">
                     <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-[11px] font-medium ${item.status_verifikasi ? "bg-emerald-50 text-emerald-700" : "bg-gray-100 text-gray-600"}`}>
                       {item.status_verifikasi ? "Terverifikasi" : "Belum"}
                     </span>
+                  </td>
+                  <td className="px-4 py-4 text-center align-top">
+                    {item.url ? (
+                      <a href={item.url} target="_blank" rel="noreferrer" className="text-brand-navy hover:underline text-xs font-medium">Lihat</a>
+                    ) : "-"}
                   </td>
                   <td className="px-4 py-4 align-top">
                     <div className="flex items-center justify-center gap-1">
@@ -187,7 +199,7 @@ export default function PublikasiPage() {
                   </td>
                 </tr>
               ))}
-              {filteredData.length === 0 && <tr><td colSpan={7} className="px-4 py-12 text-center text-gray-500">{isLoading ? "Memuat data..." : "Tidak ada data Publikasi ditemukan."}</td></tr>}
+              {filteredData.length === 0 && <tr><td colSpan={11} className="px-4 py-12 text-center text-gray-500">{isLoading ? "Memuat data..." : "Tidak ada data Publikasi ditemukan."}</td></tr>}
             </tbody>
           </table>
         </div>

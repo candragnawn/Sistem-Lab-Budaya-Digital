@@ -60,16 +60,18 @@ const Login1 = ({
         password,
       });
 
-      if (response.data && response.data.data) {
-        const userData = response.data.data;
+      if (response.data) {
+        // Handle jika dibungkus 'data' atau jika langsung berwujud object
+        const userData = response.data.data || response.data;
+        
         // Simpan data dari UserResource
         localStorage.setItem("user", JSON.stringify({
-          id: userData.id,
-          name: userData.nama,
+          id: userData.id || userData.nama, // fallback
+          name: userData.nama || userData.name,
           email: userData.email,
           role: "Dosen", // Default role
           photo: userData.avatar_path || "/ivan-profile.png",
-          access_token: userData.access_token
+          access_token: userData.access_token || userData.token
         }));
         
         document.documentElement.classList.add("is-logged-in");

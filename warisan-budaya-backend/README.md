@@ -48,6 +48,7 @@ baru kalok udah selesai install jalanin redis nya di ubuntu pake perintah : `sud
 
 
 di frontend :
-lib yg ku tambah :
+lib yg ditamabah : 
 - SWR + Axios
 - react to print
+- Sonner (kesha)

@@ -21,7 +21,7 @@ class PublicationResource extends JsonResource
             'doi' => $this->doi,
             'status_verifikasi' => $this->is_verified,
             'tahun' => $this->year,
-            'url' => $this->url ? asset('storage/' . $this->url) : null,
+            'url' => $this->url ? (str_starts_with($this->url, 'http') ? $this->url : asset('storage/' . $this->url)) : null,
         ];
     }
 }

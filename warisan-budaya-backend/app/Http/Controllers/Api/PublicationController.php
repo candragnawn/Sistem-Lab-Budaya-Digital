@@ -39,17 +39,19 @@ class PublicationController extends BaseCrudController
             PublicationAuthor::create([
                 'lecturer_id' => $lecturerId,
                 'publication_id' => $newPublication->id,
-                'author_position' => $request->author_position,
+                'author_position' => $request->author_position ?? 'Penulis Pertama',
             ]); 
 
             DB::commit();
+            
+            $this->flushCache();
 
             return $this->successResponse($newPublication, 201);
         } catch (\Exception $e) {
             DB::rollBack();
             return response()->json([
                 'success' => false,
-                'message' => 'Gagal menyimpan data'
+                'message' => 'Gagal menyimpan data: ' . $e->getMessage()
             ], 500);
         }
     }
@@ -78,13 +80,16 @@ class PublicationController extends BaseCrudController
 
             DB::commit();
 
+            // Hapus cache agar perubahan data langsung ter-refresh
+            $this->flushCache();
+
             $this->loadRelations($publikasi);
             return $this->successResponse($publikasi);
         } catch (\Exception $e) {
             DB::rollBack();
             return response()->json([
                 'success' => false,
-                'message' => 'Gagal menyimpan data'
+                'message' => 'Gagal mengubah data: ' . $e->getMessage()
             ], 500);
         }
     }
