@@ -2,12 +2,54 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { CheckCircle, Search, Plus, Home, ChevronRight } from "lucide-react";
+import { CheckCircle, Search, Plus, Home, ChevronRight, RefreshCw, Pencil, Trash2 } from "lucide-react";
+import api from "@/lib/axios";
+import { toast } from "sonner";
+
+interface CommunityService {
+  id: number;
+  title: string;
+  scientific_field: string;
+  implementation_year: string;
+  duration: string;
+}
 
 export default function PengabdianPage() {
   const [user, setUser] = useState<{name: string; role: string; photo: string} | null>(null);
-  useEffect(() => { const s = localStorage.getItem("user"); if (s) setUser(JSON.parse(s)); }, []);
+  const [data, setData] = useState<CommunityService[]>([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => { 
+    const s = localStorage.getItem("user"); 
+    if (s) setUser(JSON.parse(s)); 
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    setIsLoading(true);
+    try {
+      const res = await api.get("/community-services");
+      if (res.data && res.data.data) {
+        setData(res.data.data);
+      } else {
+        setData([]);
+      }
+    } catch (err) {
+      console.error("Gagal mengambil data dari API", err);
+      toast.error("Gagal mengambil data Pengabdian");
+      setData([]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   if (!user) return null;
+
+  const filteredData = data.filter(i =>
+    (i.judul && i.judul.toLowerCase().includes(searchQuery.toLowerCase())) ||
+    (i.bidang_ilmu && i.bidang_ilmu.toLowerCase().includes(searchQuery.toLowerCase()))
+  );
 
   return (
     <div className="space-y-6">
@@ -38,14 +80,15 @@ export default function PengabdianPage() {
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <h2 className="text-lg font-semibold text-gray-800">Data Pengabdian</h2>
-              <p className="text-xs text-gray-500 mt-0.5">Daftar pelaksanaan pengabdian masyarakat</p>
+              <p className="text-xs text-gray-500 mt-0.5">{data.length} data pengabdian ditemukan</p>
             </div>
             <div className="flex items-center gap-2">
+              
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
-                <Input placeholder="Cari..." className="pl-9 h-9 text-sm w-56 border-gray-200" />
+                <Input placeholder="Cari judul..." className="pl-9 h-9 text-sm w-56 border-gray-200" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
               </div>
-              <Button size="sm" className="bg-brand-navy text-white hover:bg-brand-navy/90 text-xs gap-1.5"><Plus className="h-3.5 w-3.5" /> Tambah Data</Button>
+              <Button size="sm" className="bg-brand-navy text-white hover:bg-brand-navy/90 text-xs gap-1.5" onClick={() => toast.info("Fitur Tambah belum diaktifkan")}><Plus className="h-3.5 w-3.5" /> Tambah Data</Button>
             </div>
           </div>
         </div>
@@ -62,7 +105,26 @@ export default function PengabdianPage() {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100">
-              <tr><td colSpan={5} className="px-4 py-12 text-center text-gray-500">Belum ada data.</td></tr>
+              {filteredData.map((item, idx) => (
+                <tr key={item.id} className="hover:bg-gray-50/50">
+                  <td className="px-4 py-4 text-gray-500 align-top">{idx + 1}</td>
+                  <td className="px-4 py-4 align-top">
+                    <div className="font-medium text-gray-800">{item.judul}</div>
+                    <div className="text-xs text-gray-500 mt-1 uppercase">{item.bidang_ilmu}</div>
+                  </td>
+                  <td className="px-4 py-4 text-center text-gray-600 align-top font-mono">{item.tahun_pelaksanaan}</td>
+                  <td className="px-4 py-4 text-center text-gray-600 align-top">{item.durasi}</td>
+                  <td className="px-4 py-4 align-top">
+                    <div className="flex items-center justify-center gap-1">
+                      <button className="flex h-8 w-8 items-center justify-center rounded-lg text-gray-400 hover:bg-yellow-50 hover:text-yellow-600"><Pencil className="h-4 w-4" /></button>
+                      <button className="flex h-8 w-8 items-center justify-center rounded-lg text-gray-400 hover:bg-red-50 hover:text-red-600"><Trash2 className="h-4 w-4" /></button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+              {filteredData.length === 0 && (
+                <tr><td colSpan={5} className="px-4 py-12 text-center text-gray-500">{isLoading ? "Memuat data..." : "Belum ada data."}</td></tr>
+              )}
             </tbody>
           </table>
         </div>
