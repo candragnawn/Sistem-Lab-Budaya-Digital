@@ -53,6 +53,7 @@
     use App\Http\Controllers\Api\SourceSyncController;
     use App\Http\Controllers\Api\UserController;
     use App\Http\Controllers\Api\SyncController;
+    use App\Http\Controllers\Api\CvGeneratorController;
 
 
     // Auth — throttle ketat untuk mencegah brute-force
@@ -62,6 +63,9 @@
     });
 
     Route::middleware(['auth:sanctum', 'throttle:120,1'])->group(function () {
+
+        // CV Generator
+        Route::post('/cv/generate', [CvGeneratorController::class, 'generate']);
 
         // Auth
         Route::post('/logout', [AuthController::class, 'logout']);

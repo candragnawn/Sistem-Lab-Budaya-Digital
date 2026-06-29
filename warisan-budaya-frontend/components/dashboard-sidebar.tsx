@@ -118,6 +118,11 @@ const sidebarItems: SidebarItem[] = [
       { title: "Dokumen Pendukung", href: "/dashboard/data-dokumen/pendukung" },
     ],
   },
+  {
+    title: "CV Generator",
+    href: "/dashboard/cv-generator",
+    icon: <FileText className="h-4 w-4" />,
+  },
 ];
 
 interface DashboardSidebarProps {
@@ -128,7 +133,7 @@ interface DashboardSidebarProps {
 export function DashboardSidebar({ isOpen: controlledIsOpen, setIsOpen: controlledSetIsOpen }: DashboardSidebarProps = {}) {
   const pathname = usePathname();
   const [internalIsOpen, setInternalIsOpen] = useState(true);
-  
+
   const isOpen = controlledIsOpen !== undefined ? controlledIsOpen : internalIsOpen;
   const setIsOpen = controlledSetIsOpen !== undefined ? controlledSetIsOpen : setInternalIsOpen;
   const [expandedItems, setExpandedItems] = useState<string[]>(["Profil"]);
