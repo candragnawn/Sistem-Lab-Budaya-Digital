@@ -15,7 +15,8 @@ class StoreHKIRequest extends FormRequest
     {
         return [
             'lecturer_id' => 'nullable|exists:lecturers,id',
-            'hki_type' => 'nullable|string|max:255',
+            'type' => 'nullable|string|max:255',
+            'activity_category' => 'nullable|string|max:255',
             'title' => 'nullable|string|max:255',
             'quartile' => 'nullable|string|max:255',
             'certificate_number' => 'nullable|string|max:255',

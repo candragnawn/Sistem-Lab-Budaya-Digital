@@ -11,7 +11,8 @@ class HKI extends Model
     
     protected $fillable = [
         'lecturer_id',
-        'hki_type',
+        'type',
+        'activity_category',
         'title',
         'quartile',
         'certificate_number',

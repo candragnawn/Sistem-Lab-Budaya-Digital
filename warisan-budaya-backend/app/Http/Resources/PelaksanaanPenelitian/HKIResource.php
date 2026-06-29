@@ -4,6 +4,7 @@ namespace App\Http\Resources\PelaksanaanPenelitian;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Carbon\Carbon;
 
 class HKIResource extends JsonResource
 {
@@ -11,11 +12,11 @@ class HKIResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'jenis_hki' => $this->hki_type,
+            'jenis_hki' => $this->type,
             'judul' => $this->title,
             'quartil' => $this->quartile,
             'nomor_sertifikat' => $this->certificate_number,
-            'tanggal_terbit' => $this->publish_date,
+            'tanggal_terbit' => $this->publish_date ? Carbon::parse($this->publish_date)->format('Y-m-d') : null,
         ];
     }
 }
