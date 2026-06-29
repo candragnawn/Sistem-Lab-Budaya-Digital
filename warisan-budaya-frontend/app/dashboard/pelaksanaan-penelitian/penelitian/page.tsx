@@ -9,14 +9,14 @@ import { toast } from "sonner";
 
 interface DataModel {
   id: number;
-  status: string;
-  employment_bond: string;
-  unit: string;
-  university: string;
-  start_date: string;
+  research_title: string;
+  research_focus: string;
+  scientific_field: string;
+  implementation_year: string;
+  duration: string;
 }
 
-export default function PenempatanPage() {
+export default function PenelitianPage() {
   const [user, setUser] = useState<{name: string; role: string; photo: string} | null>(null);
   const [data, setData] = useState<DataModel[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -31,7 +31,7 @@ export default function PenempatanPage() {
   const fetchData = async () => {
     setIsLoading(true);
     try {
-      const res = await api.get("/placements");
+      const res = await api.get("/research");
       if (res.data && res.data.data) {
         setData(res.data.data);
       } else {
@@ -39,7 +39,7 @@ export default function PenempatanPage() {
       }
     } catch (err) {
       console.error("Gagal mengambil data dari API", err);
-      toast.error("Gagal mengambil data Penempatan");
+      toast.error("Gagal mengambil data Penelitian");
       setData([]);
     } finally {
       setIsLoading(false);
@@ -50,7 +50,7 @@ export default function PenempatanPage() {
 
   const filteredData = data.filter((i: any) => {
     const q = searchQuery.toLowerCase();
-    return (i.unit && String(i.unit).toLowerCase().includes(q)) || (i.universitas && String(i.universitas).toLowerCase().includes(q)) || (i.status && String(i.status).toLowerCase().includes(q)) || false;
+    return (i.research_title && String(i.research_title).toLowerCase().includes(q)) || (i.bidang_ilmu && String(i.bidang_ilmu).toLowerCase().includes(q)) || false;
   });
 
   return (
@@ -74,14 +74,14 @@ export default function PenempatanPage() {
 
       <div className="flex items-center gap-2 text-sm">
         <Home className="h-4 w-4 text-gray-400" /><span className="text-gray-400">Ikhtisar</span><ChevronRight className="h-3 w-3 text-gray-400" />
-        <span className="text-brand-navy font-medium">Profil</span><ChevronRight className="h-3 w-3 text-gray-400" /><span className="text-brand-navy/80 font-medium">Penempatan</span>
+        <span className="text-brand-navy font-medium">Pelaksanaan Penelitian</span><ChevronRight className="h-3 w-3 text-gray-400" /><span className="text-brand-navy/80 font-medium">Penelitian</span>
       </div>
 
       <div className="rounded-xl bg-white shadow-sm border border-gray-100 overflow-hidden">
         <div className="p-6 border-b border-gray-100">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <h2 className="text-lg font-semibold text-gray-800">Data Penempatan</h2>
+              <h2 className="text-lg font-semibold text-gray-800">Data Penelitian</h2>
               <p className="text-xs text-gray-500 mt-0.5">{data.length} data ditemukan</p>
             </div>
             <div className="flex items-center gap-2">
@@ -100,11 +100,11 @@ export default function PenempatanPage() {
             <thead>
               <tr className="border-b border-gray-200 bg-gray-50/80">
                 <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-400 w-12">No.</th>
-                <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-400">Status</th>
-                <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-400">Ikatan Kerja</th>
-                <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-400">Unit</th>
-                <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-400">Perguruan Tinggi</th>
-                <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-400">TMT Mulai</th>
+                <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-400">Judul Penelitian</th>
+                <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-400">Bidang Fokus</th>
+                <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-400">Bidang Ilmu</th>
+                <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-400">Tahun Pelaksanaan</th>
+                <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-400">Lama Kegiatan</th>
                 <th className="px-4 py-3 text-center text-xs font-medium uppercase tracking-wider text-gray-400 w-28">Aksi</th>
               </tr>
             </thead>
@@ -112,11 +112,11 @@ export default function PenempatanPage() {
               {filteredData.map((item: any, idx: number) => (
                 <tr key={item.id} className="hover:bg-gray-50/50">
                   <td className="px-4 py-4 text-gray-500 align-top">{idx + 1}</td>
-                  <td className="px-4 py-4 align-top text-gray-700">{item.status || "-"}</td>
-                  <td className="px-4 py-4 align-top text-gray-700">{item.ikatan_kerja || "-"}</td>
-                  <td className="px-4 py-4 align-top text-gray-700">{item.unit || "-"}</td>
-                  <td className="px-4 py-4 align-top text-gray-700">{item.universitas || "-"}</td>
-                  <td className="px-4 py-4 align-top text-gray-700">{item.tanggal_mulai || "-"}</td>
+                  <td className="px-4 py-4 align-top text-gray-700">{item.research_title || "-"}</td>
+                  <td className="px-4 py-4 align-top text-gray-700">{item.research_focus || "-"}</td>
+                  <td className="px-4 py-4 align-top text-gray-700">{item.bidang_ilmu || "-"}</td>
+                  <td className="px-4 py-4 align-top text-gray-700">{item.tahun_pelaksanaan || "-"}</td>
+                  <td className="px-4 py-4 align-top text-gray-700">{item.durasi || "-"}</td>
                   <td className="px-4 py-4 align-top">
                     <div className="flex items-center justify-center gap-1">
                       <button className="flex h-8 w-8 items-center justify-center rounded-lg text-gray-400 hover:bg-yellow-50 hover:text-yellow-600"><Pencil className="h-4 w-4" /></button>

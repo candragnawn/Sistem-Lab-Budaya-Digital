@@ -50,3 +50,4 @@ baru kalok udah selesai install jalanin redis nya di ubuntu pake perintah : `sud
 di frontend :
 lib yg ku tambah :
 - SWR + Axios
+- react to print
