@@ -3,16 +3,16 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { CheckCircle, Search, Plus, Home, ChevronRight, RefreshCw, Pencil, Trash2 } from "lucide-react";
+import { CheckCircle, Search, Plus, Home, ChevronRight, RefreshCw, Pencil, Trash2, X, FileText } from "lucide-react";
 import api from "@/lib/axios";
 import { toast } from "sonner";
 
 interface DataModel {
-  id: number;
-  rank_group: string;
-  decree_number: string;
-  effective_date: string;
-  notes: string;
+  id?: number;
+  golongan_kepangkatan: string;
+  nomor_sk: string;
+  tanggal_berlaku: string;
+  catatan: string;
 }
 
 export default function InpassingPage() {
@@ -20,6 +20,9 @@ export default function InpassingPage() {
   const [data, setData] = useState<DataModel[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [isSheetOpen, setIsSheetOpen] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formData, setFormData] = useState<Partial<DataModel>>({});
 
   useEffect(() => { 
     const s = localStorage.getItem("user"); 
@@ -43,6 +46,58 @@ export default function InpassingPage() {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const handleSave = async () => {
+    setIsSubmitting(true);
+    try {
+      const payload = {
+        rank_group: formData.golongan_kepangkatan,
+        decree_number: formData.nomor_sk,
+        effective_date: formData.tanggal_berlaku,
+        notes: formData.catatan,
+      };
+
+      if (formData.id) {
+        await api.put(`/inpassings/${formData.id}`, payload);
+        toast.success("Data Inpassing berhasil diubah");
+      } else {
+        await api.post("/inpassings", payload);
+        toast.success("Data Inpassing berhasil ditambahkan");
+      }
+
+      setIsSheetOpen(false);
+    } catch (error: any) {
+      const fieldErrors = error.response?.data?.errors;
+      const errorMessage = fieldErrors ? Object.values(fieldErrors).flat()[0] as string : (error.response?.data?.message || "Gagal menyimpan data");
+      toast.error(errorMessage);
+      console.error(error);
+    } finally {
+      setIsSubmitting(false);
+      fetchData();
+    }
+  };
+
+  const handleDelete = async (id: number) => {
+    if (confirm("Apakah Anda yakin ingin menghapus data ini?")) {
+      try {
+        await api.delete(`/inpassings/${id}`);
+        setData(data.filter(item => item.id !== id));
+        toast.success("Data berhasil dihapus");
+      } catch (error) {
+        toast.error("Gagal menghapus data");
+      }
+    }
+  };
+
+  const openSheetForAdd = () => {
+    setFormData({});
+    setIsSheetOpen(true);
+  };
+
+  const openSheetForEdit = (item: DataModel) => {
+    setFormData(item);
+    setIsSheetOpen(true);
   };
 
   if (!user) return null;
@@ -89,7 +144,7 @@ export default function InpassingPage() {
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
                 <Input placeholder="Cari..." className="pl-9 h-9 text-sm w-56 border-gray-200" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
               </div>
-              <Button size="sm" className="bg-brand-navy text-white hover:bg-brand-navy/90 text-xs gap-1.5" onClick={() => toast.info("Fitur Tambah belum diaktifkan")}><Plus className="h-3.5 w-3.5" /> Tambah Data</Button>
+              <Button size="sm" className="bg-brand-navy text-white hover:bg-brand-navy/90 text-xs gap-1.5" onClick={openSheetForAdd}><Plus className="h-3.5 w-3.5" /> Tambah Data</Button>
             </div>
           </div>
         </div>
@@ -116,8 +171,8 @@ export default function InpassingPage() {
                   <td className="px-4 py-4 align-top text-gray-700">{item.catatan || "-"}</td>
                   <td className="px-4 py-4 align-top">
                     <div className="flex items-center justify-center gap-1">
-                      <button className="flex h-8 w-8 items-center justify-center rounded-lg text-gray-400 hover:bg-yellow-50 hover:text-yellow-600"><Pencil className="h-4 w-4" /></button>
-                      <button className="flex h-8 w-8 items-center justify-center rounded-lg text-gray-400 hover:bg-red-50 hover:text-red-600"><Trash2 className="h-4 w-4" /></button>
+                      <button onClick={() => openSheetForEdit(item)} className="flex h-8 w-8 items-center justify-center rounded-lg text-gray-400 hover:bg-yellow-50 hover:text-yellow-600"><Pencil className="h-4 w-4" /></button>
+                      <button onClick={() => handleDelete(item.id)} className="flex h-8 w-8 items-center justify-center rounded-lg text-gray-400 hover:bg-red-50 hover:text-red-600"><Trash2 className="h-4 w-4" /></button>
                     </div>
                   </td>
                 </tr>
@@ -129,6 +184,78 @@ export default function InpassingPage() {
           </table>
         </div>
       </div>
+
+      {isSheetOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
+          <div className="w-full max-w-2xl bg-white rounded-xl shadow-2xl overflow-hidden flex flex-col max-h-[95vh]">
+            <div className="bg-brand-navy p-6 pt-8 text-white relative flex-shrink-0">
+              <button onClick={() => setIsSheetOpen(false)} className="absolute top-4 right-4 text-white/70 hover:text-white bg-white/10 hover:bg-white/20 p-2 rounded-lg transition-colors">
+                <X className="h-5 w-5" />
+              </button>
+              <div className="flex items-center gap-4">
+                <div className="bg-white/10 p-3 rounded-xl border border-white/20">
+                  <FileText className="h-6 w-6 text-brand-gold" />
+                </div>
+                <div>
+                  <h2 className="text-white text-xl font-semibold m-0">{formData.id ? "Edit Data Inpassing" : "Tambah Data Inpassing"}</h2>
+                  <p className="text-gray-300 mt-1 text-sm">Lengkapi detail golongan kepangkatan inpassing.</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="p-6 space-y-5 overflow-y-auto flex-1">
+              <div className="space-y-2">
+                <label className="text-xs font-bold text-gray-500 uppercase tracking-wide">Golongan / Pangkat <span className="text-red-500">*</span></label>
+                <Input 
+                  placeholder="Contoh: III/c (Penata)" 
+                  value={formData.golongan_kepangkatan || ""}
+                  onChange={(e) => setFormData({...formData, golongan_kepangkatan: e.target.value})}
+                  className="h-10 bg-white border border-gray-300 text-gray-900 focus-visible:ring-brand-navy/20 shadow-sm"
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <label className="text-xs font-bold text-gray-500 uppercase tracking-wide">Nomor SK <span className="text-red-500">*</span></label>
+                  <Input 
+                    placeholder="Contoh: 123/SK/2023"
+                    value={formData.nomor_sk || ""}
+                    onChange={(e) => setFormData({...formData, nomor_sk: e.target.value})}
+                    className="h-10 bg-white border border-gray-300 text-gray-900 focus-visible:ring-brand-navy/20 shadow-sm"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <label className="text-xs font-bold text-gray-500 uppercase tracking-wide">Tanggal Berlaku (TMT) <span className="text-red-500">*</span></label>
+                  <Input 
+                    type="date"
+                    value={formData.tanggal_berlaku || ""}
+                    onChange={(e) => setFormData({...formData, tanggal_berlaku: e.target.value})}
+                    className="h-10 bg-white border border-gray-300 text-gray-900 focus-visible:ring-brand-navy/20 shadow-sm"
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-xs font-bold text-gray-500 uppercase tracking-wide">Catatan</label>
+                <Input 
+                  placeholder="Tambahkan catatan jika ada"
+                  value={formData.catatan || ""}
+                  onChange={(e) => setFormData({...formData, catatan: e.target.value})}
+                  className="h-10 bg-white border border-gray-300 text-gray-900 focus-visible:ring-brand-navy/20 shadow-sm"
+                />
+              </div>
+            </div>
+
+            <div className="bg-gray-50 p-6 flex items-center justify-end gap-3 flex-shrink-0 border-t border-gray-100">
+              <Button variant="outline" onClick={() => setIsSheetOpen(false)} className="h-10 bg-white" disabled={isSubmitting}>Batal</Button>
+              <Button onClick={handleSave} disabled={isSubmitting} className="h-10 bg-brand-navy hover:bg-brand-navy/90 text-white px-8">
+                {isSubmitting ? "Menyimpan..." : "Simpan Data"}
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

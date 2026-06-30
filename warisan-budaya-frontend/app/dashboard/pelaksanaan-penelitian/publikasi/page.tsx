@@ -27,6 +27,7 @@ export default function PublikasiPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [isSheetOpen, setIsSheetOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState<Partial<Publication>>({});
 
   useEffect(() => {
@@ -53,6 +54,7 @@ export default function PublikasiPage() {
   };
 
   const handleSave = async () => {
+    setIsSubmitting(true);
     try {
       // Map nama field Indonesia ke nama kolom database untuk dikirim ke backend
       const payload = {
@@ -82,6 +84,7 @@ export default function PublikasiPage() {
       toast.error("Gagal menyimpan data");
       console.error(error);
     } finally {
+      setIsSubmitting(false);
       // Selalu refresh data dari server agar UI sinkron dengan database
       fetchData();
     }
@@ -319,8 +322,10 @@ export default function PublikasiPage() {
             </div>
 
             <div className="p-6 border-t border-gray-100 bg-gray-50 flex justify-end gap-3 rounded-b-xl flex-shrink-0">
-              <Button variant="outline" onClick={() => setIsSheetOpen(false)} className="bg-white border-gray-300 text-gray-700 hover:bg-gray-50">Batal</Button>
-              <Button onClick={handleSave} className="bg-brand-navy hover:bg-brand-navy/90 text-white">Simpan Data</Button>
+              <Button variant="outline" onClick={() => setIsSheetOpen(false)} className="bg-white border-gray-300 text-gray-700 hover:bg-gray-50" disabled={isSubmitting}>Batal</Button>
+              <Button onClick={handleSave} disabled={isSubmitting} className="bg-brand-navy hover:bg-brand-navy/90 text-white">
+                {isSubmitting ? "Menyimpan..." : "Simpan Data"}
+              </Button>
             </div>
           </div>
         </div>

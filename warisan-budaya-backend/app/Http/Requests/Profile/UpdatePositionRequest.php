@@ -11,14 +11,22 @@ class UpdatePositionRequest extends FormRequest
         return true;
     }
 
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'civil_servant_status' => $this->input('civil_servant_status', '-'),
+        ]);
+    }
+
     public function rules(): array
     {
         return [
             'lecturer_id' => 'nullable|exists:lecturers,id',
-            'position_name' => 'nullable|string|max:255',
-            'sk_number' => 'nullable|string|max:255',
-            'sk_date' => 'nullable|string|max:255',
-            'tmt' => 'nullable|string|max:255',
+            'functional_position' => 'nullable|string|max:255',
+            'decree_number' => 'nullable|string|max:255',
+            'decree_date' => 'nullable|date',
+            'effective_date' => 'nullable|date',
+            'civil_servant_status' => 'nullable|string|max:255',
         ];
     }
 }

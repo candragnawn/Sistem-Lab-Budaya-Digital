@@ -21,6 +21,7 @@ export default function PembicaraPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [isSheetOpen, setIsSheetOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState<Partial<Pembicara>>({});
 
   useEffect(() => {
@@ -47,6 +48,7 @@ export default function PembicaraPage() {
   };
 
   const handleSave = async () => {
+    setIsSubmitting(true);
     try {
       const payload = {
         activity_category: formData.kategori_kegiatan,
@@ -71,6 +73,7 @@ export default function PembicaraPage() {
       toast.error(errorMessage);
       console.error(error);
     } finally {
+      setIsSubmitting(false);
       fetchData();
     }
   };
@@ -260,8 +263,10 @@ export default function PembicaraPage() {
             </div>
 
             <div className="bg-gray-50 p-6 flex items-center justify-end gap-3 flex-shrink-0 border-t border-gray-100">
-              <Button variant="outline" onClick={() => setIsSheetOpen(false)} className="h-10 bg-white">Batal</Button>
-              <Button onClick={handleSave} className="h-10 bg-brand-navy hover:bg-brand-navy/90 text-white px-8">Simpan Data</Button>
+              <Button variant="outline" onClick={() => setIsSheetOpen(false)} className="h-10 bg-white" disabled={isSubmitting}>Batal</Button>
+              <Button onClick={handleSave} disabled={isSubmitting} className="h-10 bg-brand-navy hover:bg-brand-navy/90 text-white px-8">
+                {isSubmitting ? "Menyimpan..." : "Simpan Data"}
+              </Button>
             </div>
           </div>
         </div>
