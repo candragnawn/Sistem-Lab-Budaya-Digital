@@ -74,6 +74,17 @@ class User extends Authenticatable
                 }
             }
         });
+        static::created(function ($user) {
+            $lecturer = Lecturer::firstOrCreate(
+                ['email' => $user->email],
+                ['name' => $user->name]
+            );
+            
+            //nyambungin lecturer id
+            $user->lecturer_id = $lecturer->id;
+            $user->save();
+        });
+
         static::deleted(function ($user) {
             if ($user->avatar_path) {
                 Storage::disk('public')->delete($user->avatar_path);
