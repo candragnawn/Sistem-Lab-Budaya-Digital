@@ -75,7 +75,7 @@ export default function CvGeneratorPage() {
           <h2 className="text-xl text-gray-600 font-semibold mb-2">Siap Mencetak CV Anda?</h2>
           <p className="text-gray-600 mb-6 text-sm">
             Sistem akan otomatis mengambil data Profil, Pendidikan, Publikasi, dan Pengalaman Anda, lalu 
-            menggunakan AI (Gemini) untuk menuliskan narasi profesional secara cerdas.
+            menggunakan AI untuk menuliskan narasi profesional secara cerdas.
           </p>
           
           <Button 

@@ -12,6 +12,7 @@ class HKIResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'kategori_kegiatan' => $this->activity_category,
             'jenis_hki' => $this->type,
             'judul' => $this->title,
             'quartil' => $this->quartile,
