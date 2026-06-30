@@ -52,7 +52,7 @@ export default function PengabdianPage() {
         title: formData.judul,
         scientific_field: formData.bidang_ilmu,
         implementation_year: formData.tahun_pelaksanaan,
-        duration: parseInt(String(formData.durasi), 10) || 0, // di DB community_services durasi adalah integer
+        duration: String(formData.durasi), // di DB community_services durasi adalah integer
       };
 
       if (formData.id) {
@@ -64,8 +64,10 @@ export default function PengabdianPage() {
       }
 
       setIsSheetOpen(false);
-    } catch (error) {
-      toast.error("Gagal menyimpan data");
+    } catch (error: any) {
+      const fieldErrors = error.response?.data?.errors;
+      const errorMessage = fieldErrors ? Object.values(fieldErrors).flat()[0] as string : (error.response?.data?.message || "Gagal menyimpan data");
+      toast.error(errorMessage);
       console.error(error);
     } finally {
       fetchData();

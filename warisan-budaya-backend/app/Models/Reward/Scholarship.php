@@ -3,10 +3,13 @@
 namespace App\Models\Reward;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Models\Lecturer;
-class Scholarship extends Model
+class  extends Model
 {
+    use SoftDeletes;
+
     protected $table = "scholarships";
 
     protected $fillable = [

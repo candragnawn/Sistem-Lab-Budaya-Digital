@@ -32,7 +32,8 @@ class CvGeneratorController extends Controller
             'communityServices',
             'publications',
             'placements',
-            'hki'
+            'hki',
+            'addresses'
         ])->first();
 
        
@@ -55,7 +56,7 @@ class CvGeneratorController extends Controller
                     'name' => $lecturer->name,
                     'phone' => $lecturer->phone ?? '-',
                     'email' => $lecturer->email ?? '-',
-                    'address' => '-', // can fetch from addresses relation
+                    'address' => $addresses->address ?? '-', // can fetch from addresses relation
                     'institution' => 'Universitas Udayana', // default
                     'faculty' => $lecturer->faculty ?? '-',
                     'major' => $lecturer->study_program ?? '-',

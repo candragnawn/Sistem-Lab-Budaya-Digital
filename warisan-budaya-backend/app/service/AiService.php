@@ -13,7 +13,7 @@ class AiService
 
     public function __construct()
     {
-        // Mendukung HuggingFace Serverless Inference (OpenAI Compatible)
+        //open router
         $this->apiKey = env('AI_API_KEY', '');
         $this->apiUrl = env('AI_BASE_URL', '');
         $this->model  = env('AI_MODEL', '');

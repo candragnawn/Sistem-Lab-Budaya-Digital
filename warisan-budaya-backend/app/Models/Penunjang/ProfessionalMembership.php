@@ -3,10 +3,13 @@
 namespace App\Models\Penunjang;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Models\Lecturer;
-class ProfessionalMembership extends Model
+class  extends Model
 {
+    use SoftDeletes;
+
     protected $table = "professional_memberships";
 
     protected $fillable = [

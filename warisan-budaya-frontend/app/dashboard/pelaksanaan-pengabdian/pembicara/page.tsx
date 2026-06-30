@@ -65,8 +65,10 @@ export default function PembicaraPage() {
       }
 
       setIsSheetOpen(false);
-    } catch (error) {
-      toast.error("Gagal menyimpan data");
+    } catch (error: any) {
+      const fieldErrors = error.response?.data?.errors;
+      const errorMessage = fieldErrors ? Object.values(fieldErrors).flat()[0] as string : (error.response?.data?.message || "Gagal menyimpan data");
+      toast.error(errorMessage);
       console.error(error);
     } finally {
       fetchData();

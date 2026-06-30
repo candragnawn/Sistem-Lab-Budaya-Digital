@@ -81,16 +81,16 @@ export default function CvGeneratorPage() {
           <Button 
             onClick={handleGenerate} 
             disabled={isLoading}
-            className="w-full sm:w-auto bg-black-600 hover:bg-blue-700"
+            className="bg-brand-navy text-white hover:bg-brand-navy/90"
           >
             {isLoading ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                AI sedang bekerja...
+                Sedang Memproses CV Anda...
               </>
             ) : (
               <>
-                <FileText className="mr-2 h-4 w-4" />
+                <FileText className="text-white" />
                 Generate CV with AI
               </>
             )}

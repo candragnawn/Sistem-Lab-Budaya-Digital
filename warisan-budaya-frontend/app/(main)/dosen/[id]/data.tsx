@@ -234,8 +234,8 @@ export const initialCategories: Category[] = [
     ],
   },
   {
-    id: "pelaksanaan-penelitian",
-    label: "Pelaksanaan Penelitian",
+    id: "pelaksanaan-pengabdian",
+    label: "Pelaksanaan Pengabdian",
     icon: <Handshake className="w-5 h-5" />,
     color: "#065F46",
     subCategories: [
