@@ -11,6 +11,13 @@ class StorediklatRequest extends FormRequest
         return true;
     }
 
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'status' => $this->input('status', '-'),
+        ]);
+    }
+
     public function rules(): array
     {
         return [

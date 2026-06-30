@@ -11,10 +11,10 @@ class PositionResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'nama_jabatan' => $this->position_name,
-            'nomor_sk' => $this->sk_number,
-            'tanggal_sk' => $this->sk_date,
-            'tmt' => $this->tmt,
+            'nama_jabatan' => $this->functional_position,
+            'nomor_sk' => $this->decree_number,
+            'tanggal_sk' => $this->decree_date,
+            'tmt' => $this->effective_date,
         ];
     }
 }

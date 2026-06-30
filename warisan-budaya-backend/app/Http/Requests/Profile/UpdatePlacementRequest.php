@@ -11,6 +11,13 @@ class UpdatePlacementRequest extends FormRequest
         return true;
     }
 
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'education_level' => $this->input('education_level', '-'),
+        ]);
+    }
+
     public function rules(): array
     {
         return [

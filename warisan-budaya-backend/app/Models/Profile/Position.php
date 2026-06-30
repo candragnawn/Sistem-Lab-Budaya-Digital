@@ -12,10 +12,11 @@ class Position extends Model
 
     protected $fillable = [
         'lecturer_id',
-        'position_name',
-        'sk_number',
-        'sk_date',
-        'tmt'
+        'functional_position',
+        'decree_number',
+        'decree_date',
+        'effective_date',
+        'civil_servant_status'
     ];
 
     public function lecturer(): BelongsTo {

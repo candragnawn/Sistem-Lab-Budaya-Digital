@@ -3,16 +3,16 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { CheckCircle, Search, Plus, Home, ChevronRight, RefreshCw, Pencil, Trash2 } from "lucide-react";
+import { CheckCircle, Search, Plus, Home, ChevronRight, RefreshCw, Pencil, Trash2, X, FileText } from "lucide-react";
 import api from "@/lib/axios";
 import { toast } from "sonner";
 
 interface DataModel {
-  id: number;
+  id?: number;
   semester: string;
-  guidance_title: string;
-  guidance_type: string;
-  study_program: string;
+  judul_bimbingan: string;
+  jenis_bimbingan: string;
+  program_studi: string;
 }
 
 export default function PengembanganPage() {
@@ -20,6 +20,9 @@ export default function PengembanganPage() {
   const [data, setData] = useState<DataModel[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [isSheetOpen, setIsSheetOpen] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formData, setFormData] = useState<Partial<DataModel>>({});
 
   useEffect(() => { 
     const s = localStorage.getItem("user"); 
@@ -43,6 +46,58 @@ export default function PengembanganPage() {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const handleSave = async () => {
+    setIsSubmitting(true);
+    try {
+      const payload = {
+        semester: formData.semester,
+        guidance_title: formData.judul_bimbingan,
+        guidance_type: formData.jenis_bimbingan,
+        study_program: formData.program_studi,
+      };
+
+      if (formData.id) {
+        await api.put(`/developments/${formData.id}`, payload);
+        toast.success("Data Pengembangan berhasil diubah");
+      } else {
+        await api.post("/developments", payload);
+        toast.success("Data Pengembangan berhasil ditambahkan");
+      }
+
+      setIsSheetOpen(false);
+    } catch (error: any) {
+      const fieldErrors = error.response?.data?.errors;
+      const errorMessage = fieldErrors ? Object.values(fieldErrors).flat()[0] as string : (error.response?.data?.message || "Gagal menyimpan data");
+      toast.error(errorMessage);
+      console.error(error);
+    } finally {
+      setIsSubmitting(false);
+      fetchData();
+    }
+  };
+
+  const handleDelete = async (id: number) => {
+    if (confirm("Apakah Anda yakin ingin menghapus data ini?")) {
+      try {
+        await api.delete(`/developments/${id}`);
+        setData(data.filter(item => item.id !== id));
+        toast.success("Data berhasil dihapus");
+      } catch (error) {
+        toast.error("Gagal menghapus data");
+      }
+    }
+  };
+
+  const openSheetForAdd = () => {
+    setFormData({});
+    setIsSheetOpen(true);
+  };
+
+  const openSheetForEdit = (item: DataModel) => {
+    setFormData(item);
+    setIsSheetOpen(true);
   };
 
   if (!user) return null;
@@ -89,7 +144,7 @@ export default function PengembanganPage() {
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
                 <Input placeholder="Cari..." className="pl-9 h-9 text-sm w-56 border-gray-200" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
               </div>
-              <Button size="sm" className="bg-brand-navy text-white hover:bg-brand-navy/90 text-xs gap-1.5" onClick={() => toast.info("Fitur Tambah belum diaktifkan")}><Plus className="h-3.5 w-3.5" /> Tambah Data</Button>
+              <Button size="sm" className="bg-brand-navy text-white hover:bg-brand-navy/90 text-xs gap-1.5" onClick={openSheetForAdd}><Plus className="h-3.5 w-3.5" /> Tambah Data</Button>
             </div>
           </div>
         </div>
@@ -116,8 +171,8 @@ export default function PengembanganPage() {
                   <td className="px-4 py-4 align-top text-gray-700">{item.program_studi || "-"}</td>
                   <td className="px-4 py-4 align-top">
                     <div className="flex items-center justify-center gap-1">
-                      <button className="flex h-8 w-8 items-center justify-center rounded-lg text-gray-400 hover:bg-yellow-50 hover:text-yellow-600"><Pencil className="h-4 w-4" /></button>
-                      <button className="flex h-8 w-8 items-center justify-center rounded-lg text-gray-400 hover:bg-red-50 hover:text-red-600"><Trash2 className="h-4 w-4" /></button>
+                      <button onClick={() => openSheetForEdit(item)} className="flex h-8 w-8 items-center justify-center rounded-lg text-gray-400 hover:bg-yellow-50 hover:text-yellow-600"><Pencil className="h-4 w-4" /></button>
+                      <button onClick={() => handleDelete(item.id)} className="flex h-8 w-8 items-center justify-center rounded-lg text-gray-400 hover:bg-red-50 hover:text-red-600"><Trash2 className="h-4 w-4" /></button>
                     </div>
                   </td>
                 </tr>
@@ -129,6 +184,78 @@ export default function PengembanganPage() {
           </table>
         </div>
       </div>
+
+      {isSheetOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
+          <div className="w-full max-w-2xl bg-white rounded-xl shadow-2xl overflow-hidden flex flex-col max-h-[95vh]">
+            <div className="bg-brand-navy p-6 pt-8 text-white relative flex-shrink-0">
+              <button onClick={() => setIsSheetOpen(false)} className="absolute top-4 right-4 text-white/70 hover:text-white bg-white/10 hover:bg-white/20 p-2 rounded-lg transition-colors">
+                <X className="h-5 w-5" />
+              </button>
+              <div className="flex items-center gap-4">
+                <div className="bg-white/10 p-3 rounded-xl border border-white/20">
+                  <FileText className="h-6 w-6 text-brand-gold" />
+                </div>
+                <div>
+                  <h2 className="text-white text-xl font-semibold m-0">{formData.id ? "Edit Data Pengembangan" : "Tambah Data Pengembangan"}</h2>
+                  <p className="text-gray-300 mt-1 text-sm">Lengkapi detail kegiatan pengembangan.</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="p-6 space-y-5 overflow-y-auto flex-1">
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <label className="text-xs font-bold text-gray-500 uppercase tracking-wide">Semester <span className="text-red-500">*</span></label>
+                  <Input 
+                    placeholder="Contoh: Ganjil 2023/2024" 
+                    value={formData.semester || ""}
+                    onChange={(e) => setFormData({...formData, semester: e.target.value})}
+                    className="h-10 bg-white border border-gray-300 text-gray-900 focus-visible:ring-brand-navy/20 shadow-sm"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <label className="text-xs font-bold text-gray-500 uppercase tracking-wide">Judul Bimbingan <span className="text-red-500">*</span></label>
+                  <Input 
+                    placeholder="Contoh: Pengembangan Sistem" 
+                    value={formData.judul_bimbingan || ""}
+                    onChange={(e) => setFormData({...formData, judul_bimbingan: e.target.value})}
+                    className="h-10 bg-white border border-gray-300 text-gray-900 focus-visible:ring-brand-navy/20 shadow-sm"
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-xs font-bold text-gray-500 uppercase tracking-wide">Jenis Bimbingan <span className="text-red-500">*</span></label>
+                <Input 
+                  placeholder="Contoh: Bimbingan Akademik" 
+                  value={formData.jenis_bimbingan || ""}
+                  onChange={(e) => setFormData({...formData, jenis_bimbingan: e.target.value})}
+                  className="h-10 bg-white border border-gray-300 text-gray-900 focus-visible:ring-brand-navy/20 shadow-sm"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-xs font-bold text-gray-500 uppercase tracking-wide">Program Studi <span className="text-red-500">*</span></label>
+                <Input 
+                  placeholder="Contoh: Teknik Mesin" 
+                  value={formData.program_studi || ""}
+                  onChange={(e) => setFormData({...formData, program_studi: e.target.value})}
+                  className="h-10 bg-white border border-gray-300 text-gray-900 focus-visible:ring-brand-navy/20 shadow-sm"
+                />
+              </div>
+            </div>
+
+            <div className="bg-gray-50 p-6 flex items-center justify-end gap-3 flex-shrink-0 border-t border-gray-100">
+              <Button variant="outline" onClick={() => setIsSheetOpen(false)} className="h-10 bg-white" disabled={isSubmitting}>Batal</Button>
+              <Button onClick={handleSave} disabled={isSubmitting} className="h-10 bg-brand-navy hover:bg-brand-navy/90 text-white px-8">
+                {isSubmitting ? "Menyimpan..." : "Simpan Data"}
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
