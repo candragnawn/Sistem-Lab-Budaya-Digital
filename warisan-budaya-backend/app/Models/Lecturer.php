@@ -13,9 +13,9 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Support\Facades\Storage;
 
 //profile
-use App\Models\Profile\Academic;
+use App\Models\Profile\LecturerAcademic;
 use App\Models\Profile\Address;
-use App\Models\Profile\Employment;
+// use App\Models\Profile\Employment; // Removed because it doesn't exist here
 use App\Models\Profile\Family;
 use App\Models\Profile\Identity;
 use App\Models\Profile\Inpassing;
@@ -98,14 +98,14 @@ class Lecturer extends Model
     protected function photoUrl(): Attribute {
         return Attribute::make(
             get: fn () => $this->photo_path
-                ? Storage::url($this->photo_path)
+                ? asset('storage/' . $this->photo_path)
                 : null
         );
     }
 
 public function academic(): HasOne
     {
-        return $this->hasOne(Academic::class, 'lecturer_id');
+        return $this->hasOne(LecturerAcademic::class, 'lecturer_id');
     }
 
 
@@ -139,10 +139,10 @@ public function academic(): HasOne
     }
 
  
-    public function otherData(): HasMany
-    {
-        return $this->hasMany(OtherData::class, 'lecturer_id');
-    }
+// public function otherData(): HasMany
+// {
+//     return $this->hasMany(OtherData::class, 'lecturer_id');
+// }
 
     public function placements(): HasMany
     {

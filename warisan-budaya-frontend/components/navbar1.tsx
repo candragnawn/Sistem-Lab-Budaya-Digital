@@ -78,6 +78,7 @@ const Navbar1 = ({
     name: string;
     role: string;
     photo: string;
+    avatar_url?: string;
   } | null>(null);
   const [showDropdown, setShowDropdown] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -99,7 +100,11 @@ const Navbar1 = ({
 
     updateAuth();
     window.addEventListener("auth-change", updateAuth);
-    return () => window.removeEventListener("auth-change", updateAuth);
+    window.addEventListener("storage", updateAuth);
+    return () => {
+      window.removeEventListener("auth-change", updateAuth);
+      window.removeEventListener("storage", updateAuth);
+    };
   }, []);
 
   useEffect(() => {
@@ -162,12 +167,19 @@ const Navbar1 = ({
                   onClick={() => setShowDropdown(!showDropdown)}
                   className="flex items-center gap-3 cursor-pointer text-white hover:opacity-80 transition-opacity select-none"
                 >
-                  <div className="h-9 w-9 rounded-full border border-white/30 overflow-hidden bg-white/20">
-                    <img
-                      src={user.photo}
-                      alt="Foto Profil"
-                      className="h-full w-full object-cover"
-                    />
+                  <div className="h-9 w-9 rounded-full border border-white/30 overflow-hidden bg-white/20 flex items-center justify-center">
+                    {(user.photo && user.photo !== '/default-avatar.png' && user.photo !== 'null') ? (
+                      <img
+                        src={user.avatar_url || user.photo}
+                        alt="Foto Profil"
+                        className="h-full w-full object-cover"
+                        onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
+                      />
+                    ) : (
+                      <span className="text-white font-semibold text-sm">
+                        {user.name?.split(' ').map(n => n[0]).slice(0,2).join('').toUpperCase()}
+                      </span>
+                    )}
                   </div>
                   <div className="flex flex-col text-left">
                     <span className="text-xs font-semibold leading-none">
@@ -274,12 +286,19 @@ const Navbar1 = ({
                     <div className="flex flex-col gap-3">
                       <div className="space-y-3">
                         <div className="flex items-center gap-3 text-black">
-                          <div className="h-10 w-10 rounded-full border border-gray-300 overflow-hidden bg-gray-100">
-                            <img
-                              src={user.photo}
-                              alt="Foto Profil"
-                              className="h-full w-full object-cover"
-                            />
+                          <div className="h-10 w-10 rounded-full border border-gray-300 overflow-hidden bg-gray-100 flex items-center justify-center">
+                            {(user.photo && user.photo !== '/default-avatar.png' && user.photo !== 'null') ? (
+                              <img
+                                src={user.avatar_url || user.photo}
+                                alt="Foto Profil"
+                                className="h-full w-full object-cover"
+                                onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
+                              />
+                            ) : (
+                              <span className="text-gray-600 font-semibold text-sm">
+                                {user.name?.split(' ').map(n => n[0]).slice(0,2).join('').toUpperCase()}
+                              </span>
+                            )}
                           </div>
                           <div className="flex flex-col text-left">
                             <span className="text-sm font-semibold leading-none">

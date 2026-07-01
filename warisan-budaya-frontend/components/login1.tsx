@@ -70,8 +70,10 @@ const Login1 = ({
           name: userData.nama || userData.name,
           email: userData.email,
           role: "Dosen", // Default role
-          photo: userData.avatar_path || "/ivan-profile.png",
-          access_token: userData.access_token || userData.token
+          photo: userData.avatar_url || userData.avatar_path || "/default-avatar.png",
+          avatar_url: userData.avatar_url || userData.avatar_path || null,
+          access_token: userData.access_token || userData.token,
+          lecturer_id: userData.lecturer_id,
         }));
         
         document.documentElement.classList.add("is-logged-in");

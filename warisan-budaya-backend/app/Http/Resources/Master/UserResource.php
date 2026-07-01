@@ -25,7 +25,9 @@ class UserResource extends JsonResource
             'id' => $this->id,
             'nama' => $this->name,
             'email' => $this->email,
-            'avatar_path' => $this->avatar_path ? asset('storage/' . $this->avatar_path) : null,
+            'lecturer_id' => $this->lecturer_id,
+            'avatar_path' => $this->avatar_path,
+            'avatar_url'  => $this->avatar_path ? asset('storage/' . $this->avatar_path) : null,
         ];
 
         if ($this->token) {

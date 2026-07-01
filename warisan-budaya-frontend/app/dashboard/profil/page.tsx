@@ -1,5 +1,6 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import api from "@/lib/axios";
 import { Button } from "@/components/ui/button";
 import {
   CheckCircle,
@@ -71,15 +72,147 @@ const profilData = {
 
 export default function ProfilPage() {
   const [user, setUser] = useState<UserData | null>(null);
+  const [profilData, setProfilData] = useState<any>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [authError, setAuthError] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleAvatarUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setIsUploading(true);
+    try {
+      const formData = new FormData();
+      formData.append('avatar', file);
+      const res = await api.post('/me/avatar', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
+      const newAvatarUrl = res.data?.data?.avatar_url || res.data?.data?.avatar_path;
+      if (newAvatarUrl && user) {
+        const updatedUser = { ...user, photo: newAvatarUrl, avatar_url: newAvatarUrl };
+        setUser(updatedUser);
+        localStorage.setItem('user', JSON.stringify(updatedUser));
+        // Trigger navbar untuk update foto
+        window.dispatchEvent(new Event('auth-change'));
+      }
+    } catch (err) {
+      console.error('Upload foto gagal:', err);
+      alert('Upload foto gagal. Pastikan ukuran file < 5MB.');
+    } finally {
+      setIsUploading(false);
+      if (fileInputRef.current) fileInputRef.current.value = '';
+    }
+  };
 
   useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
+    const fetchData = async () => {
+      try {
+        setIsLoading(true);
+        setAuthError(false);
+        // Pastikan token tersimpan dari localStorage
+        const storedUser = localStorage.getItem("user");
+        if (!storedUser) {
+          setAuthError(true);
+          return;
+        }
+        // First get the user to ensure we have lecturer_id
+        const userRes = await api.get('/me');
+        const userData = userRes.data?.data;
+        if (userData) {
+          // Merge stored data (yang punya access_token) dengan fresh data dari /me
+          const storedData = JSON.parse(storedUser);
+          const mergedUser = { 
+            ...storedData, 
+            ...userData, 
+            photo: userData.avatar_url || userData.avatar_path || storedData.photo,
+            access_token: storedData.access_token 
+          };
+          setUser(mergedUser);
+          localStorage.setItem("user", JSON.stringify(mergedUser));
+          window.dispatchEvent(new Event('auth-change'));
+          
+          if (userData.lecturer_id) {
+            const includes = "academic,addresses,families,identities,inpassings,stats,placements,positions,professorEmeritus,ranks,workContracts,hki";
+            const lecturerRes = await api.get(`/lecturers/${userData.lecturer_id}?include=${includes}`);
+            const lec = lecturerRes.data?.data;
+            
+            if (lec) {
+              setProfilData({
+                nidn: lec.nidn || "-",
+                nama: lec.name || "-",
+                namaLengkap: lec.nama_lengkap || lec.name || "-",
+                namaSebutan: lec.nama_lengkap || lec.name || "-",
+                jenisKelamin: lec.gender === "L" ? "Laki-laki" : (lec.gender === "P" ? "Perempuan" : "-"),
+                tempatLahir: lec.birth_place || lec.identities?.[0]?.place_of_birth || "-",
+                tanggalLahir: lec.birth_date || lec.identities?.[0]?.date_of_birth || "-",
+                bidangKeahlian: lec.academic?.science_branch ? [lec.academic.science_branch] : 
+                                (lec.academic?.field_of_study || "").split(",").filter(Boolean),
+                nip: lec.nip || "-",
+                nomorSKCPNS: lec.workContracts?.[0]?.sk_number || lec.workContracts?.[0]?.sk_cpns || "-",
+                tmtSK: lec.workContracts?.[0]?.tmt || "-",
+                pangkat: lec.ranks?.[0]?.rank_name || "-",
+                golongan: lec.ranks?.[0]?.group_code || lec.ranks?.[0]?.group_name || "-",
+                statusPegawai: lec.placements?.[0]?.status || lec.workContracts?.[0]?.work_status || "-",
+                statusKeaktifan: lec.status || "-",
+                sumberGaji: lec.workContracts?.[0]?.salary_source || "-",
+                ikatanKerja: lec.placements?.[0]?.employment_bond || lec.workContracts?.[0]?.work_agreement || "-",
+                unitKerja: lec.faculty || lec.placements?.[0]?.unit || "-",
+                programStudi: lec.study_program || "-",
+                perguruanTinggi: lec.department || lec.placements?.[0]?.university || "Universitas Udayana",
+                homebasePenugasan: lec.placements?.[0]?.assignment_homebase || lec.department || "-",
+                masaKerja: lec.workContracts?.[0]?.years_of_service || "-",
+                email: lec.email || "-",
+                noHP: lec.phone || lec.identities?.[0]?.phone_number || "-",
+                noTelepon: lec.identities?.[0]?.telephone_number || "-",
+                rtRw: `${lec.addresses?.[0]?.rt || "-"} / ${lec.addresses?.[0]?.rw || "-"}`,
+                desa: lec.addresses?.[0]?.village || "-",
+                kecamatan: lec.addresses?.[0]?.district || "-",
+                kabupaten: lec.addresses?.[0]?.city || "-",
+                provinsi: lec.addresses?.[0]?.province || "-",
+                kodePOS: lec.addresses?.[0]?.postal_code || "-",
+                nik: lec.identities?.[0]?.nik || "-",
+                nikAlamat: lec.identities?.[0]?.nik || "-",
+                npwp: lec.identities?.[0]?.npwp || "-",
+                agama: lec.identities?.[0]?.religion || "-",
+                kewarganegaraan: lec.identities?.[0]?.citizenship || "-",
+                statusPerkawinan: lec.identities?.[0]?.marital_status || "-",
+                namaPasangan: lec.families?.[0]?.spouse_name || lec.families?.[0]?.name || "-",
+                jabatanAkademik: lec.positions?.[0]?.functional_position || lec.positions?.[0]?.position_name || "-",
+                rumpunIlmu: lec.academic?.science_cluster || lec.academic?.science_tree || lec.academic?.scientific_cluster || "-",
+                pangkatGol: `${lec.inpassings?.[0]?.rank_name || "-"} / ${lec.inpassings?.[0]?.group_code || lec.inpassings?.[0]?.group_name || "-"}`,
+                sintaID: lec.sinta_id || lec.sister_id || "-",
+                sintaScore3yr: lec.sinta_score_3yr || 0,
+                sintaScoreOverall: lec.sinta_score_total || 0,
+                hIndexScopus: lec.stats?.scopus_count || 0,
+                hIndexScholar: 0,
+                bergabungSejak: lec.created_at || "-",
+              });
+            }
+          }
+        }
+      } catch (err: any) {
+        console.error(err);
+        if (err?.response?.status === 401) {
+          setAuthError(true);
+          localStorage.removeItem("user");
+        }
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
   }, []);
 
-  if (!user) return null;
+  if (isLoading) return <div className="flex items-center justify-center p-12 text-gray-500">Memuat profil...</div>;
+  
+  if (authError || !user || !profilData) return (
+    <div className="flex flex-col items-center justify-center p-12 gap-4">
+      <p className="text-gray-500 text-center">Sesi Anda telah berakhir. Silakan login kembali.</p>
+      <a href="/masuk" className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm hover:bg-blue-700 transition-colors">Login Ulang</a>
+    </div>
+  );
 
   return (
     <div className="space-y-6">
@@ -94,12 +227,20 @@ export default function ProfilPage() {
       <div className="rounded-xl bg-white p-6 shadow-sm border border-gray-100">
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div className="flex items-start gap-4">
-            <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-full border-3 border-brand-gold">
+            <div
+              className="relative h-16 w-16 shrink-0 overflow-hidden rounded-full border-3 border-brand-gold cursor-pointer group"
+              onClick={() => fileInputRef.current?.click()}
+              title="Klik untuk ganti foto"
+            >
               <img
-                src={user.photo}
+                src={user.photo || user.avatar_url || '/default-avatar.png'}
                 alt={user.name}
                 className="h-full w-full object-cover"
+                onError={(e) => { (e.target as HTMLImageElement).src = '/default-avatar.png'; }}
               />
+              <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity rounded-full">
+                <Pencil className="h-3 w-3 text-white" />
+              </div>
               <div className="absolute -bottom-0.5 -right-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-green-500 ring-2 ring-white">
                 <CheckCircle className="h-3 w-3 text-white" />
               </div>
@@ -151,25 +292,40 @@ export default function ProfilPage() {
               </span>
             </div>
 
-            <div className="mb-4 flex justify-center">
-              <div className="relative h-40 w-32 overflow-hidden rounded-lg border-2 border-gray-200 shadow-sm">
+            <div className="mb-4 flex flex-col items-center gap-3">
+              {/* Input file tersembunyi */}
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/jpg,image/jpeg,image/png,image/webp"
+                className="hidden"
+                onChange={handleAvatarUpload}
+              />
+              {/* Foto yang bisa diklik untuk upload */}
+              <div
+                className="relative h-40 w-32 overflow-hidden rounded-lg border-2 border-gray-200 shadow-sm cursor-pointer group"
+                onClick={() => fileInputRef.current?.click()}
+                title="Klik untuk ganti foto"
+              >
                 <img
-                  src={user.photo}
+                  src={user.photo || user.avatar_url || '/default-avatar.png'}
                   alt={user.name}
                   className="h-full w-full object-cover"
+                  onError={(e) => { (e.target as HTMLImageElement).src = '/default-avatar.png'; }}
                 />
+                {/* Overlay hover */}
+                <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                  {isUploading ? (
+                    <RefreshCw className="h-6 w-6 text-white animate-spin" />
+                  ) : (
+                    <div className="text-center">
+                      <Pencil className="h-5 w-5 text-white mx-auto mb-1" />
+                      <span className="text-white text-[10px] font-medium">Ganti Foto</span>
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
-
-            <div className="mb-4 flex justify-center">
-              <Button
-                size="sm"
-                variant="outline"
-                className="text-xs gap-1.5 border-gray-300"
-              >
-                <Pencil className="h-3 w-3" />
-                Ajukan Pembaruan
-              </Button>
+              <p className="text-[10px] text-gray-400 text-center">Klik foto untuk menggantinya<br/>JPG, PNG, WebP · maks. 5MB</p>
             </div>
 
             <div className="flex justify-center gap-2 mb-5">

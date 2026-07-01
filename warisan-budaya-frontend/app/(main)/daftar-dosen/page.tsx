@@ -1,151 +1,32 @@
 "use client";
-import { useState, useEffect } from "react";
-import Link from "next/link";
-import { Search, ChevronLeft, ChevronRight, CheckCircle2, GraduationCap, Building2, Fingerprint, Tags, BarChart3, Calendar, Filter, X, RefreshCcw } from "lucide-react";
+
+import React, { useState, useEffect, useCallback } from "react";
+import { Search, Filter, X, ChevronLeft, ChevronRight, GraduationCap, Building2, Fingerprint, Calendar, Tags, BarChart3, CheckCircle2, RefreshCcw } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import Link from "next/link";
+import api from "@/lib/axios";
 
-
-const DUMMY_DOSEN = [
-  {
-    id: "1",
-    name: "Kadek Pasek Divandra Kusuma",
-    verified: true,
-    prodi: "Prodi Informatika",
-    fakultas: "Fakultas MIPA",
-    ivanarsipId: "5678901",
-    subjects: ["Arsitektur Bali", "Sejarah", "Model Generatif"],
-    metrics: {
-      scopusHIndex: 11,
-      googleScholarHIndex: 23,
-      googleScholarI10Index: 63,
-    },
-    sintaScore3Yr: "1.124",
-    sintaScoreOverall: "3.456",
-    avatar: "/adri.png",
-    uploadYear: 2023,
-  },
-  {
-    id: "2",
-    name: "Dr. IPM, ASEAN eng Made Mahatmika Adriananda Kusuma, S.Kom, M.MalDev",
-    verified: true,
-    prodi: "Prodi Informatika",
-    fakultas: "Fakultas MIPA",
-    ivanarsipId: "6789012",
-    subjects: ["Manuskrip", "Arkeologi", "Aksara Bali"],
-    metrics: {
-      scopusHIndex: 8,
-      googleScholarHIndex: 15,
-      googleScholarI10Index: 47,
-    },
-    sintaScore3Yr: "892",
-    sintaScoreOverall: "2.341",
-    avatar: "/adri.png",
-    uploadYear: 2025,
-  },
-  {
-    id: "3",
-    name: "Ni Made Ayu Lestari, S.S., M.A.",
-    verified: true,
-    prodi: "Prodi Informatika",
-    fakultas: "Fakultas MIPA",
-    ivanarsipId: "7890123",
-    subjects: ["Publikasi", "Sastra Lisan", "Lontar"],
-    metrics: {
-      scopusHIndex: 7,
-      googleScholarHIndex: 13,
-      googleScholarI10Index: 38,
-    },
-    sintaScore3Yr: "756",
-    sintaScoreOverall: "1.987",
-    avatar: "/adri.png",
-    uploadYear: 2022,
-  },
-  {
-    id: "4",
-    name: "Ida Bagus Komang Suryawan, S.T., M.T.",
-    verified: true,
-    prodi: "Prodi Informatika",
-    fakultas: "Fakultas MIPA",
-    ivanarsipId: "8901234",
-    subjects: ["Arsitektur Bali", "Model Generatif", "CAD"],
-    metrics: {
-      scopusHIndex: 8,
-      googleScholarHIndex: 8,
-      googleScholarI10Index: 29,
-    },
-    sintaScore3Yr: "634",
-    sintaScoreOverall: "1.456",
-    avatar: "/adri.png",
-    uploadYear: 2024,
-  },
-  {
-    id: "5",
-    name: "Prof. Dr. I Nyoman Darma Putra, M.Litt.",
-    verified: true,
-    prodi: "Prodi Matematika",
-    fakultas: "Fakultas MIPA",
-    ivanarsipId: "9012345",
-    subjects: ["Sastra Modern", "Ilmu Adri"],
-    metrics: {
-      scopusHIndex: 12,
-      googleScholarHIndex: 28,
-      googleScholarI10Index: 75,
-    },
-    sintaScore3Yr: "1.250",
-    sintaScoreOverall: "4.100",
-    avatar: "/adri.png",
-    uploadYear: 2021,
-  },
-  {
-    id: "6",
-    name: "Luh Putu Sendi, S.Sn., M.Sn.",
-    verified: false,
-    prodi: "Prodi Informatika",
-    fakultas: "Fakultas MIPA",
-    ivanarsipId: "1122334",
-    subjects: ["Karawitan Bali", "Seni Vokal"],
-    metrics: {
-      scopusHIndex: 2,
-      googleScholarHIndex: 5,
-      googleScholarI10Index: 10,
-    },
-    sintaScore3Yr: "120",
-    sintaScoreOverall: "450",
-    avatar: "/adri.png",
-    uploadYear: 2026,
-  },
-];
-
-const ITEMS_PER_PAGE = 3;
+const ITEMS_PER_PAGE = 5;
 
 const SkeletonCard = () => (
-  <Card className="bg-white border border-gray-100 shadow-sm rounded-xl">
+  <Card className="bg-white border border-gray-100 shadow-sm rounded-xl overflow-hidden animate-pulse">
     <CardContent className="p-6">
-      <div className="flex flex-col md:flex-row gap-6 animate-pulse">
+      <div className="flex flex-col md:flex-row gap-6">
         <div className="flex-shrink-0">
           <div className="w-20 h-20 rounded-lg bg-gray-200"></div>
         </div>
         <div className="flex-grow flex flex-col gap-3">
           <div className="h-6 bg-gray-200 rounded w-1/3"></div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-y-2 mt-2">
-            <div className="h-4 bg-gray-200 rounded w-3/4"></div>
-            <div className="h-4 bg-gray-200 rounded w-3/4"></div>
-            <div className="h-4 bg-gray-200 rounded w-3/4"></div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-y-2">
+            <div className="h-4 bg-gray-200 rounded w-24"></div>
+            <div className="h-4 bg-gray-200 rounded w-24"></div>
+            <div className="h-4 bg-gray-200 rounded w-32"></div>
+            <div className="h-4 bg-gray-200 rounded w-32"></div>
           </div>
           <div className="h-4 bg-gray-200 rounded w-1/2 mt-2"></div>
-          <div className="h-4 bg-gray-200 rounded w-full mt-2"></div>
-        </div>
-        <div className="flex flex-col items-end justify-center md:min-w-[150px] mt-4 md:mt-0 pt-4 md:pt-0 border-t md:border-t-0 md:border-l border-gray-100 pl-0 md:pl-6">
-          <div className="text-right mb-4 flex flex-col items-end gap-1 w-full">
-            <div className="h-8 bg-gray-200 rounded w-16"></div>
-            <div className="h-3 bg-gray-200 rounded w-24"></div>
-          </div>
-          <div className="text-right flex flex-col items-end gap-1 w-full">
-            <div className="h-6 bg-gray-200 rounded w-12"></div>
-            <div className="h-3 bg-gray-200 rounded w-24"></div>
-          </div>
+          <div className="h-4 bg-gray-200 rounded w-2/3 mt-2"></div>
         </div>
       </div>
     </CardContent>
@@ -165,10 +46,52 @@ export default function DaftarDosenPage() {
   const [golongan, setGolongan] = useState("");
   const [jabatanFungsional, setJabatanFungsional] = useState("");
   const [gender, setGender] = useState("all");
-  const [sortBy, setSortBy] = useState("upload-desc");
+  const [sortBy, setSortBy] = useState("-created_at"); // format API: sort=-created_at
+  
   const [isLoading, setIsLoading] = useState(true);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [isFilterLoading, setIsFilterLoading] = useState(false);
+
+  const [dosenList, setDosenList] = useState<any[]>([]);
+  const [totalPages, setTotalPages] = useState(1);
+  const [totalItems, setTotalItems] = useState(0);
+
+  // Faculties and programs can be dynamic or static for now
+  const allFakultas = ["Fakultas Teknik", "Fakultas MIPA", "Fakultas Kedokteran", "Fakultas Sastra", "Fakultas Ekonomi", "Fakultas Hukum"];
+  const allProdis = ["Informatika", "Teknik Elektro", "Biologi", "Kimia", "Fisika", "Matematika", "Kedokteran Umum"];
+
+  const fetchDosen = useCallback(async () => {
+    setIsLoading(true);
+    try {
+      const params: any = {
+        page: currentPage,
+        per_page: ITEMS_PER_PAGE,
+        sort: sortBy,
+      };
+
+      if (searchQuery) params.search = searchQuery;
+      if (selectedFakultas) params.faculty = selectedFakultas;
+      if (selectedProdi) params.study_program = selectedProdi;
+      if (statusIkatan) params.status = statusIkatan; // assuming status field maps to this
+      if (gender && gender !== "all") params.gender = gender;
+      
+      const response = await api.get('/public/lecturers', { params });
+      
+      if (response.data?.data) {
+        setDosenList(response.data.data);
+        setTotalPages(response.data.meta?.last_page || 1);
+        setTotalItems(response.data.meta?.total || 0);
+      }
+    } catch (error) {
+      console.error("Error fetching lecturers:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [currentPage, searchQuery, selectedFakultas, selectedProdi, statusIkatan, statusAktif, sertifikasi, agama, pendidikan, golongan, jabatanFungsional, gender, sortBy]);
+
+  useEffect(() => {
+    fetchDosen();
+  }, [fetchDosen]);
 
   const handleOpenFilter = () => {
     setIsFilterOpen(true);
@@ -177,56 +100,6 @@ export default function DaftarDosenPage() {
       setIsFilterLoading(false);
     }, 600);
   };
-
-  useEffect(() => {
-    setIsLoading(true);
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 400); 
-    return () => clearTimeout(timer);
-  }, [currentPage, searchQuery, selectedFakultas, selectedProdi, statusIkatan, statusAktif, sertifikasi, agama, pendidikan, golongan, jabatanFungsional, gender, sortBy]);
-
-  const allProdis = Array.from(new Set(DUMMY_DOSEN.map((d) => d.prodi)));
-  const allFakultas = Array.from(new Set(DUMMY_DOSEN.map((d) => d.fakultas)));
-
-  const parseSintaScore = (scoreStr: string) => {
-    return parseFloat(scoreStr.replace(/\./g, "")) || 0;
-  };
-
-  const filteredDosen = DUMMY_DOSEN.filter((dosen) => {
-    const matchesSearch = 
-      dosen.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      dosen.ivanarsipId.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesFakultas = selectedFakultas === "" || dosen.fakultas === selectedFakultas;
-    const matchesProdi = selectedProdi === "" || dosen.prodi === selectedProdi;
-    return matchesSearch && matchesFakultas && matchesProdi;
-  });
-
-  const sortedDosen = [...filteredDosen].sort((a, b) => {
-    if (sortBy === "upload-desc") {
-      return b.uploadYear - a.uploadYear;
-    }
-    if (sortBy === "upload-asc") {
-      return a.uploadYear - b.uploadYear;
-    }
-    if (sortBy === "sinta-3yr-desc") {
-      return parseSintaScore(b.sintaScore3Yr) - parseSintaScore(a.sintaScore3Yr);
-    }
-    if (sortBy === "sinta-3yr-asc") {
-      return parseSintaScore(a.sintaScore3Yr) - parseSintaScore(b.sintaScore3Yr);
-    }
-    if (sortBy === "sinta-overall-desc") {
-      return parseSintaScore(b.sintaScoreOverall) - parseSintaScore(a.sintaScoreOverall);
-    }
-    if (sortBy === "sinta-overall-asc") {
-      return parseSintaScore(a.sintaScoreOverall) - parseSintaScore(b.sintaScoreOverall);
-    }
-    return 0;
-  });
-
-  const totalPages = Math.ceil(sortedDosen.length / ITEMS_PER_PAGE);
-  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-  const currentData = sortedDosen.slice(startIndex, startIndex + ITEMS_PER_PAGE);
 
   const handleNext = () => {
     if (currentPage < totalPages) setCurrentPage(currentPage + 1);
@@ -249,6 +122,7 @@ export default function DaftarDosenPage() {
     setJabatanFungsional("");
     setGender("all");
     setCurrentPage(1);
+    fetchDosen();
   };
 
   return (
@@ -270,12 +144,17 @@ export default function DaftarDosenPage() {
               <div className="relative flex-grow">
                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
                 <Input 
-                  placeholder="Cari nama atau ID kontributor..." 
+                  placeholder="Cari nama atau NIDN/NIP..." 
                   className="pl-11 bg-brand-bg border-gray-200 text-black placeholder:text-gray-400 rounded-lg h-10 w-full focus-visible:ring-1 focus-visible:ring-brand-navy"
                   value={searchQuery}
                   onChange={(e) => {
                     setSearchQuery(e.target.value);
-                    setCurrentPage(1);
+                  }}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      setCurrentPage(1);
+                      fetchDosen();
+                    }
                   }}
                 />
               </div>
@@ -297,17 +176,17 @@ export default function DaftarDosenPage() {
                 }}
                 className="h-10 w-full md:w-[220px] rounded-lg border border-gray-200 bg-brand-bg px-4 py-2 text-sm text-gray-700 outline-none focus:ring-1 focus:ring-brand-navy"
               >
-                <option value="upload-desc">Urutkan: Tahun Upload (Terbaru)</option>
-                <option value="upload-asc">Urutkan: Tahun Upload (Terlama)</option>
-                <option value="sinta-overall-desc">SINTA Score Overall (Highest)</option>
-                <option value="sinta-overall-asc">SINTA Score Overall (Lowest)</option>
-                <option value="sinta-3yr-desc">SINTA Score 3Yr (Highest)</option>
-                <option value="sinta-3yr-asc">SINTA Score 3Yr (Lowest)</option>
+                <option value="-created_at">Urutkan: Tahun Upload (Terbaru)</option>
+                <option value="created_at">Urutkan: Tahun Upload (Terlama)</option>
+                <option value="-sinta_score_total">SINTA Score Overall (Highest)</option>
+                <option value="sinta_score_total">SINTA Score Overall (Lowest)</option>
+                <option value="-sinta_score_3yr">SINTA Score 3Yr (Highest)</option>
+                <option value="sinta_score_3yr">SINTA Score 3Yr (Lowest)</option>
               </select>
             </div>
             
             <div className="text-sm text-gray-600 font-medium">
-              <span className="text-brand-navy">Halaman {currentPage} dari {totalPages || 1}</span> | Total Dosen {sortedDosen.length}
+              <span className="text-brand-navy">Halaman {currentPage} dari {totalPages || 1}</span> | Total Dosen {totalItems}
             </div>
           </div>
 
@@ -317,65 +196,58 @@ export default function DaftarDosenPage() {
               Array.from({ length: ITEMS_PER_PAGE }).map((_, idx) => (
                 <SkeletonCard key={idx} />
               ))
-            ) : currentData.length > 0 ? (
-              currentData.map((dosen) => (
+            ) : dosenList.length > 0 ? (
+              dosenList.map((dosen) => (
                 <Card key={dosen.id} className="bg-white border border-gray-100 shadow-sm hover:shadow-md transition-shadow rounded-xl">
                   <CardContent className="p-6">
                     <div className="flex flex-col md:flex-row gap-6">
                       
                       <div className="flex-shrink-0">
                         <img 
-                          src={dosen.avatar} 
+                          src={dosen.photo_url || "https://ui-avatars.com/api/?name=" + encodeURIComponent(dosen.name) + "&background=F3F4F6&color=4B5563"} 
                           alt={`Avatar ${dosen.name}`} 
                           className="w-20 h-20 rounded-lg object-cover bg-gray-100"
+                          onError={(e) => {
+                            e.currentTarget.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(dosen.name)}&background=F3F4F6&color=4B5563`;
+                          }}
                         />
                       </div>
 
                       <div className="flex-grow flex flex-col gap-3">
                         <div className="flex items-center gap-2">
                           <Link href={`/dosen/${dosen.id}`}>
-                            <h3 className="text-lg font-bold text-brand-navy hover:underline cursor-pointer transition-colors hover:text-blue-700">{dosen.name}</h3>
+                            <h3 className="text-lg font-bold text-brand-navy hover:underline cursor-pointer transition-colors hover:text-blue-700">
+                              {dosen.title_prefix} {dosen.name} {dosen.title_suffix}
+                            </h3>
                           </Link>
-                          {dosen.verified && <CheckCircle2 className="h-5 w-5 text-emerald-500" />}
+                          {dosen.is_verified && <CheckCircle2 className="h-5 w-5 text-emerald-500" />}
                         </div>
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-y-2 text-sm text-gray-600">
-                          <div className="flex items-center gap-2"><GraduationCap className="h-4 w-4" /> {dosen.prodi}</div>
-                          <div className="flex items-center gap-2"><Building2 className="h-4 w-4" /> {dosen.fakultas}</div>
-                          <div className="flex items-center gap-2"><Fingerprint className="h-4 w-4" /> SIWADA ID: <strong>{dosen.ivanarsipId}</strong></div>
-                          <div className="flex items-center gap-2"><Calendar className="h-4 w-4" /> Tahun Upload: <strong>{dosen.uploadYear}</strong></div>
-                        </div>
-
-                        <div className="flex items-start gap-2 mt-1">
-                          <Tags className="h-4 w-4 text-gray-400 mt-1" />
-                          <div className="flex flex-wrap gap-2 text-xs">
-                            <span className="text-gray-500 font-medium pt-0.5 mr-1">Subjects:</span>
-                            {dosen.subjects.map((sub, idx) => (
-                              <span key={idx} className="bg-gray-100 text-gray-600 px-2 py-1 rounded-md border border-gray-200">
-                                {sub}
-                              </span>
-                            ))}
-                          </div>
+                          <div className="flex items-center gap-2"><GraduationCap className="h-4 w-4" /> {dosen.study_program || '-'}</div>
+                          <div className="flex items-center gap-2"><Building2 className="h-4 w-4" /> {dosen.faculty || '-'}</div>
+                          <div className="flex items-center gap-2"><Fingerprint className="h-4 w-4" /> NIDN: <strong>{dosen.nidn || '-'}</strong></div>
+                          <div className="flex items-center gap-2"><Calendar className="h-4 w-4" /> Bergabung: <strong>{new Date(dosen.created_at || Date.now()).getFullYear()}</strong></div>
                         </div>
 
                         <div className="flex items-start gap-2 mt-1">
                           <BarChart3 className="h-4 w-4 text-gray-400 mt-1" />
                           <div className="flex flex-wrap gap-y-1 gap-x-4 text-xs">
                             <span className="text-gray-500 font-medium pt-0.5">Metrics:</span>
-                            <span className="text-gray-600">Scopus H-Index: <strong>{dosen.metrics.scopusHIndex}</strong></span>
-                            <span className="text-gray-600">Google Scholar H-Index: <strong>{dosen.metrics.googleScholarHIndex}</strong></span>
-                            <span className="text-gray-600">Google Scholar i10-index: <strong>{dosen.metrics.googleScholarI10Index}</strong></span>
+                            <span className="text-gray-600">Scopus ID: <strong>{dosen.scopus_id || '-'}</strong></span>
+                            <span className="text-gray-600">Google Scholar: <strong>{dosen.google_scholar_id || '-'}</strong></span>
+                            <span className="text-gray-600">SINTA ID: <strong>{dosen.sinta_id || '-'}</strong></span>
                           </div>
                         </div>
                       </div>
 
                       <div className="flex flex-col items-end justify-center md:min-w-[150px] mt-4 md:mt-0 pt-4 md:pt-0 border-t md:border-t-0 md:border-l border-gray-100 pl-0 md:pl-6">
                         <div className="text-right mb-4">
-                          <div className="text-3xl font-bold text-brand-navy">{dosen.sintaScore3Yr}</div>
+                          <div className="text-3xl font-bold text-brand-navy">{dosen.sinta_score_3yr || 0}</div>
                           <div className="text-[10px] text-gray-400 font-medium uppercase tracking-wider">SINTA Score 3Yr</div>
                         </div>
                         <div className="text-right">
-                          <div className="text-2xl font-bold text-brand-navy">{dosen.sintaScoreOverall}</div>
+                          <div className="text-2xl font-bold text-brand-navy">{dosen.sinta_score_total || 0}</div>
                           <div className="text-[10px] text-gray-400 font-medium uppercase tracking-wider">SINTA Score Overall</div>
                         </div>
                       </div>
@@ -391,7 +263,7 @@ export default function DaftarDosenPage() {
             )}
           </div>
 
-          {totalPages > 0 && (
+          {totalPages > 1 && (
             <div className="flex justify-center items-center gap-2 mt-10">
               <Button 
                 variant="outline" 
@@ -606,9 +478,9 @@ export default function DaftarDosenPage() {
                       <input 
                         type="radio" 
                         name="gender" 
-                        value="laki-laki" 
-                        checked={gender === "laki-laki"}
-                        onChange={() => setGender("laki-laki")}
+                        value="L" 
+                        checked={gender === "L"}
+                        onChange={() => setGender("L")}
                         className="w-4 h-4 text-[#1E90FF]" 
                       />
                       <span className="text-sm text-gray-600">Laki-Laki</span>
@@ -617,9 +489,9 @@ export default function DaftarDosenPage() {
                       <input 
                         type="radio" 
                         name="gender" 
-                        value="perempuan" 
-                        checked={gender === "perempuan"}
-                        onChange={() => setGender("perempuan")}
+                        value="P" 
+                        checked={gender === "P"}
+                        onChange={() => setGender("P")}
                         className="w-4 h-4 text-[#1E90FF]" 
                       />
                       <span className="text-sm text-gray-600">Perempuan</span>
@@ -633,7 +505,7 @@ export default function DaftarDosenPage() {
                         onChange={() => setGender("all")}
                         className="w-4 h-4 text-[#1E90FF]" 
                       />
-                      <span className="text-sm text-gray-600">All</span>
+                      <span className="text-sm text-gray-600">Semua</span>
                     </label>
                   </div>
                 </div>
@@ -649,7 +521,7 @@ export default function DaftarDosenPage() {
               <button onClick={() => setIsFilterOpen(false)} className="text-sm font-bold text-gray-700 hover:text-gray-900 px-4">
                 TUTUP
               </button>
-              <Button onClick={() => { setIsFilterOpen(false); setCurrentPage(1); }} className="bg-[#1E90FF] hover:bg-blue-600 text-white rounded-full px-8 py-5 flex items-center gap-2 font-bold">
+              <Button onClick={() => { setIsFilterOpen(false); setCurrentPage(1); fetchDosen(); }} className="bg-[#1E90FF] hover:bg-blue-600 text-white rounded-full px-8 py-5 flex items-center gap-2 font-bold">
                 <Search className="w-4 h-4" /> CARI
               </Button>
             </div>

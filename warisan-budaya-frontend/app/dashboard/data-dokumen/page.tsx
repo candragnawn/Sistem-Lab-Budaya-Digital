@@ -1,21 +1,21 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
+import api from "@/lib/axios";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { CheckCircle, Download, RefreshCw, Plus, Search, Eye, Pencil, Trash2, Home, ChevronRight, FileText, File, FileImage, Archive } from "lucide-react";
 
 interface UserData { name: string; role: string; photo: string; }
 
-const dokumenData = [
-  { id: 1, nama: "SK Jabatan Guru Besar", kategori: "Kepegawaian", format: "PDF", ukuran: "2.3 MB", tanggal: "15 Jan 2018", status: "Valid" },
-  { id: 2, nama: "Ijazah S3 - UGM", kategori: "Pendidikan", format: "PDF", ukuran: "1.8 MB", tanggal: "20 Mar 2010", status: "Valid" },
-  { id: 3, nama: "Sertifikat SERDOS", kategori: "Kompetensi", format: "PDF", ukuran: "0.9 MB", tanggal: "10 Jun 2008", status: "Valid" },
-  { id: 4, nama: "KTP", kategori: "Identitas", format: "JPG", ukuran: "0.5 MB", tanggal: "01 Jan 2024", status: "Valid" },
-  { id: 5, nama: "NPWP", kategori: "Identitas", format: "PDF", ukuran: "0.3 MB", tanggal: "15 Feb 2005", status: "Valid" },
-  { id: 6, nama: "Laporan Penelitian 2024", kategori: "Penelitian", format: "PDF", ukuran: "5.2 MB", tanggal: "31 Des 2024", status: "Terbit" },
-  { id: 7, nama: "Sertifikat Best Paper 2021", kategori: "Penghargaan", format: "PDF", ukuran: "1.1 MB", tanggal: "18 Nov 2021", status: "Valid" },
-  { id: 8, nama: "HKI – Aksara Bali Digital", kategori: "HKI", format: "PDF", ukuran: "0.7 MB", tanggal: "05 Sep 2022", status: "Valid" },
-];
+interface Dokumen {
+  id: number;
+  nama: string;
+  kategori: string;
+  format: string;
+  ukuran: string;
+  tanggal: string;
+  status: string;
+}
 
 const kategoris = ["Semua", "Kepegawaian", "Pendidikan", "Kompetensi", "Identitas", "Penelitian", "Penghargaan", "HKI"];
 
@@ -28,10 +28,40 @@ const formatIcon = (format: string) => {
 
 export default function DataDokumenPage() {
   const [user, setUser] = useState<UserData | null>(null);
+  const [dokumenData, setDokumenData] = useState<Dokumen[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [activeKategori, setActiveKategori] = useState("Semua");
-  const [currentPage] = useState(1);
-  useEffect(() => { const s = localStorage.getItem("user"); if (s) setUser(JSON.parse(s)); }, []);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const fetchData = useCallback(async () => {
+    try {
+      setIsLoading(true);
+      const res = await api.get('/other-datas');
+      const items = res.data?.data || [];
+      const mapped = items.map((item: any) => ({
+        id: item.id,
+        nama: item.name || item.title || "Dokumen",
+        kategori: item.category || "Lainnya",
+        format: item.format || "PDF",
+        ukuran: item.size || "1 MB",
+        tanggal: item.date || item.created_at || "-",
+        status: item.status || "Valid",
+      }));
+      setDokumenData(mapped);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
+  useEffect(() => { 
+    const s = localStorage.getItem("user"); 
+    if (s) setUser(JSON.parse(s)); 
+    fetchData();
+  }, [fetchData]);
+  
   if (!user) return null;
   const filteredData = dokumenData.filter(i => {
     const matchSearch = i.nama.toLowerCase().includes(searchQuery.toLowerCase()) || i.kategori.toLowerCase().includes(searchQuery.toLowerCase());

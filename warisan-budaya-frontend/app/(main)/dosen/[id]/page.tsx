@@ -1,6 +1,6 @@
 "use client";
-import React, { useState, useEffect } from "react";
-import { useParams } from "next/navigation";
+import React, { useState, useEffect, useCallback } from "react";
+import { useParams, useRouter } from "next/navigation";
 import {
   MapPin, GraduationCap, User, BarChart2, TrendingUp,
   FileText, ChevronRight, ArrowUpDown, Eye, EyeOff,
@@ -8,43 +8,63 @@ import {
 } from "lucide-react";
 
 import Loading from "./loading";
-import type { TabType, SortType, Category } from "./types";
-import { initialCategories, dummyProfileData } from "./data";
+import type { TabType, SortType, Category, ProfileData } from "./types";
+import { mapLecturerToCategories, mapLecturerToProfileData } from "./data";
 import ProfileTable from "./_components/ProfileTable";
 import PublicationCard from "./_components/PublicationCard";
 import { DosenSidebar } from "./_components/DosenSidebar";
 import PublicationTrendChart from "./_components/PublicationTrendChart";
 import ResearchBarChart from "./_components/ResearchBarChart";
+import api from "@/lib/axios";
 
 export default function DosenProfilePage() {
   const params = useParams();
+  const router = useRouter();
   const _id = params.id as string;
-
-  const defaultCategory =
-    initialCategories.find((cat) => cat.subCategories.some((sub) => sub.visible)) ??
-    initialCategories[0];
-  const defaultCategoryId = defaultCategory?.id ?? "kualifikasi";
-  const defaultSubCategoryId =
-    defaultCategory?.subCategories.find((sub) => sub.visible)?.id ??
-    defaultCategory?.subCategories[0]?.id ??
-    "pendidikan-formal";
 
   const [isLoading, setIsLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<TabType>("overview");
   const [sortBy, setSortBy] = useState<SortType>("year-desc");
-  const [categories, setCategories] = useState<Category[]>(initialCategories);
-  const [activeSubCategory, setActiveSubCategory] = useState<string>(defaultSubCategoryId);
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [profileData, setProfileData] = useState<ProfileData | null>(null);
+  const [activeSubCategory, setActiveSubCategory] = useState<string>("");
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const isOwner = false;
 
-  const isOwner = false; 
+  const fetchLecturer = useCallback(async () => {
+    setIsLoading(true);
+    try {
+      const includeString = ['academic', 'addresses', 'families', 'identities', 'inpassings', 'stats', 'placements', 'positions', 'professorEmeritus', 'ranks', 'workContracts', 'hki', 'publicationAuthors', 'teachings', 'detaserings', 'academicOrations', 'additionalTasks', 'lectureMentorings', 'studentDevelopments', 'studentExaminations', 'studentSupervisions', 'teachingActivities', 'teachingMaterials', 'visitingScientists', 'communityServices', 'journalManagers', 'speakers', 'structuralPositions', 'publications', 'research', 'diklats', 'certifications', 'competencyTests', 'awards', 'otherSupportingActivities', 'professionalMemberships', 'allowances', 'scholarships', 'welfares'].join(',');
+
+      const response = await api.get(`/public/lecturers/${_id}`, {
+        params: { include: includeString }
+      });
+      
+      const lecturer = response.data?.data || response.data;
+      if (lecturer) {
+        const mappedCategories = mapLecturerToCategories(lecturer);
+        setCategories(mappedCategories);
+        setProfileData(mapLecturerToProfileData(lecturer));
+        
+        const defaultCategory = mappedCategories.find((cat) => cat.subCategories.some((sub) => sub.visible)) ?? mappedCategories[0];
+        const defaultSubCategoryId = defaultCategory?.subCategories.find((sub) => sub.visible)?.id ?? defaultCategory?.subCategories[0]?.id ?? "pendidikan-formal";
+        setActiveSubCategory(defaultSubCategoryId);
+      }
+    } catch (error) {
+      console.error("Error fetching lecturer:", error);
+      // Optional: router.push('/daftar-dosen') or show error UI
+    } finally {
+      setIsLoading(false);
+    }
+  }, [_id]);
+
   useEffect(() => {
-    const timer = setTimeout(() => setIsLoading(false), 1500);
-    return () => clearTimeout(timer);
-  }, []);
+    if (_id) {
+      fetchLecturer();
+    }
+  }, [_id, fetchLecturer]);
 
-  if (isLoading) return <Loading />;
-
-  const profileData = dummyProfileData;
+  if (isLoading || !profileData) return <Loading />;
 
   const totalPublications = profileData.publications.length;
   const totalCitations = profileData.publications.reduce((acc, p) => acc + (p.citations || 0), 0);
@@ -105,9 +125,9 @@ export default function DosenProfilePage() {
       />
 
       <div className="w-full bg-white py-3 border-b border-slate-100 text-center text-sm md:text-[15px] font-medium relative z-20">
-        <span className="text-[#1E40AF] hover:underline cursor-pointer">Universitas Udayana</span>
+        <span className="text-[#1E40AF] hover:underline cursor-pointer">{profileData.university}</span>
         <span className="text-slate-300 mx-2">/</span>
-        <span className="text-slate-500">Laboratorium Warisan Budaya Digital</span>
+        <span className="text-slate-500">{profileData.program}</span>
       </div>
 
       <div className="w-full bg-white border-b border-slate-200/80 shadow-sm relative z-10">
@@ -124,7 +144,7 @@ export default function DosenProfilePage() {
                 <div className="flex items-center gap-1.5"><MapPin className="w-4 h-4" /> {profileData.university}</div>
                 <div className="flex items-center gap-1.5"><GraduationCap className="w-4 h-4" /> {profileData.program}</div>
                 <div className="flex items-center gap-1.5">
-                  <User className="w-4 h-4" /> SIWADA ID:
+                  <User className="w-4 h-4" /> NIDN/NIP:
                   <span className="font-semibold text-slate-700">{profileData.SiwadaId}</span>
                 </div>
               </div>
@@ -174,7 +194,14 @@ export default function DosenProfilePage() {
                 <div className="bg-white rounded-xl shadow-sm border border-slate-100 p-6 flex gap-6 items-start">
                   <div className="flex-shrink-0">
                     <div className="w-28 h-28 rounded-full bg-[#0088CC] flex items-center justify-center text-white text-4xl overflow-hidden">
-                      <img src={profileData.imageUrl} alt={profileData.name} className="w-full h-full object-cover rounded-full" />
+                      <img 
+                        src={profileData.imageUrl} 
+                        alt={profileData.name} 
+                        className="w-full h-full object-cover rounded-full" 
+                        onError={(e) => {
+                          e.currentTarget.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(profileData.name)}&background=F3F4F6&color=4B5563`;
+                        }}
+                      />
                     </div>
                   </div>
                   <div className="flex-1">
@@ -188,10 +215,7 @@ export default function DosenProfilePage() {
                 <div className="bg-white rounded-xl shadow-sm border border-slate-100 p-4">
                   <h3 className="text-sm font-semibold text-slate-700 mb-3">ID Akademik & Eksternal</h3>
                   <ul className="text-sm text-slate-500 space-y-2">
-                    <li>SIWADA ID: <strong className="text-slate-700">{profileData.SiwadaId}</strong></li>
-                    <li>Scopus ID: <span className="text-slate-700">—</span></li>
-                    <li>Google Scholar: <span className="text-slate-700">—</span></li>
-                    <li>ORCID: <span className="text-slate-700">—</span></li>
+                    <li>NIDN/NIP: <strong className="text-slate-700">{profileData.SiwadaId}</strong></li>
                   </ul>
                 </div>
               </div>

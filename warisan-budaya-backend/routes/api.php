@@ -69,6 +69,7 @@
 
         // Auth
         Route::post('/logout', [AuthController::class, 'logout']);
+        Route::post('/me/avatar', [AuthController::class, 'uploadAvatar']);
         Route::get('/user', function (Request $request) {
             return $request->user();
         });

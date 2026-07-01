@@ -1,18 +1,20 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
+import api from "@/lib/axios";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { CheckCircle, Download, RefreshCw, Plus, Search, Eye, Pencil, Trash2, Home, ChevronRight, Trophy, Star } from "lucide-react";
 
 interface UserData { name: string; role: string; photo: string; }
 
-const rewardData = [
-  { id: 1, nama: "Penghargaan Dosen Berprestasi Nasional", pemberi: "Kemendikbud RI", tahun: 2022, tingkat: "Nasional", jenis: "Penghargaan" },
-  { id: 2, nama: "Satyalancana Karya Satya 30 Tahun", pemberi: "Presiden Republik Indonesia", tahun: 2023, tingkat: "Nasional", jenis: "Tanda Jasa" },
-  { id: 3, nama: "Best Paper Award – ICOHS 2021", pemberi: "International Conference on Heritage Studies", tahun: 2021, tingkat: "Internasional", jenis: "Penghargaan" },
-  { id: 4, nama: "Dosen Teladan Universitas Udayana", pemberi: "Universitas Udayana", tahun: 2019, tingkat: "Universitas", jenis: "Penghargaan" },
-  { id: 5, nama: "Peneliti Terbaik Bidang Budaya", pemberi: "LIPI / BRIN", tahun: 2018, tingkat: "Nasional", jenis: "Penghargaan" },
-];
+interface Reward {
+  id: number;
+  name: string;
+  year: number;
+  type: string;
+  level: string;
+  issuer: string;
+}
 
 const tingkatColors: Record<string, string> = {
   "Internasional": "bg-violet-50 text-violet-600",
@@ -22,11 +24,43 @@ const tingkatColors: Record<string, string> = {
 
 export default function RewardPage() {
   const [user, setUser] = useState<UserData | null>(null);
+  const [rewardData, setRewardData] = useState<Reward[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
-  const [currentPage] = useState(1);
-  useEffect(() => { const s = localStorage.getItem("user"); if (s) setUser(JSON.parse(s)); }, []);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(true);
+  const fetchData = useCallback(async () => {
+    try {
+      setIsLoading(true);
+      const res = await api.get('/awards');
+      const items = res.data?.data || [];
+      const mapped = items.map((item: any) => ({
+        id: item.id,
+        name: item.name || item.award_name,
+        year: item.year,
+        type: item.type || "Penghargaan",
+        level: item.level || "Nasional",
+        issuer: item.issuer || item.awarder || "Unknown"
+      }));
+      setRewardData(mapped);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
+  useEffect(() => { 
+    const s = localStorage.getItem("user"); 
+    if (s) setUser(JSON.parse(s)); 
+    fetchData();
+  }, [fetchData]);
+  
   if (!user) return null;
-  const filteredData = rewardData.filter(i => i.nama.toLowerCase().includes(searchQuery.toLowerCase()) || i.pemberi.toLowerCase().includes(searchQuery.toLowerCase()) || i.tingkat.toLowerCase().includes(searchQuery.toLowerCase()));
+  const filteredData = rewardData.filter(i => 
+    i.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+    i.issuer.toLowerCase().includes(searchQuery.toLowerCase()) || 
+    i.level.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
     <div className="space-y-6">
@@ -58,9 +92,9 @@ export default function RewardPage() {
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
           { label: "Total Penghargaan", value: rewardData.length, icon: <Trophy className="h-5 w-5" />, color: "text-brand-gold bg-brand-gold/10" },
-          { label: "Tingkat Internasional", value: rewardData.filter(d => d.tingkat === "Internasional").length, icon: <Star className="h-5 w-5" />, color: "text-violet-500 bg-violet-50/60" },
-          { label: "Tingkat Nasional", value: rewardData.filter(d => d.tingkat === "Nasional").length, icon: <Star className="h-5 w-5" />, color: "text-sky-600 bg-sky-50" },
-          { label: "Tanda Jasa", value: rewardData.filter(d => d.jenis === "Tanda Jasa").length, icon: <CheckCircle className="h-5 w-5" />, color: "text-emerald-600 bg-emerald-50/60" },
+          { label: "Tingkat Internasional", value: rewardData.filter(d => d.level === "Internasional").length, icon: <Star className="h-5 w-5" />, color: "text-violet-500 bg-violet-50/60" },
+          { label: "Tingkat Nasional", value: rewardData.filter(d => d.level === "Nasional").length, icon: <Star className="h-5 w-5" />, color: "text-sky-600 bg-sky-50" },
+          { label: "Tanda Jasa", value: rewardData.filter(d => d.type === "Tanda Jasa").length, icon: <CheckCircle className="h-5 w-5" />, color: "text-emerald-600 bg-emerald-50/60" },
         ].map((stat, idx) => (
           <div key={idx} className="rounded-xl bg-white p-4 shadow-sm border border-gray-100">
             <div className={`h-8 w-8 rounded-lg ${stat.color} flex items-center justify-center mb-3`}>{stat.icon}</div>
@@ -90,11 +124,11 @@ export default function RewardPage() {
               <div key={item.id} className="flex items-center gap-4 rounded-xl border border-gray-200 p-4 hover:border-brand-gold/40 hover:bg-brand-gold/5 transition-all">
                 <div className="h-12 w-12 rounded-xl bg-brand-gold/10 flex items-center justify-center shrink-0"><Trophy className="h-6 w-6 text-brand-gold" /></div>
                 <div className="flex-1 min-w-0">
-                  <h3 className="font-medium text-gray-700 text-sm">{item.nama}</h3>
-                  <p className="text-xs text-gray-500">{item.pemberi} · {item.tahun}</p>
+                  <h3 className="font-medium text-gray-700 text-sm">{item.name}</h3>
+                  <p className="text-xs text-gray-500">{item.issuer} · {item.year}</p>
                 </div>
                 <div className="flex items-center gap-2 shrink-0">
-                  <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-[11px] font-medium ${tingkatColors[item.tingkat] || "bg-gray-100 text-gray-600"}`}>{item.tingkat}</span>
+                  <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-[11px] font-medium ${tingkatColors[item.level] || "bg-gray-100 text-gray-600"}`}>{item.level}</span>
                   <div className="flex gap-1">
                     <button className="flex h-7 w-7 items-center justify-center rounded-lg text-gray-400 hover:bg-blue-50 hover:text-blue-600" id={`view-reward-${item.id}`}><Eye className="h-3.5 w-3.5" /></button>
                     <button className="flex h-7 w-7 items-center justify-center rounded-lg text-gray-400 hover:bg-yellow-50 hover:text-yellow-600" id={`edit-reward-${item.id}`}><Pencil className="h-3.5 w-3.5" /></button>
