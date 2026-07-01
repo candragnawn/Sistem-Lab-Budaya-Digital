@@ -1,5 +1,6 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
+import api from "@/lib/axios";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { CheckCircle, Download, RefreshCw, Plus, Search, Eye, Pencil, Trash2, Home, ChevronRight, Puzzle } from "lucide-react";
@@ -8,20 +9,59 @@ interface UserData { name: string; role: string; photo: string; }
 
 const tabs = ["Tugas Tambahan", "Manajer Jurnal", "Jabatan Struktural", "Keanggotaan Profesi", "Kegiatan Penunjang Lain", "Beasiswa"];
 
-const tugasData = [
-  { id: 1, tugas: "Kepala Laboratorium Warisan Budaya Digital", unitKerja: "Universitas Udayana", tmt: "1 Januari 2020", sampai: "Sekarang", status: "Aktif" },
-  { id: 2, tugas: "Anggota Senat Fakultas", unitKerja: "Fak. Ilmu Budaya UNUD", tmt: "1 Agustus 2021", sampai: "31 Juli 2025", status: "Aktif" },
-  { id: 3, tugas: "Reviewer Jurnal Nasional Terakreditasi", unitKerja: "Jurnal Budaya Nusantara", tmt: "1 Maret 2018", sampai: "Sekarang", status: "Aktif" },
-];
+interface Tugas {
+  id: number;
+  tugas: string;
+  unitKerja: string;
+  tmt: string;
+  sampai: string;
+  status: string;
+}
 
 export default function PenunjangPage() {
   const [user, setUser] = useState<UserData | null>(null);
+  const [tugasData, setTugasData] = useState<Tugas[]>([]);
   const [activeTab, setActiveTab] = useState(0);
   const [searchQuery, setSearchQuery] = useState("");
-  const [currentPage] = useState(1);
-  useEffect(() => { const s = localStorage.getItem("user"); if (s) setUser(JSON.parse(s)); }, []);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const fetchData = useCallback(async () => {
+    try {
+      setIsLoading(true);
+      if (activeTab === 0) {
+        const res = await api.get('/additional-tasks');
+        const items = res.data?.data || [];
+        const mapped = items.map((item: any) => ({
+          id: item.id,
+          tugas: item.task_name || item.name || "Tugas Tambahan",
+          unitKerja: item.work_unit || item.institution || "Universitas Udayana",
+          tmt: item.start_date || "-",
+          sampai: item.end_date || "Sekarang",
+          status: item.is_active ? "Aktif" : (item.status || "Aktif"),
+        }));
+        setTugasData(mapped);
+      } else {
+        setTugasData([]);
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [activeTab]);
+
+  useEffect(() => { 
+    const s = localStorage.getItem("user"); 
+    if (s) setUser(JSON.parse(s)); 
+    fetchData();
+  }, [fetchData]);
+
   if (!user) return null;
-  const filteredData = tugasData.filter(i => i.tugas.toLowerCase().includes(searchQuery.toLowerCase()) || i.unitKerja.toLowerCase().includes(searchQuery.toLowerCase()));
+  const filteredData = tugasData.filter(i => 
+    i.tugas.toLowerCase().includes(searchQuery.toLowerCase()) || 
+    i.unitKerja.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
     <div className="space-y-6">

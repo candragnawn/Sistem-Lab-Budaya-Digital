@@ -1,5 +1,6 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
+import api from "@/lib/axios";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { CheckCircle, Download, RefreshCw, Plus, Search, Eye, Pencil, Trash2, Home, ChevronRight, HandHeart } from "lucide-react";
@@ -8,21 +9,61 @@ interface UserData { name: string; role: string; photo: string; }
 
 const tabs = ["Penelitian", "Publikasi Karya", "HKI"];
 
-const penelitianData = [
-  { id: 1, judul: "Digitalisasi Aksara Bali sebagai Warisan Budaya Tak Benda", peran: "Ketua", sumber: "DIPA Unud", tahun: 2024, dana: "Rp 150.000.000", status: "Selesai" },
-  { id: 2, judul: "Model AI untuk Preservasi Lontar Digital Bali", peran: "Ketua", sumber: "Dikti BRIN", tahun: 2023, dana: "Rp 300.000.000", status: "Selesai" },
-  { id: 3, judul: "Pengembangan Platform Museum Virtual Budaya Nusantara", peran: "Anggota", sumber: "Kemdikbud", tahun: 2022, dana: "Rp 500.000.000", status: "Selesai" },
-  { id: 4, judul: "Rekonstruksi Digital Artefak Pura Kuno di Bali", peran: "Ketua", sumber: "DIPA Unud", tahun: 2025, dana: "Rp 200.000.000", status: "Berjalan" },
-];
+interface Penelitian {
+  id: number;
+  judul: string;
+  peran: string;
+  sumber: string;
+  tahun: number;
+  dana: string;
+  status: string;
+}
 
 export default function PelaksanaanPengabdianPage() {
   const [user, setUser] = useState<UserData | null>(null);
+  const [penelitianData, setPenelitianData] = useState<Penelitian[]>([]);
   const [activeTab, setActiveTab] = useState(0);
   const [searchQuery, setSearchQuery] = useState("");
-  const [currentPage] = useState(1);
-  useEffect(() => { const s = localStorage.getItem("user"); if (s) setUser(JSON.parse(s)); }, []);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const fetchData = useCallback(async () => {
+    try {
+      setIsLoading(true);
+      if (activeTab === 0) {
+        const res = await api.get('/research');
+        const items = res.data?.data || [];
+        const mapped = items.map((item: any) => ({
+          id: item.id,
+          judul: item.title || "Penelitian",
+          peran: item.role || item.position || "Ketua",
+          sumber: item.funding_source || "Mandiri",
+          tahun: item.year || new Date().getFullYear(),
+          dana: `Rp ${Number(item.funding_amount || 0).toLocaleString('id-ID')}`,
+          status: item.status || "Selesai",
+        }));
+        setPenelitianData(mapped);
+      } else {
+        setPenelitianData([]);
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [activeTab]);
+
+  useEffect(() => { 
+    const s = localStorage.getItem("user"); 
+    if (s) setUser(JSON.parse(s)); 
+    fetchData();
+  }, [fetchData]);
+
   if (!user) return null;
-  const filteredData = penelitianData.filter(i => i.judul.toLowerCase().includes(searchQuery.toLowerCase()) || i.sumber.toLowerCase().includes(searchQuery.toLowerCase()));
+  const filteredData = penelitianData.filter(i => 
+    i.judul.toLowerCase().includes(searchQuery.toLowerCase()) || 
+    i.sumber.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
     <div className="space-y-6">

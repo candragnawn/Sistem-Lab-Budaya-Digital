@@ -1,5 +1,6 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
+import api from "@/lib/axios";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { CheckCircle, Download, RefreshCw, Plus, Search, Eye, Pencil, Trash2, Home, ChevronRight, BookOpen } from "lucide-react";
@@ -8,21 +9,63 @@ interface UserData { name: string; role: string; photo: string; }
 
 const tabs = ["Pengajaran", "Bimbingan Mahasiswa", "Penguji", "Bahan Ajar", "Pengembangan Mahasiswa", "Visiting Scientist", "Detasering", "Orasi Ilmiah", "Pembimbingan Dosen"];
 
-const pengajaranData = [
-  { id: 1, mataKuliah: "Warisan Budaya Digital", kode: "WBD401", sks: 3, semester: "Ganjil 2024/2025", kelas: "A", mahasiswa: 32, status: "Aktif" },
-  { id: 2, mataKuliah: "Arkeologi Komputer", kode: "ARK302", sks: 3, semester: "Ganjil 2024/2025", kelas: "B", mahasiswa: 28, status: "Aktif" },
-  { id: 3, mataKuliah: "Metodologi Penelitian Budaya", kode: "MPB501", sks: 2, semester: "Genap 2023/2024", kelas: "A", mahasiswa: 25, status: "Selesai" },
-  { id: 4, mataKuliah: "Digitalisasi Manuskrip", kode: "DM403", sks: 3, semester: "Genap 2023/2024", kelas: "A", mahasiswa: 20, status: "Selesai" },
-];
+interface Pengajaran {
+  id: number;
+  mataKuliah: string;
+  kode: string;
+  sks: number;
+  semester: string;
+  kelas: string;
+  mahasiswa: number;
+  status: string;
+}
 
 export default function PelaksanaanPendidikanPage() {
   const [user, setUser] = useState<UserData | null>(null);
+  const [pengajaranData, setPengajaranData] = useState<Pengajaran[]>([]);
   const [activeTab, setActiveTab] = useState(0);
   const [searchQuery, setSearchQuery] = useState("");
-  const [currentPage] = useState(1);
-  useEffect(() => { const s = localStorage.getItem("user"); if (s) setUser(JSON.parse(s)); }, []);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const fetchData = useCallback(async () => {
+    try {
+      setIsLoading(true);
+      if (activeTab === 0) {
+        const res = await api.get('/teachings');
+        const items = res.data?.data || [];
+        const mapped = items.map((item: any) => ({
+          id: item.id,
+          mataKuliah: item.course_name || "Mata Kuliah",
+          kode: item.course_code || "-",
+          sks: item.credit || 0,
+          semester: item.semester || "Ganjil",
+          kelas: item.class_name || "A",
+          mahasiswa: item.student_count || 0,
+          status: item.is_active ? "Aktif" : (item.status || "Aktif"),
+        }));
+        setPengajaranData(mapped);
+      } else {
+        setPengajaranData([]);
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [activeTab]);
+
+  useEffect(() => { 
+    const s = localStorage.getItem("user"); 
+    if (s) setUser(JSON.parse(s)); 
+    fetchData();
+  }, [fetchData]);
+
   if (!user) return null;
-  const filteredData = pengajaranData.filter(i => i.mataKuliah.toLowerCase().includes(searchQuery.toLowerCase()) || i.kode.toLowerCase().includes(searchQuery.toLowerCase()));
+  const filteredData = pengajaranData.filter(i => 
+    i.mataKuliah.toLowerCase().includes(searchQuery.toLowerCase()) || 
+    i.kode.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
     <div className="space-y-6">

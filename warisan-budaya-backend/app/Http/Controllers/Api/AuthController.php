@@ -67,9 +67,35 @@ class AuthController extends Controller
         return new UserResource($request->user());
     }
 
+    public function uploadAvatar(Request $request)
+    {
+        $request->validate([
+            'avatar' => 'required|image|mimes:jpg,jpeg,png,webp|max:5120',
+        ]);
+
+        $user = $request->user();
+        
+        $path = $request->file('avatar')->store('avatars', 'public');
+        $user->avatar_path = $path;
+        $user->save();
+
+        if ($user->lecturer_id) {
+            $lecturer = \App\Models\Lecturer::find($user->lecturer_id);
+            if ($lecturer) {
+                $lecturer->photo_path = $user->avatar_path;
+                $lecturer->save();
+            }
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Foto profil berhasil diperbarui.',
+            'data'    => new UserResource($user),
+        ]);
+    }
+
     public function logout(Request $request)
     {
-        // Revoke SEMUA token user (bukan hanya current token)
         $request->user()->tokens()->delete();
 
         return response()->json([
