@@ -1,0 +1,113 @@
+version: '3.8'
+
+services:
+  # ----------------------------------------
+  # Backend Laravel Service
+  # ----------------------------------------
+  backend:
+    build:
+      context: ./warisan-budaya-backend
+      dockerfile: Dockerfile
+    container_name: warisan_budaya_backend
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./warisan-budaya-backend:/var/www/html
+    depends_on:
+      - mysql
+    environment:
+      - DB_HOST=mysql
+      - DB_DATABASE=warisan_budaya
+      - DB_USERNAME=sail
+      - DB_PASSWORD=password
+    networks:
+      - warisan_network
+
+  # ----------------------------------------
+  # Horizon Worker Service
+  # ----------------------------------------
+  horizon:
+    build:
+      context: ./warisan-budaya-backend
+      dockerfile: Dockerfile
+    container_name: warisan_budaya_horizon
+    restart: unless-stopped
+    command: bash -c "while [ ! -f /var/www/html/vendor/autoload.php ]; do echo 'Menunggu vendor/autoload.php...'; sleep 3; done; php artisan horizon"
+    volumes:
+      - ./warisan-budaya-backend:/var/www/html
+    depends_on:
+      - mysql
+      - redis
+    environment:
+      - DB_HOST=mysql
+      - DB_DATABASE=warisan_budaya
+      - DB_USERNAME=sail
+      - DB_PASSWORD=password
+      - REDIS_HOST=redis
+    networks:
+      - warisan_network
+
+  # ----------------------------------------
+  # Frontend Next.js Service
+  # ----------------------------------------
+  frontend:
+    build:
+      context: ./warisan-budaya-frontend
+      dockerfile: Dockerfile
+    container_name: warisan_budaya_frontend
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./warisan-budaya-frontend:/app
+      - /app/node_modules
+      - /app/.next
+    environment:
+      - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=true # Untuk mengaktifkan hot-reloading di Windows/WSL
+    depends_on:
+      - backend
+    networks:
+      - warisan_network
+
+  # ----------------------------------------
+  # MySQL Database Service
+  # ----------------------------------------
+  mysql:
+    image: mysql:8.0
+    container_name: warisan_budaya_mysql
+    restart: unless-stopped
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: warisan_budaya
+      MYSQL_USER: sail
+      MYSQL_PASSWORD: password
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - warisan_network
+
+  # ----------------------------------------
+  # Redis Service
+  # ----------------------------------------
+  redis:
+    image: redis:alpine
+    container_name: warisan_budaya_redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - warisan_network
+
+volumes:
+  mysql_data:
+  redis_data:
+
+networks:
+  warisan_network:
+    driver: bridge

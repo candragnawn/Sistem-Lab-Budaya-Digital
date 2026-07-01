@@ -4,6 +4,7 @@ namespace App\service;
 
 use App\Models\Lecturer;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Cache;
 
 class SyncCoordinator
 {
@@ -119,5 +120,8 @@ class SyncCoordinator
 
         // Catat waktu sinkronisasi terakhir
         $lecturer->update(['last_synced_at' => now()]);
+
+        // Hapus cache agar data baru langsung muncul di frontend
+        Cache::flush();
     }
 }

@@ -256,6 +256,11 @@ abstract class BaseCrudController extends Controller
         $requestClass = app($this->updateRequest);
         $validated = $request->validate($requestClass->rules());
 
+        // CRITICAL SECURITY FIX: Prevent user from changing ownership (Mass Assignment)
+        if ($this->modelHasAttribute('lecturer_id') && $request->user()) {
+            unset($validated['lecturer_id']);
+        }
+
         // Wrap in transaction for data consistency
         $item = DB::transaction(function () use ($item, $validated) {
             $item->update($validated);
@@ -655,7 +660,8 @@ abstract class BaseCrudController extends Controller
     {
         $tableName = app($this->model)->getTable();
         $queryString = http_build_query($request->query());
-        return $tableName . '_' . $prefix . md5($request->url() . '?' . $queryString);
+        $userId = $request->user() ? $request->user()->id : 'guest';
+        return $tableName . '_' . $prefix . md5($userId . '_' . $request->url() . '?' . $queryString);
     }
 
     protected function rememberCache(string $key, \Closure $callback)

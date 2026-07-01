@@ -46,6 +46,22 @@ pertama install wsl windows, baru ikutin langkah ini : https://redis.io/docs/lat
 
 baru kalok udah selesai install jalanin redis nya di ubuntu pake perintah : `sudo service redis-server start`
 
+Persiapan Docker : 
+- download docker desktop
+- pastiin xampp mati pas buka docker
+- pake wsl 2 (optional)
+- ketik di terminal docker-compose up -d --build buat jalanin
+- docker-compose down buat matiin
+
+- buat nambah data pake seed di database 
+docker exec -it warisan_budaya_backend php artisan migrate --seed
+
+- nambah library di frotnend (misal axios) 
+docker exec -it warisan_budaya_frontend npm install axios
+
+- nambah library di backend (misal horizon)
+docker exec -it warisan_budaya_backend composer require laravel/horizon
+
 
 di frontend :
 lib yg ditamabah : 
