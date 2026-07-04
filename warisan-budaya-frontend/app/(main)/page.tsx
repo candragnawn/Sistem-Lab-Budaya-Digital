@@ -70,7 +70,7 @@ export default function Page() {
           <Card className="hover:shadow-lg transition-all duration-300 bg-white rounded-xl border-none shadow-sm cursor-pointer hover:-translate-y-1">
             <CardContent className="p-8 flex flex-col items-center text-center space-y-4">
               <div className="text-5xl mb-2">
-               <img src="adri.png" alt="Icon Buku" className="w-12 h-12 object-contain" />
+               <img src="folder.png" alt="Icon Buku" className="w-12 h-12 object-contain" />
                 </div> 
                   <div>
                 <h3 className="font-bold text-black text-lg">Publikasi Karya</h3>
@@ -107,19 +107,7 @@ export default function Page() {
             </CardContent>
           </Card>
 
-          <Card className="hover:shadow-lg transition-all duration-300 bg-white rounded-xl border-none shadow-sm cursor-pointer hover:-translate-y-1">
-            <CardContent className="p-8 flex flex-col items-center text-center space-y-4">
-              <div className="text-5xl mb-2">
-               <img src="book.png" alt="Icon Buku" className="w-12 h-12 object-contain" />
-                </div> 
-                  <div>
-                <h3 className="font-bold text-brand-navy text-lg">Sapta</h3>
-                <p className="text-gray-500 text-sm mt-1">Bahan ajar akademik</p>
-              </div>
-              <p className="text-brand-green font-bold mt-2"><span className="text-xl">274</span> <span className="text-xs font-normal text-gray-500">arsip</span></p>
-            </CardContent>
-          </Card>
-
+      
         </div>
       </section>
 
