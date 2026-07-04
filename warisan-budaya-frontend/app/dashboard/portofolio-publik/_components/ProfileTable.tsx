@@ -8,7 +8,7 @@ interface ProfileTableProps {
   isOwner: boolean;
 }
 
-const ITEMS_PER_PAGE = 2;
+const ITEMS_PER_PAGE = 5;
 
 export default function ProfileTable({ activeSub, categories, isOwner }: ProfileTableProps) {
   const [currentPage, setCurrentPage] = useState(1);

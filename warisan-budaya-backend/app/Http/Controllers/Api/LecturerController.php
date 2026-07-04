@@ -35,7 +35,13 @@ class LecturerController extends BaseCrudController
             $query = $this->applyWithCount($request, $query);
             $query = $this->applySorting($request, $query);
 
-            $paginated = $query->paginate($this->getPerPage($request));
+            $perPage = $this->getPerPage($request);
+            $cacheKey = $this->getCacheKey($request, 'public_index_');
+
+            $paginated = $this->rememberCache($cacheKey, function () use ($query, $perPage) {
+                return $query->paginate($perPage);
+            });
+            
             return $this->successPaginatedResponse($paginated, $request);
         }
 
@@ -51,7 +57,11 @@ class LecturerController extends BaseCrudController
             $query = $this->applyIncludes($request, $query);
             $query = $this->applyWithCount($request, $query);
 
-            $item = $query->findOrFail($id);
+            $cacheKey = $this->getCacheKey($request, 'public_show_' . $id . '_');
+            
+            $item = $this->rememberCache($cacheKey, function () use ($query, $id) {
+                return $query->findOrFail($id);
+            });
 
             return $this->successResponse(new PublicLecturerResource($item), 200);
         }

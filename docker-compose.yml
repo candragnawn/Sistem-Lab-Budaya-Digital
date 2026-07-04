@@ -1,9 +1,7 @@
 version: '3.8'
 
 services:
-  # ----------------------------------------
   # Backend Laravel Service
-  # ----------------------------------------
   backend:
     build:
       context: ./warisan-budaya-backend
@@ -24,9 +22,7 @@ services:
     networks:
       - warisan_network
 
-  # ----------------------------------------
   # Horizon Worker Service
-  # ----------------------------------------
   horizon:
     build:
       context: ./warisan-budaya-backend
@@ -48,9 +44,7 @@ services:
     networks:
       - warisan_network
 
-  # ----------------------------------------
   # Frontend Next.js Service
-  # ----------------------------------------
   frontend:
     build:
       context: ./warisan-budaya-frontend
@@ -71,9 +65,7 @@ services:
     networks:
       - warisan_network
 
-  # ----------------------------------------
   # MySQL Database Service
-  # ----------------------------------------
   mysql:
     image: mysql:8.0
     container_name: warisan_budaya_mysql
@@ -90,9 +82,7 @@ services:
     networks:
       - warisan_network
 
-  # ----------------------------------------
   # Redis Service
-  # ----------------------------------------
   redis:
     image: redis:alpine
     container_name: warisan_budaya_redis
@@ -101,6 +91,21 @@ services:
       - "6379:6379"
     volumes:
       - redis_data:/data
+    networks:
+      - warisan_network
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: warisan_budaya_pma
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    environment:
+      - PMA_HOST=mysql
+      - PMA_USER=root
+      - PMA_PASSWORD=root
+    depends_on:
+      - mysql
     networks:
       - warisan_network
 
