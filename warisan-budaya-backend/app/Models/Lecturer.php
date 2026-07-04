@@ -29,7 +29,7 @@ use App\Models\Profile\WorkContract;
 
 //academic
 use App\Models\Academic\LecturerStudy;
-use App\Models\Academic\LecturerEducation;
+use App\Models\Kualifikasi\LecturerEducation;
 use App\Models\Academic\LecturerTeaching;
 //pelaksanaan pendidikan
 use App\Models\PelaksanaanPendidikan\Detasering;
@@ -108,6 +108,11 @@ public function academic(): HasOne
         return $this->hasOne(LecturerAcademic::class, 'lecturer_id');
     }
 
+
+    public function educations(): HasMany
+    {
+        return $this->hasMany(LecturerEducation::class, 'lecturer_id');
+    }
 
     public function addresses(): HasMany
     {
