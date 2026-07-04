@@ -75,12 +75,11 @@ class AuthController extends Controller
 
         $user = $request->user();
         
-        $path = $request->file('avatar')->store('avatars', 'public');
-        $user->avatar_path = $path;
+        $user->avatar_path = $request->file('avatar');
         $user->save();
 
         if ($user->lecturer_id) {
-            $lecturer = \App\Models\Lecturer::find($user->lecturer_id);
+            $lecturer = Lecturer::find($user->lecturer_id);
             if ($lecturer) {
                 $lecturer->photo_path = $user->avatar_path;
                 $lecturer->save();

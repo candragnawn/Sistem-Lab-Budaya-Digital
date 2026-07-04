@@ -3,6 +3,9 @@ FROM php:8.2-cli
 # Install dependencies yang dibutuhkan Laravel
 RUN apt-get update && apt-get install -y \
     libpng-dev \
+    libjpeg-dev \
+    libfreetype6-dev \
+    libwebp-dev \
     libonig-dev \
     libxml2-dev \
     zip \
@@ -11,7 +14,8 @@ RUN apt-get update && apt-get install -y \
     git \
     libzip-dev
 
-# Install PHP extensions
+# Konfigurasi dan Install PHP extensions
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp
 RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip
 
 # Install Composer
