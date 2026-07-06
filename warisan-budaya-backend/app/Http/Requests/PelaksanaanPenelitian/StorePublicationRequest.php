@@ -16,16 +16,16 @@ class StorePublicationRequest extends FormRequest
         return [
             'lecturer_id' => 'nullable|exists:lecturers,id',
             'publication_author_id' => 'nullable|string|max:255',
-            'title' => 'nullable|string|max:255',
+            'title' => 'required|string|max:255',
             'category' => 'nullable|string|max:255',
-            'type' => 'nullable|string|max:255',
-            'source' => 'nullable|string|max:255',
+            'type' => 'required|string|max:255',
+            'source' => 'required|string|max:255',
             'quartile' => 'nullable|string|max:255',
             'journal_name' => 'nullable|string|max:255',
             'issn' => 'nullable|string|max:255',
             'doi' => 'nullable|string|max:255',
             'is_verified' => 'required|boolean',
-            'year' => 'nullable|string|max:255',
+            'year' => 'required|string|max:255',
             'url' => 'nullable|file|mimes:pdf|max:2048',
         ];
     }

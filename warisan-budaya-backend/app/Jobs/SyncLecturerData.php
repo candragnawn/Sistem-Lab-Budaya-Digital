@@ -44,7 +44,6 @@ class SyncLecturerData implements ShouldQueue
             Log::info("[SyncLecturerData Job] Sinkronisasi berhasil untuk Lecturer ID: {$this->lecturer->id}");
         } catch (\Exception $e) {
             Log::error("[SyncLecturerData Job] Sinkronisasi gagal untuk Lecturer ID: {$this->lecturer->id}. Error: " . $e->getMessage());
-            // Lemparkan kembali exception agar worker tahu job ini gagal dan bisa melakukan retry
             throw $e;
         }
     }

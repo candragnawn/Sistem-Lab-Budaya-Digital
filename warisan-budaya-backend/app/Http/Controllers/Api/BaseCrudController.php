@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Cache\TaggableStore;
 
 /**
  * BaseCrudController - Advanced CRUD with filtering, pagination, and soft deletes
@@ -667,7 +668,7 @@ abstract class BaseCrudController extends Controller
     protected function rememberCache(string $key, \Closure $callback)
     {
         try {
-            if (Cache::getStore() instanceof \Illuminate\Cache\TaggableStore || method_exists(Cache::getStore(), 'tags')) {
+            if (Cache::getStore() instanceof TaggableStore || method_exists(Cache::getStore(), 'tags')) {
                 return Cache::tags([app($this->model)->getTable()])->remember($key, 86400, $callback);
             }
         } catch (\Exception $e) {
@@ -679,7 +680,7 @@ abstract class BaseCrudController extends Controller
     protected function flushCache(): void
     {
         try {
-            if (Cache::getStore() instanceof \Illuminate\Cache\TaggableStore || method_exists(Cache::getStore(), 'tags')) {
+            if (Cache::getStore() instanceof TaggableStore || method_exists(Cache::getStore(), 'tags')) {
                 Cache::tags([app($this->model)->getTable()])->flush();
                 return;
             }

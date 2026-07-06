@@ -38,7 +38,7 @@ class AiService
                     'messages' => [
                         [
                             'role' => 'system',
-                            'content' => 'Kamu adalah seorang pakar HR dan penulis CV profesional. Jawablah langsung tanpa salam pembuka atau penutup.'
+                            'content' => 'Kamu adalah seorang pakar HR dan penulis CV profesional. Jawablah langsung tanpa salam pembuka atau penutup.' //prompt tambahan buat sistem
                         ],
                         [
                             'role' => 'user',
