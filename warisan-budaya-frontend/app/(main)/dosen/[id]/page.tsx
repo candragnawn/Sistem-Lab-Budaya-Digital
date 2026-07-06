@@ -34,7 +34,7 @@ export default function DosenProfilePage() {
   const fetchLecturer = useCallback(async () => {
     setIsLoading(true);
     try {
-      const includeString = ['academic', 'addresses', 'families', 'identities', 'inpassings', 'stats', 'placements', 'positions', 'professorEmeritus', 'ranks', 'workContracts', 'hki', 'publicationAuthors', 'teachings', 'detaserings', 'academicOrations', 'additionalTasks', 'lectureMentorings', 'studentDevelopments', 'studentExaminations', 'studentSupervisions', 'teachingActivities', 'teachingMaterials', 'visitingScientists', 'communityServices', 'journalManagers', 'speakers', 'structuralPositions', 'publications', 'research', 'diklats', 'certifications', 'competencyTests', 'awards', 'otherSupportingActivities', 'professionalMemberships', 'allowances', 'scholarships', 'welfares'].join(',');
+      const includeString = ['academic', 'educations', 'employments', 'addresses', 'families', 'identities', 'inpassings', 'stats', 'placements', 'positions', 'professorEmeritus', 'ranks', 'workContracts', 'hki', 'publicationAuthors', 'teachings', 'detaserings', 'academicOrations', 'additionalTasks', 'lectureMentorings', 'studentDevelopments', 'studentExaminations', 'studentSupervisions', 'teachingActivities', 'teachingMaterials', 'visitingScientists', 'communityServices', 'journalManagers', 'speakers', 'structuralPositions', 'publications', 'research', 'diklats', 'certifications', 'competencyTests', 'awards', 'otherSupportingActivities', 'professionalMemberships', 'allowances', 'scholarships', 'welfares'].join(',');
 
       const response = await api.get(`/public/lecturers/${_id}`, {
         params: { include: includeString }

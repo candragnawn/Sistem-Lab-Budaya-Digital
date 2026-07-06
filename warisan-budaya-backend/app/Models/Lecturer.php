@@ -93,6 +93,16 @@ class Lecturer extends Model
             'sinta_score_3yr', 'sinta_score_total', 'last_synced_at'
     ];
     
+    protected static function booted()
+    {
+        static::saved(function ($lecturer) {
+            if ($lecturer->isDirty('name')) {
+                User::withoutEvents(function () use ($lecturer) {
+                    User::where('lecturer_id', $lecturer->id)->update(['name' => $lecturer->name]);
+                });
+            }
+        });
+    }
 
 
     protected function photoUrl(): Attribute {
@@ -160,7 +170,11 @@ public function academic(): HasOne
         return $this->hasMany(Position::class, 'lecturer_id');
     }
 
-   
+    public function employments(): HasMany
+    {
+        return $this->hasMany(\App\Models\Kualifikasi\Employment::class, 'lecturer_id');
+    }
+
     public function professorEmeritus(): HasMany
     {
         return $this->hasMany(ProfessorEmeritus::class, 'lecturer_id');

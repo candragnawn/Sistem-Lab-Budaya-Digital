@@ -218,7 +218,7 @@ export default function ProfilPage() {
     <div className="space-y-6">
       {/* Breadcrumb */}
       <div className="text-sm text-gray-500">
-        <span className="text-brand-navy font-medium">Universitas Ivan</span>
+        <span className="text-brand-navy font-medium">{profilData.perguruanTinggi !== "-" ? profilData.perguruanTinggi : "Universitas Udayana"}</span>
         <span className="mx-2">/</span>
         <span>Laboratorium Warisan Budaya Digital</span>
       </div>
@@ -228,20 +228,22 @@ export default function ProfilPage() {
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div className="flex items-start gap-4">
             <div
-              className="relative h-16 w-16 shrink-0 overflow-hidden rounded-full border-3 border-brand-gold cursor-pointer group"
+              className="relative h-16 w-16 shrink-0 cursor-pointer group"
               onClick={() => fileInputRef.current?.click()}
               title="Klik untuk ganti foto"
             >
-              <img
-                src={user.photo || user.avatar_url || '/default-avatar.png'}
-                alt={user.name}
-                className="h-full w-full object-cover"
-                onError={(e) => { (e.target as HTMLImageElement).src = '/default-avatar.png'; }}
-              />
-              <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity rounded-full">
-                <Pencil className="h-3 w-3 text-white" />
+              <div className="h-full w-full overflow-hidden rounded-full border-4 border-brand-gold">
+                <img
+                  src={user.photo || user.avatar_url || '/default-avatar.png'}
+                  alt={user.name}
+                  className="h-full w-full object-cover"
+                  onError={(e) => { (e.target as HTMLImageElement).src = '/default-avatar.png'; }}
+                />
+                <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity rounded-full">
+                  <Pencil className="h-3 w-3 text-white" />
+                </div>
               </div>
-              <div className="absolute -bottom-0.5 -right-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-green-500 ring-2 ring-white">
+              <div className="absolute -bottom-0.5 -right-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-green-500 ring-2 ring-white z-10">
                 <CheckCircle className="h-3 w-3 text-white" />
               </div>
             </div>
@@ -249,7 +251,11 @@ export default function ProfilPage() {
               <h1 className="text-xl font-semibold text-gray-700">{profilData.nama}</h1>
               <p className="text-sm text-gray-500">{profilData.jabatanAkademik}</p>
               <p className="text-xs text-gray-400">
-                Prodi DIK · Fakultas Nomor 3 · Universitas Ganteng
+                {profilData.programStudi !== "-" ? profilData.programStudi : ""} 
+                {profilData.programStudi !== "-" && profilData.unitKerja !== "-" ? " · " : ""}
+                {profilData.unitKerja !== "-" ? profilData.unitKerja : ""}
+                {(profilData.programStudi !== "-" || profilData.unitKerja !== "-") && profilData.perguruanTinggi !== "-" ? " · " : ""}
+                {profilData.perguruanTinggi !== "-" ? profilData.perguruanTinggi : ""}
               </p>
               <div className="mt-2 flex flex-wrap gap-2">
                 <span className="inline-flex items-center rounded-full bg-slate-100 px-2.5 py-0.5 text-[10px] font-medium text-slate-600">

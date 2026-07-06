@@ -75,12 +75,19 @@ class User extends Authenticatable
             }
         });
 
+        static::saved(function ($user) {
+            if ($user->isDirty('name') && $user->lecturer_id) {
+                Lecturer::withoutEvents(function () use ($user) {
+                    Lecturer::where('id', $user->lecturer_id)->update(['name' => $user->name]);
+                });
+            }
+        });
+
         static::deleted(function ($user) {
             if ($user->avatar_path) {
                 Storage::disk('public')->delete($user->avatar_path);
             }
         });
-
     }
 
     public function lecturer()
