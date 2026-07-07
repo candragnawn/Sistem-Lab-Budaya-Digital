@@ -9,11 +9,11 @@ import { toast } from "sonner";
 
 interface DataModel {
   id?: number;
-  task_name: string;
-  unit: string;
-  nomor_sk: string;
-  tanggal_mulai: string;
-  tanggal_selesai: string;
+  additional_task: string;
+  work_unit: string;
+  institution: string;
+  start_date: string;
+  end_date: string;
 }
 
 export default function TugasTambahanPage() {
@@ -53,11 +53,11 @@ export default function TugasTambahanPage() {
     setIsSubmitting(true);
     try {
       const payload = {
-        task_name: formData.task_name,
-        unit: formData.unit,
-        sk_number: formData.nomor_sk,
-        start_date: formData.tanggal_mulai,
-        end_date: formData.tanggal_selesai,
+        additional_task: formData.additional_task,
+        work_unit: formData.work_unit,
+        institution: formData.institution,
+        start_date: formData.start_date,
+        end_date: formData.end_date,
       };
 
       if (formData.id) {
@@ -106,7 +106,8 @@ export default function TugasTambahanPage() {
 
   const filteredData = data.filter((i: any) => {
     const q = searchQuery.toLowerCase();
-    return (i.task_name && String(i.task_name).toLowerCase().includes(q)) || (i.unit && String(i.unit).toLowerCase().includes(q)) || (i.nomor_sk && String(i.nomor_sk).toLowerCase().includes(q)) || false;
+    if (!q) return true;
+    return (i.additional_task && String(i.additional_task).toLowerCase().includes(q)) || (i.work_unit && String(i.work_unit).toLowerCase().includes(q)) || (i.institution && String(i.institution).toLowerCase().includes(q)) || false;
   });
 
   return (
@@ -170,11 +171,11 @@ export default function TugasTambahanPage() {
               {filteredData.map((item: any, idx: number) => (
                 <tr key={item.id} className="hover:bg-gray-50/50">
                   <td className="px-4 py-4 text-gray-500 align-top">{idx + 1}</td>
-                  <td className="px-4 py-4 align-top text-gray-700">{item.task_name || "-"}</td>
-                  <td className="px-4 py-4 align-top text-gray-700">{item.unit || "-"}</td>
-                  <td className="px-4 py-4 align-top text-gray-700">{item.nomor_sk || "-"}</td>
-                  <td className="px-4 py-4 align-top text-gray-700">{item.tanggal_mulai || "-"}</td>
-                  <td className="px-4 py-4 align-top text-gray-700">{item.tanggal_selesai || "-"}</td>
+                  <td className="px-4 py-4 align-top text-gray-700">{item.additional_task || "-"}</td>
+                  <td className="px-4 py-4 align-top text-gray-700">{item.work_unit || "-"}</td>
+                  <td className="px-4 py-4 align-top text-gray-700">{item.institution || "-"}</td>
+                  <td className="px-4 py-4 align-top text-gray-700">{item.start_date || "-"}</td>
+                  <td className="px-4 py-4 align-top text-gray-700">{item.end_date || "-"}</td>
                   <td className="px-4 py-4 align-top">
                     <div className="flex items-center justify-center gap-1">
                       <button onClick={() => openSheetForEdit(item)} className="flex h-8 w-8 items-center justify-center rounded-lg text-gray-400 hover:bg-yellow-50 hover:text-yellow-600"><Pencil className="h-4 w-4" /></button>
@@ -214,8 +215,8 @@ export default function TugasTambahanPage() {
                 <label className="text-xs font-bold text-gray-500 uppercase tracking-wide">Nama Tugas <span className="text-red-500">*</span></label>
                 <Input 
                   placeholder="Contoh: Ketua Program Studi" 
-                  value={formData.task_name || ""}
-                  onChange={(e) => setFormData({...formData, task_name: e.target.value})}
+                  value={formData.additional_task || ""}
+                  onChange={(e) => setFormData({...formData, additional_task: e.target.value})}
                   className="h-10 bg-white border border-gray-300 text-gray-900 focus-visible:ring-brand-navy/20 shadow-sm"
                 />
               </div>
@@ -225,8 +226,8 @@ export default function TugasTambahanPage() {
                   <label className="text-xs font-bold text-gray-500 uppercase tracking-wide">Unit Kerja <span className="text-red-500">*</span></label>
                   <Input 
                     placeholder="Contoh: Fakultas Teknik" 
-                    value={formData.unit || ""}
-                    onChange={(e) => setFormData({...formData, unit: e.target.value})}
+                    value={formData.work_unit || ""}
+                    onChange={(e) => setFormData({...formData, work_work_unit: e.target.value})}
                     className="h-10 bg-white border border-gray-300 text-gray-900 focus-visible:ring-brand-navy/20 shadow-sm"
                   />
                 </div>
@@ -235,8 +236,8 @@ export default function TugasTambahanPage() {
                   <label className="text-xs font-bold text-gray-500 uppercase tracking-wide">Nomor SK <span className="text-red-500">*</span></label>
                   <Input 
                     placeholder="Contoh: 123/SK/2023"
-                    value={formData.nomor_sk || ""}
-                    onChange={(e) => setFormData({...formData, nomor_sk: e.target.value})}
+                    value={formData.institution || ""}
+                    onChange={(e) => setFormData({...formData, institution: e.target.value})}
                     className="h-10 bg-white border border-gray-300 text-gray-900 focus-visible:ring-brand-navy/20 shadow-sm"
                   />
                 </div>
@@ -247,8 +248,8 @@ export default function TugasTambahanPage() {
                   <label className="text-xs font-bold text-gray-500 uppercase tracking-wide">TMT Mulai <span className="text-red-500">*</span></label>
                   <Input 
                     type="date"
-                    value={formData.tanggal_mulai || ""}
-                    onChange={(e) => setFormData({...formData, tanggal_mulai: e.target.value})}
+                    value={formData.start_date || ""}
+                    onChange={(e) => setFormData({...formData, start_date: e.target.value})}
                     className="h-10 bg-white border border-gray-300 text-gray-900 focus-visible:ring-brand-navy/20 shadow-sm"
                   />
                 </div>
@@ -257,8 +258,8 @@ export default function TugasTambahanPage() {
                   <label className="text-xs font-bold text-gray-500 uppercase tracking-wide">TMT Selesai</label>
                   <Input 
                     type="date"
-                    value={formData.tanggal_selesai || ""}
-                    onChange={(e) => setFormData({...formData, tanggal_selesai: e.target.value})}
+                    value={formData.end_date || ""}
+                    onChange={(e) => setFormData({...formData, end_date: e.target.value})}
                     className="h-10 bg-white border border-gray-300 text-gray-900 focus-visible:ring-brand-navy/20 shadow-sm"
                   />
                 </div>
