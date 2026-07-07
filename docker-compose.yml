@@ -94,6 +94,7 @@ services:
     networks:
       - warisan_network
 
+  # phpmyadmin Service
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     container_name: warisan_budaya_pma

@@ -114,9 +114,11 @@ export default function OrasiPage() {
       <div className="rounded-xl bg-white p-6 shadow-sm border border-gray-100">
         <div className="flex items-center justify-between">
           <div className="flex items-start gap-4">
-            <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-full border-2 border-brand-gold">
-              <img src={user.photo || "https://ui-avatars.com/api/?name=User&background=0D8ABC&color=fff"} alt={user.name} className="h-full w-full object-cover" />
-              <div className="absolute -bottom-0.5 -right-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-green-500 ring-2 ring-white"><CheckCircle className="h-3 w-3 text-white" /></div>
+            <div className="relative h-16 w-16 shrink-0">
+              <div className="h-full w-full overflow-hidden rounded-full border-2 border-brand-gold">
+                <img src={user.photo || "https://ui-avatars.com/api/?name=User&background=0D8ABC&color=fff"} alt={user.name} className="h-full w-full object-cover" />
+              </div>
+              <div className="absolute -bottom-0.5 -right-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-green-500 ring-2 ring-white z-10"><CheckCircle className="h-3 w-3 text-white" /></div>
             </div>
             <div>
               <h1 className="text-xl font-semibold text-gray-700">{user.name}</h1>
