@@ -45,7 +45,7 @@ class Publication extends Model
                     $user->url = $file->storeAs('publications', $filename, 'public');
                 } 
                 elseif (is_null($user->url) && $user->exists && $user->getOriginal('url')) {
-                    // Hanya hapus jika URL aslinya adalah path file lokal (bukan link web)
+                    // hapus jika URL aslinya adalah path file lokal (bukan link web)
                     if (!str_starts_with($user->getOriginal('url'), 'http')) {
                         Storage::disk('public')->delete($user->getOriginal('url'));
                     }
