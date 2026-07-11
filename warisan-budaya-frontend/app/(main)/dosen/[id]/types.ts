@@ -43,4 +43,7 @@ export interface ProfileData {
   };
   activities: { year: string; count: number }[];
   publications: Publication[];
+  researchCount: number;
+  pengabdianCount: number;
+  publicationCount: number;
 }

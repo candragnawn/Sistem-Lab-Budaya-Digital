@@ -70,7 +70,7 @@ export default function DosenProfilePage() {
   const totalCitations = profileData.publications.reduce((acc, p) => acc + (p.citations || 0), 0);
   const bimbinganCount =
     categories.find((c) => c.id === "pelaksanaan-pendidikan")?.subCategories.find((s) => s.id === "bimbingan-mahasiswa")?.rows.length ?? 0;
-  const researchCount = profileData.publications.filter((p) => /research|journal/i.test(p.type)).length;
+  const researchCount = profileData.researchCount;
 
   const sortedPublications = [...profileData.publications].sort((a, b) => {
     if (sortBy === "year-desc") return b.year - a.year;
@@ -255,7 +255,11 @@ export default function DosenProfilePage() {
               </div>
               <div className="bg-white rounded-xl border border-slate-100 p-4 shadow-sm">
                 <h4 className="text-sm font-semibold text-slate-700 mb-3">Penelitian & Pengabdian</h4>
-                <ResearchBarChart publications={profileData.publications} />
+                <ResearchBarChart 
+                  researchCount={profileData.researchCount} 
+                  pengabdianCount={profileData.pengabdianCount} 
+                  publicationCount={profileData.publicationCount} 
+                />
               </div>
             </div>
 

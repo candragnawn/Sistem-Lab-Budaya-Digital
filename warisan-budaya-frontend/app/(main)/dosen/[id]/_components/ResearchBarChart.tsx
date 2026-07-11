@@ -1,21 +1,25 @@
 "use client";
 import React from "react";
 
-export default function ResearchBarChart({ publications }: { publications: any[] }) {
+export default function ResearchBarChart({ 
+  researchCount, 
+  pengabdianCount, 
+  publicationCount 
+}: { 
+  researchCount: number; 
+  pengabdianCount: number; 
+  publicationCount: number 
+}) {
   const width = 320;
   const height = 160;
   const padding = 20;
 
-  const researchCount = publications.filter((p) => /research|journal/i.test(p.type)).length;
-  const pengabdianCount = publications.filter((p) => /pengabdian|community|service/i.test(p.type)).length;
-  const others = publications.length - researchCount - pengabdianCount;
-
-  const maxVal = Math.max(researchCount, pengabdianCount, others, 1);
+  const maxVal = Math.max(researchCount, pengabdianCount, publicationCount, 1);
 
   const bars = [
     { label: "Penelitian", value: researchCount, color: "#0EA5A4" },
     { label: "Pengabdian", value: pengabdianCount, color: "#F59E0B" },
-    { label: "Lainnya", value: others, color: "#60A5FA" },
+    { label: "Publikasi", value: publicationCount, color: "#60A5FA" },
   ];
 
   const barWidth = (width - padding * 2) / bars.length - 12;

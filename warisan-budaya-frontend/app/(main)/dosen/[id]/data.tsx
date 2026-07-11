@@ -462,6 +462,28 @@ export const mapLecturerToCategories = (lecturer: any): Category[] => {
 };
 
 export const mapLecturerToProfileData = (lecturer: any): ProfileData => {
+  const publications = (lecturer.publications || []).map((pub: any) => ({
+    id: pub.id,
+    title: pub.title,
+    venue: pub.venue || pub.publisher,
+    year: parseInt(pub.year || pub.publish_year || new Date().getFullYear()), 
+    authorOrder: "1 of 1", 
+    type: pub.type || "Journal Article", 
+    citations: pub.citation_count || 0,
+  }));
+
+  const activitiesMap = publications.reduce((acc: any, pub: any) => {
+    acc[pub.year] = (acc[pub.year] || 0) + 1;
+    return acc;
+  }, {});
+
+  const activities = Object.keys(activitiesMap)
+    .sort((a, b) => Number(a) - Number(b))
+    .map(year => ({
+      year: Number(year),
+      count: activitiesMap[year]
+    }));
+
   return {
     name: `${lecturer.title_prefix || ''} ${lecturer.name} ${lecturer.title_suffix || ''}`.trim(),
     imageUrl: lecturer.photo_url || "https://ui-avatars.com/api/?name=" + encodeURIComponent(lecturer.name) + "&background=F3F4F6&color=4B5563",
@@ -475,15 +497,10 @@ export const mapLecturerToProfileData = (lecturer: any): ProfileData => {
       scopusHIndex: "0", 
       wosHIndex: "0" 
     },
-    activities: [], 
-    publications: (lecturer.publications || []).map((pub: any) => ({
-      id: pub.id,
-      title: pub.title,
-      venue: pub.venue || pub.publisher,
-      year: parseInt(pub.year || pub.publish_year || new Date().getFullYear()), 
-      authorOrder: "1 of 1", 
-      type: pub.type || "Journal Article", 
-      citations: pub.citation_count || 0,
-    })),
+    activities, 
+    publications,
+    researchCount: (lecturer.research || []).length,
+    pengabdianCount: (lecturer.communityServices || []).length,
+    publicationCount: publications.length,
   };
 };
