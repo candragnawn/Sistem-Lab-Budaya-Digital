@@ -10,6 +10,9 @@ use App\Models\PelaksanaanPenelitian\Publication;
 use App\Models\Event;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+
 
 class LabSeeder extends Seeder
 {
@@ -18,14 +21,22 @@ class LabSeeder extends Seeder
      */
     public function run(): void
     {
-     $lecturer = Lecturer::create([
-            'nip' => '198403172010121001',
-            'name' => 'Anak Agung Candra Gunawan, S.Kom., M.Kom.',
+        $lecturer = Lecturer::create([
+            'nidn' => '0830018504',
+            'name' => 'I Gusti Agung Gede Arya Kadyanan',
             'title_prefix' => 'Dr.',
             'title_suffix' => 'S.Kom., M.Kom.',
-            'email' => 'dosen.lab@undiksha.ac.id',
             'bio' => 'Dosen tetap di Jurusan Teknik Informatika yang berfokus pada preservasi budaya digital dan sistem informasi warisan budaya Bali.',
             'status' => 'Aktif',
+            'scopus_id' => "57210603998",
+            'is_verified' => true,
+        ]);
+
+        User::create([
+            'name' => $lecturer->name,
+            'email' => 'gungde@gmail.com',
+            'password' => Hash::make('12345678'),
+            'lecturer_id' => $lecturer->id,
         ]);
 
         $lecturer->workContracts()->createMany([ [
@@ -103,35 +114,5 @@ class LabSeeder extends Seeder
 
         }
 
-        $penelitianTypes = ['JURNAL', 'BUKU', 'HKI', 'PROSIDING'];
-        foreach ($penelitianTypes as $type) {
-            $count = ($type == 'JURNAL') ? 14 : rand(5, 15);
-            for ($i = 1; $i <= $count; $i++) {
-                Publication::create([
-                    'lecturer_id' => $lecturer->id,
-                    'category' => 'PENELITIAN',
-                    'type' => $type,
-                    'title' => "Penelitian Warisan Budaya $type Ke-$i",
-                    'year' => rand(2020, 2024),
-                    'source' => 'scopus', 
-                    'quartile' => 'Q1',   
-                    'url' => 'https://scholar.google.com'
-                ]);
-            }
-        }
-        $pengabdianTypes = ['ARTIKEL', 'JURNAL', 'PROSIDING'];
-        foreach ($pengabdianTypes as $type) {
-            for ($i = 1; $i <= rand(3, 8); $i++) {
-                Publication::create([
-                    'lecturer_id' => $lecturer->id,
-                    'category' => 'PENGABDIAN',
-                    'type' => $type,
-                    'title' => "Pengabdian Masyarakat $type Ke-$i",
-                    'year' => rand(2021, 2024),
-                    'source' => 'sinta', 
-                    'quartile' => 'Q1',  
-                ]);
-            }
-        }
     }
 }

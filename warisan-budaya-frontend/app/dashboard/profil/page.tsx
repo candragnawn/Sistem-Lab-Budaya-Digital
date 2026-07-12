@@ -76,7 +76,31 @@ export default function ProfilPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [authError, setAuthError] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
+  const [isSyncing, setIsSyncing] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleSync = async () => {
+    // @ts-ignore
+    if (!user?.lecturer_id) {
+      alert("Lecturer ID tidak ditemukan.");
+      return;
+    }
+    
+    setIsSyncing(true);
+    try {
+      // @ts-ignore
+      const res = await api.post(`/sync/${user.lecturer_id}`);
+      if (res.data.status === 'success') {
+        alert(res.data.message || "Sinkronisasi berhasil!");
+        window.location.reload();
+      }
+    } catch (err: any) {
+      console.error("Gagal sinkronisasi:", err);
+      alert(err.response?.data?.message || "Terjadi kesalahan saat sinkronisasi.");
+    } finally {
+      setIsSyncing(false);
+    }
+  };
 
   const handleAvatarUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -122,21 +146,21 @@ export default function ProfilPage() {
         if (userData) {
           // Merge stored data (yang punya access_token) dengan fresh data dari /me
           const storedData = JSON.parse(storedUser);
-          const mergedUser = { 
-            ...storedData, 
-            ...userData, 
+          const mergedUser = {
+            ...storedData,
+            ...userData,
             photo: userData.avatar_url || userData.avatar_path || storedData.photo,
-            access_token: storedData.access_token 
+            access_token: storedData.access_token
           };
           setUser(mergedUser);
           localStorage.setItem("user", JSON.stringify(mergedUser));
           window.dispatchEvent(new Event('auth-change'));
-          
+
           if (userData.lecturer_id) {
             const includes = "academic,addresses,families,identities,inpassings,stats,placements,positions,professorEmeritus,ranks,workContracts,hki";
             const lecturerRes = await api.get(`/lecturers/${userData.lecturer_id}?include=${includes}`);
             const lec = lecturerRes.data?.data;
-            
+
             if (lec) {
               setProfilData({
                 nidn: lec.nidn || "-",
@@ -146,8 +170,8 @@ export default function ProfilPage() {
                 jenisKelamin: lec.gender === "L" ? "Laki-laki" : (lec.gender === "P" ? "Perempuan" : "-"),
                 tempatLahir: lec.birth_place || lec.identities?.[0]?.place_of_birth || "-",
                 tanggalLahir: lec.birth_date || lec.identities?.[0]?.date_of_birth || "-",
-                bidangKeahlian: lec.academic?.science_branch ? [lec.academic.science_branch] : 
-                                (lec.academic?.field_of_study || "").split(",").filter(Boolean),
+                bidangKeahlian: lec.academic?.science_branch ? [lec.academic.science_branch] :
+                  (lec.academic?.field_of_study || "").split(",").filter(Boolean),
                 nip: lec.nip || "-",
                 nomorSKCPNS: lec.workContracts?.[0]?.sk_number || lec.workContracts?.[0]?.sk_cpns || "-",
                 tmtSK: lec.workContracts?.[0]?.tmt || "-",
@@ -206,7 +230,7 @@ export default function ProfilPage() {
   }, []);
 
   if (isLoading) return <div className="flex items-center justify-center p-12 text-gray-500">Memuat profil...</div>;
-  
+
   if (authError || !user || !profilData) return (
     <div className="flex flex-col items-center justify-center p-12 gap-4">
       <p className="text-gray-500 text-center">Sesi Anda telah berakhir. Silakan login kembali.</p>
@@ -251,7 +275,7 @@ export default function ProfilPage() {
               <h1 className="text-xl font-semibold text-gray-700">{profilData.nama}</h1>
               <p className="text-sm text-gray-500">{profilData.jabatanAkademik}</p>
               <p className="text-xs text-gray-400">
-                {profilData.programStudi !== "-" ? profilData.programStudi : ""} 
+                {profilData.programStudi !== "-" ? profilData.programStudi : ""}
                 {profilData.programStudi !== "-" && profilData.unitKerja !== "-" ? " · " : ""}
                 {profilData.unitKerja !== "-" ? profilData.unitKerja : ""}
                 {(profilData.programStudi !== "-" || profilData.unitKerja !== "-") && profilData.perguruanTinggi !== "-" ? " · " : ""}
@@ -271,7 +295,6 @@ export default function ProfilPage() {
             </div>
           </div>
           <div className="flex gap-2">
-            
             <Button
               size="sm"
               variant="outline"
@@ -290,12 +313,23 @@ export default function ProfilPage() {
         <div className="space-y-6">
           {/* Profil Card */}
           <div className="rounded-xl bg-white p-5 shadow-sm border border-gray-100">
-            <div className="mb-4 flex items-center gap-2">
-              <h2 className="text-sm font-semibold text-gray-600">Profil</h2>
-              <span className="flex items-center gap-1 rounded-full bg-emerald-50 px-2 py-0.5 text-[10px] font-medium text-emerald-600">
-                <CheckCircle className="h-3 w-3" />
-                Data Terverifikasi
-              </span>
+            <div className="mb-4 flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <h2 className="text-sm font-semibold text-gray-600">Profil</h2>
+                <span className="flex items-center gap-1 rounded-full bg-emerald-50 px-2 py-0.5 text-[10px] font-medium text-emerald-600">
+                  <CheckCircle className="h-3 w-3" />
+                  Data Terverifikasi
+                </span>
+              </div>
+              <Button
+                size="sm"
+                onClick={handleSync}
+                disabled={isSyncing}
+                className="text-[10px] h-7 gap-1 bg-[#DAA520] hover:bg-[#B8860B] text-white border-none shadow-sm"
+              >
+                <RefreshCw className={`h-3 w-3 ${isSyncing ? 'animate-spin' : ''}`} />
+                {isSyncing ? "Menyinkronkan..." : "Sinkronisasi Elsevier"}
+              </Button>
             </div>
 
             <div className="mb-4 flex flex-col items-center gap-3">
@@ -331,7 +365,7 @@ export default function ProfilPage() {
                   )}
                 </div>
               </div>
-              <p className="text-[10px] text-gray-400 text-center">Klik foto untuk menggantinya<br/>JPG, PNG, WebP · maks. 5MB</p>
+              <p className="text-[10px] text-gray-400 text-center">Klik foto untuk menggantinya<br />JPG, PNG, WebP · maks. 5MB</p>
             </div>
 
             <div className="flex justify-center gap-2 mb-5">
