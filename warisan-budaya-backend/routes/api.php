@@ -59,7 +59,6 @@
     // Auth — throttle ketat untuk mencegah brute-force
     Route::middleware('throttle:5,1')->group(function () {
         Route::post('/login', [AuthController::class, 'login']);
-        Route::post('/register', [AuthController::class, 'register']);
     });
 
     Route::middleware(['auth:sanctum', 'throttle:120,1'])->group(function () {
@@ -149,8 +148,13 @@
         // Lain-lain
         Route::apiResource('lecturer-stats', LecturerStatController::class);
         Route::apiResource('other-datas', OtherDataController::class);
-        Route::post('/sync/{lecturerId}', [SyncController::class, 'syncAll']);
+        Route::post('sync/{lecturerId}', [SyncController::class, 'syncAll']);
 
+        // Admin Only Routes
+        Route::middleware(['isAdmin'])->group(function () {
+            Route::post('admin/users/create', [AuthController::class, 'register']);
+            Route::apiResource('users', UserController::class);
+        });
 
     });
 

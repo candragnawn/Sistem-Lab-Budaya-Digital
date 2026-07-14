@@ -4,6 +4,7 @@ namespace App\Http\Resources\Master;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Master\LecturerResource;
 
 class UserResource extends JsonResource
 {
@@ -26,8 +27,10 @@ class UserResource extends JsonResource
             'nama' => $this->name,
             'email' => $this->email,
             'lecturer_id' => $this->lecturer_id,
+            'role' => $this->role,
             'avatar_path' => $this->avatar_path,
             'avatar_url'  => $this->avatar_path ? asset('storage/' . $this->avatar_path) : null,
+            'lecturer'    => new LecturerResource($this->whenLoaded('lecturer')),
         ];
 
         if ($this->token) {

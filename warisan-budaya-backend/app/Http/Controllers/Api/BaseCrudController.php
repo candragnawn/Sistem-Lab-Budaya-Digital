@@ -388,6 +388,9 @@ abstract class BaseCrudController extends Controller
     protected function applyOwnershipFilter(Request $request, $query)
     {
         if ($this->modelHasAttribute('lecturer_id') && $request->user()) {
+            if ($request->user()->role === 'admin') {
+                return $query;
+            }
             return $query->where('lecturer_id', $request->user()->lecturer_id);
         }
         return $query;
@@ -553,6 +556,9 @@ abstract class BaseCrudController extends Controller
 
         // If item has lecturer_id and user is not admin
         if ($item->hasAttribute('lecturer_id')) {
+            if ($request->user()->role === 'admin') {
+                return;
+            }
             if ($item->lecturer_id !== $request->user()->lecturer_id) {
                 abort(403, 'Anda tidak memiliki akses ke resource ini');
             }

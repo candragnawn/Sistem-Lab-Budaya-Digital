@@ -21,6 +21,14 @@ class LabSeeder extends Seeder
      */
     public function run(): void
     {
+        // Admin Master Account
+        User::create([
+            'name' => 'Super Admin',
+            'email' => 'admin123@gmail.com',
+            'password' => Hash::make('12345678'),
+            'role' => 'admin',
+        ]);
+
         $lecturer = Lecturer::create([
             'nidn' => '0830018504',
             'name' => 'I Gusti Agung Gede Arya Kadyanan',
@@ -29,7 +37,6 @@ class LabSeeder extends Seeder
             'bio' => 'Dosen tetap di Jurusan Teknik Informatika yang berfokus pada preservasi budaya digital dan sistem informasi warisan budaya Bali.',
             'status' => 'Aktif',
             'scopus_id' => "57210603998",
-            'is_verified' => true,
         ]);
 
         User::create([

@@ -64,21 +64,33 @@ const Login1 = ({
         // Handle jika dibungkus 'data' atau jika langsung berwujud object
         const userData = response.data.data || response.data;
         
+        const userRole = userData.role || "dosen";
+
         // Simpan data dari UserResource
         localStorage.setItem("user", JSON.stringify({
           id: userData.id || userData.nama, // fallback
           name: userData.nama || userData.name,
           email: userData.email,
-          role: "Dosen", // Default role
+          role: userRole,
           photo: userData.avatar_url || userData.avatar_path || "/default-avatar.png",
           avatar_url: userData.avatar_url || userData.avatar_path || null,
           access_token: userData.access_token || userData.token,
           lecturer_id: userData.lecturer_id,
         }));
         
+        // Simpan token ke localStorage untuk authorization header
+        if (userData.access_token || userData.token) {
+          localStorage.setItem("token", userData.access_token || userData.token);
+        }
+        
         document.documentElement.classList.add("is-logged-in");
         window.dispatchEvent(new Event("auth-change"));
-        router.push("/dashboard/profil");
+
+        if (userRole === "admin") {
+          router.push("/admin/users");
+        } else {
+          router.push("/dashboard/profil");
+        }
       }
     } catch (err: any) {
       if (err.response && err.response.data && err.response.data.message) {

@@ -20,17 +20,25 @@ class AuthController extends Controller
     {
         // Bungkus dalam transaction kalau User gagal, Lecturer ikut di-rollback
         $result = DB::transaction(function () use ($request) {
-            $lecturer = Lecturer::create([
-                'name'  => $request->name,
-                'email' => $request->email,
-                'nidn'  => $request->nidn,
-            ]);
+            $lecturer = null;
+            
+            // Jika role dosen (default), kita buat record lecturer
+            $role = $request->role ?? 'dosen';
+            
+            if ($role === 'dosen') {
+                $lecturer = Lecturer::create([
+                    'name'  => $request->name,
+                    'email' => $request->email,
+                    'nidn'  => $request->nidn,
+                ]);
+            }
 
             $user = User::create([
                 'name'        => $request->name,
                 'email'       => $request->email,
                 'password'    => Hash::make($request->password),
-                'lecturer_id' => $lecturer->id,
+                'lecturer_id' => $lecturer ? $lecturer->id : null,
+                'role'        => $role,
             ]);
 
             return [$user, $lecturer, $user->createToken('auth_token')->plainTextToken];

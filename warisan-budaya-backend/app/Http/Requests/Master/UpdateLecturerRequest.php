@@ -23,7 +23,7 @@ class UpdateLecturerRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'is_verified' => 'sometimes|boolean',
         ];
     }
 

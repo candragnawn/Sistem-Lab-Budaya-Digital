@@ -24,6 +24,7 @@ class RegisterAuthRequest extends FormRequest
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8',
             'nidn' => 'nullable|string|unique:lecturers,nidn',
+            'role' => 'nullable|string|in:admin,dosen',
         ];
     }
 }

@@ -234,7 +234,7 @@ export default function ProfilPage() {
   if (authError || !user || !profilData) return (
     <div className="flex flex-col items-center justify-center p-12 gap-4">
       <p className="text-gray-500 text-center">Sesi Anda telah berakhir. Silakan login kembali.</p>
-      <a href="/masuk" className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm hover:bg-blue-700 transition-colors">Login Ulang</a>
+      <a href="/login" className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm hover:bg-blue-700 transition-colors">Login Ulang</a>
     </div>
   );
 

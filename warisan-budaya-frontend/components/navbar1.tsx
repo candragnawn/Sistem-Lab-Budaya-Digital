@@ -129,8 +129,16 @@ const Navbar1 = ({
   };
 
   const isAuthenticated = Boolean(user);
-  const filteredMenu = menu.filter(
-    (item) => item.title !== "Dashboard" || isAuthenticated,
+  
+  const dynamicMenu = menu.map(item => {
+    if (item.title === "Dashboard" && user?.role === "admin") {
+      return { ...item, title: "Admin Panel", url: "/admin/users" };
+    }
+    return item;
+  });
+
+  const filteredMenu = dynamicMenu.filter(
+    (item) => (item.title !== "Dashboard" && item.title !== "Admin Panel") || isAuthenticated,
   );
 
   return (
@@ -208,21 +216,23 @@ const Navbar1 = ({
                     </div>
                     <div className="py-1">
                       <Link
-                        href="/dashboard/profil"
+                        href={user.role === 'admin' ? "/admin/users" : "/dashboard/profil"}
                         className="flex items-center gap-2.5 px-3 py-2 text-xs text-gray-700 hover:bg-gray-50 transition-colors"
                         onClick={() => setShowDropdown(false)}
                       >
                         <User className="h-3.5 w-3.5 text-gray-400" />
-                        Profil Saya
+                        {user.role === 'admin' ? "Admin Panel" : "Profil Saya"}
                       </Link>
-                      <Link
-                        href="/dashboard/profil"
-                        className="flex items-center gap-2.5 px-3 py-2 text-xs text-gray-700 hover:bg-gray-50 transition-colors"
-                        onClick={() => setShowDropdown(false)}
-                      >
-                        <Settings className="h-3.5 w-3.5 text-gray-400" />
-                        Pengaturan
-                      </Link>
+                      {user.role !== 'admin' && (
+                        <Link
+                          href="/dashboard/profil"
+                          className="flex items-center gap-2.5 px-3 py-2 text-xs text-gray-700 hover:bg-gray-50 transition-colors"
+                          onClick={() => setShowDropdown(false)}
+                        >
+                          <Settings className="h-3.5 w-3.5 text-gray-400" />
+                          Pengaturan
+                        </Link>
+                      )}
                     </div>
                     <div className="border-t border-gray-100">
                       <button
@@ -310,11 +320,11 @@ const Navbar1 = ({
                           </div>
                         </div>
                         <Link
-                          href="/dashboard/profil"
+                          href={user.role === 'admin' ? "/admin/users" : "/dashboard/profil"}
                           className="flex items-center gap-2 text-sm text-gray-700 hover:text-brand-navy"
                         >
                           <User className="h-4 w-4" />
-                          Profil Saya
+                          {user.role === 'admin' ? "Admin Panel" : "Profil Saya"}
                         </Link>
                         <button
                           onClick={handleLogout}
@@ -343,7 +353,7 @@ const Navbar1 = ({
 };
 
 const renderMenuItem = (item: MenuItem) => {
-  const isAuthOnly = item.title === "Dashboard";
+  const isAuthOnly = item.title === "Dashboard" || item.title === "Admin Panel";
   const itemClass = isAuthOnly ? "auth-only" : "";
 
   if (item.items) {
@@ -383,7 +393,7 @@ const renderMenuItem = (item: MenuItem) => {
 };
 
 const renderMobileMenuItem = (item: MenuItem) => {
-  const isAuthOnly = item.title === "Dashboard";
+  const isAuthOnly = item.title === "Dashboard" || item.title === "Admin Panel";
   const itemClass = isAuthOnly ? "auth-only" : "";
 
   if (item.items) {
