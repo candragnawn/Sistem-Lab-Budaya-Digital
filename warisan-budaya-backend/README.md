@@ -29,6 +29,7 @@ Yang udah :
 - mapper data ke database
 - singkronisasi secara asyncronus pake horizon(latar belakang)
 - pake redis buat nampung cache (06/06/2026 13:27)
+- admin panel
 
 yang belum :
 - algoritma fuzzy matching buat ngecegah data redudan

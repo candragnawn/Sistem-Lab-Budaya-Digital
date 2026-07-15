@@ -15,100 +15,110 @@ class ProfileMapper
 {
     public function mapProfile(Lecturer $lecturer, array $data): void
     {
-        $lecturer->update([
-            'name' => $data['nama'] ?? $lecturer->name,
-            'title_prefix' => $data['gelar_depan'] ?? $lecturer->title_prefix,
-            'title_suffix' => $data['gelar_belakang'] ?? $lecturer->title_suffix,
-            'status' => $data['status_keaktifan'] ?? $lecturer->status,
-        ]);
+        $updates = [];
+        if (empty($lecturer->name) && isset($data['nama'])) $updates['name'] = $data['nama'];
+        if (empty($lecturer->title_prefix) && isset($data['gelar_depan'])) $updates['title_prefix'] = $data['gelar_depan'];
+        if (empty($lecturer->title_suffix) && isset($data['gelar_belakang'])) $updates['title_suffix'] = $data['gelar_belakang'];
+        if (empty($lecturer->status) && isset($data['status_keaktifan'])) $updates['status'] = $data['status_keaktifan'];
+
+        if (!empty($updates)) {
+            $lecturer->update($updates);
+        }
     }
 
     public function mapIdentity(Lecturer $lecturer, array $data): void
     {
         if (empty($data)) return;
         
-        Identity::updateOrCreate(
-            ['lecturer_id' => $lecturer->id],
-            [
-                'nik' => $data['nik'] ?? null,
-                'religion' => $data['agama'] ?? null,
-                'citizenship' => $data['kewarganegaraan'] ?? null,
-                'npwp' => $data['npwp'] ?? null,
-            ]
-        );
+        $identity = Identity::firstOrNew(['lecturer_id' => $lecturer->id]);
+        
+        // Anti-Overwrite Logic
+        if (empty($identity->nik) && isset($data['nik'])) $identity->nik = $data['nik'];
+        if (empty($identity->religion) && isset($data['agama'])) $identity->religion = $data['agama'];
+        if (empty($identity->citizenship) && isset($data['kewarganegaraan'])) $identity->citizenship = $data['kewarganegaraan'];
+        if (empty($identity->npwp) && isset($data['npwp'])) $identity->npwp = $data['npwp'];
+
+        if ($identity->isDirty()) {
+            $identity->save();
+        }
     }
 
     public function mapAddress(Lecturer $lecturer, array $data): void
     {
-        foreach ($data as $address) {
-            Address::updateOrCreate(
-                [
-                    'lecturer_id' => $lecturer->id,
-                    'address_type' => $address['jenis_alamat'] ?? 'Domisili'
-                ],
-                [
-                    'address_line_1' => $address['jalan'] ?? null,
-                    'city' => $address['kota_kabupaten'] ?? null,
-                    'postal_code' => $address['kode_pos'] ?? null,
-                    'province' => $address['provinsi'] ?? null,
-                ]
-            );
+        foreach ($data as $addressData) {
+            $address = Address::firstOrNew([
+                'lecturer_id' => $lecturer->id,
+                'address_type' => $addressData['jenis_alamat'] ?? 'Domisili'
+            ]);
+
+            // Anti-Overwrite Logic
+            if (empty($address->address_line_1) && isset($addressData['jalan'])) $address->address_line_1 = $addressData['jalan'];
+            if (empty($address->city) && isset($addressData['kota_kabupaten'])) $address->city = $addressData['kota_kabupaten'];
+            if (empty($address->postal_code) && isset($addressData['kode_pos'])) $address->postal_code = $addressData['kode_pos'];
+            if (empty($address->province) && isset($addressData['provinsi'])) $address->province = $addressData['provinsi'];
+
+            if ($address->isDirty()) {
+                $address->save();
+            }
         }
     }
 
     public function mapFunctionalPosition(Lecturer $lecturer, array $data): void
     {
-        foreach ($data as $position) {
-            Position::updateOrCreate(
-                [
-                    'lecturer_id' => $lecturer->id,
-                    'position_name' => $position['nama_jabatan'] ?? null,
-                    'start_date' => $position['tanggal_mulai'] ?? null,
-                ],
-                [
-                    'decree_number' => $position['nomor_sk'] ?? null,
-                    'decree_date' => $position['tanggal_sk'] ?? null,
-                ]
-            );
+        foreach ($data as $positionData) {
+            $position = Position::firstOrNew([
+                'lecturer_id' => $lecturer->id,
+                'position_name' => $positionData['nama_jabatan'] ?? null,
+                'start_date' => $positionData['tanggal_mulai'] ?? null,
+            ]);
+
+            if (empty($position->decree_number) && isset($positionData['nomor_sk'])) $position->decree_number = $positionData['nomor_sk'];
+            if (empty($position->decree_date) && isset($positionData['tanggal_sk'])) $position->decree_date = $positionData['tanggal_sk'];
+
+            if ($position->isDirty()) {
+                $position->save();
+            }
         }
     }
 
     public function mapPlacement(Lecturer $lecturer, array $data): void
     {
-        foreach ($data as $placement) {
-            Placement::updateOrCreate(
-                [
-                    'lecturer_id' => $lecturer->id,
-                    'unit' => $placement['unit_kerja'] ?? null,
-                    'start_date' => $placement['tanggal_mulai'] ?? null,
-                ],
-                [
-                    'status' => $placement['status'] ?? null,
-                    'employment_bond' => $placement['ikatan_kerja'] ?? null,
-                    'education_level' => $placement['jenjang_pendidikan'] ?? null,
-                    'university' => $placement['perguruan_tinggi'] ?? null,
-                    'exit_date' => $placement['tanggal_keluar'] ?? null,
-                    'end_date' => $placement['tanggal_selesai'] ?? null,
-                    'assignment_homebase' => $placement['homebase_penugasan'] ?? null,
-                ]
-            );
+        foreach ($data as $placementData) {
+            $placement = Placement::firstOrNew([
+                'lecturer_id' => $lecturer->id,
+                'unit' => $placementData['unit_kerja'] ?? null,
+                'start_date' => $placementData['tanggal_mulai'] ?? null,
+            ]);
+
+            if (empty($placement->status) && isset($placementData['status'])) $placement->status = $placementData['status'];
+            if (empty($placement->employment_bond) && isset($placementData['ikatan_kerja'])) $placement->employment_bond = $placementData['ikatan_kerja'];
+            if (empty($placement->education_level) && isset($placementData['jenjang_pendidikan'])) $placement->education_level = $placementData['jenjang_pendidikan'];
+            if (empty($placement->university) && isset($placementData['perguruan_tinggi'])) $placement->university = $placementData['perguruan_tinggi'];
+            if (empty($placement->exit_date) && isset($placementData['tanggal_keluar'])) $placement->exit_date = $placementData['tanggal_keluar'];
+            if (empty($placement->end_date) && isset($placementData['tanggal_selesai'])) $placement->end_date = $placementData['tanggal_selesai'];
+            if (empty($placement->assignment_homebase) && isset($placementData['homebase_penugasan'])) $placement->assignment_homebase = $placementData['homebase_penugasan'];
+
+            if ($placement->isDirty()) {
+                $placement->save();
+            }
         }
     }
 
     public function mapRank(Lecturer $lecturer, array $data): void
     {
-        foreach ($data as $rank) {
-            Rank::updateOrCreate(
-                [
-                    'lecturer_id' => $lecturer->id,
-                    'rank' => $rank['golongan_pangkat'] ?? null,
-                    'start_date' => $rank['tanggal_mulai'] ?? null,
-                ],
-                [
-                    'decree_number' => $rank['nomor_sk'] ?? null,
-                    'decree_date' => $rank['tanggal_sk'] ?? null,
-                ]
-            );
+        foreach ($data as $rankData) {
+            $rank = Rank::firstOrNew([
+                'lecturer_id' => $lecturer->id,
+                'rank' => $rankData['golongan_pangkat'] ?? null,
+                'start_date' => $rankData['tanggal_mulai'] ?? null,
+            ]);
+
+            if (empty($rank->decree_number) && isset($rankData['nomor_sk'])) $rank->decree_number = $rankData['nomor_sk'];
+            if (empty($rank->decree_date) && isset($rankData['tanggal_sk'])) $rank->decree_date = $rankData['tanggal_sk'];
+
+            if ($rank->isDirty()) {
+                $rank->save();
+            }
         }
     }
 }

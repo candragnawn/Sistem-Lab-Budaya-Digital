@@ -24,6 +24,24 @@ class UpdateLecturerRequest extends FormRequest
     {
         return [
             'is_verified' => 'sometimes|boolean',
+            'nidn' => 'nullable|string|max:255',
+            'nip' => 'nullable|string|max:255',
+            'name' => 'nullable|string|max:255',
+            'name_registered_dukcapil' => 'nullable|string|max:255',
+            'email' => 'nullable|email|max:255',
+            'phone' => 'nullable|string|max:255',
+            'title_prefix' => 'nullable|string|max:255',
+            'title_suffix' => 'nullable|string|max:255',
+            'gender' => 'nullable|string|max:255',
+            'birth_date' => 'nullable|date',
+            'birth_place' => 'nullable|string|max:255',
+            'status' => 'nullable|string|max:255',
+            'faculty' => 'nullable|string|max:255',
+            'department' => 'nullable|string|max:255',
+            'study_program' => 'nullable|string|max:255',
+            'sinta_id' => 'nullable|string|max:255',
+            'scopus_id' => 'nullable|string|max:255',
+            'sister_id' => 'nullable|string|max:255',
         ];
     }
 

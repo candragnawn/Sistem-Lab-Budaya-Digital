@@ -27,9 +27,10 @@ class AuthController extends Controller
             
             if ($role === 'dosen') {
                 $lecturer = Lecturer::create([
-                    'name'  => $request->name,
-                    'email' => $request->email,
-                    'nidn'  => $request->nidn,
+                    'name'        => $request->name,
+                    'email'       => $request->email,
+                    'nidn'        => $request->nidn,
+                    'is_verified' => true,
                 ]);
             }
 

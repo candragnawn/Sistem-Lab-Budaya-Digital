@@ -13,6 +13,11 @@ import {
   Phone,
   Globe,
 } from "lucide-react";
+import EditProfilModal from "@/components/profil/EditProfilModal";
+import EditKependudukanModal from "@/components/profil/EditKependudukanModal";
+import EditAlamatModal from "@/components/profil/EditAlamatModal";
+import EditJabatanModal from "@/components/profil/EditJabatanModal";
+import EditKepegawaianModal from "@/components/profil/EditKepegawaianModal";
 
 interface UserData {
   name: string;
@@ -77,6 +82,17 @@ export default function ProfilPage() {
   const [authError, setAuthError] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const [isSyncing, setIsSyncing] = useState(false);
+  
+  // Modal States
+  const [isEditProfilOpen, setIsEditProfilOpen] = useState(false);
+  const [isEditKependudukanOpen, setIsEditKependudukanOpen] = useState(false);
+  const [isEditAlamatOpen, setIsEditAlamatOpen] = useState(false);
+  const [isEditJabatanOpen, setIsEditJabatanOpen] = useState(false);
+  const [isEditKepegawaianOpen, setIsEditKepegawaianOpen] = useState(false);
+  
+  // Refresh Trigger
+  const [refreshKey, setRefreshKey] = useState(0);
+
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleSync = async () => {
@@ -163,6 +179,7 @@ export default function ProfilPage() {
 
             if (lec) {
               setProfilData({
+                raw: lec, // Simpan data mentah untuk referensi ID relasi
                 nidn: lec.nidn || "-",
                 nama: lec.name || "-",
                 namaLengkap: lec.nama_lengkap || lec.name || "-",
@@ -227,7 +244,7 @@ export default function ProfilPage() {
     };
 
     fetchData();
-  }, []);
+  }, [refreshKey]);
 
   if (isLoading) return <div className="flex items-center justify-center p-12 text-gray-500">Memuat profil...</div>;
 
@@ -321,15 +338,26 @@ export default function ProfilPage() {
                   Data Terverifikasi
                 </span>
               </div>
-              <Button
-                size="sm"
-                onClick={handleSync}
-                disabled={isSyncing}
-                className="text-[10px] h-7 gap-1 bg-[#DAA520] hover:bg-[#B8860B] text-white border-none shadow-sm"
-              >
-                <RefreshCw className={`h-3 w-3 ${isSyncing ? 'animate-spin' : ''}`} />
-                {isSyncing ? "Menyinkronkan..." : "Sinkronisasi Elsevier"}
-              </Button>
+              <div className="flex items-center gap-2">
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={() => setIsEditProfilOpen(true)}
+                  className="text-[10px] h-7 gap-1 border-gray-300 text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                >
+                  <Pencil className="h-3 w-3" />
+                  Edit Data
+                </Button>
+                <Button
+                  size="sm"
+                  onClick={handleSync}
+                  disabled={isSyncing}
+                  className="text-[10px] h-7 gap-1 bg-[#DAA520] hover:bg-[#B8860B] text-white border-none shadow-sm"
+                >
+                  <RefreshCw className={`h-3 w-3 ${isSyncing ? 'animate-spin' : ''}`} />
+                  {isSyncing ? "Menyinkronkan..." : "Sinkronisasi Elsevier"}
+                </Button>
+              </div>
             </div>
 
             <div className="mb-4 flex flex-col items-center gap-3">
@@ -408,10 +436,11 @@ export default function ProfilPage() {
               <Button
                 size="sm"
                 variant="outline"
-                className="text-[10px] h-7 gap-1 border-gray-300"
+                onClick={() => setIsEditKependudukanOpen(true)}
+                className="text-[10px] h-7 gap-1 border-gray-300 text-gray-600 hover:bg-gray-50 hover:text-gray-900"
               >
                 <Pencil className="h-3 w-3" />
-                Ajukan Pembaruan
+                Edit Data
               </Button>
             </div>
             <div className="space-y-3 text-xs">
@@ -436,10 +465,11 @@ export default function ProfilPage() {
               <Button
                 size="sm"
                 variant="outline"
-                className="text-[10px] h-7 gap-1 border-gray-300"
+                onClick={() => setIsEditAlamatOpen(true)}
+                className="text-[10px] h-7 gap-1 border-gray-300 text-gray-600 hover:bg-gray-50 hover:text-gray-900"
               >
                 <Pencil className="h-3 w-3" />
-                Ajukan Pembaruan
+                Edit Data
               </Button>
             </div>
             <div className="space-y-3 text-xs">
@@ -494,10 +524,11 @@ export default function ProfilPage() {
               <Button
                 size="sm"
                 variant="outline"
-                className="text-[10px] h-7 gap-1 border-gray-300"
+                onClick={() => setIsEditJabatanOpen(true)}
+                className="text-[10px] h-7 gap-1 border-gray-300 text-gray-600 hover:bg-gray-50 hover:text-gray-900"
               >
                 <Pencil className="h-3 w-3" />
-                Ajukan Pembaruan
+                Edit Data
               </Button>
             </div>
             <div className="space-y-3 text-xs">
@@ -570,10 +601,11 @@ export default function ProfilPage() {
               <Button
                 size="sm"
                 variant="outline"
-                className="text-[10px] h-7 gap-1 border-gray-300"
+                onClick={() => setIsEditKepegawaianOpen(true)}
+                className="text-[10px] h-7 gap-1 border-gray-300 text-gray-600 hover:bg-gray-50 hover:text-gray-900"
               >
                 <Pencil className="h-3 w-3" />
-                Ajukan Pembaruan
+                Edit Data
               </Button>
             </div>
 
@@ -662,6 +694,57 @@ export default function ProfilPage() {
           </div>
         </div>
       </div>
+
+      {/* Modals */}
+      <EditProfilModal
+        isOpen={isEditProfilOpen}
+        onClose={() => setIsEditProfilOpen(false)}
+        // @ts-ignore
+        lecturerId={user?.lecturer_id}
+        initialData={profilData}
+        onSuccess={() => setRefreshKey((prev) => prev + 1)}
+      />
+      <EditKependudukanModal
+        isOpen={isEditKependudukanOpen}
+        onClose={() => setIsEditKependudukanOpen(false)}
+        // @ts-ignore
+        lecturerId={user?.lecturer_id}
+        initialData={profilData}
+        identityId={profilData.raw?.identities?.[0]?.id}
+        familyId={profilData.raw?.families?.[0]?.id}
+        onSuccess={() => setRefreshKey((prev) => prev + 1)}
+      />
+      <EditAlamatModal
+        isOpen={isEditAlamatOpen}
+        onClose={() => setIsEditAlamatOpen(false)}
+        // @ts-ignore
+        lecturerId={user?.lecturer_id}
+        initialData={profilData}
+        addressId={profilData.raw?.addresses?.[0]?.id}
+        onSuccess={() => setRefreshKey((prev) => prev + 1)}
+      />
+      <EditJabatanModal
+        isOpen={isEditJabatanOpen}
+        onClose={() => setIsEditJabatanOpen(false)}
+        // @ts-ignore
+        lecturerId={user?.lecturer_id}
+        initialData={profilData}
+        positionId={profilData.raw?.positions?.[0]?.id}
+        academicId={profilData.raw?.academic?.id}
+        inpassingId={profilData.raw?.inpassings?.[0]?.id}
+        onSuccess={() => setRefreshKey((prev) => prev + 1)}
+      />
+      <EditKepegawaianModal
+        isOpen={isEditKepegawaianOpen}
+        onClose={() => setIsEditKepegawaianOpen(false)}
+        // @ts-ignore
+        lecturerId={user?.lecturer_id}
+        initialData={profilData}
+        workContractId={profilData.raw?.workContracts?.[0]?.id}
+        rankId={profilData.raw?.ranks?.[0]?.id}
+        placementId={profilData.raw?.placements?.[0]?.id}
+        onSuccess={() => setRefreshKey((prev) => prev + 1)}
+      />
     </div>
   );
 }

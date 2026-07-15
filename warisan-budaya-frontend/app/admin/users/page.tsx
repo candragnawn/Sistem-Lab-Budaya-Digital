@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Plus, X, CheckCircle, XCircle } from "lucide-react";
+import { Plus, X, CheckCircle, XCircle, Trash2 } from "lucide-react";
 
 export default function UsersPage() {
   const [users, setUsers] = useState<any[]>([]);
@@ -45,35 +45,33 @@ export default function UsersPage() {
     fetchUsers();
   }, []);
 
-  const handleStatusChange = async (user: any, newStatusString: string) => {
-    if (!user.lecturer) return;
-    
-    const newStatus = newStatusString === 'true';
+  const handleDeleteUser = async (user: any) => {
+    if (!confirm(`Apakah Anda yakin ingin menghapus pengguna "${user.nama}"? Aksi ini tidak dapat dibatalkan.`)) {
+      return;
+    }
+
     const token = localStorage.getItem("token");
     
-    // Optimistic UI update
-    setUsers(users.map(u => 
-      u.id === user.id ? { ...u, lecturer: { ...u.lecturer, is_verified: newStatus } } : u
-    ));
-
     try {
-      await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api'}/lecturers/${user.lecturer.id}`, {
-        method: "PUT",
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api'}/users/${user.id}`, {
+        method: "DELETE",
         headers: {
           "Authorization": `Bearer ${token}`,
-          "Content-Type": "application/json",
           "Accept": "application/json",
         },
-        body: JSON.stringify({
-          is_verified: newStatus,
-        }),
       });
+
+      if (res.ok) {
+        // Hapus dari UI langsung
+        setUsers(users.filter(u => u.id !== user.id));
+        alert("Pengguna berhasil dihapus.");
+      } else {
+        const data = await res.json();
+        alert(data.message || "Gagal menghapus pengguna.");
+      }
     } catch (error) {
-      console.error("Failed to update status", error);
-      // Revert if failed
-      setUsers(users.map(u => 
-        u.id === user.id ? { ...u, lecturer: { ...u.lecturer, is_verified: !newStatus } } : u
-      ));
+      console.error("Failed to delete user", error);
+      alert("Terjadi kesalahan saat menghapus pengguna.");
     }
   };
 
@@ -136,7 +134,7 @@ export default function UsersPage() {
                 <th className="px-6 py-4 font-semibold">Email</th>
                 <th className="px-6 py-4 font-semibold">Role</th>
                 <th className="px-6 py-4 font-semibold">NIDN</th>
-                <th className="px-6 py-4 font-semibold">Status Verifikasi</th>
+                <th className="px-6 py-4 font-semibold text-right">Aksi</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100">
@@ -165,18 +163,15 @@ export default function UsersPage() {
                     <td className="px-6 py-4 text-gray-500">
                       {user.lecturer?.nidn || "-"}
                     </td>
-                    <td className="px-6 py-4">
-                      {user.role === 'admin' ? (
-                        <span className="text-gray-400 italic text-xs">N/A (Admin)</span>
-                      ) : (
-                        <select
-                          value={user.lecturer?.is_verified ? "true" : "false"}
-                          onChange={(e) => handleStatusChange(user, e.target.value)}
-                          className={`rounded-md border px-2 py-1 text-xs font-medium focus:outline-none focus:ring-1 focus:ring-brand-navy ${user.lecturer?.is_verified ? 'border-green-300 bg-green-50 text-green-700' : 'border-gray-300 bg-gray-50 text-gray-700'}`}
+                    <td className="px-6 py-4 text-right">
+                      {user.role !== 'admin' && (
+                        <button
+                          onClick={() => handleDeleteUser(user)}
+                          className="inline-flex items-center justify-center rounded-md text-red-500 hover:text-red-700 hover:bg-red-50 p-2 transition-colors focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-1"
+                          title="Hapus Pengguna"
                         >
-                          <option value="true">Sudah</option>
-                          <option value="false">Belum</option>
-                        </select>
+                          <Trash2 className="h-4 w-4" />
+                        </button>
                       )}
                     </td>
                   </tr>
@@ -209,7 +204,7 @@ export default function UsersPage() {
                   <select
                     value={formData.role}
                     onChange={(e) => setFormData({...formData, role: e.target.value})}
-                    className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-brand-navy focus:outline-none focus:ring-1 focus:ring-brand-navy"
+                    className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-brand-navy focus:outline-none focus:ring-1 focus:ring-brand-navy"
                   >
                     <option value="dosen">Dosen</option>
                     <option value="admin">Admin</option>
@@ -223,7 +218,7 @@ export default function UsersPage() {
                     required
                     value={formData.name}
                     onChange={(e) => setFormData({...formData, name: e.target.value})}
-                    className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-brand-navy focus:outline-none focus:ring-1 focus:ring-brand-navy"
+                    className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-brand-navy focus:outline-none focus:ring-1 focus:ring-brand-navy"
                     placeholder="Masukkan nama lengkap"
                   />
                 </div>
@@ -235,7 +230,7 @@ export default function UsersPage() {
                     required
                     value={formData.email}
                     onChange={(e) => setFormData({...formData, email: e.target.value})}
-                    className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-brand-navy focus:outline-none focus:ring-1 focus:ring-brand-navy"
+                    className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-brand-navy focus:outline-none focus:ring-1 focus:ring-brand-navy"
                     placeholder="Masukkan alamat email"
                   />
                 </div>
@@ -247,7 +242,7 @@ export default function UsersPage() {
                       type="text"
                       value={formData.nidn}
                       onChange={(e) => setFormData({...formData, nidn: e.target.value})}
-                      className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-brand-navy focus:outline-none focus:ring-1 focus:ring-brand-navy"
+                      className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-brand-navy focus:outline-none focus:ring-1 focus:ring-brand-navy"
                       placeholder="Masukkan NIDN jika ada"
                     />
                   </div>
@@ -261,7 +256,7 @@ export default function UsersPage() {
                     minLength={8}
                     value={formData.password}
                     onChange={(e) => setFormData({...formData, password: e.target.value})}
-                    className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-brand-navy focus:outline-none focus:ring-1 focus:ring-brand-navy"
+                    className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-brand-navy focus:outline-none focus:ring-1 focus:ring-brand-navy"
                     placeholder="Minimal 8 karakter"
                   />
                 </div>
