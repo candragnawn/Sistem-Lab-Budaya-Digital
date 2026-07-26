@@ -30,6 +30,4 @@ WORKDIR /var/www/html
 EXPOSE 8000
 
 # Perintah default saat container berjalan
-# Kita menjalankan composer install untuk memastikan semua library (seperti yg Anda minta) terinstall
-# Lalu menjalankan server artisan
-CMD bash -c "composer install --no-interaction && php artisan serve --host=0.0.0.0 --port=8000"
+CMD bash -c "if [ ! -d 'vendor' ]; then composer install --no-interaction; fi && php artisan serve --host=0.0.0.0 --port=8000"

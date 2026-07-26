@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -14,8 +14,10 @@ use Illuminate\Support\Str;
 use App\Models\Lecturer;
 use App\Service\ImageConverter;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Cache\TaggableStore;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     /** @use HasFactory<UserFactory> */
     use HasApiTokens, HasFactory, Notifiable;
@@ -87,6 +89,20 @@ class User extends Authenticatable
         static::deleted(function ($user) {
             if ($user->avatar_path) {
                 Storage::disk('public')->delete($user->avatar_path);
+            }
+            
+            if ($user->lecturer_id) {
+                $lecturer = Lecturer::find($user->lecturer_id);
+                if ($lecturer) {
+                    $lecturer->forceDelete(); 
+                    try {
+                        if (Cache::getStore() instanceof TaggableStore || method_exists(Cache::getStore(), 'tags')) {
+                            Cache::tags(['lecturers'])->flush();
+                        } else {
+                            Cache::flush();
+                        }
+                    } catch (\Exception $e) {}
+                }
             }
         });
     }

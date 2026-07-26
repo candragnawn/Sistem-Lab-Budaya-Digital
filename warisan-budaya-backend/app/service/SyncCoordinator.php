@@ -98,7 +98,7 @@ class SyncCoordinator
         $scopusId = $lecturer->scopus_id ?? null;
         if (!$scopusId) {
             Log::warning("[SyncCoordinator] Scopus ID tidak ditemukan untuk Lecturer ID: {$lecturer->id}");
-            return;
+            throw new \Exception("Scopus ID masih kosong! Silakan lengkapi Scopus ID di profil sebelum melakukan sinkronisasi.");
         }
 
         $profile = $this->elsevierService->getAuthorProfile($scopusId);

@@ -69,3 +69,15 @@ lib yg ditamabah :
 - SWR + Axios
 - react to print
 - Sonner (kesha)
+
+jika hosting di jaringan ubah di : 
+- docker-compose.yml (baris 64) di frontend environment ubah Ubah NEXT_PUBLIC_API_URL=http://ip yang sekarang:8000/api
+
+- warisan-budaya-frontend/next.config.ts (baris 8) allowedDevOrigins ubah ip nya
+
+- warisan-budaya-backend/.env (baris 5 ama 66) ubah app_url sama frontedn_url nadi ip dan port jaringa yang sekarang
+
+lalu ketik : 
+docker exec warisan_budaya_frontend sh -c "rm -rf .next/*"
+docker compose up -d --force-recreate
+

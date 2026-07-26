@@ -13,6 +13,9 @@ use App\Http\Requests\Auth\LoginAuthRequest;
 use App\Models\Lecturer;
 use App\service\SyncCoordinator;
 use App\Jobs\SyncLecturerData;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Cache\TaggableStore;
+use Illuminate\Auth\Events\Registered;
 
 class AuthController extends Controller
 {
@@ -47,6 +50,20 @@ class AuthController extends Controller
 
         [$user, $lecturer, $token] = $result;
 
+        // Bersihkan cache agar data pengguna dan dosen yang baru dibuat langsung muncul di daftar
+        try {
+            if (Cache::getStore() instanceof TaggableStore || method_exists(Cache::getStore(), 'tags')) {
+                Cache::tags(['users', 'lecturers'])->flush();
+            } else {
+                Cache::flush();
+            }
+        } catch (\Exception $e) {
+            Cache::flush();
+        }
+
+        // Kirim email verifikasi
+        event(new Registered($user));
+
         // Auto-Sync SISTER, SINTA, Scopus secara Asynchronous (Latar Belakang)
         if ($request->nidn) {
             SyncLecturerData::dispatch($lecturer);
@@ -61,14 +78,21 @@ class AuthController extends Controller
 
         if (!$user || !Hash::check($request->password, $user->password)) {
             return response()->json([
-                'success' => false,
-                'message' => 'Email atau password salah.',
+                'status'  => 'error',
+                'message' => 'Kombinasi email dan password salah.'
             ], 401);
         }
 
-        $token = $user->createToken('auth_token')->plainTextToken;
+        // Cek apakah email sudah diverifikasi (kecuali Super Admin mungkin tidak perlu, tapi kita asumsikan semua harus diverifikasi)
+        // Kita juga bisa memberikan bypass untuk Super Admin jika email belum verifikasi, namun lebih baik semuanya diverifikasi.
+        if (!$user->hasVerifiedEmail()) {
+            return response()->json([
+                'status'  => 'error',
+                'message' => 'Akun belum diverifikasi. Silakan cek kotak masuk email Anda untuk melakukan verifikasi.'
+            ], 403);
+        }
 
-        return new UserResource($user, $token);
+        return new UserResource($user, $user->createToken('auth_token')->plainTextToken);
     }
 
     public function me(Request $request)

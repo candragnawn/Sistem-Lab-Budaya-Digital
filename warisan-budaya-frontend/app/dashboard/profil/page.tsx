@@ -184,7 +184,7 @@ export default function ProfilPage() {
                 nama: lec.name || "-",
                 namaLengkap: lec.nama_lengkap || lec.name || "-",
                 namaSebutan: lec.nama_lengkap || lec.name || "-",
-                jenisKelamin: lec.gender === "L" ? "Laki-laki" : (lec.gender === "P" ? "Perempuan" : "-"),
+                jenisKelamin: (lec.gender === "Laki-laki" || lec.gender === "L") ? "Laki-laki" : ((lec.gender === "Perempuan" || lec.gender === "P") ? "Perempuan" : "-"),
                 tempatLahir: lec.birth_place || lec.identities?.[0]?.place_of_birth || "-",
                 tanggalLahir: lec.birth_date || lec.identities?.[0]?.date_of_birth || "-",
                 bidangKeahlian: lec.academic?.science_branch ? [lec.academic.science_branch] :
@@ -414,7 +414,6 @@ export default function ProfilPage() {
               <InfoRow label="Tanggal Lahir" value={profilData.tanggalLahir} />
 
               <div>
-                <p className="text-gray-500 mb-1.5">Bidang Keahlian</p>
                 <div className="flex flex-wrap gap-1.5">
                   {profilData.bidangKeahlian.map((keahlian) => (
                     <span

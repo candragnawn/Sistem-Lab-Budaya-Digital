@@ -59,7 +59,9 @@ services:
       - /app/.next
     environment:
       - NODE_ENV=development
-      - CHOKIDAR_USEPOLLING=true # Untuk mengaktifkan hot-reloading di Windows/WSL
+      - CHOKIDAR_USEPOLLING=true
+      - WATCHPACK_POLLING=true 
+      - NEXT_PUBLIC_API_URL=http://localhost:8000/api
     depends_on:
       - backend
     networks:

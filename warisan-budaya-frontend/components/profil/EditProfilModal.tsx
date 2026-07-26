@@ -35,7 +35,7 @@ export default function EditProfilModal({
       setFormData({
         nidn: initialData.nidn !== "-" ? initialData.nidn : "",
         name: initialData.nama !== "-" ? initialData.nama : "",
-        gender: initialData.jenisKelamin === "Laki-laki" ? "L" : (initialData.jenisKelamin === "Perempuan" ? "P" : ""),
+        gender: initialData.jenisKelamin === "Laki-laki" ? "Laki-laki" : (initialData.jenisKelamin === "Perempuan" ? "Perempuan" : ""),
         birth_place: initialData.tempatLahir !== "-" ? initialData.tempatLahir : "",
         birth_date: initialData.tanggalLahir !== "-" ? initialData.tanggalLahir : "",
       });
@@ -109,8 +109,8 @@ export default function EditProfilModal({
                 className="w-full rounded-md border border-gray-300 p-2 text-sm text-gray-900 bg-white focus:border-brand-gold focus:outline-none focus:ring-1 focus:ring-brand-gold"
               >
                 <option value="">-- Pilih Jenis Kelamin --</option>
-                <option value="L">Laki-laki</option>
-                <option value="P">Perempuan</option>
+                <option value="Laki-laki">Laki-laki</option>
+                <option value="Perempuan">Perempuan</option>
               </select>
             </div>
             <div>

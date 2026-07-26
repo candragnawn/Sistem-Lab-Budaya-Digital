@@ -54,6 +54,10 @@
     use App\Http\Controllers\Api\UserController;
     use App\Http\Controllers\Api\SyncController;
     use App\Http\Controllers\Api\CvGeneratorController;
+    use App\Http\Controllers\Api\VerificationController;
+
+    // Rute Verifikasi Email (wajib ada nama 'verification.verify')
+    Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->name('verification.verify');
 
 
     // Auth — throttle ketat untuk mencegah brute-force
@@ -61,7 +65,7 @@
         Route::post('/login', [AuthController::class, 'login']);
     });
 
-    Route::middleware(['auth:sanctum', 'throttle:120,1'])->group(function () {
+    Route::middleware(['auth:sanctum', 'verified', 'throttle:120,1'])->group(function () {
 
         // CV Generator
         Route::post('/cv/generate', [CvGeneratorController::class, 'generate']);
