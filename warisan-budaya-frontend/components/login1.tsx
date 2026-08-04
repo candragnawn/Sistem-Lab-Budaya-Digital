@@ -36,7 +36,7 @@ const Login1 = ({
   heading = "Login",
   logo = {
     url: "/",
-    src: "/SIWADA.svg",
+    src: "/logo-siwada.png",
     alt: "logo",
     title: "SIWADA",
   },
@@ -207,7 +207,7 @@ const Login1 = ({
             />
 
             <div className="mt-1 flex justify-end">
-              <a href="#" className="text-xs text-blue-600 hover:underline">
+              <a href="/forgot-password" className="text-xs text-blue-600 hover:underline">
                 Lupa Password?
               </a>
             </div>

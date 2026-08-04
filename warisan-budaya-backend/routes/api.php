@@ -63,6 +63,8 @@
     // Auth — throttle ketat untuk mencegah brute-force
     Route::middleware('throttle:5,1')->group(function () {
         Route::post('/login', [AuthController::class, 'login']);
+        Route::post('/forgot-password', [AuthController::class, 'forgotPassword']);
+        Route::post('/reset-password', [AuthController::class, 'resetPassword']);
     });
 
     Route::middleware(['auth:sanctum', 'verified', 'throttle:120,1'])->group(function () {

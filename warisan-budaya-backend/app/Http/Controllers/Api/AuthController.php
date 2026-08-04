@@ -16,6 +16,7 @@ use App\Jobs\SyncLecturerData;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Cache\TaggableStore;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\Password;
 
 class AuthController extends Controller
 {
@@ -134,5 +135,67 @@ class AuthController extends Controller
             'success' => true,
             'message' => 'Logged out successfully',
         ]);
+    }
+
+    public function forgotPassword(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email|exists:users,email',
+        ], [
+            'email.exists' => 'Email tidak ditemukan dalam sistem kami.',
+        ]);
+
+        $status = Password::sendResetLink(
+            $request->only('email')
+        );
+
+        if ($status === Password::RESET_LINK_SENT) {
+            return response()->json([
+                'status'  => 'success',
+                'message' => 'Link reset password telah dikirim ke email Anda.',
+            ]);
+        }
+
+        return response()->json([
+            'status'  => 'error',
+            'message' => 'Gagal mengirim link reset password. Coba beberapa saat lagi.',
+        ], 429);
+    }
+
+    public function resetPassword(Request $request)
+    {
+        $request->validate([
+            'token'                 => 'required',
+            'email'                 => 'required|email',
+            'password'              => 'required|min:8|confirmed',
+            'password_confirmation' => 'required',
+        ], [
+            'password.min'          => 'Password baru minimal 8 karakter.',
+            'password.confirmed'    => 'Konfirmasi password tidak cocok.',
+        ]);
+
+        $status = Password::reset(
+            $request->only('email', 'password', 'password_confirmation', 'token'),
+            function (User $user, string $password) {
+                $user->forceFill([
+                    'password' => Hash::make($password),
+                ])->save();
+
+                // Hapus semua token lama agar user wajib login ulang
+                $user->tokens()->delete();
+            }
+        );
+
+        if ($status === Password::PASSWORD_RESET) {
+            return response()->json([
+                'status'  => 'success',
+                'message' => 'Password berhasil direset. Silakan login dengan password baru Anda.',
+            ]);
+        }
+
+        return response()->json([
+            'status'  => 'error',
+            'message' => 'Link reset password tidak valid atau sudah kadaluarsa.',
+        ], 422);
     }
 }

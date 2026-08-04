@@ -6,7 +6,7 @@ export default function LoginPage() {
         <Login1
           logo={{
             url: "/",
-            src: "/SIWADA.svg",
+            src: "/logo-siwada.png",
             alt: "logo",
             title: "SIWADA",
           }}

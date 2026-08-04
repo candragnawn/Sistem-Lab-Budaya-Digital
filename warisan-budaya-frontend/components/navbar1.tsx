@@ -57,7 +57,7 @@ interface Navbar1Props {
 const Navbar1 = ({
   logo = {
     url: "/",
-    src: "/SIWADA.svg",
+    src: "/logo-siwada.png",
     alt: "logo",
     title: "Digital Culture Heritage Website",
   },

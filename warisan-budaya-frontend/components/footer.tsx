@@ -13,7 +13,7 @@ const Footer = () => {
           <div className="flex flex-col gap-3">
             <Link href="/" className="flex items-center gap-3">
               <Image
-                src="/SIWADA.svg"
+                src="/logo-siwada.png"
                 alt="SIWADA Logo"
                 width={40}
                 height={40}
